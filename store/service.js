@@ -16,9 +16,6 @@ export const getters = {
 
 export const actions = {
   setShowSecondMenu({ commit, dispatch, state }, data) {
-    // const res = await this.$api('nikolas', 'getNomenklatorY')
-    //
     commit("SET_SHOW_SECOND_MENU", data);
-    // return rows
   },
 };

@@ -1,0 +1,44 @@
+$colorBlueMF:   #00aec6;
+$colorGreyGreg: #58595a;
+
+@font-face{
+    font-family: 'OpenSansCond';
+    	src: url("~assets/fonts/OpenSansCond.eot");
+    	src: url("~assets/fonts/OpenSansCond.eot?#iefix")format("embedded-opentype"),
+    	url("~assets/fonts/OpenSansCond.woff") format("woff"),
+    	url("~assets/fonts/OpenSansCond.ttf") format("truetype");
+    	font-style: normal;
+    	font-weight: normal;
+}
+
+@font-face{
+    font-family: 'RobotoCondensed';
+    	src: url("~assets/fonts/RobotoCondensed.eot");
+    	src: url("~assets/fonts/RobotoCondensed.eot?#iefix")format("embedded-opentype"),
+    	url("~assets/fonts/RobotoCondensed.woff") format("woff"),
+    	url("~assets/fonts/RobotoCondensed.ttf") format("truetype");
+    	font-style: normal;
+    	font-weight: normal;
+}
+
+
+.gMfBckg {
+          background-color: $colorGreyGreg !important;
+
+          font-family: 'OpenSansCond', sans-serif;
+
+          .v-btn.v-size--default {
+            text-transform: uppercase;
+
+            color: #fff !important;
+            font-size: 1.3em !important;
+
+            letter-spacing: 0.01em;
+
+          }
+
+}
+
+.bMfBckg {
+  background-color: $colorBlueMF !important;
+}

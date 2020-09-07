@@ -96,6 +96,7 @@ module.exports = {
     '@nuxtjs/auth-next',
     'cookie-universal-nuxt',
     '@nuxtjs/component-cache',
+    '@nuxtjs/style-resources',
     // ['@nuxtjs/yandex-metrika',
     //   {
     //     id: '51108848',
@@ -107,6 +108,11 @@ module.exports = {
     //'@nuxtjs/auth',
     // ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
+  styleResources: {
+        scss: [
+            '@/assets/style/_const.scss'
+        ]
+    },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

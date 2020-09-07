@@ -1,6 +1,13 @@
 <template>
   <div>
-    <v-app-bar v-show="showSecondMenu" dark height="50" fixed width="100%">
+    <v-app-bar
+      v-show="showSecondMenu"
+      class="gMfBckg"
+      height="50"
+      fixed
+      width="100%"
+      dark
+    >
       <v-toolbar-title>
         <img
           src="logo_small.png"
@@ -18,7 +25,7 @@
       <v-spacer />
       <v-btn text style=""> ГЕО.ИНФ. </v-btn>
     </v-app-bar>
-    <v-toolbar height="105" color="primary" flat light>
+    <v-toolbar height="105" flat light>
       <v-toolbar-title>
         <img src="logo_big.png" style="height: 80; width: 212" />
       </v-toolbar-title>
@@ -36,7 +43,7 @@
 
       <v-btn text style="background-color: white"> ВОЙТИ </v-btn>
     </v-toolbar>
-    <v-toolbar dark height="50">
+    <v-toolbar class="gMfBckg" height="50">
       <v-spacer />
 
       <v-menu offset-y>
@@ -77,3 +84,5 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped></style>
