@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar v-show="showSecondMenu" ligth height="50" fixed width="100%">
+    <v-app-bar v-show="showSecondMenu" dark height="50" fixed width="100%">
       <v-toolbar-title>
         <img
           src="logo_small.png"
