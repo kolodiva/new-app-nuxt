@@ -16,6 +16,9 @@ export default {
   //   return true;
   // },
   components: { TheVueSlickCarousel, TheAppBar },
+  async asyncData({ store, app, params }) {
+    await store.dispatch("service/setSliderSlides");
+  },
   data() {
     return {};
   },

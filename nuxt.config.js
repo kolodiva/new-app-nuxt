@@ -54,17 +54,17 @@ module.exports = {
 
 // '~/api/index.js'
   serverMiddleware: [
-    // { path: "/api", handler: require("body-parser").json() },
-    //     {
-    //       path: "/api",
-    //       handler: (req, res, next) => {
-    //         const url = require("url");
-    //         req.query = url.parse(req.url, true).query;
-    //         req.params = { ...req.query, ...req.body };
-    //         next();
-    //       }
-    //     },
-    //     { path: "/api", handler: "~/serverMiddleware/api-server.js" }
+    { path: "/api", handler: require("body-parser").json() },
+        {
+          path: "/api",
+          handler: (req, res, next) => {
+            const url = require("url");
+            req.query = url.parse(req.url, true).query;
+            req.params = { ...req.query, ...req.body };
+            next();
+          }
+        },
+        { path: "/api", handler: "~/serverMiddleware/api-server.js" }
   ],
 
   /*
@@ -75,8 +75,8 @@ module.exports = {
     // {src: '~/plugins/vue-zoomer.js', mode: 'client'},
     // {src: '~/plugins/vue-inject.js', mode: 'client'},
     // {src: '~/plugins/crypto-js.js'},
-    // {src: '~/plugins/api-context.client.js', mode: 'client'},
-    // {src: '~/plugins/api-context.server.js', mode: 'server'},
+    {src: '~/plugins/api-context.client.js', mode: 'client'},
+    {src: '~/plugins/api-context.server.js', mode: 'server'},
   ],
   /*
    ** Nuxt.js dev-modules
