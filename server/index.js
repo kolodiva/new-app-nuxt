@@ -17,11 +17,12 @@ async function start() {
 
   if (process.env.NODE_ENV == 'production') {
     host = 'localhost'; port = 6000;
+    //host = '192.168.1.105'; port = 3000;
   } else {
     //const { host, port } = nuxt.options.server;
     //host = '192.168.1.41'; port = 3000;
-    //host = '192.168.1.105'; port = 3000;
-    host = 'localhost'; port = 6000;
+    host = '192.168.1.105'; port = 3000;
+    //host = 'localhost'; port = 6000;
   }
 
   await nuxt.ready()
