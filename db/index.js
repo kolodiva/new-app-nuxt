@@ -17,8 +17,8 @@ if (process.env.NODE_ENV == 'production') {
   connParam1 = 'postgresql://postgres:c2ec57df699966b3afef779a16fa5fff@172.17.0.3:5432/app1'
   connParam2 = 'postgresql://postgres:27ac4a1dd6873624b7535fe5660740d6@172.17.0.2:5432/statistica'
 } else {
-  connParam1 = 'postgresql://postgres:123456@localhost:5433/app1'
-  connParam2 = 'postgresql://postgres:123456@localhost:5433/statistica'
+  connParam1 = 'postgresql://postgres:123456@localhost:5432/app1'
+  connParam2 = 'postgresql://postgres:123456@localhost:5432/statistica'
 }
 
 const dbpgApp1 = new Pool({
