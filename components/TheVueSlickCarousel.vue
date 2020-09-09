@@ -40,6 +40,38 @@ export default {
         slidesToShow: 5,
         slidesToScroll: 1,
         // touchThreshold: 1,
+        responsive: [
+          {
+            breakpoint: 1700,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+            },
+          },
+          {
+            breakpoint: 1400,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+            },
+          },
+          {
+            breakpoint: 1000,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true,
+            },
+          },
+          // You can unslick at a given breakpoint now by adding:
+          // settings: "unslick"
+          // instead of a settings object
+        ],
       },
     };
   },

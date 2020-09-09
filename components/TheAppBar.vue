@@ -25,34 +25,49 @@
       <v-spacer />
       <v-btn text style=""> ГЕО.ИНФ. </v-btn>
     </v-app-bar>
-    <v-toolbar height="105" flat light>
+    <v-toolbar height="105" flat>
       <v-toolbar-title>
         <img src="logo_big.png" style="height: 80; width: 212" />
       </v-toolbar-title>
 
       <v-spacer />
 
-      <v-toolbar-items>
-        <v-btn text style="background-color: white"> О КОМПАНИИ </v-btn>
-        <v-btn text style="background-color: white"> НОВОСТИ </v-btn>
-        <v-btn text style="background-color: white"> СКАЧАТЬ </v-btn>
-        <v-btn text style="background-color: white"> КОНТАКТЫ </v-btn>
+      <v-toolbar-items style="align-items: center" class="bMfBckg">
+        <div v-for="(item, i) in menuPoints1" :key="i">
+          <v-btn text max-height="40px" :ripple="{ class: 'red--text' }">
+            {{ item }}
+          </v-btn>
+          <span v-if="i < 3" style=""> | </span>
+        </div>
       </v-toolbar-items>
 
       <v-spacer />
 
-      <v-btn text style="background-color: white"> ВОЙТИ </v-btn>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" class="gMfBckg2" v-on="on"> Войти </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in items1"
+            :key="index"
+            @click="111"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <v-toolbar class="gMfBckg" height="50">
       <v-spacer />
 
       <v-menu offset-y>
         <template v-slot:activator="{ attrs, on }">
-          <v-btn class="" v-bind="attrs" v-on="on"> ДОСТАВКА </v-btn>
+          <v-btn text v-bind="attrs" v-on="on"> ДОСТАВКА </v-btn>
         </template>
 
         <v-list>
-          <v-list-item v-for="item in items" :key="item">
+          <v-list-item v-for="item in items" :key="item" @click="111">
             <v-list-item-title v-text="item" />
           </v-list-item>
         </v-list>
@@ -62,7 +77,7 @@
       <v-btn text style=""> ВОПРОС-ОТВЕТ </v-btn>
       <v-btn text style=""> СПЕЦУСЛОВИЯ </v-btn>
       <v-btn text style="" disabled />
-      <v-btn text style=""> +7 (495) 149-00-02 (МНОГОКАН.) </v-btn>
+      <v-btn text style=""> +7 (495) 925-26-27 (МНОГОКАН.) </v-btn>
       <v-spacer />
       <v-btn text style=""> КОРЗИНА </v-btn>
     </v-toolbar>
@@ -74,7 +89,14 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      menuPoints1: ["О компании", "Новости", "Скачать", "Контакты"],
       items: [...Array(4)].map((_, i) => `Item ${i}`),
+      items1: [
+        { title: "Click 1" },
+        { title: "Click 2" },
+        { title: "Click 3" },
+        { title: "Click 4" },
+      ],
     };
   },
   computed: {
@@ -85,4 +107,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-btn .v-input__slot::before {
+  border-color: grey !important;
+}
+</style>

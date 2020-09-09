@@ -39,6 +39,46 @@ $colorGreyGreg: #58595a;
 
 }
 
+.gMfBckg2 {
+  .v-btn__content {
+          color: $colorGreyGreg !important;
+
+          font-family: 'OpenSansCond', sans-serif;
+
+            text-transform: uppercase;
+
+            font-size: 1.6em !important;
+            font-weight: bold;
+
+            letter-spacing: 0.06em;
+          }
+
+}
+
+.gMfBckg2.v-btn::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}
+
 .bMfBckg {
-  background-color: $colorBlueMF !important;
+
+  span {font-weight: bold; color: $colorBlueMF; font-size: 1.2em;}
+
+  .v-btn__content {
+
+    font-family: 'OpenSansCond', sans-serif;
+
+    // color: $colorBlueMF !important;
+    font-size: 1.6em !important;
+    font-weight: bold;
+
+    letter-spacing: 0.06em;
+
+  }
 }
