@@ -64,19 +64,3 @@ $colorGreyMF: #58595a;
 .greyMfBckg {
   background-color: $colorGreyMF !important;
 }
-
-.gMfBckg2 {
-  .v-btn__content {
-          color: $colorGreyMF !important;
-
-          font-family: 'OpenSansCond', sans-serif;
-
-            text-transform: uppercase;
-
-            font-size: 1.6em !important;
-            font-weight: bold;
-
-            letter-spacing: 0.06em;
-          }
-
-}
