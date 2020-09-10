@@ -8,7 +8,7 @@
 
 <script>
 import TheVueSlickCarousel from "@/components/TheVueSlickCarousel.vue";
-import TheAppBar from "@/components/TheAppBar.vue";
+import TheAppBar from "@/components/AppBar/TheAppBar.vue";
 
 export default {
   // name: "IndexPage",
