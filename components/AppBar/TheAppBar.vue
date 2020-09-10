@@ -5,7 +5,7 @@
       class="greyMfBckg"
       height="50"
       fixed
-      width="100%"
+      width="100vw"
       dark
     >
       <v-toolbar-title>
@@ -18,7 +18,7 @@
       <v-spacer />
       <v-btn text :class="['buttonMFWhiteColor']"> ГЕО.ИНФ. </v-btn>
     </v-app-bar>
-    <v-toolbar height="105" flat>
+    <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
         <img src="logo_big.png" style="height: 80; width: 212" />
       </v-toolbar-title>
@@ -27,7 +27,7 @@
       <v-spacer />
       <v-btn text class="buttonMFGreyColorBold"> Войти </v-btn>
     </v-toolbar>
-    <v-toolbar class="greyMfBckg" height="50">
+    <v-toolbar class="greyMfBckg" height="50" width="100vw">
       <v-spacer />
       <TheToolbarItems :header="header2" :addresses="addresses" />
       <v-spacer />
