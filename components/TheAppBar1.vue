@@ -31,49 +31,31 @@
 
       <v-spacer />
 
-      <v-toolbar-items style="align-items: center">
-        <template v-for="(item, i) in header1.items">
-          <span v-if="item == '|'" :key="i" :class="header1.css_class"
-            >{{ item }}
-          </span>
-
-          <v-menu v-else-if="item.submenu" :key="i" offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                text
-                max-height="40px"
-                v-bind="attrs"
-                :class="[header1.css_class, { buttonMFMenu: item.submenu }]"
-                v-on="on"
-              >
-                {{ item.name }}
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item1, index) in items1"
-                :key="index"
-                @click="111"
-              >
-                <v-list-item-title>{{ item1.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-          <v-btn
-            v-else
-            :key="i"
-            text
-            max-height="40px"
-            :class="[header1.css_class, { buttonMFMenu: item.submenu }]"
-          >
-            {{ item.name }}
+      <v-toolbar-items style="align-items: center" class="bMfBckg">
+        <div v-for="(item, i) in menuPoints1" :key="i">
+          <v-btn text max-height="40px" :ripple="{ class: 'red--text' }">
+            {{ item }}
           </v-btn>
-        </template>
+          <span v-if="i < 3" style=""> | </span>
+        </div>
       </v-toolbar-items>
+
       <v-spacer />
 
-      <v-btn text class="buttonMFGreyColor"> Войти </v-btn>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" class="gMfBckg2" v-on="on"> Войти </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in items1"
+            :key="index"
+            @click="111"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <v-toolbar class="gMfBckg" height="50">
       <v-spacer />
@@ -118,11 +100,14 @@ export default {
   },
   computed: {
     ...mapGetters({
-      header1: "headerMenu/getHeader1",
       showSecondMenu: "service/showSecondMenu",
     }),
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-btn .v-input__slot::before {
+  border-color: grey !important;
+}
+</style>

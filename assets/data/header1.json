@@ -1,0 +1,33 @@
+{ "data" : {
+    "items": [
+  {
+    "id": 1,
+    "name": "О компании",
+    "ref":"/advs/about-company",
+    "submenu" : ""
+  },
+  "|",
+  {
+    "id": 2,
+    "name": "Новости",
+    "ref":"",
+    "submenu" : ""
+  },
+  "|",
+  {
+    "id": 3,
+    "name": "Скачать",
+    "ref":"",
+    "submenu" : [{"name": "Каталог продукции", "ref":""}, {"name": "Прайс-лист", "ref":""}]
+  },
+  "|",
+  {
+    "id": 4,
+    "name": "Контакты",
+    "ref":"",
+    "submenu" : ""
+  }
+],
+"css_class": "buttonMFBlueColor"
+}
+}
