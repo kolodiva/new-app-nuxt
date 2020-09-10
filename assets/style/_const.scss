@@ -27,14 +27,27 @@ $colorGreyMF: #58595a;
   color: $colorBlueMF !important;
   font-size: 1.4em !important;
   font-weight: bold !important;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.06em  !important;
 }
-.buttonMFGreyColor {
+.buttonMFWhiteColor {
   font-family: 'OpenSansCond', sans-serif;
-  color: $colorGreyMF !important;
-  font-size: 1.4em !important;
+  color: #fff !important;
+  font-size: 1.3em !important;
+  letter-spacing: 0.06em  !important;
+}
+
+.buttonMFGreyColor {
+  font-family: 'OpenSansCond', sans-serif !important;
+  color: colorGreyMF !important;
+  font-size: 1.3em !important;
+  letter-spacing: 0.06em  !important;
+}
+.buttonMFGreyColorBold {
+  font-family: 'OpenSansCond', sans-serif;
+  color: colorGreyMF !important;
   font-weight: bold !important;
-  letter-spacing: 0.06em;
+  font-size: 1.3em !important;
+  letter-spacing: 0.06em  !important;
 }
 
 .buttonMFMenu::after {
@@ -48,21 +61,8 @@ $colorGreyMF: #58595a;
   border-left: 0.3em solid transparent;
 }
 
-.gMfBckg {
-          background-color: $colorGreyMF !important;
-
-          font-family: 'OpenSansCond', sans-serif;
-
-          .v-btn.v-size--default {
-            text-transform: uppercase;
-
-            color: #fff !important;
-            font-size: 1.3em !important;
-
-            letter-spacing: 0.01em;
-
-          }
-
+.greyMfBckg {
+  background-color: $colorGreyMF !important;
 }
 
 .gMfBckg2 {
@@ -79,22 +79,4 @@ $colorGreyMF: #58595a;
             letter-spacing: 0.06em;
           }
 
-}
-
-
-.bMfBckg {
-
-  span {font-weight: bold; color: $colorBlueMF; font-size: 1.2em;}
-
-  .v-btn__content {
-
-    font-family: 'OpenSansCond', sans-serif;
-
-    // color: $colorBlueMF !important;
-    font-size: 1.6em !important;
-    font-weight: bold;
-
-    letter-spacing: 0.06em;
-
-  }
 }

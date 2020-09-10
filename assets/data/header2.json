@@ -1,0 +1,57 @@
+{ "data" : {
+    "items": [
+    {
+      "id": 1,
+      "name": "Доставка",
+      "ref":"",
+      "submenu" : [
+        {"name": "Москва",          "ref":""},
+        {"name": "Новосибирск",     "ref":""},
+        {"name": "Екатеринбург",    "ref":""},
+        {"name": "Ростов-на-Дону",  "ref":""},
+        {"name": "Казань",          "ref":""},
+        {"name": "Санкт-Петербург", "ref":""},
+        {"name": "Краснодар",       "ref":""}
+      ],
+      "css_class": "buttonMFGreyColor"
+    },
+    "|",
+    {
+      "id": 2,
+      "name": "Доп.условия",
+      "ref":"",
+      "submenu" : [
+        {"name": "Возврат-Обмен",   "ref":""}
+      ],
+      "css_class": "buttonMFGreyColor"
+    },
+    "|",
+  {
+    "id": 3,
+    "name": "Вопрос-ответ",
+    "ref":"",
+    "submenu" : ""
+  },
+  "|",
+  {
+    "id": 4,
+    "name": "Спец.условия",
+    "ref":"",
+    "submenu" : ""
+  },
+  {
+    "id": 5,
+    "name": "disabled",
+    "ref":"",
+    "submenu" : ""
+  },
+  {
+    "id": 6,
+    "name": "addresses",
+    "ref":"",
+    "submenu" : ""
+  }
+],
+"css_class": "buttonMFWhiteColor"
+}
+}

@@ -51,11 +51,13 @@
             </template>
             <v-list>
               <v-list-item
-                v-for="(item1, index) in items1"
+                v-for="(subitem, index) in item.submenu"
                 :key="index"
                 @click="111"
               >
-                <v-list-item-title>{{ item1.title }}</v-list-item-title>
+                <v-list-item-title :class="header1.css_class">{{
+                  subitem.name
+                }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -65,7 +67,7 @@
             :key="i"
             text
             max-height="40px"
-            :class="[header1.css_class, { buttonMFMenu: item.submenu }]"
+            :class="[header1.css_class]"
           >
             {{ item.name }}
           </v-btn>
@@ -73,30 +75,95 @@
       </v-toolbar-items>
       <v-spacer />
 
-      <v-btn text class="buttonMFGreyColor"> Войти </v-btn>
+      <v-btn text class="buttonMFGreyColorBold"> Войти </v-btn>
     </v-toolbar>
-    <v-toolbar class="gMfBckg" height="50">
+    <v-toolbar class="greyMfBckg" height="50">
       <v-spacer />
 
-      <v-menu offset-y>
-        <template v-slot:activator="{ attrs, on }">
-          <v-btn text v-bind="attrs" v-on="on"> ДОСТАВКА </v-btn>
+      <v-toolbar-items style="align-items: center">
+        <template v-for="(item1, i) in header2.items">
+          <span v-if="item1 == '|'" :key="i" :class="header2.css_class"
+            >{{ item1 }}
+          </span>
+          <v-menu v-else-if="item1.submenu" :key="i" offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                text
+                max-height="40px"
+                v-bind="attrs"
+                :class="[header2.css_class, { buttonMFMenu: item1.submenu }]"
+                v-on="on"
+              >
+                {{ item1.name }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(subitem1, index) in item1.submenu"
+                :key="index"
+                @click="111"
+              >
+                <v-list-item-title :class="subitem1.css_class">{{
+                  subitem1.name
+                }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <v-btn
+            v-else-if="item1.name == 'disabled'"
+            :key="i"
+            text
+            max-height="40px"
+            disabled
+          >
+          </v-btn>
+          <v-menu
+            v-else-if="item1.name == 'addresses' && addresses"
+            :key="i"
+            offset-y
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                text
+                max-height="40px"
+                v-bind="attrs"
+                :class="[header2.css_class, 'buttonMFMenu']"
+                v-on="on"
+              >
+                {{ addresses[0].phone }}
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(subitem1, index) in addresses"
+                :key="index"
+                @click="111"
+              >
+                <v-list-item-content>
+                  <v-list-item-title :class="buttonMFGreyColor">{{
+                    subitem1.phone
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle>{{
+                    subitem1.city
+                  }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-btn
+            v-else
+            :key="i"
+            text
+            max-height="40px"
+            :class="[header2.css_class]"
+          >
+            {{ item1.name }}
+          </v-btn>
         </template>
-
-        <v-list>
-          <v-list-item v-for="item in items" :key="item" @click="111">
-            <v-list-item-title v-text="item" />
-          </v-list-item>
-        </v-list>
-      </v-menu>
-
-      <v-btn text style=""> ДОП.УСЛОВИЯ </v-btn>
-      <v-btn text style=""> ВОПРОС-ОТВЕТ </v-btn>
-      <v-btn text style=""> СПЕЦУСЛОВИЯ </v-btn>
-      <v-btn text style="" disabled />
-      <v-btn text style=""> +7 (495) 925-26-27 (МНОГОКАН.) </v-btn>
+      </v-toolbar-items>
       <v-spacer />
-      <v-btn text style=""> КОРЗИНА </v-btn>
+      <v-btn text :class="[header2.css_class]"> КОРЗИНА </v-btn>
     </v-toolbar>
   </div>
 </template>
@@ -119,6 +186,8 @@ export default {
   computed: {
     ...mapGetters({
       header1: "headerMenu/getHeader1",
+      header2: "headerMenu/getHeader2",
+      addresses: "headerMenu/getAllSortCity",
       showSecondMenu: "service/showSecondMenu",
     }),
   },
