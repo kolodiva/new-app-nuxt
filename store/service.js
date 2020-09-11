@@ -2,7 +2,7 @@
 
 export const state = () => ({
   showSecondMenu: false,
-  slides: [],
+  slides: "",
 });
 
 export const mutations = {

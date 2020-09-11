@@ -1,7 +1,7 @@
 <template>
   <VueSlickCarousel v-bind="options" style="margin-top: 20px">
     <v-img
-      v-for="(item, i) in img_lst"
+      v-for="(item, i) in slides_lst ? slides_lst : tmp_slides_lst"
       :key="i"
       :src="`https://newfurnitura.ru/news/${item.pic}`"
       :height="hgt"
@@ -25,6 +25,11 @@ export default {
 
   data() {
     return {
+      tmp_slides_lst: [
+        {
+          pic: "pic2_postfix_2FxZXaSVzFanJdJAvcd9fQ.jpg",
+        },
+      ],
       hgt: "320",
       options: {
         arrows: true,
@@ -77,7 +82,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      img_lst: "service/getSlides",
+      slides_lst: "service/getSlides",
     }),
   },
 };
