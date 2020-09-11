@@ -16,7 +16,7 @@ export default {
   //   return true;
   // },
   components: { TheVueSlickCarousel, TheAppBar },
-  async asyncData({ store, app, params }) {
+  async fetch({ store }) {
     await store.dispatch("service/setSliderSlides");
   },
   data() {
