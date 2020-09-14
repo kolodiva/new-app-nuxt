@@ -42,6 +42,12 @@ $colorGreyMF: #58595a;
   font-size: 1.3em !important;
   letter-spacing: 0.06em  !important;
 }
+.buttonMFGreyColorSmall {
+  font-family: 'OpenSansCond', sans-serif !important;
+  color: colorGreyMF !important;
+  font-size: 1.1em !important;
+  letter-spacing: 0.02em  !important;
+}
 .buttonMFGreyColorBold {
   font-family: 'OpenSansCond', sans-serif;
   color: colorGreyMF !important;
@@ -63,4 +69,8 @@ $colorGreyMF: #58595a;
 
 .greyMfBckg {
   background-color: $colorGreyMF !important;
+}
+
+.blueMfBckg {
+  background-color: $colorBlueMF !important;
 }
