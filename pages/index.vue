@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheAppBar />
+    <TheAppBar :filials="filials" />
     <TheVueSlickCarousel />
     <div class="" style="height: 37vh"></div>
 
@@ -40,7 +40,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-        <v-col class="white" cols="12" justify="left">
+        <v-col class="white py-1" cols="12" justify="left">
           <span class="buttonMFGreyColorSmall ml-2"
             >&copy; MF KOMPLEKT 2003-{{ new Date().getFullYear() }}</span
           >
