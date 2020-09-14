@@ -1,8 +1,11 @@
 // const consola = require("consola");
+// import _ from "lodash";
+import nomenklTopLevelList from "@/assets/data/nomenkl-top-level.json";
 
 export const state = () => ({
   showSecondMenu: false,
   slides: "",
+  nomenklTopLevel: nomenklTopLevelList.rows,
 });
 
 export const mutations = {
@@ -20,6 +23,9 @@ export const getters = {
   },
   getSlides: (state) => {
     return state.slides;
+  },
+  getNomenklTopLevel: (state) => {
+    return state.nomenklTopLevel;
   },
 };
 

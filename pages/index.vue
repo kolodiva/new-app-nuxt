@@ -2,7 +2,19 @@
   <div>
     <TheAppBar :filials="filials" />
     <TheVueSlickCarousel />
-    <div class="" style="height: 37vh"></div>
+    <v-container class="my-10" style="max-width: 800px">
+      <v-row>
+        <v-img
+          v-for="(pic, id) in nomenklTopLevel"
+          :key="id"
+          :src="`./index_pic/${pic.file_name}.png`"
+          width="150"
+          class="ma-4"
+          contain
+          style="background-color: lightgrey"
+        />
+      </v-row>
+    </v-container>
 
     <v-footer class="blueMfBckg" padless>
       <v-row
@@ -72,6 +84,7 @@ export default {
   computed: {
     ...mapGetters({
       filials: "headerMenu/getAllSortCity",
+      nomenklTopLevel: "service/getNomenklTopLevel",
     }),
   },
 };
