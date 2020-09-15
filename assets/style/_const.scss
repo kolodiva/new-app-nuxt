@@ -36,11 +36,31 @@ $colorGreyMF: #58595a;
   letter-spacing: 0.06em  !important;
 }
 
+.bigTextFooterWhiteColor {
+  font-family: 'OpenSansCond', sans-serif;
+  color: #fff;
+  font-size: 1.3em;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.smallTextFooterWhiteColor {
+  font-family: 'OpenSansCond', sans-serif;
+  color: #fff;
+  font-size: 1.2em;
+  letter-spacing: 0.01em;
+}
+
 .buttonMFGreyColor {
   font-family: 'OpenSansCond', sans-serif !important;
   color: colorGreyMF !important;
   font-size: 1.3em !important;
   letter-spacing: 0.06em  !important;
+}
+.textMFGreyColor {
+  font-family: 'OpenSansCond', sans-serif !important;
+  color: #565656 !important;
+  font-size: 1.2em !important;
+  letter-spacing: -0.02em  !important;
 }
 .buttonMFGreyColorSmall {
   font-family: 'OpenSansCond', sans-serif !important;

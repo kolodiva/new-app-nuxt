@@ -3,83 +3,55 @@
     <TheAppBar :filials="filials" />
     <TheVueSlickCarousel />
     <v-container class="my-10" style="max-width: 800px">
-      <v-row>
-        <v-img
+      <v-row align="start" justify="space-between">
+        <v-card
           v-for="(pic, id) in nomenklTopLevel"
           :key="id"
-          :src="`./index_pic/${pic.file_name}.png`"
-          width="150"
-          class="ma-4"
-          contain
-          style="background-color: lightgrey"
-        />
+          style=""
+          class="ma-2"
+          tile
+          flat
+        >
+          <v-img
+            :src="`./index_pic/${pic.file_name}.png`"
+            contain
+            class=""
+            style="
+              width: 160px;
+              height: 160px;
+              background-color: #eaecec;
+              border-radius: 10px;
+              border: 20px solid #eaecec;
+            "
+          />
+          <v-card-text class="text-center pt-2" style="max-width: 160px">
+            <span class="textMFGreyColor">{{ pic.name }}</span>
+          </v-card-text>
+        </v-card>
       </v-row>
     </v-container>
 
-    <v-footer class="blueMfBckg" padless>
-      <v-row
-        align="center"
-        justify="space-around"
-        class=""
-        style="min-height: 200px"
-      >
-        <v-card
-          v-for="(link, id) in filials"
-          :key="id"
-          class="blueMfBckg ma-3 pa-2"
-          outlined
-          tile
-          max-width="230"
-          style="border-color: transparent"
-        >
-          <v-card-title
-            class="headline py-0 pb-3 pl-2"
-            :style="{ color: id == 0 ? 'white' : 'transparent' }"
-            >Наши филиалы</v-card-title
-          >
-
-          <v-list-item class="pa-0">
-            <v-list-item-icon class="mr-1"
-              ><v-img src="shema_proezda.png" width="40" contain />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="buttonMFWhiteColor">{{
-                link.city
-              }}</v-list-item-title>
-              <v-list-item-subtitle class="buttonMFWhiteColor"
-                >о нашем офисе</v-list-item-subtitle
-              >
-            </v-list-item-content>
-          </v-list-item>
-        </v-card>
-        <v-col class="white py-1" cols="12" justify="left">
-          <span class="buttonMFGreyColorSmall ml-2"
-            >&copy; MF KOMPLEKT 2003-{{ new Date().getFullYear() }}</span
-          >
-        </v-col>
-      </v-row>
-    </v-footer>
+    <TheFooter :filials="filials" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import TheVueSlickCarousel from "@/components/TheVueSlickCarousel.vue";
 import TheAppBar from "@/components/AppBar/TheAppBar.vue";
+import TheVueSlickCarousel from "@/components/TheVueSlickCarousel.vue";
+import TheFooter from "@/components/AppBar/TheFooter.vue";
 
 export default {
   name: "IndexPage",
   serverCacheKey() {
     return true;
   },
-  components: { TheVueSlickCarousel, TheAppBar },
+  components: { TheAppBar, TheVueSlickCarousel, TheFooter },
   async fetch({ store }) {
     await store.dispatch("service/setSliderSlides");
   },
   data() {
-    return {
-      links: ["Home", "About Us", "Team", "Services", "Blog", "Contact Us"],
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
