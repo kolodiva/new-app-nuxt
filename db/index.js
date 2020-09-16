@@ -1,6 +1,6 @@
 
 const { Pool } = require('pg')
-const queries = require('./queries')
+const queries = require('./queries/nomenklator')
 
 let conn_param  = null;
 let conn_param_statistica = null;
@@ -39,7 +39,8 @@ async function getConnectionOrder( userid, connectionid, createnewconn = true  )
 
   const strWhere = userid === 1 ? `where t1.user_id = ${userid} and t1.remember_token = '${connectionid}'` : `where t1.user_id = ${userid}`
 
-  let {rows} = await dbpgApp1.query( queries['getConnOrder'](strWhere) )
+  //let {rows} = await dbpgApp1.query( queries['getConnOrder'](strWhere) )
+  rows = []
 
   if ( rows.length === 0 && !createnewconn ) {
     return {connid: undefined, orderid: undefined, remember_token: undefined}

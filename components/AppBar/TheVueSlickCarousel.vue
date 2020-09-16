@@ -1,7 +1,7 @@
 <template>
   <VueSlickCarousel v-bind="options" style="margin-top: 20px">
     <v-img
-      v-for="(item, i) in slides_lst"
+      v-for="(item, i) in slidesLst"
       :key="i"
       :src="`https://newfurnitura.ru/news/${item.pic}`"
       :height="hgt"
@@ -22,7 +22,6 @@ import "@/assets/style/_vue-slick-carousel-theme.css";
 export default {
   name: "SlickSlider",
   components: { VueSlickCarousel },
-
   data() {
     return {
       hgt: "320",
@@ -77,7 +76,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      slides_lst: "service/getSlides",
+      slidesLst: "service/getSlides",
     }),
   },
 };

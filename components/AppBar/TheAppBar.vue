@@ -9,13 +9,15 @@
       dark
     >
       <v-toolbar-title>
-        <v-img
-          class="pt-5"
-          src="logo_small.png"
-          max-height="50"
-          max-width="90"
-          contain
-        />
+        <n-link to="/">
+          <v-img
+            class="pt-5"
+            src="/logo_small.png"
+            max-height="50"
+            max-width="90"
+            contain
+          />
+        </n-link>
       </v-toolbar-title>
       <TheToolbarItems :header="header3" />
       <v-spacer />
@@ -23,13 +25,15 @@
     </v-app-bar>
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
-        <v-img
-          class=""
-          src="logo_big.png"
-          max-height="80"
-          max-width="212"
-          contain
-        />
+        <n-link to="/">
+          <v-img
+            class=""
+            src="/logo_big.png"
+            max-height="80"
+            max-width="212"
+            contain
+          />
+        </n-link>
       </v-toolbar-title>
       <v-spacer />
       <TheToolbarItems :header="header1" />

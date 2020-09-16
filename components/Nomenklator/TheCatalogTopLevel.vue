@@ -18,16 +18,7 @@
             style="border-radius: 10px; border: 20px solid #eaecec"
             aspect-ratio="1"
             :alt="`${pos.name}`"
-          >
-            <template v-slot:placeholder>
-              <v-row class="fill-height ma-0" align="center" justify="center">
-                <v-progress-circular
-                  indeterminate
-                  color="grey lighten-5"
-                ></v-progress-circular>
-              </v-row>
-            </template>
-          </v-img>
+          />
 
           <v-card-text class="text-center pt-2 pb-0" style="max-width: 160px">
             <span class="textMFGreyColor">{{ pos.name }}</span>

@@ -1,9 +1,10 @@
 <template>
   <v-app v-scroll="onScroll">
     <v-main>
-      <v-container class="pa-0" fluid>
-        <Nuxt />
-      </v-container>
+      <TheAppBar :filials="filials" />
+      <TheVueSlickCarousel />
+      <Nuxt />
+      <TheFooter :filials="filials" />
     </v-main>
   </v-app>
 </template>
@@ -12,9 +13,18 @@
 // import TheCucumbers from '@/components/TheCucumbers.vue'
 
 // const consola = require('consola')
+import { mapGetters } from "vuex";
+import TheAppBar from "@/components/AppBar/TheAppBar.vue";
+import TheVueSlickCarousel from "@/components/AppBar/TheVueSlickCarousel.vue";
+import TheFooter from "@/components/AppBar/TheFooter.vue";
 export default {
+  components: { TheAppBar, TheVueSlickCarousel, TheFooter },
   data: () => ({}),
-  computed: {},
+  computed: {
+    ...mapGetters({
+      filials: "headerMenu/getAllSortCity",
+    }),
+  },
   watch: {},
   beforeCreate() {},
   mounted() {

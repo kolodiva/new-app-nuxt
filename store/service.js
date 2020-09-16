@@ -1,6 +1,6 @@
-// const consola = require("consola");
 // import _ from "lodash";
 import nomenklTopLevelList from "@/assets/data/nomenkl-top-level.json";
+// const consola = require("consola");
 
 export const state = () => ({
   showSecondMenu: false,
