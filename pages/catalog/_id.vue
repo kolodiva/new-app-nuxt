@@ -1,6 +1,24 @@
 <template>
   <div>
+    <v-breadcrumbs
+      :items="breadCrumb"
+      class="mt-10"
+      style="justify-content: center"
+    >
+      <template v-slot:divider>
+        <v-icon>mdi-chevron-right</v-icon>
+      </template>
+    </v-breadcrumbs>
     <TheSubNomenklator :sub-nomenkl="subNomenklator" />
+    <v-breadcrumbs
+      :items="breadCrumb"
+      class="mb-10"
+      style="justify-content: center"
+    >
+      <template v-slot:divider>
+        <v-icon>mdi-chevron-right</v-icon>
+      </template>
+    </v-breadcrumbs>
   </div>
 </template>
 <script>
@@ -22,6 +40,7 @@ export default {
     ...mapGetters({
       subNomenklator: "nomenklator/getSubNomenklator",
       isGroup: "nomenklator/isGroup",
+      breadCrumb: "nomenklator/getBreadCrumb",
     }),
   },
   beforeCreate() {},

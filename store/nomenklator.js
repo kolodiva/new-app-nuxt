@@ -35,6 +35,19 @@ export const getters = {
   getSubNomenklator: (state) => {
     return state.subNomenklator;
   },
+  getBreadCrumb: (state) => {
+    const pos = [];
+
+    state.breadCrumb.forEach((v) => {
+      pos.push({
+        text: v.name,
+        disable: false,
+        href: v.guid === null ? "/" : v.guid,
+      });
+    });
+
+    return pos;
+  },
 };
 
 export const actions = {

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="my-10" style="max-width: 800px">
+  <v-container class="" style="max-width: 800px">
     <v-row align="start" justify="center">
       <n-link
         v-for="(pos, id) in subNomenkl"
