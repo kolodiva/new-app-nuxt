@@ -77,6 +77,7 @@ module.exports = {
     // {src: '~/plugins/crypto-js.js'},
     {src: '~/plugins/api-context.client.js', mode: 'client'},
     {src: '~/plugins/api-context.server.js', mode: 'server'},
+    {src: '~/plugins/read-more-js.js', mode: 'client'},
   ],
   /*
    ** Nuxt.js dev-modules
