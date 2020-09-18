@@ -64,12 +64,12 @@ export default {
   beforeCreate() {},
   mounted() {
     $("article").readmore({
-      speed: 200,
+      speed: 500,
       collapsedHeight: 140,
       moreLink:
         '<a href="#" style="display: block; text-align: right; margin-top: -20px;">Показать всю статью...</a>',
       lessLink:
-        '<a href="#" style="display: block; text-align: right; margin-top: -15px;">Свернуть</a>',
+        '<a href="#" style="display: block; text-align: right; margin-top: -10px;">Свернуть</a>',
       heightMargin: 16,
     });
   },
