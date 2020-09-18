@@ -21,7 +21,7 @@
       </v-toolbar-title>
       <TheToolbarItems :header="header3" />
       <v-btn text :class="[header2.css_class]">
-        <v-img src="/korzina_belaya.png" width="30" contain class="mr-4" />
+        <v-img src="/korzina_belaya.png" width="30" contain class="" />
       </v-btn>
       <v-spacer />
       <TheSearchField />

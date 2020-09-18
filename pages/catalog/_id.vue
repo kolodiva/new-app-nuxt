@@ -4,8 +4,8 @@
     <div style="width: 900px" class="mx-auto">
       <article style="overflow-y: hidden" v-html="textHide" />
     </div>
-
-    <TheSubNomenklator :sub-nomenkl="subNomenklator" />
+    <TheSubNomenklator v-if="isGroup" :sub-nomenkl="subNomenklator" />
+    <TheGoodsList v-else :sub-nomenkl="subNomenklator" />
     <TheBreadCrumbs :bread-crumb="breadCrumb" />
   </div>
 </template>
@@ -14,10 +14,11 @@
 import { mapGetters } from "vuex";
 import $ from "jquery";
 import TheSubNomenklator from "@/components/Nomenklator/TheSubNomenklator.vue";
+import TheGoodsList from "@/components/Nomenklator/TheGoodsList.vue";
 import TheBreadCrumbs from "@/components/Service/TheBreadCrumbs.vue";
 
 export default {
-  components: { TheSubNomenklator, TheBreadCrumbs },
+  components: { TheSubNomenklator, TheGoodsList, TheBreadCrumbs },
   async fetch({ app, params, query, store }) {
     if (params && params.id) {
       // consola.info(params);
