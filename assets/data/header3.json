@@ -38,12 +38,6 @@
     "name": "Спец.условия",
     "ref":"",
     "submenu" : ""
-  },
-  {
-    "id": 7,
-    "name": "Корзина",
-    "ref":"",
-    "submenu" : ""
   }
 ],
 "css_class": "buttonMFWhiteColor"

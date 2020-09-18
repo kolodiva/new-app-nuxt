@@ -20,6 +20,9 @@
         </n-link>
       </v-toolbar-title>
       <TheToolbarItems :header="header3" />
+      <v-btn text :class="[header2.css_class]">
+        <v-img src="/korzina_belaya.png" width="30" contain class="mr-4" />
+      </v-btn>
       <v-spacer />
       <TheSearchField />
       <v-spacer />
@@ -48,7 +51,14 @@
       <v-spacer />
       <TheSearchField />
       <v-spacer />
-      <v-btn text :class="[header2.css_class]"> КОРЗИНА </v-btn>
+      <v-btn text :class="[header2.css_class]">
+        <v-img
+          src="/korzina_belaya.png"
+          width="30"
+          contain
+          class="mr-4"
+        />КОРЗИНА
+      </v-btn>
     </v-toolbar>
   </div>
 </template>
