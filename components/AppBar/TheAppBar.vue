@@ -21,17 +21,7 @@
       </v-toolbar-title>
       <TheToolbarItems :header="header3" />
       <v-spacer />
-      <v-text-field
-        rounded
-        outlined
-        clearable
-        dense
-        prepend-inner-icon="mdi-magnify"
-        dark
-        style="align-self: baseline"
-        >Поиск</v-text-field
-      >
-
+      <TheSearchField />
       <v-spacer />
       <v-btn text :class="['buttonMFWhiteColor']"> ГЕО.ИНФ. </v-btn>
     </v-app-bar>
@@ -56,16 +46,7 @@
       <v-spacer />
       <TheToolbarItems :header="header2" :addresses="filials" />
       <v-spacer />
-      <v-text-field
-        rounded
-        outlined
-        clearable
-        dense
-        prepend-inner-icon="mdi-magnify"
-        dark
-        style="align-self: baseline"
-        >Поиск</v-text-field
-      >
+      <TheSearchField />
       <v-spacer />
       <v-btn text :class="[header2.css_class]"> КОРЗИНА </v-btn>
     </v-toolbar>
@@ -75,9 +56,10 @@
 <script>
 import { mapGetters } from "vuex";
 import TheToolbarItems from "./TheToolbarItems.vue";
+import TheSearchField from "@/components/Service/TheSearchField.vue";
 
 export default {
-  components: { TheToolbarItems },
+  components: { TheToolbarItems, TheSearchField },
   props: ["filials"],
   data() {
     return {};
