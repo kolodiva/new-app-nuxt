@@ -30,6 +30,11 @@
         </v-list>
       </v-col>
     </v-row>
+    <v-col class="white pa-1" cols="12" justify="left">
+      <span class="textMFGreyColor"
+        >&copy; MF KOMPLEKT 2003-{{ new Date().getFullYear() }}</span
+      >
+    </v-col>
   </v-footer>
 </template>
 

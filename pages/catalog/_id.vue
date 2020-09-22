@@ -18,7 +18,11 @@ import TheGoodsList from "@/components/Nomenklator/TheGoodsList.vue";
 import TheBreadCrumbs from "@/components/Service/TheBreadCrumbs.vue";
 
 export default {
-  components: { TheSubNomenklator, TheGoodsList, TheBreadCrumbs },
+  components: {
+    TheSubNomenklator,
+    TheGoodsList,
+    TheBreadCrumbs,
+  },
   async fetch({ app, params, query, store }) {
     if (params && params.id) {
       // consola.info(params);

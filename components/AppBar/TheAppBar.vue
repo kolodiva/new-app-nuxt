@@ -70,7 +70,7 @@ import TheSearchField from "@/components/Service/TheSearchField.vue";
 
 export default {
   components: { TheToolbarItems, TheSearchField },
-  props: ["filials"],
+  props: ["filials", "showSecondMenu"],
   data() {
     return {};
   },
@@ -79,7 +79,6 @@ export default {
       header1: "headerMenu/getHeader1",
       header2: "headerMenu/getHeader2",
       header3: "headerMenu/getHeader3",
-      showSecondMenu: "service/showSecondMenu",
     }),
   },
 };
