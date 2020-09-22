@@ -16,7 +16,7 @@
         >
       </v-col>
       <v-col cols="6" style="border: 1px solid black" class="menuHeader3"
-        ><h2 v-for="(i, id) in 70" :key="id" style="text-align: center">
+        ><h2 v-for="(i, id) in 150" :key="id" style="text-align: center">
           Центр
         </h2></v-col
       >
