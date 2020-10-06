@@ -43,7 +43,7 @@
       <v-spacer />
       <TheToolbarItems :header="header1" />
       <v-spacer />
-      <v-btn text class="buttonMFGreyColorBold"> Войти </v-btn>
+      <v-btn text class="buttonMFGreyColorBold" nuxt to="/login"> Войти </v-btn>
     </v-toolbar>
     <v-toolbar class="greyMfBckg" height="50" width="100vw">
       <v-spacer />
@@ -65,12 +65,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import TheToolbarItems from "./TheToolbarItems.vue";
-import TheSearchField from "@/components/Service/TheSearchField.vue";
 
 export default {
-  components: { TheToolbarItems, TheSearchField },
-  props: ["filials", "showSecondMenu"],
+  props: ["showSecondMenu"],
   data() {
     return {};
   },
@@ -79,6 +76,7 @@ export default {
       header1: "headerMenu/getHeader1",
       header2: "headerMenu/getHeader2",
       header3: "headerMenu/getHeader3",
+      filials: "headerMenu/getAllSortCity",
     }),
   },
 };

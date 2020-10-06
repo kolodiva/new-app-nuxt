@@ -39,7 +39,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["filials"],
+  computed: {
+    ...mapGetters({
+      filials: "headerMenu/getAllSortCity",
+    }),
+  },
 };
 </script>

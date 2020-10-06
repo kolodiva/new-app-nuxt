@@ -2,7 +2,7 @@
   <v-container class="" style="max-width: 800px">
     <v-row align="start" justify="center">
       <n-link
-        v-for="(pos, id) in subNomenkl"
+        v-for="(pos, id) in subNomenklator"
         :key="id"
         :to="`${pos.guid}`"
         style="text-decoration: none"
@@ -32,7 +32,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["sub-nomenkl"],
+  computed: {
+    ...mapGetters({
+      subNomenklator: "nomenklator/getSubNomenklator",
+    }),
+  },
 };
 </script>

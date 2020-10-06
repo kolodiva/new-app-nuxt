@@ -7,7 +7,7 @@
     <v-row v-if="viewType" align="start" justify="center">
       <v-col cols="6">
         <n-link
-          v-for="(pos, id) in subNomenkl"
+          v-for="(pos, id) in subNomenklator"
           :key="id"
           :to="`${pos.parentguid}/${pos.synonym}`"
           style="text-decoration: none"
@@ -47,7 +47,7 @@
     </v-row>
     <v-row v-else align="start" justify="center">
       <n-link
-        v-for="(pos, id) in subNomenkl"
+        v-for="(pos, id) in subNomenklator"
         :key="id"
         :to="`${pos.parentguid}/${pos.synonym}`"
         style="text-decoration: none"
@@ -76,12 +76,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["sub-nomenkl"],
   data() {
     return {
       viewType: false,
     };
+  },
+  computed: {
+    ...mapGetters({
+      subNomenklator: "nomenklator/getSubNomenklator",
+    }),
   },
 };
 </script>

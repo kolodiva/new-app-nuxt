@@ -1,5 +1,3 @@
-const consola = require("consola");
-
 export default (context, inject) => {
   inject("api", async (controller, method, params) => {
     try {
@@ -8,7 +6,7 @@ export default (context, inject) => {
         params
       );
     } catch (e) {
-      consola.error(e);
+      console.error(e);
       throw e;
     }
   });

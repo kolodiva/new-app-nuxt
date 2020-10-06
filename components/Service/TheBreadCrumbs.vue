@@ -10,7 +10,12 @@
   </v-breadcrumbs>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: ["breadCrumb"],
+  computed: {
+    ...mapGetters({
+      breadCrumb: "nomenklator/getBreadCrumb",
+    }),
+  },
 };
 </script>

@@ -35,10 +35,8 @@
 <script>
 import $ from "jquery";
 import { mapGetters } from "vuex";
-import TheBreadCrumbs from "@/components/Service/TheBreadCrumbs.vue";
 // const consola = require("consola");
 export default {
-  components: { TheBreadCrumbs },
   data: () => ({ posSwitchLeftRightPanel: 0 }),
   computed: {
     ...mapGetters({

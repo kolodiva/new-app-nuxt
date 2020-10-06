@@ -10,17 +10,6 @@ export default async (req, res, next) => {
 
   let controller = url.slice(1).join("/");
 
-  if (method === 'session') {
-    controller = 'session';
-    method = 'index';
-    req.params.keyUser = req.cookies._keyUser;
-  }
-
-  if (method === 'userAuth') {
-    controller = 'session';
-    req.params.keyUser = req.cookies['auth._token.local'];
-  }
-
   let api = require("../api/" + controller);
 
   req.params.connectionid = req.cookies.connectionid;

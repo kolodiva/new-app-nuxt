@@ -3,6 +3,8 @@ const path = require('path')
 const fs = require('fs')
 
 module.exports = {
+
+  components: true,
   // server: {
   //     https: {
   //       key: fs.readFileSync(path.resolve(__dirname, 'privkey.pem')),
@@ -13,7 +15,7 @@ module.exports = {
   env: {
     // PGUSER: 'postgres',
   },
-  mode: 'universal',
+  //mode: 'universal',
   //mode: 'spa',
   /*
    ** Headers of the page
@@ -75,8 +77,9 @@ module.exports = {
     // {src: '~/plugins/vue-zoomer.js', mode: 'client'},
     // {src: '~/plugins/vue-inject.js', mode: 'client'},
     // {src: '~/plugins/crypto-js.js'},
-    {src: '~/plugins/api-context.client.js', mode: 'client'},
-    {src: '~/plugins/api-context.server.js', mode: 'server'},
+    {src: '~/plugins/hello.js' },
+    {src: '~/plugins/api-context.client.js'},
+    {src: '~/plugins/api-context.server.js'},
     {src: '~/plugins/read-more-js.js', mode: 'client'},
   ],
   /*
