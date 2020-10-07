@@ -1,107 +1,184 @@
 <template>
-  <div v-scroll="onScroll">
-    <TheBreadCrumbs :bread-crumb="breadCrumb" />
-    <v-row style="height: 200px; border: 1px solid black" align="center"
-      ><v-col><h2 style="text-align: center">Заголовок</h2></v-col></v-row
-    >
-    <v-row style="border: 1px solid black"
-      ><v-col
-        class="leftColumn"
-        cols="3"
-        style="border: 1px solid black; height: calc(100vh - 50px)"
-        ><v-row class="fill-height"
-          ><v-col class="blockInfoCol">
+  <v-app>
+    <div>
+      <v-row style="height: 200px" align="center"
+        ><v-col
+          ><h2
+            style="text-align: center"
+            @click="$vuetify.goTo('#dashboard_100')"
+          >
+            Заголовок
+          </h2></v-col
+        ></v-row
+      >
+      <v-row style=""
+        ><v-col class="leftColumn" cols="3" style="border: 1px solid black">
+          <div
+            id="sidebar1"
+            style="
+              transform: translate(0, 0);
+              transform: translate3d(0, 0, 0);
+              will-change: position, transform;
+            "
+          >
             <h2 style="text-align: center">Левый блок</h2>
-          </v-col></v-row
-        >
-      </v-col>
-      <v-col cols="6" style="border: 1px solid black" class="menuHeader3"
-        ><h2 v-for="(i, id) in 150" :key="id" style="text-align: center">
-          Центр
-        </h2></v-col
-      >
-      <v-col
-        cols="3"
-        style="border: 1px solid black; height: calc(100vh - 50px)"
-        class="rightColumn"
-        ><h2 style="text-align: center">Правый блок</h2></v-col
-      >
-    </v-row>
+            <p style="cursor: pointer" @click="$vuetify.goTo('#dashboard_149')">
+              Перейти в конец
+            </p>
+            <p style="cursor: pointer" @click="$vuetify.goTo('#dashboard_75')">
+              Перейти в середину
+            </p>
+            <p style="cursor: pointer" @click="$vuetify.goTo('#dashboard_0')">
+              Перейти в начало
+            </p>
+            <h2 style="text-align: center">Этапы прохождения</h2>
+            <p
+              style="cursor: pointer"
+              :style="{ fontWeight: pos50 ? 'bold' : '400' }"
+            >
+              Пройдено 50
+            </p>
+            <p
+              style="cursor: pointer"
+              :style="{ fontWeight: pos100 ? 'bold' : '400' }"
+            >
+              Пройдено 100
+            </p>
+            <p
+              style="cursor: pointer"
+              :style="{ fontWeight: pos150 ? 'bold' : '400' }"
+            >
+              Пройдено 150
+            </p>
+          </div>
+        </v-col>
+        <v-col cols="6" style="border: 1px solid black" class="menuHeader3"
+          ><v-card
+            id="dashboard_0"
+            v-intersect="{
+              handler: onIntersect,
+              options: {
+                threshold: [0, 0.5, 1.0],
+              },
+            }"
+            style="height: 50vh"
+            ><v-card-text>Центр_1</v-card-text></v-card
+          >
 
-    <TheBreadCrumbs :bread-crumb="breadCrumb" />
-  </div>
+          <v-card
+            id="dashboard_75"
+            v-intersect="{
+              handler: onIntersect,
+              options: {
+                threshold: [0, 0.5, 1.0],
+              },
+            }"
+            style="height: 50vh"
+            ><v-card-text>Центр_50</v-card-text></v-card
+          >
+
+          <v-card
+            id="dashboard_149"
+            v-intersect="{
+              handler: onIntersect,
+              options: {
+                threshold: [0, 0.5, 1.0],
+              },
+            }"
+            style="height: 50vh"
+            ><v-card-text>Центр_100</v-card-text></v-card
+          >
+
+          <v-card
+            id="dashboard_100"
+            v-intersect="{
+              handler: onIntersect,
+              options: {
+                threshold: [0, 0.5, 1.0],
+              },
+            }"
+            style="height: 50vh"
+            ><v-card-text>Центр_149</v-card-text></v-card
+          >
+        </v-col>
+        <v-col
+          id="sidebar2"
+          cols="3"
+          style="border: 1px solid black; height: 50vh"
+          class="rightColumn"
+        >
+          <div
+            id="sidebar2"
+            style="
+              transform: translate(0, 0);
+              transform: translate3d(0, 0, 0);
+              will-change: position, transform;
+            "
+          >
+            <h2 style="text-align: center">Правый блок</h2>
+            <p style="cursor: pointer" @click="$vuetify.goTo('#dashboard_149')">
+              Перейти в конец
+            </p>
+            <p style="cursor: pointer" @click="$vuetify.goTo('#dashboard_75')">
+              Перейти в середину
+            </p>
+            <p style="cursor: pointer" @click="$vuetify.goTo('#dashboard_0')">
+              Перейти в начало
+            </p>
+          </div>
+        </v-col>
+      </v-row>
+
+      <v-footer style="height: 100vh">Footer</v-footer>
+    </div>
+  </v-app>
 </template>
 
 <script>
-import $ from "jquery";
-import { mapGetters } from "vuex";
-// const consola = require("consola");
+// import $ from "jquery";
+// import jQuery from "jquery";
+// const stickr = require("@/assets/jquery.stickr.min.js");
+// if (process.client) {
+//    require("jquery");
+// }
+
 export default {
-  data: () => ({ posSwitchLeftRightPanel: 0 }),
-  computed: {
-    ...mapGetters({
-      breadCrumb: "nomenklator/getBreadCrumb",
-    }),
+  data: () => ({
+    posSwitchLeftRightPanel: 0,
+    pos50: false,
+    pos100: false,
+    pos150: false,
+  }),
+  computed: {},
+  mounted() {
+    // jQuery(document).ready(function () {
+    // jQuery("#sidebar1").stickr({ duration: 0 });
+    // this.$hello(window.$("#sidebar1"));
+
+    window.$("#sidebar1").stickr({ duration: 0, offsetTop: 50 });
+    window.$("#sidebar2").stickr({ offsetTop: 50 });
+
+    //   jQuery("#sidebar1").stickr({ duration: 0 });
+    // });
+    // $("#sidebar1").stickr({ duration: 0 });
+    // $("#sidebar2").stickr({});
+    // this.$hello($("#sidebar1"));
   },
-  mounted() {},
   methods: {
-    onScroll() {
-      const offsetTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      const elLeft = $(".leftColumn")[0];
-      const elCenter = $(".menuHeader3")[0];
-      const elRight = $(".leftColumn")[0];
-      const posBoundLeft = elLeft.getBoundingClientRect();
-      const posBoundCenter = elCenter.getBoundingClientRect();
-      // const posBoundRight = elRight.getBoundingClientRect();
-      const curHeight = elCenter.offsetTop;
-
-      // const blockInfo = $("div.blockInfoCol")[0];
-
-      // consola.info(el2.offsetTop + el2.offsetHeight);
-      // consola.info(el2.offsetTop + el2.offsetHeigth);
-      // consola.info(el.offsetTop + el.offsetHeight);
-
-      if (posBoundCenter.top < 51) {
-        if (
-          elLeft.offsetTop + elLeft.offsetHeight >
-          elCenter.offsetTop + elCenter.offsetHeight
-        ) {
-          $(".leftColumn").css(
-            "margin-top",
-            elCenter.offsetTop +
-              elCenter.offsetHeight -
-              elLeft.offsetHeight -
-              curHeight +
-              "px"
-          );
-          $(".rightColumn").css(
-            "margin-top",
-            elCenter.offsetTop +
-              elCenter.offsetHeight -
-              elRight.offsetHeight -
-              curHeight +
-              "px"
-          );
-        } else if (
-          elLeft.offsetTop + elLeft.offsetHeight ===
-            elCenter.offsetTop + elCenter.offsetHeight &&
-          posBoundLeft.top <= 50
-        ) {
-          // blockInfo.style.alignSelf = "flex-end";
-          // elLeft.style.height = elLeft.offsetHeight;
-        } else {
-          // blockInfo.style.alignSelf = "";
-          $(".leftColumn").css("margin-top", offsetTop - curHeight + 50 + "px");
-          $(".rightColumn").css(
-            "margin-top",
-            offsetTop - curHeight + 50 + "px"
-          );
-        }
-      } else {
-        $(".leftColumn").css("margin-top", "0px");
-        $(".rightColumn").css("margin-top", "0px");
+    onIntersect(entries, observer) {
+      // More information about these options
+      // is located here: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+      // this.isIntersecting = entries[0].intersectionRatio >= 0.5
+      if (entries[0].target.textContent === "Центр_50") {
+        this.pos50 = entries[0].intersectionRatio >= 0.5;
       }
+      if (entries[0].target.textContent === "Центр_100") {
+        this.pos100 = entries[0].intersectionRatio >= 1;
+      }
+      if (entries[0].target.textContent === "Центр_149") {
+        this.pos150 = entries[0].intersectionRatio >= 1;
+      }
+      // consola.info(entries[0].target.innerText, entries[0].intersectionRatio)
     },
   },
 };

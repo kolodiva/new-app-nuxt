@@ -1,6 +1,8 @@
 //const colors = require('vuetify/es5/util/colors').default
 const path = require('path')
 const fs = require('fs')
+//const webpack = require('webpack')
+
 
 module.exports = {
 
@@ -42,6 +44,11 @@ module.exports = {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+         {src: "/src/jquery.min.js"},
+        //{src: "https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"},
+         {src: "/src/jquery.stickr.min.js"},
+     ],
   },
   /*
    ** Customize the progress-bar color
@@ -72,7 +79,8 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [/*'~plugins/vuetify.js'*/
+  plugins: [
+          /*'~plugins/vuetify.js'*/
     // {src: '~/plugins/vue-pdf.js', mode: 'client'},
     // {src: '~/plugins/vue-zoomer.js', mode: 'client'},
     // {src: '~/plugins/vue-inject.js', mode: 'client'},
@@ -81,6 +89,8 @@ module.exports = {
     {src: '~/plugins/api-context.client.js'},
     {src: '~/plugins/api-context.server.js'},
     {src: '~/plugins/read-more-js.js', mode: 'client'},
+    //{src: '~/plugins/jq.js', mode: 'client'},
+    //{src: '~/plugins/jq2.js', mode: 'client'},
   ],
   /*
    ** Nuxt.js dev-modules
@@ -174,6 +184,19 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
+     // vendor: ['jquery'],
+     //
+     // plugins: [
+     //
+     //       new webpack.ProvidePlugin({
+     //         $: 'jquery',
+     //         jQuery: 'jquery',
+     //         'window.jQuery': 'jquery'
+     //       })
+     //     ],
+
+    //transpile: ['jquery'],
+
     parallel: true,
     cache: true,
     hardSource: true,
