@@ -32,12 +32,14 @@ export default {
       height: 200,
       speed: 500,
       shadow: true,
-      useCss: true,
-      tpl: {
-        btn: '<div class="mrc-btn" style="cursor: pointer"></div>',
-        btnWrap: '<div class="mrc-btn-wrap" style="text-align: end;"></div>',
-      },
+      // useCss: true,
+      // tpl: {
+      //   btn: '<button class="mrc-btn" style="cursor: pointer"></button>',
+      //   btnWrap: '<div class="mrc-btn-wrap" ></div>',
+      // },
     });
+    window.$("div.mrc-btn-wrap").css("text-align", "end");
+    window.$("button.mrc-btn").css("outline", "none");
   },
   methods: {},
 };
@@ -47,7 +49,7 @@ export default {
 .mrc-shadow {
   pointer-events: none;
   position: absolute;
-  height: 50px;
+  height: 70px;
   left: 0;
   right: 0;
   bottom: 0;
