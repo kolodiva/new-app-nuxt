@@ -21,6 +21,7 @@
     "@nuxtjs/auth-next": "^5.0.0-1595976864.509d9d6",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/component-cache": "^1.1.6",
+    "animate.css": "^4.1.1",
     "chokidar": "^3.4.2",
     "cookie-parser": "^1.4.5",
     "cookie-universal-nuxt": "^2.1.4",
