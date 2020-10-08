@@ -1,9 +1,5 @@
 <template>
-  <v-breadcrumbs
-    :items="breadCrumb"
-    class="mt-10"
-    style="justify-content: center"
-  >
+  <v-breadcrumbs :items="breadCrumb" class="" style="justify-content: center">
     <template v-slot:divider>
       <v-icon>mdi-chevron-right</v-icon>
     </template>

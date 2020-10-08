@@ -402,6 +402,19 @@ function getBreadCrumbs(params) {
     values: [],
   }
 }
+function getSeoText(params) {
+
+  const textqry=`
+				select content from seo_articles where name_group='${params.parentguid}'
+  `
+//console.log(params.parentguid);
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 function getSearchNomenklator_old({searchtext}) {
 
   const strQueryWhereExactly  = searchtext.split(' ').join('').toLowerCase()
@@ -539,6 +552,7 @@ module.exports = {
   getGoodCard,
   getPhotos250,
   getBreadCrumbs,
+  getSeoText,
   getUserByEmail,
   addNewUser,
   userAuth,

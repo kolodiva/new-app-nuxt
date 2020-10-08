@@ -46,8 +46,9 @@ module.exports = {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
          {src: "/src/jquery.min.js"},
-        //{src: "https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"},
          {src: "/src/jquery.stickr.min.js"},
+         {src: "/src/jquery.morecontent.min.js"},
+
      ],
   },
   /*
@@ -58,7 +59,8 @@ module.exports = {
    ** Global CSS
    */
   css: [
-     '@/assets/style/_reboot.scss'
+     '@/assets/style/_reboot.scss',
+     'animate.css'
   ],
 
 // '~/api/index.js'
@@ -88,7 +90,7 @@ module.exports = {
     {src: '~/plugins/hello.js' },
     {src: '~/plugins/api-context.client.js'},
     {src: '~/plugins/api-context.server.js'},
-    {src: '~/plugins/read-more-js.js', mode: 'client'},
+    //{src: '~/plugins/read-more-js.js', mode: 'client'},
     //{src: '~/plugins/jq.js', mode: 'client'},
     //{src: '~/plugins/jq2.js', mode: 'client'},
   ],

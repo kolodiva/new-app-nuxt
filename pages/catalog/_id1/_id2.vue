@@ -135,13 +135,6 @@
 </template>
 
 <script>
-// import $ from "jquery";
-// import jQuery from "jquery";
-// const stickr = require("@/assets/jquery.stickr.min.js");
-// if (process.client) {
-//    require("jquery");
-// }
-
 export default {
   data: () => ({
     posSwitchLeftRightPanel: 0,
@@ -151,18 +144,8 @@ export default {
   }),
   computed: {},
   mounted() {
-    // jQuery(document).ready(function () {
-    // jQuery("#sidebar1").stickr({ duration: 0 });
-    // this.$hello(window.$("#sidebar1"));
-
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 50 });
     window.$("#sidebar2").stickr({ offsetTop: 50 });
-
-    //   jQuery("#sidebar1").stickr({ duration: 0 });
-    // });
-    // $("#sidebar1").stickr({ duration: 0 });
-    // $("#sidebar2").stickr({});
-    // this.$hello($("#sidebar1"));
   },
   methods: {
     onIntersect(entries, observer) {
