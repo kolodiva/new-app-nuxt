@@ -29,7 +29,7 @@ export default {
   beforeCreate() {},
   mounted() {
     window.$("article").moreContent({
-      height: 200,
+      height: 150,
       speed: 500,
       shadow: true,
       // useCss: true,
