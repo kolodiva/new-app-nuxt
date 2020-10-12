@@ -44,7 +44,7 @@ export default {
     }),
   },
   mounted() {
-    console.log(this.paramsQuickShopDialog);
+    // console.log(this.paramsQuickShopDialog);
   },
   methods: {
     async closeQuickShopDialog() {
