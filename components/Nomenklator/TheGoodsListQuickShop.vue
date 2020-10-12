@@ -7,7 +7,8 @@
   >
     <v-card>
       <v-card-title class="headline">
-        {{ paramsQuickShopDialog.artikul }} {{ paramsQuickShopDialog.name }}
+        {{ paramsQuickShopDialog ? paramsQuickShopDialog.artikul : "" }}
+        {{ paramsQuickShopDialog ? paramsQuickShopDialog.name : "" }}
       </v-card-title>
 
       <v-card-text>

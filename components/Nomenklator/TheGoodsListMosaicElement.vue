@@ -40,7 +40,7 @@
         <v-icon>mdi-cart</v-icon>
       </v-btn>
       <div class="font-weight-light grey--text title mb-2">
-        {{ pos.artikul }}
+        {{ pos ? pos.artikul : "" }}
       </div>
       <n-link
         :to="`${pos.parentguid}/${pos.synonym}`"
