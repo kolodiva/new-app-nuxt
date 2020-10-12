@@ -2,7 +2,7 @@
 
 // import { getData } from '@/utils/store-utils'
 
-const consola = require("consola");
+// const consola = require("consola");
 
 // import _ from 'lodash'
 
@@ -53,7 +53,7 @@ export const getters = {
     return state.subNomenklator;
   },
   getGoodCard: (state) => {
-    return state.goodCard;
+    return state.goodCard.rows[0];
   },
   getBreadCrumb: (state) => {
     const pos = [];
@@ -97,19 +97,18 @@ export const actions = {
   },
   async loadGoodCard({ commit, dispatch, state }, { id2 }) {
     // commit('SET_WAIT_LOAD_NOMENKLATOR', true)
-    consola.info(id2);
-    const userid = this.$auth.user ? this.$auth.user.id : 1;
+    // consola.info(id2);
+    // const userid = this.$auth.user ? this.$auth.user.id : 1;
     const { rows, rowsphoto, breadcrumb } = await this.$api(
       "nomenklator",
       "getGoodCard",
       {
-        userid,
+        userid: 1,
         synonym: id2,
-        connectionid: state.connectionid,
+        connectionid: null,
       }
     );
 
-    // consola.info(res)
     commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb });
   },
   async loadSeoTextMain({ commit, dispatch, state }) {

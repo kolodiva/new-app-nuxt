@@ -7,7 +7,7 @@
             style="text-align: center"
             @click="$vuetify.goTo('#dashboard_100')"
           >
-            Заголовок
+            {{ pos.name }}
           </h2></v-col
         ></v-row
       >
@@ -61,8 +61,15 @@
                 threshold: [0, 0.5, 1.0],
               },
             }"
-            style="height: 50vh"
-            ><v-card-text>Центр_1</v-card-text></v-card
+          >
+            <v-img
+              :src="`${pos.guid_picture.replace('_250x250', '')}`"
+              contain
+              width="600"
+            >
+            </v-img>
+
+            <v-card-text>Центр_1</v-card-text></v-card
           >
 
           <v-card
@@ -138,7 +145,7 @@
 import { mapGetters } from "vuex";
 export default {
   async fetch({ app, params, query, store }) {
-    if (params && params.id) {
+    if (params && params.id2) {
       await store.dispatch("nomenklator/loadGoodCard", params);
     }
   },
@@ -150,7 +157,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      dataGoodCard: "nomenklator/getGoodCard",
+      pos: "nomenklator/getGoodCard",
     }),
   },
   mounted() {
