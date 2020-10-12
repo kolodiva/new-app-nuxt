@@ -43,18 +43,28 @@
         top
         @click.prevent="showQuickShopDialog"
       >
-        <v-icon>mdi-cart</v-icon>
+        <v-badge content="5" value="5" color="green" bordered>
+          <v-icon>mdi-cart</v-icon>
+        </v-badge>
       </v-btn>
       <div class="font-weight-light grey--text title mb-2">
-        {{ pos ? pos.artikul : "" }}
+        {{ pos ? pos.artikul : "" }}{{ pos ? ", " + pos.artikul_new : "" }}
       </div>
+
       <n-link
         :to="`${pos.parentguid}/${pos.synonym}`"
         style="text-decoration: none"
       >
-        <h3 class="heading-4 font-weight-light blueMfText mb-2">
-          {{ pos.name }}
-        </h3>
+        <v-badge left overlap color="transparent">
+          <span slot="badge"
+            ><v-icon color="grey" size="18" style="left: -2px"
+              >mdi-information-outline</v-icon
+            ></span
+          >
+          <h3 class="heading-4 font-weight-light blueMfText mb-2">
+            &nbsp; {{ pos.name }}
+          </h3>
+        </v-badge>
       </n-link>
     </v-card-text>
 

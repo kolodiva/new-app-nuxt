@@ -17,6 +17,21 @@ export async function getSubNomenklator( { parentguid, userid, connectionid } ) 
   return {rows, breadcrumb: breadcrumb.rows, seoText: seoText.rows};
 }
 
+export async function getGoodCard( { synonym, userid, connectionid } ) {
+
+  const { orderid }  = await db.getConnectionOrder( userid, connectionid, false );
+
+  const { rows } = await db.queryApp('getGoodCard', { synonym, orderid } )
+
+  const rowsPhotos250 = await db.queryApp('getPhotos250', { synonym } )
+
+  const parentguid = rows[0].parentguid
+
+  const breadcrumb = await db.queryApp('getBreadCrumbs', { parentguid  })
+
+  return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows  };
+}
+
 export async function getSeoTextMain() {
 
   const seoText = await db.queryApp('getSeoText', { parentguid: 'main' })

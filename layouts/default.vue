@@ -5,6 +5,22 @@
       <Nuxt />
       <TheFooter />
     </v-main>
+    <v-fab-transition>
+      <v-btn
+        v-show="showScrollTop"
+        color="blue"
+        ripple
+        dark
+        fab
+        fixed
+        bottom
+        small
+        left
+        @click="$vuetify.goTo('#app', { duration: 500, offset: 0 })"
+      >
+        <v-icon>mdi-chevron-up</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-app>
 </template>
 
@@ -13,7 +29,7 @@
 
 // const consola = require('consola')
 export default {
-  data: () => ({ showSecondMenu: false }),
+  data: () => ({ showSecondMenu: false, showScrollTop: false }),
   watch: {},
   beforeCreate() {},
   mounted() {},
@@ -22,6 +38,7 @@ export default {
       const offsetTop =
         window.pageYOffset || document.documentElement.scrollTop;
       this.showSecondMenu = offsetTop > 100;
+      this.showScrollTop = offsetTop > 250;
     },
   },
   head() {

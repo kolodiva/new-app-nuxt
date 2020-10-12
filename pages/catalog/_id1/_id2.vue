@@ -135,14 +135,24 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  async fetch({ app, params, query, store }) {
+    if (params && params.id) {
+      await store.dispatch("nomenklator/loadGoodCard", params);
+    }
+  },
   data: () => ({
     posSwitchLeftRightPanel: 0,
     pos50: false,
     pos100: false,
     pos150: false,
   }),
-  computed: {},
+  computed: {
+    ...mapGetters({
+      dataGoodCard: "nomenklator/getGoodCard",
+    }),
+  },
   mounted() {
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 50 });
     window.$("#sidebar2").stickr({ offsetTop: 50 });

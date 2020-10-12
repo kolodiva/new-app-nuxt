@@ -2,12 +2,13 @@
 
 // import { getData } from '@/utils/store-utils'
 
-// const consola = require("consola");
+const consola = require("consola");
 
 // import _ from 'lodash'
 
 export const state = () => ({
   subNomenklator: [],
+  goodCard: [],
   breadCrumb: [],
   pageHeader: "",
   seoText: "",
@@ -18,6 +19,9 @@ export const state = () => ({
 export const mutations = {
   SET_SUB_NOMENKLATOR(state, rows) {
     state.subNomenklator = rows;
+  },
+  SET_GOOD_CARD(state, { rows, rowsphoto, breadcrumb }) {
+    state.goodCard = { rows, rowsphoto };
   },
   SET_BREAD_CRUMB(state, rows) {
     state.breadCrumb = rows;
@@ -47,6 +51,9 @@ export const getters = {
   },
   getSubNomenklator: (state) => {
     return state.subNomenklator;
+  },
+  getGoodCard: (state) => {
+    return state.goodCard;
   },
   getBreadCrumb: (state) => {
     const pos = [];
@@ -87,6 +94,23 @@ export const actions = {
     commit("SET_BREAD_CRUMB", breadcrumb);
     commit("SET_SEO_TEXT", seoText);
     commit("SET_WAIT_LOAD_NOMENKLATOR", false);
+  },
+  async loadGoodCard({ commit, dispatch, state }, { id2 }) {
+    // commit('SET_WAIT_LOAD_NOMENKLATOR', true)
+    consola.info(id2);
+    const userid = this.$auth.user ? this.$auth.user.id : 1;
+    const { rows, rowsphoto, breadcrumb } = await this.$api(
+      "nomenklator",
+      "getGoodCard",
+      {
+        userid,
+        synonym: id2,
+        connectionid: state.connectionid,
+      }
+    );
+
+    // consola.info(res)
+    commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb });
   },
   async loadSeoTextMain({ commit, dispatch, state }) {
     const { seoText } = await this.$api("nomenklator", "getSeoTextMain");
