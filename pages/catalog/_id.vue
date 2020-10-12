@@ -6,6 +6,7 @@
     <TheSubNomenklator v-if="isGroup" />
     <TheGoodsList v-else />
     <TheBreadCrumbs />
+    <TheGoodsListQuickShop />
   </div>
 </template>
 <script>
