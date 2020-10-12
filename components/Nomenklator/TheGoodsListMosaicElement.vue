@@ -54,7 +54,8 @@
 
     <v-card-actions v-if="pos.describe" style="flex-grow: 0">
       <v-btn class="blueMfText" text @click.prevent="show = !show">
-        Мне нужна информация
+        {{ show ? "Мне НЕ нужна информация" : "Мне нужна информация" }}
+
       </v-btn>
 
       <v-spacer></v-spacer>
