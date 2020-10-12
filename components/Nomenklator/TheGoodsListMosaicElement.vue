@@ -4,10 +4,16 @@
     color="grey lighten-4"
     width="300"
     height="100%"
+    min-height="484"
     style="display: flex; flex-direction: column"
   >
     <v-hover v-slot:default="{ hover }" open-delay="200">
-      <v-img :src="`${pos.guid_picture}`" contain style="flex-grow: 0" min-width="297">
+      <v-img
+        :src="`${pos.guid_picture}`"
+        contain
+        style="flex-grow: 0"
+        min-width="297"
+      >
         <v-expand-transition>
           <div
             v-if="hover"
@@ -55,7 +61,6 @@
     <v-card-actions v-if="pos.describe" style="flex-grow: 0">
       <v-btn class="blueMfText" text @click.prevent="show = !show">
         {{ show ? "Мне НЕ нужна информация" : "Мне нужна информация" }}
-
       </v-btn>
 
       <v-spacer></v-spacer>

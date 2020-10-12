@@ -9,7 +9,7 @@
         <TheGoodsListMenu />
         <v-sheet rounded="lg" class="mt-4" min-height="100vh">
           <v-row>
-            <v-col v-for="(pos, id) in subNomenklator" :key="id" class="pa-3">
+            <v-col v-for="(pos, id) in subNomenklator" :key="id" class="pa-2">
               <TheGoodsListMosaicElement :pos="pos" />
             </v-col>
           </v-row>
