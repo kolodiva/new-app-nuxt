@@ -5,7 +5,7 @@
     </h2>
 
     <v-row clas="">
-      <v-col md="2" class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
+      <v-col md="auto" class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
         <div
           id="sidebar1"
           style="
@@ -20,7 +20,7 @@
               class="ml-auto"
               background-color="grey lighten-4"
               vertical
-              style="margin-top: 2px; width: 70%"
+              style="margin-top: 2px"
               active-class="background-color: white"
             >
               <v-tabs-slider color="transparent"></v-tabs-slider>
