@@ -5,7 +5,7 @@
     </h2>
 
     <v-row clas="">
-      <v-col md="auto" class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
+      <v-col col="auto" class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
         <div
           id="sidebar1"
           style="
@@ -57,11 +57,46 @@
         class="pt-0 pl-0 grey lighten-4"
       >
         <v-card id="section_1" flat style="margin-top: 2px">
-          <v-img
-            :src="`${pos.guid_picture.replace('_250x250', '')}`"
-            contain
-            max-width="300"
-          />
+          <v-row align="center">
+            <v-col>
+              <v-row>
+                <v-col cols="12">
+                  <v-img
+                    :src="`${pos.guid_picture.replace('_250x250', '')}`"
+                    contain
+                    max-width="400"
+                    class="mx-auto"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-row>
+                    <v-col v-for="(photo, i) in photos" :key="i">
+                      <v-img
+                        :src="`${photo.pic_path}`"
+                        contain
+                        max-width="90"
+                        class="mx-auto"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col>
+              <v-simple-table dense>
+                <template v-slot:default>
+                  <tbody>
+                    <tr v-for="item in characts" :key="item.field">
+                      <td style="border-bottom: 1px dotted #cccccc">
+                        {{ item.field }}
+                      </td>
+                      <td style="border-bottom: 0px">{{ pos[item.val] }}</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-col>
+          </v-row>
         </v-card>
 
         <v-card id="section_2" style="height: 15vh" class="mt-1" flat
@@ -75,7 +110,7 @@
           ><v-card-text>Инструкции</v-card-text></v-card
         >
       </v-col>
-      <v-col cols="2" style="" class="grey lighten-4">
+      <v-col col="auto" style="" class="grey lighten-4">
         <div
           id="sidebar2"
           style="
@@ -103,15 +138,20 @@ export default {
     }
   },
   data: () => ({
-    posSwitchLeftRightPanel: 0,
-    pos50: false,
-    pos100: false,
-    pos150: false,
     cur_tab: 1,
+    characts: [
+      { field: "Артикул", val: "artikul" },
+      { field: "Артикул новый", val: "artikul_new" },
+      { field: "Производитель", val: "producer" },
+      { field: "Единица измерения", val: "unit_name" },
+      { field: "Вес, кг", val: "weight" },
+      { field: "Цвет", val: "color" },
+    ],
   }),
   computed: {
     ...mapGetters({
       pos: "nomenklator/getGoodCard",
+      photos: "nomenklator/getGoodCardRowsPhoto",
     }),
   },
   mounted() {
