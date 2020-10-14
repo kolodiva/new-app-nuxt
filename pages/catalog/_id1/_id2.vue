@@ -1,11 +1,7 @@
 <template>
-  <v-container fluid>
-    <h2 class="ma-2" style="">
-      {{ pos.name }}
-    </h2>
-
-    <v-row clas="">
-      <v-col col="auto" class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
+  <v-container v-scroll="onIntersect" fluid>
+    <v-row class="">
+      <v-col class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
         <div
           id="sidebar1"
           style="
@@ -44,44 +40,44 @@
         </div>
       </v-col>
 
-      <v-col
-        id="section_0"
-        v-intersect="{
-          handler: onIntersect,
-          options: {
-            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-          },
-        }"
-        md="8"
-        sm="12"
-        class="pt-0 pl-0 grey lighten-4"
-      >
+      <v-col md="8" sm="12" class="pt-0 pl-0 grey lighten-4">
         <v-card id="section_1" flat style="margin-top: 2px">
+          <v-card-text class="">{{ pos.name }}</v-card-text>
           <v-row align="center">
-            <v-col>
-              <v-row>
-                <v-col cols="12">
-                  <v-img
-                    :src="`${pos.guid_picture.replace('_250x250', '')}`"
-                    contain
-                    max-width="400"
-                    class="mx-auto"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-row>
-                    <v-col v-for="(photo, i) in photos" :key="i">
-                      <v-img
-                        :src="`${photo.pic_path}`"
-                        contain
-                        max-width="90"
-                        class="mx-auto"
-                      />
-                    </v-col>
-                  </v-row>
-                </v-col>
-              </v-row>
+            <v-col class="pt-0">
+              <v-tabs height="0" :value="cur_tab_photos">
+                <v-tab-item v-for="(photo, i) in photos" :key="i">
+                  <v-hover v-slot:default="{ hover }">
+                    <v-img
+                      :src="`${photo.pic_path.replace('_250x250', '')}`"
+                      contain
+                      height="400"
+                      class="mx-auto"
+                    >
+                      <v-row class="fill-height flex-column" justify="center">
+                        <div class="align-self-center">
+                          <v-btn
+                            :class="{ 'show-btns': hover }"
+                            color="transparent"
+                            icon
+                          >
+                            <v-icon x-large :class="{ greyMfText: hover }">
+                              mdi-magnify-plus
+                            </v-icon></v-btn
+                          >
+                        </div>
+                      </v-row>
+                    </v-img>
+                  </v-hover>
+                </v-tab-item>
+              </v-tabs>
+              <v-tabs centered @change="(id) => (cur_tab_photos = id)">
+                <v-tab v-for="(photo, i) in photos" :key="i">
+                  <v-img :src="`${photo.pic_path}`" contain max-width="55" />
+                </v-tab>
+              </v-tabs>
             </v-col>
+
             <v-col>
               <v-simple-table dense>
                 <template v-slot:default>
@@ -99,9 +95,10 @@
           </v-row>
         </v-card>
 
-        <v-card id="section_2" style="height: 15vh" class="mt-1" flat
-          ><v-card-text>Описание</v-card-text></v-card
-        >
+        <v-card id="section_2" style="min-height: 20vh" class="mt-1" flat>
+          <v-card-title>Описание</v-card-title>
+          <v-card-text v-html="pos.describe"></v-card-text
+        ></v-card>
 
         <v-card id="section_3" style="height: 50vh" class="mt-1" flat
           ><v-card-text>Характеристики</v-card-text></v-card
@@ -110,7 +107,7 @@
           ><v-card-text>Инструкции</v-card-text></v-card
         >
       </v-col>
-      <v-col col="auto" style="" class="grey lighten-4">
+      <v-col style="" class="grey lighten-4">
         <div
           id="sidebar2"
           style="
@@ -139,6 +136,7 @@ export default {
   },
   data: () => ({
     cur_tab: 1,
+    cur_tab_photos: 0,
     characts: [
       { field: "Артикул", val: "artikul" },
       { field: "Артикул новый", val: "artikul_new" },
@@ -169,7 +167,7 @@ export default {
       // is located here: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
       // this.isIntersecting = entries[0].intersectionRatio >= 0.5
       const wScrL = window.$(window).scrollTop();
-      const addVal = 5;
+      const addVal = 150;
 
       const curBlock = [
         window.$("#section_1").offset().top - wScrL + addVal,
@@ -180,6 +178,7 @@ export default {
       // this.$hello("--- " + curBlock.id.split("_")[1]);
 
       // this.$hello(curBlock.indexOf(curBlock.find((val) => val > 0)));
+      // this.$hello(curBlock);
 
       this.cur_tab = curBlock.indexOf(curBlock.find((val) => val > 0)) + 1;
 
@@ -203,4 +202,8 @@ export default {
 };
 </script>
 
-<style lang="" scoped></style>
+<style>
+.show-btns {
+  color: rgba(255, 255, 255, 1) !important;
+}
+</style>

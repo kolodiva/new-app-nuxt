@@ -55,6 +55,9 @@ export const getters = {
   getGoodCard: (state) => {
     return state.goodCard.rows[0];
   },
+  getGoodCardRowsPhoto: (state) => {
+    return state.goodCard.rowsphoto;
+  },
   getBreadCrumb: (state) => {
     const pos = [];
 
