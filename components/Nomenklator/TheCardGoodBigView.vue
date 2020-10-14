@@ -5,24 +5,27 @@
     @click:outside="closeDialog"
     @keydown="closeDialog"
   >
-    <v-card>
-      <v-card-title class="headline"> Тэсто амадесто </v-card-title>
+    <v-card flat>
+      <v-app-bar flat color="rgba(0, 0, 0, 0)">
+        <v-toolbar-title class="headline"> {{ photos.name }} </v-toolbar-title>
+        <v-spacer></v-spacer>
 
-      <v-img :src="`${photos.pic_path.replace('_250x250', '')}`" width="600" />
+        <v-btn color="transparent" icon @click="closeDialog">
+          <v-icon color="grey">mdi-arrow-collapse-down</v-icon>
+        </v-btn>
+      </v-app-bar>
 
-      <v-card-text>
-        Здесь вы можете Хорошо подумать и принять самое ответственное решение в
-        своей жизни - купить ЭТО или оставить на потом когда Цены подрастут?
-      </v-card-text>
+      <v-img
+        :src="`${photos.pic_path.replace('_250x250', '')}`"
+        contain
+        width="500"
+      />
 
       <v-card-actions>
-        <v-btn color="green darken-1" text @click="closeDialog">
-          спасибо, не надо...
-        </v-btn>
         <v-spacer></v-spacer>
 
         <v-btn color="green darken-1" text @click="closeDialog">
-          в корзину
+          Больше не видеть...
         </v-btn>
       </v-card-actions>
     </v-card>
