@@ -4,6 +4,7 @@
     outlined
     class="d-flex flex-column"
     width="300"
+    min-height="470"
     style="margin: 3px"
   >
     <div class="flex-grow-0 pa-1 pl-2">
