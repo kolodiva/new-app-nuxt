@@ -4,9 +4,15 @@
     outlined
     class="d-flex flex-column"
     width="300"
-    min-height="485"
     style="margin: 3px"
   >
+    <div class="flex-grow-0 pa-1 pl-2">
+      <span class="d-block caption">{{ pos.artikul_new }}</span>
+      <span class="d-block overlay font-weight-medium mt-n1">{{
+        pos.artikul
+      }}</span>
+    </div>
+
     <n-link
       :to="`${pos.parentguid}/${pos.synonym}`"
       style="text-decoration: none"
@@ -18,10 +24,7 @@
         class=""
         style="cursor: pointer"
         @error="onImgErrorLoad"
-        ><span class="d-block pa-1 pl-2 caption">{{ pos.artikul_new }}</span>
-        <span class="d-block pa-1 pl-2 overlay font-weight-medium mt-n3">{{
-          pos.artikul
-        }}</span>
+      >
       </v-img>
     </n-link>
 
@@ -34,14 +37,12 @@
     </div>
 
     <v-card-actions style="">
-      <v-btn class="blueMfText" text @click.prevent="show = !show">
-        {{ show ? "Мне НЕ нужна информация" : "Мне нужна информация" }}
-      </v-btn>
-
       <v-spacer></v-spacer>
 
-      <v-btn icon @click.prevent="show = !show">
-        <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
+      <v-btn v-if="pos.describe" icon @click.prevent="show = !show">
+        <v-icon>{{
+          show ? "mdi-information-outline" : "mdi-information-outline"
+        }}</v-icon>
       </v-btn>
     </v-card-actions>
     <v-expand-transition>
