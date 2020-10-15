@@ -7,13 +7,19 @@
 
       <v-col md="10" sm="12" class="pt-0">
         <TheGoodsListMenu />
-        <v-sheet rounded="lg" class="mt-4" min-height="100vh">
-          <v-row>
-            <v-col v-for="(pos, id) in subNomenklator" :key="id" class="pa-2">
-              <TheGoodsListMosaicElement :pos="pos" />
-            </v-col>
-          </v-row>
-        </v-sheet>
+        <v-card
+          min-height="100vh"
+          color="transparent"
+          class="d-flex flex-wrap justify-center t-4"
+          flat
+          tile
+        >
+          <TheGoodsListMosaicElement
+            v-for="(pos, id) in subNomenklator"
+            :key="id"
+            :pos="pos"
+          />
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

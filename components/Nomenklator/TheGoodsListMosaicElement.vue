@@ -1,74 +1,39 @@
 <template>
   <v-card
-    class=""
-    color="grey lighten-4"
+    flat
+    outlined
+    class="d-flex flex-column"
     width="300"
-    height="100%"
-    min-height="484"
-    style="display: flex; flex-direction: column"
+    min-height="485"
+    style="margin: 3px"
   >
-    <v-hover v-slot:default="{ hover }" open-delay="200">
+    <n-link
+      :to="`${pos.parentguid}/${pos.synonym}`"
+      style="text-decoration: none"
+    >
       <v-img
-        :src="`${pos.guid_picture}`"
+        :src="cPic"
         contain
-        style="flex-grow: 0"
-        min-width="297"
-      >
-        <v-expand-transition>
-          <div
-            v-if="hover"
-            class="d-flex flex-column transition-fast-in-fast-out blueMfBckg v-card--reveal subtitle-1 white--text"
-            style="
-              height: 100%;
-              align-items: flex-start;
-              justify-content: flex-start;
-            "
-          >
-            <div class="pa-2">
-              <p class="ma-0">розн. {{ pos.price1 }}</p>
-              <p class="ma-0">мелк опт. {{ pos.price2 }}</p>
-              <p class="ma-0">круп опт. {{ pos.price3 }}</p>
-            </div>
-          </div>
-        </v-expand-transition>
+        max-height="298"
+        class=""
+        style="cursor: pointer"
+        @error="onImgErrorLoad"
+        ><span class="d-block pa-1 pl-2 caption">{{ pos.artikul_new }}</span>
+        <span class="d-block pa-1 pl-2 overlay font-weight-medium mt-n3">{{
+          pos.artikul
+        }}</span>
       </v-img>
-    </v-hover>
-    <v-card-text class="pt-6" style="position: relative; flex-grow: 4">
-      <v-btn
-        absolute
-        class="white--text blueMfBckg"
-        fab
-        large
-        right
-        top
-        @click.prevent="showQuickShopDialog"
-      >
-        <v-badge content="5" value="5" color="green" bordered>
-          <v-icon>mdi-cart</v-icon>
-        </v-badge>
-      </v-btn>
-      <div class="font-weight-light grey--text title mb-2">
-        {{ pos ? pos.artikul : "" }}{{ pos ? ", " + pos.artikul_new : "" }}
-      </div>
+    </n-link>
 
-      <n-link
-        :to="`${pos.parentguid}/${pos.synonym}`"
-        style="text-decoration: none"
-      >
-        <v-badge left overlap color="transparent">
-          <span slot="badge"
-            ><v-icon color="grey" size="18" style="left: -2px"
-              >mdi-information-outline</v-icon
-            ></span
-          >
-          <h3 class="heading-4 font-weight-light blueMfText mb-2">
-            &nbsp; {{ pos.name }}
-          </h3>
-        </v-badge>
-      </n-link>
-    </v-card-text>
+    <v-divider class="mx-3" />
 
-    <v-card-actions v-if="pos.describe" style="flex-grow: 0">
+    <div
+      class="flex-grow-1 align-content-start blueMfText overlay font-weight-light pa-3 text-center"
+    >
+      {{ pos.name }}
+    </div>
+
+    <v-card-actions style="">
       <v-btn class="blueMfText" text @click.prevent="show = !show">
         {{ show ? "Мне НЕ нужна информация" : "Мне нужна информация" }}
       </v-btn>
@@ -95,12 +60,23 @@ export default {
   data() {
     return {
       show: false,
+      errLoadImg: false,
     };
+  },
+  computed: {
+    cPic() {
+      return this.errLoadImg
+        ? "https://newfurnitura.ru/upload/8126cd02-1094-46d4-a70a-f2e2d5b5_250x250.jpg"
+        : this.pos.guid_picture;
+    },
   },
   mounted() {},
   methods: {
     async showQuickShopDialog() {
       await this.$store.dispatch("shop/openQuickShopDialog", this.pos);
+    },
+    onImgErrorLoad() {
+      this.errLoadImg = true;
     },
   },
 };
