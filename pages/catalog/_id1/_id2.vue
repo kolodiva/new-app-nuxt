@@ -46,7 +46,7 @@
             <v-card-text class="">{{ pos.name }}</v-card-text>
             <v-row align="center">
               <v-col class="pt-0">
-                <v-tabs height="0" :value="cur_tab_photos">
+                <v-tabs-items v-model="cur_tab_photos">
                   <v-tab-item v-for="(photo, i) in photos" :key="i">
                     <v-hover v-slot:default="{ hover }">
                       <v-img
@@ -55,13 +55,18 @@
                         height="400"
                         class="mx-auto"
                       >
-                        <v-row class="fill-height flex-column" justify="center">
+                        <v-row
+                          class="fill-height flex-column"
+                          justify="center"
+                          style="cursor: pointer"
+                          @click="openDialogBigView = true"
+                        >
                           <div class="align-self-center">
                             <v-btn
                               :class="{ 'show-btns': hover }"
                               color="transparent"
                               icon
-                              @click="openDialogBigView = true"
+                              x-lage
                             >
                               <v-icon x-large :class="{ greyMfText: hover }">
                                 mdi-magnify-plus
@@ -72,8 +77,8 @@
                       </v-img>
                     </v-hover>
                   </v-tab-item>
-                </v-tabs>
-                <v-tabs centered @change="(id) => (cur_tab_photos = id)">
+                </v-tabs-items>
+                <v-tabs v-model="cur_tab_photos" centered>
                   <v-tab v-for="(photo, i) in photos" :key="i">
                     <v-img :src="`${photo.pic_path}`" contain max-width="55" />
                   </v-tab>
@@ -127,8 +132,9 @@
       </v-row>
     </v-container>
     <TheCardGoodBigView
-      :photos="photos[cur_tab_photos]"
+      :photos="photos"
       :open-dialog="openDialogBigView"
+      :foto-index="cur_tab_photos"
       @closeWin="closeBigView"
     />
   </div>
