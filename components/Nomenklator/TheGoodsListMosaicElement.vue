@@ -40,10 +40,11 @@
     <div class="flex-grow-1"></div>
 
     <v-text-field
-      clearable
+      rounded
+      filled
+      type="number"
       class="mt-0 centered-input mx-auto flex-grow-0"
       style=""
-      value=""
       dense
       :label="`Кол-во, ${pos.unit_name}`"
     >
@@ -88,6 +89,7 @@ export default {
     return {
       show: false,
       errLoadImg: false,
+      qty: 0,
     };
   },
   computed: {
@@ -111,6 +113,13 @@ export default {
 
 <style scoped>
 .centered-input >>> input {
-  text-align: center;
+  /* text-align: center; */
+}
+.centered-input >>> input[type="number"] {
+  -moz-appearance: textfield;
+}
+.centered-input >>> input::-webkit-outer-spin-button,
+.centered-input >>> input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 </style>
