@@ -10,7 +10,7 @@
         <v-card
           min-height="100vh"
           color="transparent"
-          class="d-flex flex-wrap justify-center t-4"
+          class="d-flex flex-wrap justify-center align-content-start mt-4"
           flat
           tile
         >

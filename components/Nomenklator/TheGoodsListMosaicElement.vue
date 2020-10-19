@@ -32,12 +32,37 @@
     <v-divider class="mx-3" />
 
     <div
-      class="flex-grow-1 align-content-start blueMfText overlay font-weight-light pa-3 text-center"
+      class="flex-grow-0 blueMfText overlay font-weight-light pa-3 text-center"
     >
       {{ pos.name }}
     </div>
 
+    <div class="flex-grow-1"></div>
+
+    <v-text-field
+      clearable
+      class="mt-0 centered-input mx-auto flex-grow-0"
+      style=""
+      value=""
+      dense
+      :label="`Кол-во, ${pos.unit_name}`"
+    >
+      <v-icon slot="append" color="green"> mdi-cart </v-icon>
+    </v-text-field>
+
     <v-card-actions style="">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon v-bind="attrs" style="transform: scale(-1, 1)" v-on="on"
+            >mdi-head-heart-outline
+          </v-icon>
+        </template>
+        <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
+        <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
+      </v-tooltip>
+      &nbsp;
+      <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
+
       <v-spacer></v-spacer>
 
       <v-btn v-if="pos.describe" icon @click.prevent="show = !show">
@@ -84,4 +109,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.centered-input >>> input {
+  text-align: center;
+}
+</style>
