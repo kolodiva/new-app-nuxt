@@ -48,7 +48,7 @@ module.exports = {
          {src: "/src/jquery.min.js"},
          {src: "/src/jquery.stickr.min.js"},
          {src: "/src/jquery.morecontent.min.js"},
-
+         {src: "https://widget.cdek.ru/widget/widjet.js", id: "ISDEKscript", charset: "utf-8"},
      ],
   },
   /*

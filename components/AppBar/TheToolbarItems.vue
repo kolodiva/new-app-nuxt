@@ -68,7 +68,14 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn v-else :key="i" text max-height="40px" :class="[header.css_class]">
+      <v-btn
+        v-else
+        :key="i"
+        text
+        max-height="40px"
+        :class="[header.css_class]"
+        :to="item.ref"
+      >
         {{ item.name }}
       </v-btn>
     </template>
