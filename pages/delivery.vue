@@ -23,7 +23,7 @@ export default {
         cityFrom: "Омск", // из какого города будет идти доставка
         country: "Россия", // можно выбрать страну, для которой отображать список ПВЗ
         link: "forpvz", // id элемента страницы, в который будет вписан виджет
-        servicepath: "https://kolodiva.com/widget/scripts/service.php", // ссылка на файл service.php на вашем сайте
+        // servicepath: "https://kolodiva.com/widget/scripts/service.php", // ссылка на файл service.php на вашем сайте
       });
       this.$hello(ourWidjet);
     });
