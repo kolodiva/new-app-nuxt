@@ -5,5 +5,6 @@ export const actions = {
   async nuxtServerInit({ dispatch }, { req }) {
     await dispatch("service/setSlider");
     await dispatch("nomenklator/loadSeoTextMain");
+    await dispatch("nomenklator/getStrucCatalog");
   },
 };

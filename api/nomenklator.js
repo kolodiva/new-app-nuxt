@@ -38,4 +38,14 @@ export async function getSeoTextMain() {
 
   return {seoText: seoText.rows};
 }
+
+export async function getStrucCatalog() {
+
+  const rows = await db.queryApp('getStrucCatalog')
+
+  //console.log(breadcrumb.rows)
+
+  return rows;
+}
+
 // export { getSubNomenklator };

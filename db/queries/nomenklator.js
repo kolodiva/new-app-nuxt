@@ -533,6 +533,80 @@ function userAuth({keyUser}) {
   }
 }
 
+
+function getStrucCatalog() {
+
+  const textqry=`
+  WITH RECURSIVE location_with_level AS (
+    SELECT guid node_id, name, parentguid parent_id, 0 AS lvl
+      FROM nomenklators
+     WHERE
+  	parentguid is NULL and guid not in ( 'yandexpagesecret', 'sekretnaya_papka' )
+
+    UNION ALL
+
+    SELECT child.guid, child.name, child.parentguid, lvl + 1
+      FROM nomenklators child
+      JOIN location_with_level parent ON parent.node_id = child.parentguid and child.itgroup
+  	where lvl <=1
+  ),
+  maxlvl AS (
+    SELECT max(lvl) maxlvl FROM location_with_level
+  ),
+  c_tree AS (
+    (SELECT location_with_level.*,
+           '[]'::JSONB children
+      FROM location_with_level, maxlvl
+     WHERE lvl = maxlvl order by location_with_level.lvl, location_with_level.name)
+
+     UNION
+
+     (
+       SELECT (branch_parent).*,
+              jsonb_agg(branch_child order by branch_child ->> 'name')
+         FROM (
+           SELECT branch_parent,
+                  to_jsonb(branch_child) - 'lvl' - 'parent_id' AS branch_child
+             FROM location_with_level branch_parent
+             JOIN c_tree branch_child ON branch_child.parent_id = branch_parent.node_id
+         ) branch
+         GROUP BY branch.branch_parent
+
+         UNION
+
+         SELECT c.*,
+                '[]'::JSONB
+         FROM location_with_level c
+         WHERE NOT EXISTS (SELECT 1
+                             FROM location_with_level hypothetical_child
+                            WHERE hypothetical_child.parent_id = c.node_id)
+     )
+  ),
+  c_tree_sort AS (
+
+
+  	 SELECT node_id, name, children from c_tree WHERE lvl=0
+  	order by lvl, name, (children->>'name')::text ASC
+  )
+
+  select
+  jsonb_pretty(
+  	array_to_json(
+  		array_agg(
+  			row_to_json(c_tree_sort)::JSONB
+  				)
+  			)::JSONB
+  	) AS tree
+  from c_tree_sort
+  `
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
+
 module.exports = {
   getUsers,
   getCart,
@@ -558,4 +632,5 @@ module.exports = {
   userAuth,
 
   getNewsBlock,
+  getStrucCatalog,
  };

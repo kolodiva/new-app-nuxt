@@ -7,6 +7,7 @@
 // import _ from 'lodash'
 
 export const state = () => ({
+  strucCatalog: null,
   subNomenklator: [],
   goodCard: [],
   breadCrumb: [],
@@ -35,6 +36,9 @@ export const mutations = {
   },
   SET_WAIT_LOAD_NOMENKLATOR(state, val) {
     state.waitNomenklatorLoad = val;
+  },
+  SET_STRUC_CATALOG(state, rows) {
+    state.strucCatalog = JSON.parse(rows);
   },
 };
 
@@ -77,6 +81,9 @@ export const getters = {
   getSeoTextMain: (state) => {
     return state.seoTextMain;
   },
+  strucCatalog: (state) => {
+    return state.strucCatalog;
+  },
 };
 
 export const actions = {
@@ -118,5 +125,12 @@ export const actions = {
     const { seoText } = await this.$api("nomenklator", "getSeoTextMain");
 
     commit("SET_SEO_TEXT_MAIN", seoText);
+  },
+  async getStrucCatalog({ commit, dispatch, state }) {
+    const { rows } = await this.$api("nomenklator", "getStrucCatalog");
+
+    // consola.log( rows[0].tree );
+
+    commit("SET_STRUC_CATALOG", rows[0].tree);
   },
 };
