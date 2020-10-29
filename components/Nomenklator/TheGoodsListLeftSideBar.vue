@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       openPanel1: [0],
-      openPanel2: [0],
+      openPanel2: [],
       show: false,
       tree: [],
       open: [],
@@ -64,10 +64,6 @@ export default {
     }),
   },
   mounted() {
-    // this.$hello(lastEl);
-
-    window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
-
     if (this.breadCrumb.length === 2) {
       const lastEl = this.breadCrumb[this.breadCrumb.length - 1];
 
@@ -104,6 +100,8 @@ export default {
 
       scrollToElm(box, targetElm, 600);
     });
+
+    window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
   },
   methods: {
     fetchUsers(items) {
