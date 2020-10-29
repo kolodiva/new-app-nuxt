@@ -42,7 +42,6 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
 import { mapGetters } from "vuex";
 import { scrollToElm } from "@/utils/scrolling";
 // const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -70,46 +69,45 @@ export default {
       this.active.push(lastEl.href);
     }
 
-    if (this.breadCrumb.length > 2) {
+    if (this.breadCrumb.length > 4) {
+      // const lastEl1 = this.breadCrumb[3];
+      // const lastEl2 = this.breadCrumb[2];
+      //
+      // this.active.push(lastEl1.href);
+      // this.open.push(lastEl2.href);
+    } else if (this.breadCrumb.length > 2) {
       const lastEl1 = this.breadCrumb[this.breadCrumb.length - 1];
       const lastEl2 = this.breadCrumb[this.breadCrumb.length - 2];
 
       this.active.push(lastEl1.href);
       this.open.push(lastEl2.href);
-    }
 
-    if (this.breadCrumb.length > 3) {
-      const lastEl = this.breadCrumb[this.breadCrumb.length - 3];
-      this.open.push(lastEl.href);
-    }
+      let i = 3;
 
-    if (this.breadCrumb.length > 4) {
-      const lastEl = this.breadCrumb[this.breadCrumb.length - 4];
-      this.open.push(lastEl.href);
-    }
+      while (i <= this.breadCrumb.length) {
+        // выводит 0, затем 1, затем 2
 
-    if (this.breadCrumb.length > 5) {
-      const lastEl = this.breadCrumb[this.breadCrumb.length - 5];
-      this.open.push(lastEl.href);
-    }
+        const lastEl = this.breadCrumb[this.breadCrumb.length - i];
 
-    if (this.breadCrumb.length > 6) {
-      const lastEl = this.breadCrumb[this.breadCrumb.length - 6];
-      this.open.push(lastEl.href);
-    }
+        try {
+          this.open.push(lastEl.href);
+        } catch (e) {
+        } finally {
+        }
 
-    if (this.breadCrumb.length > 7) {
-      const lastEl = this.breadCrumb[this.breadCrumb.length - 7];
-      
-      this.open.push(lastEl.href);
+        i++;
+      }
     }
-
     /// //////////
     this.$nextTick(() => {
       const box = document.querySelector(".v-expansion-panel-content__wrap");
       const targetElm = document.querySelector(".v-treeview-node--active");
 
-      scrollToElm(box, targetElm, 600);
+      try {
+        scrollToElm(box, targetElm, 600);
+      } catch (e) {
+      } finally {
+      }
     });
 
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
