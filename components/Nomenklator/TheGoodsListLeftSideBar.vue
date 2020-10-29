@@ -100,6 +100,7 @@ export default {
 
     if (this.breadCrumb.length > 7) {
       const lastEl = this.breadCrumb[this.breadCrumb.length - 7];
+      
       this.open.push(lastEl.href);
     }
 
