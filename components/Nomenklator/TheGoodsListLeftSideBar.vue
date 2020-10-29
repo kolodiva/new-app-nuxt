@@ -93,6 +93,16 @@ export default {
       this.open.push(lastEl.href);
     }
 
+    if (this.breadCrumb.length > 6) {
+      const lastEl = this.breadCrumb[this.breadCrumb.length - 6];
+      this.open.push(lastEl.href);
+    }
+
+    if (this.breadCrumb.length > 7) {
+      const lastEl = this.breadCrumb[this.breadCrumb.length - 7];
+      this.open.push(lastEl.href);
+    }
+
     /// //////////
     this.$nextTick(() => {
       const box = document.querySelector(".v-expansion-panel-content__wrap");
