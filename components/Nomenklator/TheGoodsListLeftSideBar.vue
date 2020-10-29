@@ -107,10 +107,6 @@ export default {
   },
   methods: {
     fetchUsers(items) {
-      // this.$hello(items);
-      // Remove in 6 months and say
-      // you've made optimizations! :)
-      // await pause(100);
       this.$router.push(items[0]);
     },
   },
