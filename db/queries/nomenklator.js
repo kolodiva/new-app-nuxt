@@ -1,153 +1,5 @@
-function getUsers(params) {
-  return {
-    name: 'fetch-user',
-    text: 'SELECT * FROM users WHERE id = $1',
-    values: params,
-  }
-}
-
-//orders
-function getCart(params) {
-  return {
-    name: 'get-cart',
-    text: `
-      SELECT t2.guid, t2.artikul, t2.name, replace(t2.guid_picture, '250x250', '82x82') guid_picture_small,
-      to_char(t4.created_at, 'DD/MM/YYYY') data_on, t4.sum sum_total, t2.parentguid, t2.synonym, t1.order_id, t1.qty, t1.price, t1.sum, t3.name unit_name
-      FROM order_goods t1
-      inner join orders t4 on t4.id = t1.order_id
-      inner join nomenklators t2 on t1.nomenklator_id = t2.guid
-      inner join unit_types t3 on t1.unit_type_id = t3.code
-      where order_id = $1
-      order by t2.artikul
-    `,
-    values: params,
-  }
-}
-function getConnOrder( strWhere ) {
-  return {
-    name: '',
-    text: `
-    select t1.id connid, t1.remember_token, t2.id orderid
-    from connections t1
-    inner join orders t2 on t2.connection_id = t1.id and t2.status=0
-    ${strWhere}
-    order by t1.id desc, t2.id desc
-    limit 1
-    `,
-    values: [],
-  }
-}
-function addNewConnOrder( userid ) {
-  return {
-    name: '',
-    text: `
-    with r1 as (insert into connections(user_id, remember_token, updated_at, created_at)
-      values( ${userid}, uuid_generate_v4(), now(), now() ) RETURNING id, remember_token)
-        insert into orders(connection_id, status, updated_at, created_at) values( (select id from r1), 0, now(), now())
-            RETURNING id orderid, (select id from r1) connid, (select remember_token from r1)
-    `,
-    values: [],
-  }
-}
-function chngOrder( orderid, guid, qty, price, unit_type_id ) {
-  return {
-    name: '',
-    text: `
-    with deleted as (delete from order_good_complects where order_good_id in
-      ( select id from order_goods where order_id = ${orderid} AND nomenklator_id = '${guid}'))
-        delete from order_goods where order_id = ${orderid} AND nomenklator_id = '${guid}';
-        insert into order_goods(order_id, nomenklator_id, qty, price, unit_type_id, sum )
-    		select ${orderid}, '${guid}', ${qty || 0}, ${price}, ${unit_type_id}, ${ qty*price } where ${qty || 0} > 0
-    		RETURNING id, nomenklator_id, qty;
-
-    `,
-    values: [],
-  }
-}
-function procOrder( orderid, dbinfo, mastercard ) {
-  return {
-    name: '',
-    text: `
-      update orders set status = 1, info='${ dbinfo }', card_payment_order='${mastercard}' where id=${orderid}
-    `,
-    values: [],
-  }
-}
-function chngSumOrder( orderid ) {
-  return {
-    name: '',
-    text: `
-    update orders t1 set sum=(select sum(t2.sum) from order_goods t2 where t2.order_id=${orderid}) where id=${orderid}
-    `,
-    values: [],
-  }
-}
-function unitOrders( params ) {
-
-  const orderid1    = params.orderid1   || null
-  const orderid2    = params.orderid2   || null
-  const orderidnew  = params.orderidnew || null
-
-  return {
-    name: '',
-    text: `
-    with r1 as (
-    insert into order_goods(order_id, nomenklator_id, unit_type_id, qty, price, sum, qty1, price1, sum1)
-    SELECT ${orderidnew} order_id, nomenklator_id, unit_type_id, sum(qty) qty, max(price) price, sum(qty)*max(price) sum, sum(qty1) qty1, max(price1) price1, sum(qty1)*max(price1) sum1
-    FROM order_goods
-    where order_id in (${orderid1}, ${orderid2})
-    group by
-    nomenklator_id, unit_type_id
-    returning id, nomenklator_id)
-
-    insert into order_good_complects(order_good_id, complect_id, unit_type_id, qty, koeff, price, qty1, koeff1, price1)
-    select r1.id order_id, t1.complect_id, t1.unit_type_id, sum(t1.qty) qty, max(t1.koeff) koeff, max(t1.price) price, sum(t1.qty1) qty1, max(t1.koeff1) koeff1, max(t1.price1) price1
-    from order_good_complects t1
-    inner join order_goods t2 on t1.order_good_id = t2.id and t2.order_id in (${orderid1}, ${orderid2})
-    inner join r1 on r1.nomenklator_id = t2.nomenklator_id
-    group by
-    r1.id, t1.complect_id, t1.unit_type_id;
-
-    delete from connections where id in ( select connection_id from orders where id in (${orderid1}, ${orderid2}));
-    delete from orders where id in (${orderid1}, ${orderid2});
-    delete from order_good_complects where order_good_id in (select id from order_goods where order_id in (${orderid1}, ${orderid2}));
-    delete from order_goods where order_id in (${orderid1}, ${orderid2});
-    `,
-    values: [],
-  }
-}
-function getOrdersList( userid ) {
-  return {
-    name: '',
-    text: `
-    select distinct t1.id, t1.status, to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order
-    from orders t1
-    inner join connections t2 on t1.connection_id=t2.id
-    where t1.status>0 and t2.user_id=${userid}
-    order by t1.id desc
-    `,
-    values: [],
-  }
-}
-
-//nikolas
-function getNomenklatorY() {
-  return {
-    name: '',
-    text: `
-    SELECT JSON_AGG(src) AS res
-    FROM (
-      select t1.filial, t2.artikul, CONCAT(t2.name, ' (', t2.artikul_new, ')') as name, t1.qty1, t1.qty1-t1.qty2 qty1, t1.qty2 qty2, t1.qty3 qty3,t1.qty4 qty4, t1.price3 price
-      from blnc_mob t1
-      left join nomenklators t2 on t1.guid = t2.guid
-      where price3<>0
-    ) src    `,
-    values: [],
-  }
-}
-
 //nomenklator
-function getSubNomenklator(params) {
+export function getSubNomenklator(params) {
 
   const textqry=`
 
@@ -245,7 +97,7 @@ function getSubNomenklator(params) {
     values: [],
   }
 }
-function getGoodCard(params) {
+export function getGoodCard(params) {
 
   const textqry=`
 
@@ -344,7 +196,7 @@ function getGoodCard(params) {
     values: [],
   }
 }
-function getPhotos250(params) {
+export function getPhotos250(params) {
 
   const textqry=`
 
@@ -376,7 +228,7 @@ function getPhotos250(params) {
     values: [],
   }
 }
-function getBreadCrumbs(params) {
+export function getBreadCrumbs(params) {
 
   const textqry=`
 
@@ -402,20 +254,7 @@ function getBreadCrumbs(params) {
     values: [],
   }
 }
-function getSeoText(params) {
-
-  const textqry=`
-				select content from seo_articles where name_group='${params.parentguid}'
-  `
-//console.log(params.parentguid);
-
-  return {
-    name: '',
-    text: textqry,
-    values: [],
-  }
-}
-function getSearchNomenklator_old({searchtext}) {
+export function getSearchNomenklator_old({searchtext}) {
 
   const strQueryWhereExactly  = searchtext.split(' ').join('').toLowerCase()
   const strQueryWhere         = '%' + searchtext.split(' ').join('%').toLowerCase() + '%'
@@ -450,7 +289,7 @@ function getSearchNomenklator_old({searchtext}) {
     values: [],
   }
 }
-function getSearchNomenklator({searchtext}) {
+export function getSearchNomenklator({searchtext}) {
 
   let whereStr = searchtext.toLowerCase().split(' ');
   whereStr.forEach(function(el, i) {this[i] = "'" + el + "'"}, whereStr);
@@ -489,66 +328,21 @@ function getSearchNomenklator({searchtext}) {
     values: [],
   }
 }
-
-//news
-function getNewsBlock() {
-
-  const textqry=`
-  select header, picture1 icon, path_pic2 pic, path_pdf  pdf
-  from new_blocks
-  where on_slider and on_public
-  order by id desc
-  `
-
-  return {
-    name: '',
-    text: textqry,
-    values: [],
-  }
-}
-
-//users
-function getUserByEmail({email}) {
-
-  return {
-    name: 'getUserByEmail',
-    text: "select id userid, password_digest from users where email=$1",
-    values: [email],
-  }
-}
-function addNewUser({email, name, phone, password_digest}) {
-
-  return {
-    name: 'addNewUser',
-    text: "insert into users(email, name, phone, password_digest, updated_at, created_at) values( $1, $2, $3, $4, now(), now())",
-    values: [email, name ? name : email, phone, password_digest],
-  }
-}
-function userAuth({keyUser}) {
-
-  return {
-    name: 'userAuth',
-    text: 'select id, email, name, phone from users where password_digest=$1',
-    values: [keyUser],
-  }
-}
-
-
-function getStrucCatalog() {
+export function getStrucCatalog() {
 
   const textqry=`
   WITH RECURSIVE location_with_level AS (
     SELECT guid node_id, name, parentguid parent_id, 0 AS lvl
       FROM nomenklators
      WHERE
-  	parentguid is NULL and guid not in ( 'yandexpagesecret', 'sekretnaya_papka' )
+        parentguid is NULL and guid not in ( 'yandexpagesecret', 'sekretnaya_papka' )
 
     UNION ALL
 
     SELECT child.guid, child.name, child.parentguid, lvl + 1
       FROM nomenklators child
       JOIN location_with_level parent ON parent.node_id = child.parentguid and child.itgroup
-  	where lvl <=1
+        where lvl <=1
   ),
   maxlvl AS (
     SELECT max(lvl) maxlvl FROM location_with_level
@@ -585,18 +379,18 @@ function getStrucCatalog() {
   c_tree_sort AS (
 
 
-  	 SELECT node_id, name, children from c_tree WHERE lvl=0
-  	order by lvl, name, (children->>'name')::text ASC
+         SELECT node_id, name, children from c_tree WHERE lvl=0
+        order by lvl, name, (children->>'name')::text ASC
   )
 
   select
   jsonb_pretty(
-  	array_to_json(
-  		array_agg(
-  			row_to_json(c_tree_sort)::JSONB
-  				)
-  			)::JSONB
-  	) AS tree
+        array_to_json(
+                array_agg(
+                        row_to_json(c_tree_sort)::JSONB
+                                )
+                        )::JSONB
+        ) AS tree
   from c_tree_sort
   `
 
@@ -607,30 +401,19 @@ function getStrucCatalog() {
   }
 }
 
-module.exports = {
-  getUsers,
-  getCart,
 
-  getConnOrder,
-  addNewConnOrder,
-  chngOrder,
-  procOrder,
-  chngSumOrder,
-  unitOrders,
-  getOrdersList,
-
-  getNomenklatorY,
-
-  getSubNomenklator,
-  getSearchNomenklator,
-  getGoodCard,
-  getPhotos250,
-  getBreadCrumbs,
-  getSeoText,
-  getUserByEmail,
-  addNewUser,
-  userAuth,
-
-  getNewsBlock,
-  getStrucCatalog,
- };
+//nikolas
+export function getNomenklatorY() {
+  return {
+    name: '',
+    text: `
+    SELECT JSON_AGG(src) AS res
+    FROM (
+      select t1.filial, t2.artikul, CONCAT(t2.name, ' (', t2.artikul_new, ')') as name, t1.qty1, t1.qty1-t1.qty2 qty1, t1.qty2 qty2, t1.qty3 qty3,t1.qty4 qty4, t1.price3 price
+      from blnc_mob t1
+      left join nomenklators t2 on t1.guid = t2.guid
+      where price3<>0
+    ) src    `,
+    values: [],
+  }
+}

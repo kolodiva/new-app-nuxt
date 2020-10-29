@@ -7,7 +7,7 @@
 // import _ from 'lodash'
 
 export const state = () => ({
-  strucCatalog: null,
+  strucCatalog: [],
   subNomenklator: [],
   goodCard: [],
   breadCrumb: [],
@@ -90,15 +90,11 @@ export const actions = {
   async loadSubNumenklator({ commit, dispatch, state }, { id }) {
     commit("SET_WAIT_LOAD_NOMENKLATOR", true);
     const userid = 1;
-    const { rows, breadcrumb, seoText } = await this.$api(
-      "nomenklator",
-      "getSubNomenklator",
-      {
-        userid,
-        parentguid: id,
-        connectionid: "",
-      }
-    );
+    const { rows, breadcrumb, seoText } = await this.$api("getSubNomenklator", {
+      userid,
+      parentguid: id,
+      connectionid: "",
+    });
 
     commit("SET_SUB_NOMENKLATOR", rows);
     commit("SET_BREAD_CRUMB", breadcrumb);
@@ -109,25 +105,21 @@ export const actions = {
     // commit('SET_WAIT_LOAD_NOMENKLATOR', true)
     // consola.info(id2);
     // const userid = this.$auth.user ? this.$auth.user.id : 1;
-    const { rows, rowsphoto, breadcrumb } = await this.$api(
-      "nomenklator",
-      "getGoodCard",
-      {
-        userid: 1,
-        synonym: id2,
-        connectionid: null,
-      }
-    );
+    const { rows, rowsphoto, breadcrumb } = await this.$api("getGoodCard", {
+      userid: 1,
+      synonym: id2,
+      connectionid: null,
+    });
 
     commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb });
   },
   async loadSeoTextMain({ commit, dispatch, state }) {
-    const { seoText } = await this.$api("nomenklator", "getSeoTextMain");
+    const { seoText } = await this.$api("getSeoTextMain");
 
     commit("SET_SEO_TEXT_MAIN", seoText);
   },
   async getStrucCatalog({ commit, dispatch, state }) {
-    const { rows } = await this.$api("nomenklator", "getStrucCatalog");
+    const { rows } = await this.$api("getStrucCatalog");
 
     // consola.log( rows[0].tree );
 

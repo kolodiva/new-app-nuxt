@@ -10,18 +10,16 @@
             <v-treeview
               v-model="tree"
               :items="strucCatalog"
-              :load-children="fetchUsers"
+              item-key="node_id"
+              hoverable
+              rounded
               activatable
-              item-key="name"
-              open-on-click
+              transition
               dense
-              style="height: 70vh; overflow-y: auto"
+              :open="open"
+              :active="active"
+              @update:active="fetchUsers"
             >
-              <template v-slot:prepend="{ item, open }">
-                <v-icon>
-                  {{ open ? "mdi-folder-open" : "mdi-folder" }}
-                </v-icon>
-              </template>
             </v-treeview>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -54,22 +52,110 @@ export default {
       openPanel2: [0],
       show: false,
       tree: [],
+      open: [],
+      active: [],
     };
   },
   computed: {
     ...mapGetters({
       strucCatalog: "nomenklator/strucCatalog",
+      breadCrumb: "nomenklator/getBreadCrumb",
     }),
   },
   mounted() {
+    // this.$hello(lastEl);
+
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
+
+    if (this.breadCrumb.length === 2) {
+      const lastEl = this.breadCrumb[this.breadCrumb.length - 1];
+
+      this.active.push(lastEl.href);
+    }
+
+    if (this.breadCrumb.length > 2) {
+      const lastEl1 = this.breadCrumb[this.breadCrumb.length - 1];
+      const lastEl2 = this.breadCrumb[this.breadCrumb.length - 2];
+
+      this.active.push(lastEl1.href);
+      this.open.push(lastEl2.href);
+    }
+
+    if (this.breadCrumb.length > 3) {
+      const lastEl = this.breadCrumb[this.breadCrumb.length - 3];
+      this.open.push(lastEl.href);
+    }
+
+    if (this.breadCrumb.length > 4) {
+      const lastEl = this.breadCrumb[this.breadCrumb.length - 4];
+      this.open.push(lastEl.href);
+    }
+
+    if (this.breadCrumb.length > 5) {
+      const lastEl = this.breadCrumb[this.breadCrumb.length - 5];
+      this.open.push(lastEl.href);
+    }
+
+    /// //////////
+    this.$nextTick(() => {
+      const box = document.querySelector(".v-expansion-panel-content__wrap");
+      const targetElm = document.querySelector(".v-treeview-node--active");
+
+      scrollToElm(box, targetElm, 600);
+    });
+
+    function scrollToElm(container, elm, duration) {
+      const pos = getRelativePos(container, elm);
+      console.log(pos);
+      scrollTo(container, pos.top - 150, 1); // duration in seconds
+    }
+
+    function getRelativePos(container, elm) {
+      const pPos = container.getBoundingClientRect(); // parent pos
+      const cPos = elm.getBoundingClientRect(); // target pos
+      const pos = {};
+
+      pos.top = cPos.top - pPos.top + elm.parentNode.scrollTop;
+      pos.right = cPos.right - pPos.right;
+      pos.bottom = cPos.bottom - pPos.bottom;
+      pos.left = cPos.left - pPos.left;
+
+      return pos;
+    }
+
+    function scrollTo(element, to, duration, onDone) {
+      const start = element.scrollTop;
+      const change = to - start;
+      const startTime = performance.now();
+      let now;
+      let elapsed;
+      let t;
+
+      function animateScroll() {
+        now = performance.now();
+        elapsed = (now - startTime) / 1000;
+        t = elapsed / duration;
+
+        element.scrollTop = start + change * easeInOutQuad(t);
+
+        if (t < 1) window.requestAnimationFrame(animateScroll);
+        else onDone && onDone();
+      }
+
+      animateScroll();
+    }
+
+    function easeInOutQuad(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
   },
   methods: {
-    fetchUsers(item) {
+    fetchUsers(items) {
+      // this.$hello(items);
       // Remove in 6 months and say
       // you've made optimizations! :)
       // await pause(100);
-      this.$router.push(item.node_id);
+      this.$router.push(items[0]);
     },
   },
 };
@@ -77,7 +163,10 @@ export default {
 
 <style>
 .v-expansion-panel-content__wrap {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 14px;
+  overflow-y: scroll;
+  height: 50vh;
 }
 </style>

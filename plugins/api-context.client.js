@@ -1,8 +1,9 @@
 export default (context, inject) => {
-  inject("api", async (controller, method, params) => {
+  inject("api", async (method, params) => {
+    // const controller = "";
     try {
       return await context.$axios["$" + (params ? "post" : "get")](
-        "/api/" + controller + "/" + method,
+        "/api/" + method,
         params
       );
     } catch (e) {

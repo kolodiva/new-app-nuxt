@@ -27,7 +27,7 @@ export const getters = {
 
 export const actions = {
   async setSlider({ commit, dispatch, state }) {
-    const rows = await this.$api("news", "getNewsBlock");
+    const rows = await this.$api("getNewsBlock");
     // consola.info(rows);
     await commit("SET_SLIDER", rows);
   },
