@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col md="2" class="hidden-sm-and-down">
+      <v-col md="3" lg="2" class="hidden-sm-and-down" style="">
         <TheGoodsListLeftSideBar />
       </v-col>
 
-      <v-col md="10" sm="12" class="pt-0">
+      <v-col md="9" lg="10" class="pt-0">
         <TheGoodsListMenu />
         <v-card
           min-height="100vh"
@@ -14,11 +14,27 @@
           flat
           tile
         >
-          <TheGoodsListMosaicElement
-            v-for="(pos, id) in subNomenklator"
-            :key="id"
-            :pos="pos"
-          />
+          <template v-if="catalogTypeView === 'mosaic'">
+            <TheGoodsListMosaicElement
+              v-for="(pos, id) in subNomenklator"
+              :key="id"
+              :pos="pos"
+            />
+          </template>
+          <template v-else-if="catalogTypeView === 'list'">
+            <TheGoodsListListElement
+              v-for="(pos, id) in subNomenklator"
+              :key="id"
+              :pos="pos"
+            />
+          </template>
+          <template v-else-if="catalogTypeView === 'table'">
+            <TheGoodsListTableElement
+              v-for="(pos, id) in subNomenklator"
+              :key="id"
+              :pos="pos"
+            />
+          </template>
         </v-card>
       </v-col>
     </v-row>
@@ -37,6 +53,7 @@ export default {
   computed: {
     ...mapGetters({
       subNomenklator: "nomenklator/getSubNomenklator",
+      catalogTypeView: "nomenklator/getCatalogTypeView",
     }),
   },
   mounted() {

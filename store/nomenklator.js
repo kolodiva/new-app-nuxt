@@ -7,6 +7,7 @@
 // import _ from 'lodash'
 
 export const state = () => ({
+  catalogTypeView: "list",
   strucCatalog: [],
   subNomenklator: [],
   goodCard: [],
@@ -40,6 +41,9 @@ export const mutations = {
   SET_STRUC_CATALOG(state, rows) {
     state.strucCatalog = JSON.parse(rows);
   },
+  SET_CATALOG_TYPE_VIEW(state, name) {
+    state.catalogTypeView = name;
+  },
 };
 
 export const getters = {
@@ -56,6 +60,10 @@ export const getters = {
   getSubNomenklator: (state) => {
     return state.subNomenklator;
   },
+  getCatalogTypeView: (state) => {
+    return state.catalogTypeView;
+  },
+
   getGoodCard: (state) => {
     return state.goodCard.rows[0];
   },
@@ -124,5 +132,8 @@ export const actions = {
     // consola.log( rows[0].tree );
 
     commit("SET_STRUC_CATALOG", rows[0].tree);
+  },
+  chngCatalogTypeView({ commit, dispatch, state }, name) {
+    commit("SET_CATALOG_TYPE_VIEW", name);
   },
 };
