@@ -45,15 +45,18 @@
         <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
       </div>
       <v-text-field
+        v-model="pos.qty2"
         rounded
         filled
         type="number"
         class="mt-4 centered-input"
         style="max-width: 235px"
         dense
-        :label="`Кол-во, ${pos.unit_name}`"
+        :label="txtLabel"
+        @change="$emit('chngorder', id)"
+        @focus="$event.target.select()"
       >
-        <v-icon slot="append" color="green"> mdi-cart </v-icon>
+        <v-icon slot="append" :color="btnColor"> mdi-cart </v-icon>
       </v-text-field>
     </v-col>
   </v-row>
@@ -61,12 +64,11 @@
 
 <script>
 export default {
-  props: ["pos"],
+  props: ["pos", "id"],
   data() {
     return {
       show: false,
       errLoadImg: false,
-      qty: 0,
     };
   },
   computed: {
@@ -75,14 +77,30 @@ export default {
         ? "https://newfurnitura.ru/upload/8126cd02-1094-46d4-a70a-f2e2d5b5_250x250.jpg"
         : this.pos.guid_picture;
     },
+    btnColor() {
+      return parseFloat(this.pos.qty1) === parseFloat(this.pos.qty2)
+        ? "green"
+        : "red";
+    },
+    txtLabel() {
+      return parseFloat(this.pos.qty1) === parseFloat(this.pos.qty2)
+        ? "Кол-во, " + this.pos.unit_name
+        : "Кол-во, " + this.pos.unit_name + ", было " + this.pos.qty1;
+    },
   },
-  mounted() {},
+  mounted() {
+    // this.qty = parseFloat(this.pos.qty2);
+  },
+
   methods: {
     async showQuickShopDialog() {
       await this.$store.dispatch("shop/openQuickShopDialog", this.pos);
     },
     onImgErrorLoad() {
       this.errLoadImg = true;
+    },
+    _chngOrder() {
+      console.log(this.pos.qty2);
     },
   },
 };

@@ -14,26 +14,42 @@
     </v-tab>
 
     <v-tab-item>
-      <v-card flat>
-        <v-card-text>
-          <p>
-            Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac
-            felis. Etiam feugiat lorem non metus. Sed a libero.
-          </p>
-
-          <p>
-            Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus.
-            Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc.
-            Aliquam lobortis. Aliquam lobortis. Suspendisse non nisl sit amet
-            velit hendrerit rutrum.
-          </p>
-
-          <p class="mb-0">
-            Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu.
-            Pellentesque libero tortor, tincidunt et, tincidunt eget, semper
-            nec, quam. Phasellus blandit leo ut odio.
-          </p>
-        </v-card-text>
+      <v-card flat width="500" class="ml-5">
+        <v-form v-model="valid" transition="scale-transition">
+          <v-text-field
+            v-model="userInfo.email"
+            label="Email"
+            clearable
+            type="email"
+            counter="true"
+            :rules="[
+              required(userInfo.email),
+              emailFormat(userInfo.email),
+              maxLength('Длинноватс.', 30),
+            ]"
+          />
+          <v-text-field
+            v-model="userInfo.password"
+            label="Пароль"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            clearable
+            counter="true"
+            :rules="[
+              required('пароль'),
+              minLength('Пароль очень нужен', `${hasName ? 6 : 3}`),
+              maxLength('Длинноватс.', 30),
+            ]"
+            clear-icon="mdi-close-circle"
+            @click:append="showPassword = !showPassword"
+          />
+          <v-btn
+            class="mt-8"
+            :disabled="!valid"
+            @click="submitForm(userInfo)"
+            >{{ buttonText }}</v-btn
+          >
+        </v-form>
       </v-card>
     </v-tab-item>
     <v-tab-item>
@@ -110,8 +126,8 @@ export default {
     showEmail: false,
     userInfo: {
       phone: "",
-      email: "",
-      password: "",
+      email: "afmc@mail.ru",
+      password: "Pp123456",
       password1: "",
       name: "",
     },
@@ -125,6 +141,6 @@ export default {
 
 <style lang="scss" scoped>
 .v-input {
-  font-size: 1.3rem !important;
+  font-size: 1.2rem !important;
 }
 </style>

@@ -26,7 +26,9 @@
       <v-spacer />
       <TheSearchField />
       <v-spacer />
-      <v-btn text :class="['buttonMFWhiteColor']"> ГЕО.ИНФ. </v-btn>
+      <v-btn id="yourCity" text :class="['buttonMFWhiteColor']">
+        ГЕО.ИНФ.
+      </v-btn>
     </v-app-bar>
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>

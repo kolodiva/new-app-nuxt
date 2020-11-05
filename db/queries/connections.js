@@ -1,4 +1,4 @@
-export async function getConnectionOrder( userid, connectionid, createnewconn = true ) {
+export async function getConnectionOrder_old( userid, connectionid, createnewconn = true ) {
 
   const strWhere = userid === 1 ? `where t1.user_id = ${userid} and t1.remember_token = '${connectionid}'` : `where t1.user_id = ${userid}`
 
@@ -18,6 +18,27 @@ export async function getConnectionOrder( userid, connectionid, createnewconn = 
 
   return rows[0]
 }
+
+export async function getConnectionOrder( userid, connectionid, createnewconn = true  ) {
+
+  const strWhere = userid === 1 ? `where t1.user_id = ${userid} and t1.remember_token = '${connectionid}'` : `where t1.user_id = ${userid}`
+
+  let {rows} = await queryApp( 'getConnOrder', strWhere )
+
+  if ( rows.length === 0 && !createnewconn ) {
+    return {connid: undefined, orderid: undefined, remember_token: undefined}
+  }
+
+  if ( rows.length === 0 ) {
+
+    const newconn = await queryApp( 'addNewConnOrder', userid )
+
+    rows = newconn.rows
+  }
+
+  return rows[0]
+}
+
 
 async function chngOrder( orderid, guid, qty, price, unit_type_id ) {
 

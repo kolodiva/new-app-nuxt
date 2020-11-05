@@ -44,6 +44,15 @@ export const mutations = {
   SET_CATALOG_TYPE_VIEW(state, name) {
     state.catalogTypeView = name;
   },
+  SET_NEW_QTY(state, { id, esc }) {
+    const obj = id < 0 ? state.goodCard.rows[0] : state.subNomenklator[id];
+    if (esc === true) {
+      obj.qty2 = obj.qty1;
+    } else {
+      obj.qty1 = obj.qty2;
+      obj.total = parseFloat(obj.qty1 * obj.price1).toFixed(2);
+    }
+  },
 };
 
 export const getters = {
@@ -95,13 +104,16 @@ export const getters = {
 };
 
 export const actions = {
+  chngCatalogTypeView({ commit, dispatch, state }, name) {
+    commit("SET_CATALOG_TYPE_VIEW", name);
+  },
   async loadSubNumenklator({ commit, dispatch, state }, { id }) {
     commit("SET_WAIT_LOAD_NOMENKLATOR", true);
-    const userid = 1;
+    const { userid, token } = this.$authinfo(this.$auth);
     const { rows, breadcrumb, seoText } = await this.$api("getSubNomenklator", {
       userid,
       parentguid: id,
-      connectionid: "",
+      token,
     });
 
     commit("SET_SUB_NOMENKLATOR", rows);
@@ -133,7 +145,45 @@ export const actions = {
 
     commit("SET_STRUC_CATALOG", rows[0].tree);
   },
-  chngCatalogTypeView({ commit, dispatch, state }, name) {
-    commit("SET_CATALOG_TYPE_VIEW", name);
+  async chngeCart({ commit, dispatch, state }, id) {
+    // const token =
+    //   (this.$auth.$storage.getCookie("_token.local") &&
+    //     this.$auth.$storage.getCookie("_token.local").replace("Bearer ", "")) ||
+    //   undefined;
+    //
+    // const userid = (this.$auth.user && this.$auth.user.id) || 1;
+
+    const { userid, token } = this.$authinfo(this.$auth);
+
+    //  consola.info(token);
+
+    // id < 0 case chnge from cardGood
+    const obj = id < 0 ? state.goodCard.rows[0] : state.subNomenklator[id];
+
+    const info = {
+      guid: obj.guid,
+      qty: obj.qty2,
+      price1: obj.price1,
+      unit_type_id: obj.unit_type_id,
+      token,
+      userid,
+    };
+
+    // consola.info(info);
+
+    const rememberToken = await this.$api("chngeCart", info);
+
+    // consola.info(rememberToken);
+
+    // this.$auth.setUser({ id: userid, token: rememberToken });
+    if (token !== rememberToken) {
+      this.$auth.setUserToken(rememberToken);
+    }
+
+    // consola.info(this.$auth.user);
+
+    commit("SET_NEW_QTY", { id, esc: false });
+    //
+    // return rows;
   },
 };

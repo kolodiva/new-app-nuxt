@@ -49,6 +49,7 @@ module.exports = {
          {src: "/src/jquery.stickr.min.js"},
          {src: "/src/jquery.morecontent.min.js"},
          {src: "https://widget.cdek.ru/widget/widjet.js", id: "ISDEKscript", charset: "utf-8"},
+         {src: "https://api-maps.yandex.ru/2.1/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU", type: "text/javascript"},
      ],
   },
   /*
@@ -87,9 +88,11 @@ module.exports = {
     // {src: '~/plugins/vue-zoomer.js', mode: 'client'},
     // {src: '~/plugins/vue-inject.js', mode: 'client'},
     // {src: '~/plugins/crypto-js.js'},
+    {src: '~/plugins/auth-info.js' },
     {src: '~/plugins/hello.js' },
     {src: '~/plugins/api-context.client.js'},
     {src: '~/plugins/api-context.server.js'},
+    {src: '~/plugins/crypto-js.js'},
     //{src: '~/plugins/read-more-js.js', mode: 'client'},
     //{src: '~/plugins/jq.js', mode: 'client'},
     //{src: '~/plugins/jq2.js', mode: 'client'},
@@ -139,27 +142,23 @@ module.exports = {
      //baseURL: 'http://127.0.0.1:3000/api'
   },
 
-  // auth: {
-  //   strategies: {
-  //     local: {
-  //       token: {
-  //         required: true,
-  //         type: false,
-  //         maxAge: 604800
-  //        },
-  //       endpoints: {
-  //         login: { url: '/api/session', method: 'post', propertyName: 'data.token'  },
-  //         user: { url: '/api/userAuth', method: 'get', propertyName: 'data'  },
-  //         logout: false
-  //       },
-  //     },
-  //   },
-  //   redirect: {
-  //   home: false,
-  //   callback: false,
-  //   logout: false,
-  //   }
-  // },
+  auth: {
+      localStorage: false,
+      cookie: {
+          options: {
+            expires: 7
+          }
+      },
+      strategies: {
+        local: {
+          endpoints: {
+            login: false,
+            user: false,
+            logout: false,
+          },
+        }
+      },
+    },
 
   vuetify: {
     // customVariables: ['~/assets/variables.scss'],

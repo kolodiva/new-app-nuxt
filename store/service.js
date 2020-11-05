@@ -11,6 +11,9 @@ export const mutations = {
   SET_SLIDER(state, data) {
     state.slides = data;
   },
+  SET_YOUR_CITY(state, nameCity) {
+    state.yourCity = nameCity;
+  },
 };
 
 export const getters = {

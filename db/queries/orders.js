@@ -24,7 +24,7 @@ export function addNewConnOrder( userid ) {
     values: [],
   }
 }
-export function chngOrder( orderid, guid, qty, price, unit_type_id ) {
+export function chngOrder( {orderid, guid, qty, price, unit_type_id} ) {
   return {
     name: '',
     text: `

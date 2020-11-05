@@ -24,8 +24,10 @@
           <template v-else-if="catalogTypeView === 'list'">
             <TheGoodsListListElement
               v-for="(pos, id) in subNomenklator"
+              :id="id"
               :key="id"
               :pos="pos"
+              @chngorder="chngorder"
             />
           </template>
           <template v-else-if="catalogTypeView === 'table'">
@@ -59,6 +61,12 @@ export default {
   mounted() {
     // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
     // $('#sidebar2').stickr({duration:0, offsetTop: 80});
+  },
+  methods: {
+    async chngorder(id) {
+      await this.$store.dispatch("nomenklator/chngeCart", id);
+      // console.log(pos.qty2, id);
+    },
   },
 };
 </script>
