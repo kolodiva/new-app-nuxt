@@ -68,8 +68,8 @@ export function getSubNomenklator(params) {
     COALESCE(price_list_total.price2, 0.00) as price2,
     COALESCE(price_list_total.price3, 0.00) as price3,
 
-    COALESCE(order_goods.qty, 0) as qty1,
-    COALESCE(order_goods.qty, 0) as qty2,
+    COALESCE(order_goods.qty::real, 0) as qty1,
+    COALESCE(order_goods.qty::real, 0) as qty2,
 
     round(COALESCE(order_goods.price, 0.00), 2) as price_order,
 
@@ -167,8 +167,8 @@ export function getGoodCard(params) {
     COALESCE(price_list_total.price2, 0.00) as price2,
     COALESCE(price_list_total.price3, 0.00) as price3,
 
-    COALESCE(order_goods.qty, 0) as qty1,
-    COALESCE(order_goods.qty, 0) as qty2,
+    COALESCE(order_goods.qty::real, 0) as qty1,
+    COALESCE(order_goods.qty::real, 0) as qty2,
 
     round(COALESCE(order_goods.price, 0.00), 2) as price_order,
 

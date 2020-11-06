@@ -16,6 +16,7 @@ export const state = () => ({
   seoText: "",
   seoTextMain: "",
   waitNomenklatorLoad: undefined,
+  snackbars: [],
 });
 
 export const mutations = {
@@ -47,11 +48,15 @@ export const mutations = {
   SET_NEW_QTY(state, { id, esc }) {
     const obj = id < 0 ? state.goodCard.rows[0] : state.subNomenklator[id];
     if (esc === true) {
-      obj.qty2 = obj.qty1;
+      obj.qty2 = parseFloat(obj.qty1);
     } else {
-      obj.qty1 = obj.qty2;
+      obj.qty1 = parseFloat(obj.qty2);
+      obj.qty2 = parseFloat(obj.qty2);
       obj.total = parseFloat(obj.qty1 * obj.price1).toFixed(2);
     }
+  },
+  SET_SNACKBAR(state, snackbar) {
+    state.snackbars = state.snackbars.concat(snackbar);
   },
 };
 
@@ -109,11 +114,12 @@ export const actions = {
   },
   async loadSubNumenklator({ commit, dispatch, state }, { id }) {
     commit("SET_WAIT_LOAD_NOMENKLATOR", true);
-    const { userid, token } = this.$authinfo(this.$auth);
+    // const { userid, token } = this.$authinfo(this.$auth);
+    const userid = (this.$auth.user && this.$auth.user.id) || 1;
     const { rows, breadcrumb, seoText } = await this.$api("getSubNomenklator", {
       userid,
       parentguid: id,
-      token,
+      token: this.$cookies.get("connectionid"),
     });
 
     commit("SET_SUB_NOMENKLATOR", rows);
@@ -128,7 +134,7 @@ export const actions = {
     const { rows, rowsphoto, breadcrumb } = await this.$api("getGoodCard", {
       userid: 1,
       synonym: id2,
-      connectionid: null,
+      token: this.$cookies.get("connectionid"),
     });
 
     commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb });
@@ -146,14 +152,7 @@ export const actions = {
     commit("SET_STRUC_CATALOG", rows[0].tree);
   },
   async chngeCart({ commit, dispatch, state }, id) {
-    // const token =
-    //   (this.$auth.$storage.getCookie("_token.local") &&
-    //     this.$auth.$storage.getCookie("_token.local").replace("Bearer ", "")) ||
-    //   undefined;
-    //
-    // const userid = (this.$auth.user && this.$auth.user.id) || 1;
-
-    const { userid, token } = this.$authinfo(this.$auth);
+    const userid = (this.$auth.user && this.$auth.user.id) || 1;
 
     //  consola.info(token);
 
@@ -162,28 +161,45 @@ export const actions = {
 
     const info = {
       guid: obj.guid,
-      qty: obj.qty2,
+      qty: obj.qty2 || 0,
       price1: obj.price1,
       unit_type_id: obj.unit_type_id,
-      token,
       userid,
     };
 
     // consola.info(info);
 
-    const rememberToken = await this.$api("chngeCart", info);
+    const resOk = await this.$api("chngeCart", info);
 
-    // consola.info(rememberToken);
+    if (resOk === true) {
+      obj.qty2 = obj.qty2 === null ? 0 : parseFloat(obj.qty2);
 
-    // this.$auth.setUser({ id: userid, token: rememberToken });
-    if (token !== rememberToken) {
-      this.$auth.setUserToken(rememberToken);
+      const qty2eq0 = obj.qty2 === 0;
+
+      commit("SET_NEW_QTY", { id, esc: false });
+
+      await dispatch("setSnackbar", {
+        color: qty2eq0 ? "lightgrey" : "green",
+        text: qty2eq0
+          ? `Позиция, ${obj.artikul} удалена из корзины.`
+          : `Позиция, ${obj.artikul} в кол-ве: ${obj.qty2} доб/изм.`,
+        timeout: 3000,
+        showing: true,
+      });
+    } else {
+      commit("SET_NEW_QTY", { id, esc: true });
+
+      await dispatch("setSnackbar", {
+        color: "red",
+        text: `Ошибка по многим разным причинам. Попробуйте позже.`,
+        timeout: 3000,
+        showing: true,
+      });
     }
-
-    // consola.info(this.$auth.user);
-
-    commit("SET_NEW_QTY", { id, esc: false });
-    //
-    // return rows;
+  },
+  setSnackbar({ commit }, snackbar) {
+    snackbar.showing = true;
+    snackbar.color = snackbar.color || "success";
+    commit("SET_SNACKBAR", snackbar);
   },
 };

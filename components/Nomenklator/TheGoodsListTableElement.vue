@@ -17,6 +17,12 @@
           style="cursor: pointer"
           @error="onImgErrorLoad"
         >
+          <v-img
+            v-if="pos.is_complect > 0"
+            src="/isComplect.png"
+            width="16"
+            style="cursor: pointer; position: absolute; right: 60px; top: 5px"
+          />
         </v-img>
       </n-link>
     </v-col>
@@ -46,15 +52,30 @@
     </v-col>
     <v-col>
       <v-text-field
+        v-model="pos.qty2"
         rounded
         filled
+        clearable
         type="number"
-        class="mt-4 centered-input"
+        :class="['mt-4', 'centered-input', { 'change-value': diffQty }]"
         style="max-width: 235px"
         dense
-        :label="`Кол-во, ${pos.unit_name}`"
+        :label="txtLabel"
+        @click:clear="
+          pos.qty2 = 0;
+          $emit('chngorder', id);
+        "
+        @keyup.enter="$emit('chngorder', id)"
+        @keyup.esc="pos.qty2 = pos.qty1"
+        @focus="$event.target.select()"
       >
-        <v-icon slot="append" color="green"> mdi-cart </v-icon>
+        <v-img
+          slot="append"
+          src="/cart.png"
+          width="28"
+          style="cursor: pointer"
+          @click="$emit('chngorder', id)"
+        />
       </v-text-field>
     </v-col>
   </v-row>
@@ -62,7 +83,7 @@
 
 <script>
 export default {
-  props: ["pos"],
+  props: ["pos", "id"],
   data() {
     return {
       show: false,
@@ -75,6 +96,14 @@ export default {
       return this.errLoadImg
         ? "https://newfurnitura.ru/upload/8126cd02-1094-46d4-a70a-f2e2d5b5_250x250.jpg"
         : this.pos.guid_picture;
+    },
+    txtLabel() {
+      return parseFloat(this.pos.qty1) === parseFloat(this.pos.qty2)
+        ? this.pos.unit_name
+        : this.pos.unit_name + ", было " + this.pos.qty1 + ", esc - отмена.";
+    },
+    diffQty() {
+      return parseFloat(this.pos.qty1) !== parseFloat(this.pos.qty2);
     },
   },
   mounted() {},
@@ -90,6 +119,9 @@ export default {
 </script>
 
 <style scoped>
+.change-value >>> .v-text-field__slot input {
+  color: red;
+}
 .centered-input >>> input {
   /* text-align: center; */
 }

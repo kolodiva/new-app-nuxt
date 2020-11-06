@@ -17,8 +17,10 @@
           <template v-if="catalogTypeView === 'mosaic'">
             <TheGoodsListMosaicElement
               v-for="(pos, id) in subNomenklator"
+              :id="id"
               :key="id"
               :pos="pos"
+              @chngorder="chngorder"
             />
           </template>
           <template v-else-if="catalogTypeView === 'list'">
@@ -33,8 +35,10 @@
           <template v-else-if="catalogTypeView === 'table'">
             <TheGoodsListTableElement
               v-for="(pos, id) in subNomenklator"
+              :id="id"
               :key="id"
               :pos="pos"
+              @chngorder="chngorder"
             />
           </template>
         </v-card>
@@ -64,8 +68,22 @@ export default {
   },
   methods: {
     async chngorder(id) {
-      await this.$store.dispatch("nomenklator/chngeCart", id);
-      // console.log(pos.qty2, id);
+      const pos = this.subNomenklator[id];
+
+      if (pos.qty2 === "" || pos.qty2 == null || parseFloat(pos.qty2) < 0) {
+        pos.qty2 = 0;
+      }
+
+      if (parseFloat(pos.qty1) === parseFloat(pos.qty2)) {
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "red",
+          text: `Мозги керак эмас.`,
+          timeout: 3000,
+          showing: true,
+        });
+      } else {
+        await this.$store.dispatch("nomenklator/chngeCart", id);
+      }
     },
   },
 };

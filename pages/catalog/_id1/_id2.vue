@@ -21,7 +21,7 @@
                 active-class="background-color: white"
               >
                 <v-tabs-slider color="transparent"></v-tabs-slider>
-                <v-tab style="height: 30px" @click="$router.back()">
+                <v-tab style="height: 30px" @click="backUp()">
                   <v-spacer /> К списку
                 </v-tab>
                 <v-tab style="height: 30px" @click="goTo('#section_1')">
@@ -125,7 +125,49 @@
           >
             <div>
               <p>Артикул: {{ pos.artikul }}, {{ pos.artikul_new }}</p>
-              <p class="">Цена: {{ pos.price1 }}</p>
+              <div class="d-flex">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      v-bind="attrs"
+                      style="transform: scale(-1, 1)"
+                      v-on="on"
+                      >mdi-head-heart-outline
+                    </v-icon>
+                  </template>
+                  <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
+                  <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
+                </v-tooltip>
+                &nbsp;
+                <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
+              </div>
+
+              <v-text-field
+                v-model="pos.qty2"
+                rounded
+                filled
+                clearable
+                type="number"
+                :class="['mt-4', 'centered-input', { 'change-value': diffQty }]"
+                style="max-width: 290px"
+                dense
+                :label="txtLabel"
+                @keyup.esc="pos.qty2 = pos.qty1"
+                @keyup.enter="chngorder()"
+                @focus="$event.target.select()"
+                @click:clear="
+                  pos.qty2 = 0;
+                  chngorder();
+                "
+              >
+                <v-img
+                  slot="append"
+                  src="/cart.png"
+                  width="28"
+                  style="cursor: pointer"
+                  @click="chngorder()"
+                />
+              </v-text-field>
             </div>
           </div>
         </v-col>
@@ -160,18 +202,41 @@ export default {
       { field: "Цвет", val: "color" },
     ],
     openDialogBigView: false,
+    fromRoute: null,
+    textLabel: "",
   }),
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fromRoute = from;
+    });
+  },
   computed: {
     ...mapGetters({
       pos: "nomenklator/getGoodCard",
       photos: "nomenklator/getGoodCardRowsPhoto",
     }),
+    txtLabel() {
+      return parseFloat(this.pos.qty1) === parseFloat(this.pos.qty2)
+        ? this.pos.unit_name
+        : this.pos.unit_name + ", было " + this.pos.qty1 + ", esc - отмена.";
+    },
+    diffQty() {
+      return parseFloat(this.pos.qty1) !== parseFloat(this.pos.qty2);
+    },
   },
   mounted() {
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 55 });
     window.$("#sidebar2").stickr({ duration: 0, offsetTop: 55 });
   },
   methods: {
+    backUp() {
+      if (!this.fromRoute || !this.fromRoute.name) {
+        this.$router.push("/catalog/" + this.pos.parentguid);
+      } else {
+        this.$router.back();
+      }
+    },
+
     goTo(element) {
       // this.$hello(window.$(element).position().top);
       this.$vuetify.goTo(window.$(element).position().top - 50);
@@ -194,35 +259,47 @@ export default {
         window.$("#section_3").offset().top - wScrL + addVal,
         window.$("#section_4").offset().top - wScrL + addVal,
       ];
-      // this.$hello("--- " + curBlock.id.split("_")[1]);
-
-      // this.$hello(curBlock.indexOf(curBlock.find((val) => val > 0)));
-      // this.$hello(curBlock);
 
       this.cur_tab = curBlock.indexOf(curBlock.find((val) => val > 0)) + 1;
+    },
 
-      // if (curBlock.sec >= 1) {
-      //   const res = curBlock.id.split("_")[1];
-      //   this.cur_tab = parseInt(res);
-      //   // this.$hello(this.cur_tab);
-      // }
-      // if (entries[0].target.textContent === "Центр_50") {
-      //   this.pos50 = entries[0].intersectionRatio >= 0.5;
-      // }
-      // if (entries[0].target.textContent === "Центр_100") {
-      //   this.pos100 = entries[0].intersectionRatio >= 1;
-      // }
-      // if (entries[0].target.textContent === "Центр_149") {
-      //   this.pos150 = entries[0].intersectionRatio >= 1;
-      // }
-      // consola.info(entries[0].target.innerText, entries[0].intersectionRatio)
+    async chngorder() {
+      const pos = this.pos;
+
+      if (pos.qty2 === "" || pos.qty2 === null || parseFloat(pos.qty2) < 0) {
+        pos.qty2 = 0;
+      }
+      // this.$hello(pos.qty1 === undefined);
+      if (parseFloat(pos.qty1) === parseFloat(pos.qty2)) {
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "red",
+          text: `Мозги керак эмас.`,
+          timeout: 3000,
+          showing: true,
+        });
+      } else {
+        await this.$store.dispatch("nomenklator/chngeCart", -1);
+      }
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
+.change-value >>> .v-text-field__slot input {
+  color: red;
+}
 .show-btns {
   color: rgba(255, 255, 255, 1) !important;
+}
+.centered-input >>> input {
+  /* text-align: center; */
+}
+.centered-input >>> input[type="number"] {
+  -moz-appearance: textfield;
+}
+.centered-input >>> input::-webkit-outer-spin-button,
+.centered-input >>> input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 </style>

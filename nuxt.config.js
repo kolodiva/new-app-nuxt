@@ -88,7 +88,6 @@ module.exports = {
     // {src: '~/plugins/vue-zoomer.js', mode: 'client'},
     // {src: '~/plugins/vue-inject.js', mode: 'client'},
     // {src: '~/plugins/crypto-js.js'},
-    {src: '~/plugins/auth-info.js' },
     {src: '~/plugins/hello.js' },
     {src: '~/plugins/api-context.client.js'},
     {src: '~/plugins/api-context.server.js'},

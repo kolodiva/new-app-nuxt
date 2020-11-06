@@ -5,6 +5,7 @@
       <Nuxt />
       <TheFooter />
     </v-main>
+    <TheSnackbar />
     <v-fab-transition>
       <v-btn
         v-show="showScrollTop"

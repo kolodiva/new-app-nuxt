@@ -27,7 +27,10 @@ async function getConnectionOrder( userid, connectionid, createnewconn = true  )
 //nomenklator
 export async function getSubNomenklator( { parentguid, userid, token } ) {
 
+  //connectionid мы получаем из ПАРАМЕТРОВ в кот middle-server засовывает этот параметр пр любом запросе
   //console.log( { parentguid, userid, token } )
+
+  //console.log( token )
 
   //Ищем номер Заказа без создания если его нет НЕ создаем новый
   const { orderid }  = await getConnectionOrder( userid, token, false );
@@ -46,9 +49,9 @@ export async function getSubNomenklator( { parentguid, userid, token } ) {
   return {rows, breadcrumb: breadcrumb.rows, seoText: seoText.rows};
 }
 
-export async function getGoodCard( { synonym, userid, connectionid } ) {
+export async function getGoodCard( { synonym, userid, token } ) {
 
-  const { orderid }  = await db.getConnectionOrder( userid, connectionid, false );
+  const { orderid }  = await getConnectionOrder( userid, token, false );
 
   //const orderid = undefined;
 
@@ -130,16 +133,27 @@ async function chngOrder( orderid, guid, qty, price, unit_type_id ) {
   const res = await db.queryApp('chngOrder', { orderid, guid, qty, price, unit_type_id } )
   const res2 = await db.queryApp('chngSumOrder', orderid )
 
-  return ( res[1].rowCount === 1 )
+  return ( res[1].rowCount === 1 || (res[1].rowCount === 0 && parseFloat(qty) === 0) )
 }
 
-export async function chngeCart( params, res) {
+export async function chngeCart( { guid, qty, price1, unit_type_id, userid, connectionid }, res) {
 
-  const { guid, qty, price1, unit_type_id, token, userid } = params;
+  //console.log( qty )
 
-  const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
+  //const token = res.cookie('connectionid');
+  // const token = req.cookie('connectionid') || undefined;
+  //
+  // console.log( token )
+
+  const {connid, orderid, remember_token}  = await getConnectionOrder( userid, connectionid );
+
+  if (remember_token && remember_token != connectionid) {
+    //console.log( remember_token )
+      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+      res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  }
 
   const resOk  = await chngOrder( orderid, guid, qty, price1, unit_type_id );
 
-  return remember_token;
+  return resOk;
 }
