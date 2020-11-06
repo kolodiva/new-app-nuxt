@@ -97,7 +97,10 @@ export async function getNewsBlock() {
 //auth
 export async function loginUser( params, res ) {
 
-  const {_keyUser} = res.req.cookies;
+  console.log('loginUser');
+  console.log(params);
+
+  const {_keyUser, connectionid} = res.req.cookies;
 
   res.clearCookie("_keyUser");
 
@@ -124,7 +127,30 @@ export async function loginUser( params, res ) {
   //   return {status: 403, msg: `Ошибка при оаботе с БД: ${e.message}`};
   // }
   //
-  return {token: rows};
+  return { token: rows[0].password_digest };
+}
+export async function userAuth( params, res ) {
+
+  let user = {id:1, username: 'Anonimus', name: 'Anonimus'}
+
+  console.log('userAuth');
+  console.log(params);
+
+  const { rows } = await db.queryApp('userAuth', params)
+
+  if (rows.length > 0) {
+
+    const rec = rows[0];
+
+    user.id       = rec.id
+    user.username = rec.email
+    user.name     = rec.email
+  }
+
+  console.log(user);
+
+  return { user: user };
+
 }
 
 //orders
