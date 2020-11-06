@@ -3,7 +3,7 @@ export function getUserByEmail({email}) {
 
   return {
     name: 'getUserByEmail',
-    text: "select id userid, password_digest from users where email=$1",
+    text: "select id userid, name, email, phone, password_digest from users where email=$1",
     values: [email],
   }
 }

@@ -103,7 +103,7 @@ export async function loginUser( params, res ) {
 
   //
   if (!_keyUser) {
-    return {status: 403, msg: "Your request is very very ..."};
+    return {status: 403, msg: "Your request is forbidden ..."};
   }
 
   const { rows } = await db.queryApp('getUserByEmail', params)
@@ -124,7 +124,7 @@ export async function loginUser( params, res ) {
   //   return {status: 403, msg: `Ошибка при оаботе с БД: ${e.message}`};
   // }
   //
-  return {token: rows[0].password_digest};
+  return {token: rows};
 }
 
 //orders
@@ -149,8 +149,8 @@ export async function chngeCart( { guid, qty, price1, unit_type_id, userid, conn
 
   if (remember_token && remember_token != connectionid) {
     //console.log( remember_token )
-      res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+      res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   }
 
   const resOk  = await chngOrder( orderid, guid, qty, price1, unit_type_id );

@@ -5,9 +5,9 @@
         У Вас есть несколько вариантов входа на сайт
       </div>
       <TheUserAuth
-        :button-text="isLogin ? 'Войти' : 'Зарегистрироваться'"
+        :is-login="isLogin"
         :submit-form="loginUser"
-        :has-name="!isLogin"
+        :chngtypetab="chngtypetab"
       />
     </v-card>
   </v-container>
@@ -17,7 +17,7 @@
 // const consola = require('consola')
 export default {
   data() {
-    return { isLogin: true };
+    return { isLogin: true, chngtypetab: 0 };
   },
   mounted() {
     // consola.info('test LOGIN')
@@ -28,11 +28,9 @@ export default {
 
       const { key1, key2 } = this.$getCryptoKey(this.$CryptoJS);
 
-      // this.$auth.$storage.setCookie("_keyUser", key1);
-
-      // this.$hello(key1);
-
       this.$cookies.set("_keyUser", key1);
+
+      // console.log(key1);
 
       const ciphertext = this.$CryptoJS.AES.encrypt(
         loginInfo.password,
@@ -47,11 +45,22 @@ export default {
 
       userInfo.password = ciphertext;
 
-      this.$auth.setUserToken(key1);
+      try {
+        const res = await this.$api("loginUser", userInfo);
 
-      const res = await this.$api("loginUser", userInfo);
-
-      console.log(res);
+        console.log(res);
+      } catch (e) {
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "red",
+          text: e.response.data,
+          timeout: 5000,
+        });
+        if (e.response.status === 404) {
+          this.isLogin = false;
+          this.chngtypetab = 1 - this.chngtypetab;
+          // this.$router.replace('/register')
+        }
+      }
     },
   },
 };

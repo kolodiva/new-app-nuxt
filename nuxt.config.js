@@ -115,6 +115,7 @@ module.exports = {
     'cookie-universal-nuxt',
     '@nuxtjs/component-cache',
     '@nuxtjs/style-resources',
+    '@nuxtjs/robots',
     // ['@nuxtjs/yandex-metrika',
     //   {
     //     id: '51108848',
@@ -126,6 +127,12 @@ module.exports = {
     //'@nuxtjs/auth',
     // ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
+
+  robots: {
+    UserAgent: '*',
+    Disallow: '/',
+  },
+  
   styleResources: {
         scss: [
             '@/assets/style/_const.scss'
