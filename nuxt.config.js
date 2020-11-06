@@ -132,7 +132,7 @@ module.exports = {
     UserAgent: '*',
     Disallow: '/',
   },
-  
+
   styleResources: {
         scss: [
             '@/assets/style/_const.scss'
@@ -158,8 +158,8 @@ module.exports = {
       strategies: {
         local: {
           endpoints: {
-            login: false,
-            user: false,
+            login: { url: '/api/loginUser', method: 'post', propertyName: 'data.token'  },
+            user: { url: '/api/userAuth', method: 'get',    propertyName: false  },
             logout: false,
           },
         }

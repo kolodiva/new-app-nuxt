@@ -67,6 +67,7 @@
         @keyup.enter="$emit('chngorder', id)"
         @keyup.esc="pos.qty2 = pos.qty1"
         @focus="$event.target.select()"
+        @wheel="1 === 1"
       >
         <v-img
           slot="append"
@@ -109,6 +110,7 @@ export default {
       return parseFloat(this.pos.qty1) !== parseFloat(this.pos.qty2);
     },
   },
+  watch: {},
   mounted() {},
 
   methods: {

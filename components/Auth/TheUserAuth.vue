@@ -152,7 +152,7 @@ export default {
     userInfo: {
       phone: "",
       email: "afmc@mail.ru",
-      password: "",
+      password: "Pp123456",
       password1: "",
       name: "",
     },

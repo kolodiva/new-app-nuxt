@@ -24,11 +24,11 @@ export function getUserByEmail({email}) {
 //     values: [email, name ? name : email, phone, password_digest],
 //   }
 // }
-// export function userAuth({keyUser}) {
-//
-//   return {
-//     name: 'userAuth',
-//     text: 'select id, email, name, phone from users where password_digest=$1',
-//     values: [keyUser],
-//   }
-// }
+export function userAuth( {keyUser} ) {
+
+  return {
+    name: 'userAuth',
+    text: 'select id, email, name, phone from users where password_digest=$1',
+    values: [keyUser],
+  }
+}

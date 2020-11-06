@@ -46,13 +46,30 @@ export default {
       userInfo.password = ciphertext;
 
       try {
-        const res = await this.$api("loginUser", userInfo);
+        // const { data } = await this.$api("loginUser", userInfo);
 
-        console.log(res);
+        await this.$auth.loginWith("local", {
+          data: userInfo,
+        });
+
+        // this.$auth.user.id = data.id;
+        // this.$auth.user.email = data.email;
+        //
+        // this.$auth.setUserToken(key2);
+
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "green",
+          text: `Спасибо Вам за авторизацию, ${this.$auth.user.name}`,
+          timeout: 5000,
+        });
+
+        this.$router.push({ path: "/" });
+
+        // console.log(this.$auth);
       } catch (e) {
         await this.$store.dispatch("nomenklator/setSnackbar", {
           color: "red",
-          text: e.response.data,
+          text: (e.response && e.response.data) || e,
           timeout: 5000,
         });
         if (e.response.status === 404) {

@@ -68,6 +68,7 @@
         @keyup.enter="$emit('chngorder', id)"
         @keyup.esc="pos.qty2 = pos.qty1"
         @focus="$event.target.select()"
+        @wheel="1 === 1"
       >
         <v-img
           slot="append"

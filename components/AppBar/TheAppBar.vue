@@ -45,7 +45,17 @@
       <v-spacer />
       <TheToolbarItems :header="header1" />
       <v-spacer />
-      <v-btn text class="buttonMFGreyColorBold" nuxt to="/login"> Войти </v-btn>
+      <div v-if="loggedin">
+        <v-btn text class="buttonMFGreyColorBold" @click="$emit('logout')">
+          Выйти
+        </v-btn>
+        <div>{{ $auth.user.name }}</div>
+      </div>
+      <div v-else>
+        <v-btn text class="buttonMFGreyColorBold" nuxt to="/login">
+          Войти
+        </v-btn>
+      </div>
     </v-toolbar>
     <v-toolbar class="greyMfBckg" height="50" width="100vw">
       <v-spacer />
@@ -69,7 +79,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["showSecondMenu"],
+  props: ["showSecondMenu", "loggedin"],
   data() {
     return {};
   },
@@ -81,6 +91,8 @@ export default {
       filials: "headerMenu/getAllSortCity",
     }),
   },
+  mounted() {},
+  methods: {},
 };
 </script>
 

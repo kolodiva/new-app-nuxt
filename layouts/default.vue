@@ -1,7 +1,11 @@
 <template>
   <v-app v-scroll="onScroll">
     <v-main>
-      <TheAppBar :show-second-menu="showSecondMenu" />
+      <TheAppBar
+        :show-second-menu="showSecondMenu"
+        :loggedin="loggedin"
+        @logout="logout"
+      />
       <Nuxt />
       <TheFooter />
     </v-main>
@@ -34,6 +38,17 @@ export default {
     showSecondMenu: false,
     showScrollTop: false,
   }),
+  computed: {
+    loggedin() {
+      return (
+        (this.$auth &&
+          this.$auth.user !== null &&
+          this.$auth.user.name &&
+          this.$auth.user.name.length > 0) ||
+        false
+      );
+    },
+  },
   watch: {},
   beforeCreate() {},
   mounted() {
@@ -80,6 +95,20 @@ export default {
             }
           );
       });
+    },
+    async logout() {
+      const username = this.$auth.user.name;
+
+      await this.$auth.logout();
+
+      this.$cookies.remove("connectionid");
+
+      this.$store.dispatch("nomenklator/setSnackbar", {
+        color: "green",
+        text: `До свидания, ${username}`,
+        timeout: 5000,
+      });
+      this.$router.push({ path: "/" });
     },
   },
   head() {
