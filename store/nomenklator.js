@@ -24,8 +24,8 @@ export const mutations = {
   SET_SUB_NOMENKLATOR(state, rows) {
     state.subNomenklator = rows;
   },
-  SET_GOOD_CARD(state, { rows, rowsphoto, breadcrumb }) {
-    state.goodCard = { rows, rowsphoto };
+  SET_GOOD_CARD(state, { rows, rowsphoto, breadcrumb, complects }) {
+    state.goodCard = { rows, rowsphoto, complects };
   },
   SET_BREAD_CRUMB(state, rows) {
     state.breadCrumb = rows;
@@ -87,6 +87,9 @@ export const getters = {
 
   getGoodCard: (state) => {
     return state.goodCard.rows[0];
+  },
+  getGoodCardComplects: (state) => {
+    return state.goodCard.complects;
   },
   getGoodCardRowsPhoto: (state) => {
     return state.goodCard.rowsphoto;
@@ -175,13 +178,16 @@ export const actions = {
     const userid = (state.userInfo && state.userInfo.id) || 1;
     const token = this.$cookies.get("connectionid");
 
-    const { rows, rowsphoto, breadcrumb } = await this.$api("getGoodCard", {
-      userid,
-      synonym: id2,
-      token,
-    });
+    const { rows, rowsphoto, breadcrumb, complects } = await this.$api(
+      "getGoodCard",
+      {
+        userid,
+        synonym: id2,
+        token,
+      }
+    );
 
-    commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb });
+    commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb, complects });
   },
   async loadSeoTextMain({ commit, dispatch, state }) {
     const { seoText } = await this.$api("getSeoTextMain");

@@ -46,10 +46,23 @@
       <TheToolbarItems :header="header1" />
       <v-spacer />
       <div v-if="userEmail">
-        <v-btn text class="buttonMFGreyColorBold" @click="$emit('logout')">
-          Выйти
-        </v-btn>
-        <div>{{ userEmail }}</div>
+        <v-menu open-on-hover bottom offset-y rounded>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn text class="buttonMFGreyColorBold" v-bind="attrs" v-on="on">
+              {{ userEmail }}
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item link>
+              <v-list-item-title
+                style="cursor: pointer"
+                @click="$emit('logout')"
+                >Выйти из аккаунта</v-list-item-title
+              >
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
       <div v-else>
         <v-btn text class="buttonMFGreyColorBold" nuxt to="/login">

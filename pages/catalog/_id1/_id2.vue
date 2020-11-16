@@ -42,64 +42,112 @@
         </v-col>
 
         <v-col md="8" sm="12" class="pt-0 pl-0 grey lighten-4">
-          <v-card id="section_1" flat style="margin-top: 2px">
-            <v-card-text class="">{{ pos.name }}</v-card-text>
-            <v-row align="center">
-              <v-col class="pt-0">
-                <v-tabs-items v-model="cur_tab_photos">
-                  <v-tab-item v-for="(photo, i) in photos" :key="i">
-                    <v-hover v-slot:default="{ hover }">
-                      <v-img
-                        :src="`${photo.pic_path.replace('_250x250', '')}`"
-                        contain
-                        height="400"
-                        class="mx-auto"
-                      >
-                        <v-row
-                          class="fill-height flex-column"
-                          justify="center"
-                          style="cursor: pointer"
-                          @click="openDialogBigView = true"
-                        >
-                          <div class="align-self-center">
-                            <v-btn
-                              :class="{ 'show-btns': hover }"
-                              color="transparent"
-                              icon
-                              x-lage
-                            >
-                              <v-icon x-large :class="{ greyMfText: hover }">
-                                mdi-magnify-plus
-                              </v-icon></v-btn
-                            >
-                          </div>
-                        </v-row>
-                      </v-img>
-                    </v-hover>
-                  </v-tab-item>
-                </v-tabs-items>
-                <v-tabs v-model="cur_tab_photos" centered>
-                  <v-tab v-for="(photo, i) in photos" :key="i">
-                    <v-img :src="`${photo.pic_path}`" contain max-width="55" />
-                  </v-tab>
-                </v-tabs>
-              </v-col>
+          <v-tabs
+            v-model="cur_tab_complects"
+            :height="posComplects && posComplects.length > 0 ? 48 : 0"
+          >
+            <v-tab> Изделие </v-tab>
+            <v-tab> Комплектация </v-tab>
+          </v-tabs>
 
-              <v-col>
-                <v-simple-table dense>
-                  <template v-slot:default>
-                    <tbody>
-                      <tr v-for="item in characts" :key="item.field">
-                        <td style="border-bottom: 1px dotted #cccccc">
-                          {{ item.field }}
-                        </td>
-                        <td style="border-bottom: 0px">{{ pos[item.val] }}</td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
-              </v-col>
-            </v-row>
+          <v-card
+            id="section_1"
+            flat
+            style="margin-top: 2px; max-height: 550px"
+          >
+            <v-tabs-items v-model="cur_tab_complects">
+              <v-tab-item>
+                <v-card-text class="">{{ pos.name }}</v-card-text>
+                <v-row align="center">
+                  <v-col class="pt-0">
+                    <v-tabs-items v-model="cur_tab_photos">
+                      <v-tab-item v-for="(photo, i) in photos" :key="i">
+                        <v-hover v-slot:default="{ hover }">
+                          <v-img
+                            :src="`${photo.pic_path.replace('_250x250', '')}`"
+                            contain
+                            height="400"
+                            class="mx-auto"
+                          >
+                            <v-row
+                              class="fill-height flex-column"
+                              justify="center"
+                              style="cursor: pointer"
+                              @click="openDialogBigView = true"
+                            >
+                              <div class="align-self-center">
+                                <v-btn
+                                  :class="{ 'show-btns': hover }"
+                                  color="transparent"
+                                  icon
+                                  x-lage
+                                >
+                                  <v-icon
+                                    x-large
+                                    :class="{ greyMfText: hover }"
+                                  >
+                                    mdi-magnify-plus
+                                  </v-icon></v-btn
+                                >
+                              </div>
+                            </v-row>
+                          </v-img>
+                        </v-hover>
+                      </v-tab-item>
+                    </v-tabs-items>
+                    <v-tabs v-model="cur_tab_photos" centered>
+                      <v-tab v-for="(photo, i) in photos" :key="i">
+                        <v-img
+                          :src="`${photo.pic_path}`"
+                          contain
+                          max-width="55"
+                        />
+                      </v-tab>
+                    </v-tabs>
+                  </v-col>
+
+                  <v-col>
+                    <v-simple-table dense>
+                      <template v-slot:default>
+                        <tbody>
+                          <tr v-for="item in characts" :key="item.field">
+                            <td style="border-bottom: 1px dotted #cccccc">
+                              {{ item.field }}
+                            </td>
+                            <td style="border-bottom: 0px">
+                              {{ pos[item.val] }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-col>
+                </v-row>
+              </v-tab-item>
+
+              <v-tab-item>
+                <v-card
+                  style="min-height: 500px; max-height: 500px; overflow-x: auto"
+                >
+                  <v-list>
+                    <v-list-item-group>
+                      <v-list-item v-for="(item, i) in posComplects" :key="i">
+                        <v-list-item-icon>
+                          <v-img :src="item.pic_path_small" />
+                        </v-list-item-icon>
+                        <v-list-item-content>
+                          <v-list-item-title
+                            >{{ item.artikul }}, {{ item.name }}, в единице
+                            комплекта: {{ item.qty }}
+                            {{ item.unit_name }}
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list-item-group>
+                  </v-list>
+                </v-card>
+              </v-tab-item>
+            </v-tabs-items>
           </v-card>
 
           <v-card id="section_2" style="min-height: 20vh" class="mt-1" flat>
@@ -186,7 +234,8 @@
 import { mapGetters } from "vuex";
 export default {
   async fetch({ app, params, query, store }) {
-    if (params && params.id2) {
+    if (params && params) {
+      // console.log(params.id2);
       await store.dispatch("nomenklator/loadGoodCard", params);
     }
   },
@@ -204,6 +253,7 @@ export default {
     openDialogBigView: false,
     fromRoute: null,
     textLabel: "",
+    cur_tab_complects: 0,
   }),
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -213,6 +263,7 @@ export default {
   computed: {
     ...mapGetters({
       pos: "nomenklator/getGoodCard",
+      posComplects: "nomenklator/getGoodCardComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
     }),
     txtLabel() {

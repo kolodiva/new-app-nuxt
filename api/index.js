@@ -69,7 +69,11 @@ export async function getGoodCard( { synonym, userid, token } ) {
 
   const breadcrumb = await db.queryApp('getBreadCrumbs', { parentguid  })
 
-  return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows  };
+  const complects = await db.queryApp('getGoodCardComplects', { synonym, orderid })
+
+  //console.log('complects', complects[1].rows)
+
+  return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows, complects: complects[1].rows  };
 }
 
 export async function getStrucCatalog() {
@@ -212,7 +216,7 @@ export async function recoveryUserPassword( params, res ) {
 // });
 const message = {
     from: 'afmc@mail.ru', // Sender address
-    to: 'kolodiva@mail.ru',         // List of recipients
+    to: params.email,         // List of recipients
     subject: 'Код восстановления пароля.', // Subject line
     text: 'Здравствуйте! Вы запросили код восстановления пароля к своему аккаунту на сайте newfurnitura.ru. Введите код: ' + rows[0].inn + ' на странице сайта.' // Plain text body
 };

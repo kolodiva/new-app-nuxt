@@ -196,6 +196,76 @@ export function getGoodCard(params) {
     values: [],
   }
 }
+export function getGoodCardComplects(params) {
+
+  const textqry=`
+
+  create extension if not exists tablefunc;
+
+  with price_list_compl as (
+
+  select *
+  from crosstab(
+  $$select nomenklator_id::text, price_type_id, round(price*coalesce(currencies.value, 1), 2)
+  from prices
+  left join currencies on prices.currency_id = currencies.code
+
+  where nomenklator_id in (
+
+  select distinct
+      complects.guid_complect as guid
+
+    from complects
+    inner join nomenklators on nomenklators.guid = complects.nomenklator_id and nomenklators.synonym='${params.synonym}'
+  )
+
+  order by 1$$,
+  $$ SELECT '000000004' UNION ALL SELECT '000000003' UNION ALL SELECT '000000005'$$
+  )
+
+  AS (guid text, price1 numeric, price2 numeric, price3 numeric)
+  )
+
+
+
+     SELECT complects.id,
+                                                      complects.name,
+                                                      complects.guid_complect as guid,
+
+                                                      coalesce(complects.artikul, '--') as artikul,
+                                                      coalesce(complects.artikul_new, '--') as artikul_new,
+
+                                                      complects.qty::real qty,
+                                                      coalesce(order_goods.qty::real , 0) as qty_order,
+                                                      'https://newfurnitura.ru/upload/' || complects.guid_complect || '.jpg' as pic_path,
+                                                      'https://newfurnitura.ru/upload/' || complects.guid_complect || '_82x82.jpg' as pic_path_small,
+                                                      coalesce(unit_types.name, '--') as unit_name,
+                                                      coalesce(unit_types.code, '--') as unit_code,
+
+                                                      COALESCE(price_list_compl.price1, 0.00) as price1,
+                                                      COALESCE(price_list_compl.price2, 0.00) as price2,
+                                                      COALESCE(price_list_compl.price3, 0.00) as price3
+
+                                                      from complects
+
+                          inner join nomenklators on nomenklators.guid = complects.nomenklator_id and nomenklators.synonym='${params.synonym}'
+
+                                                      left join orders on orders.id = ${params.orderid || null} and orders.status = 0
+                                                      left join order_goods on orders.id=order_goods.order_id and complects.nomenklator_id = order_goods.nomenklator_id and complects.nomenklator_id = order_goods.nomenklator_id
+
+                                                      left join unit_types on complects.unit_type_id = unit_types.code
+
+                                                      left join price_list_compl on complects.guid_complect = price_list_compl.guid
+
+                                                       order by complects.name
+  `
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getPhotos250(params) {
 
   const textqry=`
