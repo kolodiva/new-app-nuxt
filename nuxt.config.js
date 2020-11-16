@@ -148,23 +148,24 @@ module.exports = {
      //baseURL: 'http://127.0.0.1:3000/api'
   },
 
-  auth: {
-      localStorage: false,
-      cookie: {
-          options: {
-            expires: 7
-          }
-      },
-      strategies: {
-        local: {
-          endpoints: {
-            login: { url: '/api/loginUser', method: 'post', propertyName: 'data.token'  },
-            user: { url: '/api/userAuth', method: 'get',    propertyName: false  },
-            logout: false,
-          },
-        }
-      },
-    },
+  // auth: {
+  //     localStorage: false,
+  //     strategies: {
+  //       local: {
+  //         token: {
+  //           property: 'token',
+  //           required: true,
+  //           type: false,
+  //           maxAge: 60 * 60 * 24 * 30
+  //          },
+  //         endpoints: {
+  //           login: { url: '/api/loginUser', method: 'post' },
+  //           user: { url: '/api/userAuth', method: 'get' },
+  //           logout: false,
+  //         },
+  //       }
+  //     },
+  //   },
 
   vuetify: {
     // customVariables: ['~/assets/variables.scss'],

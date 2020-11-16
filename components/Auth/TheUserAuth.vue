@@ -45,7 +45,7 @@
           <v-btn
             class="mt-8"
             :disabled="!validLog"
-            @click="submitForm(userInfo)"
+            @click="submitForm(userInfo, 1)"
             >Войти</v-btn
           >
         </v-form>
@@ -89,52 +89,106 @@
             counter="true"
             :rules="[
               required('Проверка пароля'),
+              minLength('Пароль очень нужен', `${isLogin ? 3 : 6}`),
               eqPass('Указанный пароль', userInfo.password, userInfo.password1),
             ]"
-            clear-icon="mdi-close-circle"
             clearable
             @click:append="showPassword = !showPassword"
           />
           <v-text-field
             v-model="userInfo.name"
             clearable
-            label="Обращение к Вам"
-            :rules="[maxLength('Длинноватс.', 30)]"
+            label="Обращение к Вам (не обязательное)"
           />
           <v-text-field
             v-model="userInfo.phone"
             clearable
-            label="Телефон"
-            messages="Ваш телефон будет использован исключительно для связи с Вами. Если телефон не указан - связь с Вами будет производиться через электронную почту."
-            :rules="[maxLength('Длинноватс.', 30)]"
+            label="Телефон  (не обязательное)"
+            messages="Ваш телефон будет использован исключительно для связи с Вами. Если номер не указан - связь с Вами будет производиться через электронную почту."
           />
 
           <v-btn
             class="mt-8"
             :disabled="!validReg"
-            @click="submitForm(userInfo)"
+            @click="submitForm(userInfo, 2)"
             >Регистрация</v-btn
           >
         </v-form>
       </v-card>
     </v-tab-item>
     <v-tab-item>
-      <v-card flat>
-        <v-card-text>
-          <p>
-            Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam
-            eget dui. Proin viverra, ligula sit amet ultrices semper, ligula
-            arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna,
-            posuere eget, vestibulum et, tempor auctor, justo.
-          </p>
+      <v-card flat width="500" class="ml-5">
+        <v-form v-model="validRecovery" transition="scale-transition">
+          <v-text-field
+            v-model="userInfo.email"
+            label="Email"
+            clearable
+            type="email"
+            counter="true"
+            :rules="[
+              required(userInfo.email),
+              emailFormat(userInfo.email),
+              maxLength('Длинноватс.', 30),
+            ]"
+          />
 
-          <p class="mb-0">
-            Cras sagittis. Phasellus nec sem in justo pellentesque facilisis.
-            Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam
-            felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at
-            tortor in tellus interdum sagittis.
-          </p>
-        </v-card-text>
+          <v-text-field
+            v-if="recoveryCode > 0"
+            v-model="userInfo.recovCode"
+            label="Код восстановления из почтового сообщения"
+            clearable
+            type="text"
+            counter="true"
+            :rules="[required('код восстановления')]"
+          />
+
+          <v-text-field
+            v-if="recoveryCode > 0"
+            v-model="userInfo.passwordnew"
+            label="Введите новый Пароль"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            clearable
+            counter="true"
+            :rules="[
+              required('пароль'),
+              minLength('Пароль очень нужен', 6),
+              maxLength('Длинноватс.', 30),
+            ]"
+            @click:append="showPassword = !showPassword"
+          />
+
+          <v-text-field
+            v-if="recoveryCode > 0"
+            v-model="userInfo.passwordnew1"
+            label="Проверка пароля"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            counter="true"
+            :rules="[
+              required('Проверка пароля'),
+              minLength('Пароль очень нужен', 6),
+              eqPass(
+                'Указанный пароль',
+                userInfo.passwordnew,
+                userInfo.passwordnew1
+              ),
+            ]"
+            clearable
+            @click:append="showPassword = !showPassword"
+          />
+
+          <v-btn
+            class="mt-8"
+            :disabled="!validRecovery"
+            @click="submitForm(userInfo, 3)"
+            >{{
+              recoveryCode === 0
+                ? "Отправить мне ссылку на email для восстановления пароля."
+                : "Сменить мой пароль."
+            }}</v-btn
+          >
+        </v-form>
       </v-card>
     </v-tab-item>
   </v-tabs>
@@ -143,18 +197,21 @@
 <script>
 import validations from "@/utils/validations";
 export default {
-  props: ["submitForm", "isLogin", "chngtypetab"],
+  props: ["submitForm", "isLogin", "chngtypetab", "recoveryCode"],
   data: () => ({
     validLog: false,
     validReg: false,
+    validRecovery: false,
     showPassword: false,
-    showEmail: false,
     userInfo: {
       phone: "",
-      email: "afmc@mail.ru",
+      email: "",
       password: "",
       password1: "",
       name: "",
+      passwordnew: "",
+      passwordnew1: "",
+      recovCode: 0,
     },
     ...validations,
     activetab: 0,
@@ -165,9 +222,7 @@ export default {
       this.activetab = this.isLogin === true ? 0 : 1;
     },
   },
-  mounted() {
-    this.showEmail = true;
-  },
+  mounted() {},
 };
 </script>
 

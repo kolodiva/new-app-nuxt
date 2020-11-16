@@ -45,11 +45,11 @@
       <v-spacer />
       <TheToolbarItems :header="header1" />
       <v-spacer />
-      <div v-if="loggedin">
+      <div v-if="userEmail">
         <v-btn text class="buttonMFGreyColorBold" @click="$emit('logout')">
           Выйти
         </v-btn>
-        <div>{{ $auth.user.name }}</div>
+        <div>{{ userEmail }}</div>
       </div>
       <div v-else>
         <v-btn text class="buttonMFGreyColorBold" nuxt to="/login">
@@ -79,7 +79,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["showSecondMenu", "loggedin"],
+  props: ["showSecondMenu", "userEmail"],
   data() {
     return {};
   },

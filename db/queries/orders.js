@@ -6,7 +6,7 @@ export function getConnOrder( strWhere ) {
     from connections t1
     inner join orders t2 on t2.connection_id = t1.id and t2.status=0
     ${strWhere}
-    order by t1.id desc, t2.id desc
+    order by t1.id desc, t2.id desc 
     limit 1
     `,
     values: [],
@@ -17,7 +17,7 @@ export function addNewConnOrder( userid ) {
     name: '',
     text: `
     with r1 as (insert into connections(user_id, remember_token, updated_at, created_at)
-      values( ${userid}, uuid_generate_v4(), now(), now() ) RETURNING id, remember_token)
+      values( ${userid}, encode(gen_random_bytes(80), 'base64'), now(), now() ) RETURNING id, remember_token)
         insert into orders(connection_id, status, updated_at, created_at) values( (select id from r1), 0, now(), now())
             RETURNING id orderid, (select id from r1) connid, (select remember_token from r1)
     `,

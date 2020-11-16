@@ -114,7 +114,9 @@ export default {
   },
   methods: {
     fetchUsers(items) {
-      this.$router.push(items[0]);
+      if (items.length > 0) {
+        this.$router.push(items[0]);
+      }
     },
   },
 };

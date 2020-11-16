@@ -17,6 +17,7 @@ export const state = () => ({
   seoTextMain: "",
   waitNomenklatorLoad: undefined,
   snackbars: [],
+  userInfo: undefined,
 });
 
 export const mutations = {
@@ -57,6 +58,12 @@ export const mutations = {
   },
   SET_SNACKBAR(state, snackbar) {
     state.snackbars = state.snackbars.concat(snackbar);
+  },
+  SET_USER_INFO(state, userinfo) {
+    state.userInfo = userinfo;
+  },
+  EMPTY_USER_INFO(state) {
+    state.userInfo = undefined;
   },
 };
 
@@ -106,20 +113,54 @@ export const getters = {
   strucCatalog: (state) => {
     return state.strucCatalog;
   },
+
+  getUserInfoEmail: (state) => {
+    return state.userInfo && state.userInfo.id > 1
+      ? state.userInfo.email
+      : undefined;
+  },
 };
 
 export const actions = {
   chngCatalogTypeView({ commit, dispatch, state }, name) {
     commit("SET_CATALOG_TYPE_VIEW", name);
   },
+  setSnackbar({ commit }, snackbar) {
+    snackbar.showing = true;
+    snackbar.color = snackbar.color || "success";
+    commit("SET_SNACKBAR", snackbar);
+  },
+
+  async setUserInfo({ commit, dispatch, state }, { connectionid }) {
+    const userInfo = await this.$api("getUserInfo", {
+      connectionid,
+    });
+
+    commit("SET_USER_INFO", userInfo);
+
+    // console.log("nuxtServerInit", userInfo);
+  },
+  async emptyUserInfo({ commit, dispatch, state }) {
+    await commit("EMPTY_USER_INFO");
+  },
+
   async loadSubNumenklator({ commit, dispatch, state }, { id }) {
     commit("SET_WAIT_LOAD_NOMENKLATOR", true);
     // const { userid, token } = this.$authinfo(this.$auth);
-    const userid = (this.$auth.user && this.$auth.user.id) || 1;
+
+    // console.log("getSubNomenklator_0_dispatcher");
+
+    // 1 ИСПОЛЬЗУЕМ В КАЧЕСТВЕ ID КЛИЕНТА TOKEN ИЗ GOOKIES ИБО ТАКАЯ ТЕНДЕНЦИЯ ЧТО ПРИ ВЫЗОВЕ ЭТОГО ДИСПАТЧЕРА ПОЧЕМУТО НЕ ВСЕГДА СУЩЕСТВУЕТ $AUTH И ПОЭТОМУ В БОЛЬШ СЛУЧАЕВ В КАЧ ID ИДЕТ 1 (ЕДИНИЦА)
+    // ПРИ ЭТОМ ВАЖНО НАСТРОИТЬ  ПОИСК USERID В CONNECTIONS ЧЕРЕЗ ПОИСК USERS ПО ТОКЕНУ И INNER JOIN ПО IDUSER
+    // 2 ПРОВЕРИТЬ СК ПО ВРЕМЕНИ ХРАНИТСЯ ОБЪЕКТ $AUTH В COOKIES ЕСТЬ ПОДОЗРЕНИЕ ЧТО В СВЯЗИ С ИСП REFRESH_TOKEN СИСТЕМА СБРАСЫВАЕТ ДАННЫЕ АВТОРИЗАЦИИ ЧЕРЕЗ 30 МИН
+    // ЕСЛИ ЭТО ТАК ТО РАССМОТРЕТЬ  ВАРИАНТ С ХРАНИЛИЩЕМ но ЕГО НЕДОСТАТКО ЧТО ЕГО НЕ ВЕЗДЕ МОЖНО ПРОЧИТАТЬ ХОТЯ ЭТО УЧЕНЬ УСЛОВНО
+
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
     const { rows, breadcrumb, seoText } = await this.$api("getSubNomenklator", {
       userid,
       parentguid: id,
-      token: this.$cookies.get("connectionid"),
+      token,
     });
 
     commit("SET_SUB_NOMENKLATOR", rows);
@@ -131,10 +172,13 @@ export const actions = {
     // commit('SET_WAIT_LOAD_NOMENKLATOR', true)
     // consola.info(id2);
     // const userid = this.$auth.user ? this.$auth.user.id : 1;
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+
     const { rows, rowsphoto, breadcrumb } = await this.$api("getGoodCard", {
-      userid: 1,
+      userid,
       synonym: id2,
-      token: this.$cookies.get("connectionid"),
+      token,
     });
 
     commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb });
@@ -152,7 +196,8 @@ export const actions = {
     commit("SET_STRUC_CATALOG", rows[0].tree);
   },
   async chngeCart({ commit, dispatch, state }, id) {
-    const userid = (this.$auth.user && this.$auth.user.id) || 1;
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
 
     //  consola.info(token);
 
@@ -165,6 +210,7 @@ export const actions = {
       price1: obj.price1,
       unit_type_id: obj.unit_type_id,
       userid,
+      token,
     };
 
     // consola.info(info);
@@ -196,10 +242,5 @@ export const actions = {
         showing: true,
       });
     }
-  },
-  setSnackbar({ commit }, snackbar) {
-    snackbar.showing = true;
-    snackbar.color = snackbar.color || "success";
-    commit("SET_SNACKBAR", snackbar);
   },
 };

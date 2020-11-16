@@ -35,10 +35,11 @@ dbpgApp1.connect( err => {
 const dbpgStat = new Pool({
   connectionString: connParam2,
 })
-
+//getConnectionOrder: queries.getConnectionOrder,
 module.exports = {
+  dbpgApp1,
   queryStat: (name, params) => dbpgStat.query( text, params ),
   queryStat1: (name, params) => dbpgStat.query( queries[name](params) ),
   queryApp: (name, params) => dbpgApp1.query( queries[name](params) ),
-  getConnectionOrder: queries.getConnectionOrder,
+
 }

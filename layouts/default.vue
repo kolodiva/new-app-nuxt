@@ -3,13 +3,25 @@
     <v-main>
       <TheAppBar
         :show-second-menu="showSecondMenu"
-        :loggedin="loggedin"
+        :user-email="userEmail"
         @logout="logout"
       />
       <Nuxt />
       <TheFooter />
     </v-main>
-    <TheSnackbar />
+    <v-snackbar
+      v-for="(snackbar, index) in snackbars.filter((s) => s.showing)"
+      :key="snackbar.text + Math.random()"
+      v-model="snackbar.showing"
+      :timeout="snackbar.timeout"
+      :color="snackbar.color"
+      :style="`bottom: ${index * 60 + 8}px;`"
+      class="body-2"
+    >
+      {{ snackbar.text }}
+
+      <v-btn text @click="snackbar.showing = false">Закрыть</v-btn>
+    </v-snackbar>
     <v-fab-transition>
       <v-btn
         v-show="showScrollTop"
@@ -33,21 +45,20 @@
 // import TheCucumbers from '@/components/TheCucumbers.vue'
 
 // const consola = require('consola')
+import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 export default {
   data: () => ({
     showSecondMenu: false,
     showScrollTop: false,
   }),
   computed: {
-    loggedin() {
-      return (
-        (this.$auth &&
-          this.$auth.user !== null &&
-          this.$auth.user.name &&
-          this.$auth.user.name.length > 0) ||
-        false
-      );
-    },
+    ...mapGetters({
+      userEmail: "nomenklator/getUserInfoEmail",
+    }),
+    ...mapState({
+      snackbars: (state) => state.nomenklator.snackbars,
+    }),
   },
   watch: {},
   beforeCreate() {},
@@ -97,11 +108,11 @@ export default {
       });
     },
     async logout() {
-      const username = this.$auth.user.name;
-
-      await this.$auth.logout();
+      const username = this.userEmail;
 
       this.$cookies.remove("connectionid");
+
+      await this.$store.commit("nomenklator/EMPTY_USER_INFO");
 
       this.$store.dispatch("nomenklator/setSnackbar", {
         color: "green",

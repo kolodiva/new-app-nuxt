@@ -8,6 +8,7 @@
         :is-login="isLogin"
         :submit-form="loginUser"
         :chngtypetab="chngtypetab"
+        :recovery-code="recoveryCode"
       />
     </v-card>
   </v-container>
@@ -16,16 +17,15 @@
 <script>
 // const consola = require('consola')
 export default {
+  middleware: ["auth-props"],
   data() {
-    return { isLogin: true, chngtypetab: 0 };
+    return { isLogin: true, chngtypetab: 0, recoveryCode: 0 };
   },
   mounted() {
     // consola.info('test LOGIN')
   },
   methods: {
-    async loginUser(loginInfo, app) {
-      const userInfo = { email: "", password: "", name: "", phone: "" };
-
+    async loginUser(loginInfo, tOper = 1) {
       const { key1, key2 } = this.$getCryptoKey(this.$CryptoJS);
 
       this.$cookies.set("_keyUser", key1);
@@ -37,47 +37,138 @@ export default {
         key2
       ).toString();
 
-      userInfo.email = loginInfo.email;
-
-      userInfo.phone = loginInfo.phone;
-
-      userInfo.name = loginInfo.name;
+      const userInfo = { ...loginInfo };
 
       userInfo.password = ciphertext;
 
-      try {
-        // const { data } = await this.$api("loginUser", userInfo);
+      userInfo.token = this.$cookies.get("connectionid");
 
-        await this.$auth.loginWith("local", {
-          data: userInfo,
-        });
+      if (tOper === 1) {
+        try {
+          const connectionid = await this.$api("loginUser", userInfo);
 
-        // this.$auth.user.id = data.id;
-        // this.$auth.user.email = data.email;
-        //
-        // this.$auth.setUserToken(key2);
+          // console.log(data);
+          await this.$store.dispatch("nomenklator/setUserInfo", {
+            connectionid,
+          });
 
-        await this.$store.dispatch("nomenklator/setSnackbar", {
-          color: "green",
-          text: `Спасибо Вам за авторизацию, ${this.$auth.user.name}`,
-          timeout: 5000,
-        });
+          await this.$store.dispatch("nomenklator/setSnackbar", {
+            color: "green",
+            text: `Приветствуем Вас, ${loginInfo.email}`,
+            timeout: 5000,
+          });
+          this.$router.replace({ path: "/" });
+        } catch (e) {
+          await this.$store.dispatch("nomenklator/setSnackbar", {
+            color: "red",
+            text: (e.response && e.response.data) || e.response,
+            timeout: 5000,
+          });
+          if (e.response.status === 404) {
+            this.isLogin = false;
+            this.chngtypetab = 1 - this.chngtypetab;
+            // this.$router.replace('/register')
+          }
+        }
+      } else if (tOper === 2) {
+        try {
+          userInfo.password = this.$CryptoJS
+            .SHA256(loginInfo.password)
+            .toString();
+          // console.log(userInfo.password);
 
-        this.$router.push({ path: "/" });
+          const connectionid = await this.$api("addNewUser", userInfo);
 
-        // console.log(this.$auth);
-      } catch (e) {
-        await this.$store.dispatch("nomenklator/setSnackbar", {
-          color: "red",
-          text: (e.response && e.response.data) || e,
-          timeout: 5000,
-        });
-        if (e.response.status === 404) {
-          this.isLogin = false;
-          this.chngtypetab = 1 - this.chngtypetab;
-          // this.$router.replace('/register')
+          // console.log(connectionid);
+
+          // console.log(data);
+          await this.$store.dispatch("nomenklator/setUserInfo", {
+            connectionid,
+          });
+
+          await this.$store.dispatch("nomenklator/setSnackbar", {
+            color: "green",
+            text: `Спасибо Вам за Регистрацию, ${loginInfo.email}`,
+            timeout: 5000,
+          });
+          //
+          // await this.$store.dispatch('nomenklator/refreshCountCart')
+          //
+          this.$router.replace("/");
+        } catch (e) {
+          // consola.info(e.response.data)
+          await this.$store.dispatch("nomenklator/setSnackbar", {
+            color: "error",
+            text: `Ошибка при попытке регистрации: ${
+              (e.response && e.response.data) || e.response
+            }`,
+            timeout: 5000,
+          });
+        }
+      } else if (tOper === 3) {
+        if (this.recoveryCode === 0) {
+          try {
+            this.recoveryCode = await this.$api(
+              "recoveryUserPassword",
+              userInfo
+            );
+
+            await this.$store.dispatch("nomenklator/setSnackbar", {
+              color: "green",
+              text:
+                "Ссылка для восстановления Пароля отправлена Вам на почту по адресу: " +
+                loginInfo.email,
+              timeout: 5000,
+            });
+          } catch (e) {
+            console.log(e);
+            await this.$store.dispatch("nomenklator/setSnackbar", {
+              color: "red",
+              text: (e.response && e.response.data) || e.response,
+              timeout: 5000,
+            });
+            if (e && e.response && e.response.status === 404) {
+              this.isLogin = false;
+              this.chngtypetab = 1 - this.chngtypetab;
+            }
+          }
+        } else {
+          try {
+            userInfo.passwordnew = this.$CryptoJS
+              .SHA256(loginInfo.passwordnew)
+              .toString();
+
+            await this.$api("changeUserPassword", userInfo);
+
+            await this.$store.dispatch("nomenklator/setSnackbar", {
+              color: "green",
+              text:
+                "Пароль для пользователя : " +
+                loginInfo.email +
+                " успешно изменен. Вы можете войти в личный кабинет с новым паролем.",
+              timeout: 5000,
+            });
+            this.recoveryCode = 0;
+            this.isLogin = true;
+            this.chngtypetab = 1 - this.chngtypetab;
+            // this.$router.push({ path: "/login" });
+          } catch (e) {
+            console.log(e);
+            await this.$store.dispatch("nomenklator/setSnackbar", {
+              color: "red",
+              text: (e.response && e.response.data) || e.response,
+              timeout: 5000,
+            });
+            if (e && e.response && e.response.status === 404) {
+              this.isLogin = false;
+              this.chngtypetab = 1 - this.chngtypetab;
+              // this.$router.replace('/register')
+            }
+          }
         }
       }
+
+      // console.log(this.$auth);
     },
   },
 };
