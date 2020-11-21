@@ -75,7 +75,7 @@ export const mutations = {
         return item.qty1 > 0;
       }).length;
 
-      state.cartList[0].sum_total = sumTotal;
+      state.cartList[0].sum_total = sumTotal.toFixed(2);
     }
   },
   SET_SNACKBAR(state, snackbar) {
