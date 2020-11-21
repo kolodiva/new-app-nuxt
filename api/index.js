@@ -144,7 +144,7 @@ export async function loginUser( params, res ) {
 
   const rest = await getConnectionOrder( rows[0].userid, connectionid, false );
 
-  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 }, sameSite: 'none', secure: true });
+  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
   //res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
   return rest.remember_token;
@@ -345,17 +345,9 @@ async function unitOrders( userid, connectionid ) {
 
 export async function chngeCart( { guid, qty, price1, unit_type_id, userid, token }, res) {
 
-  //console.log( qty )
-
-  //const token = res.cookie('connectionid');
-  // const token = req.cookie('connectionid') || undefined;
-  //
-  // console.log( token )
-
   const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
 
   if (remember_token && remember_token != token) {
-    //console.log( remember_token )
       res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
       //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   }
