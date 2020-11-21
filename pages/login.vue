@@ -39,9 +39,15 @@ export default {
 
       const userInfo = { ...loginInfo };
 
+      // console.log(userInfo);
+
       userInfo.password = ciphertext;
 
       userInfo.token = this.$cookies.get("connectionid");
+
+      userInfo.recovCode = parseInt(userInfo.recovCode.toString().trim());
+
+      userInfo.email = userInfo.email.toLowerCase().trim();
 
       if (tOper === 1) {
         try {

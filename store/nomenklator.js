@@ -18,6 +18,8 @@ export const state = () => ({
   waitNomenklatorLoad: undefined,
   snackbars: [],
   userInfo: undefined,
+  countCart: 0,
+  cartList: [],
 });
 
 export const mutations = {
@@ -56,6 +58,26 @@ export const mutations = {
       obj.total = parseFloat(obj.qty1 * obj.price1).toFixed(2);
     }
   },
+  SET_NEW_QTY_FROMCART(state, { id, esc }) {
+    const obj = state.cartList.find((o) => o.id === id);
+
+    if (obj && esc === true) {
+      obj.qty2 = parseFloat(obj.qty1);
+    } else if (obj) {
+      obj.qty1 = parseFloat(obj.qty2);
+      obj.qty2 = parseFloat(obj.qty2);
+      obj.sum = parseFloat(obj.qty1 * obj.price1).toFixed(2);
+
+      let sumTotal = 0;
+
+      state.countCart = state.cartList.filter((item) => {
+        sumTotal = sumTotal + parseFloat(item.sum);
+        return item.qty1 > 0;
+      }).length;
+
+      state.cartList[0].sum_total = sumTotal;
+    }
+  },
   SET_SNACKBAR(state, snackbar) {
     state.snackbars = state.snackbars.concat(snackbar);
   },
@@ -64,6 +86,10 @@ export const mutations = {
   },
   EMPTY_USER_INFO(state) {
     state.userInfo = undefined;
+  },
+  SET_COUNT_CART(state, rows) {
+    state.cartList = rows;
+    state.countCart = rows.length;
   },
 };
 
@@ -121,6 +147,12 @@ export const getters = {
     return state.userInfo && state.userInfo.id > 1
       ? state.userInfo.email
       : undefined;
+  },
+  getCartCount: (state) => {
+    return state.countCart;
+  },
+  getCartList: (state) => {
+    return state.cartList;
   },
 };
 
@@ -230,6 +262,8 @@ export const actions = {
 
       commit("SET_NEW_QTY", { id, esc: false });
 
+      await dispatch("refreshCountCart");
+
       await dispatch("setSnackbar", {
         color: qty2eq0 ? "lightgrey" : "green",
         text: qty2eq0
@@ -248,5 +282,56 @@ export const actions = {
         showing: true,
       });
     }
+  },
+  async chngeCartFromCart({ commit, dispatch, state }, obj) {
+    // изменение по позиции из Корзины ОЧЕНЬ специфично поэтому выделяем в отдельную процедуру
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+
+    const info = {
+      guid: obj.guid,
+      qty: obj.qty2 || 0,
+      price1: obj.price1,
+      unit_type_id: obj.unit_type_id,
+      userid,
+      token,
+    };
+
+    // consola.info(info);
+
+    const resOk = await this.$api("chngeCart", info);
+
+    if (resOk === true) {
+      obj.qty2 = obj.qty2 === null ? 0 : parseFloat(obj.qty2);
+
+      const qty2eq0 = obj.qty2 === 0;
+
+      commit("SET_NEW_QTY_FROMCART", { id: obj.id, esc: false });
+
+      await dispatch("setSnackbar", {
+        color: qty2eq0 ? "lightgrey" : "green",
+        text: qty2eq0
+          ? `Позиция, ${obj.artikul} удалена из корзины.`
+          : `Позиция, ${obj.artikul} в кол-ве: ${obj.qty2} доб/изм.`,
+        timeout: 3000,
+        showing: true,
+      });
+    } else {
+      commit("SET_NEW_QTY_FROMCART", { id: obj.id, esc: true });
+
+      await dispatch("setSnackbar", {
+        color: "red",
+        text: `Ошибка по многим разным причинам. Попробуйте позже.`,
+        timeout: 3000,
+        showing: true,
+      });
+    }
+  },
+  async refreshCountCart({ commit, dispatch, state }) {
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+    const rows = await this.$api("getCart", { userid, token });
+    // console.log(userid, conntoken)
+    commit("SET_COUNT_CART", rows);
   },
 };

@@ -6,7 +6,7 @@ export function getConnOrder( strWhere ) {
     from connections t1
     inner join orders t2 on t2.connection_id = t1.id and t2.status=0
     ${strWhere}
-    order by t1.id desc, t2.id desc 
+    order by t1.id desc, t2.id desc
     limit 1
     `,
     values: [],
@@ -24,7 +24,8 @@ export function addNewConnOrder( userid ) {
     values: [],
   }
 }
-export function chngOrder( {orderid, guid, qty, price, unit_type_id} ) {
+export function chngOrder_old( {orderid, guid, qty, price, unit_type_id} ) {
+
   return {
     name: '',
     text: `
@@ -34,6 +35,69 @@ export function chngOrder( {orderid, guid, qty, price, unit_type_id} ) {
         insert into order_goods(order_id, nomenklator_id, qty, price, unit_type_id, sum )
     		select ${orderid}, '${guid}', ${qty || 0}, ${price}, ${unit_type_id}, ${ qty*price } where ${qty || 0} > 0
     		RETURNING id, nomenklator_id, qty;
+    `,
+    values: [],
+  }
+}
+export function chngOrder( {orderid, guid, qty, price, unit_type_id} ) {
+
+  return {
+    name: '',
+    text: `
+    with deleted as (delete from order_good_complects where order_good_id in
+      ( select id from order_goods where order_id = ${orderid} AND nomenklator_id = '${guid}'))
+        delete from order_goods where order_id = ${orderid} AND nomenklator_id = '${guid}';
+        insert into order_goods(order_id, nomenklator_id, qty, price, unit_type_id, sum )
+    		select ${orderid}, '${guid}', ${qty || 0}, ${price}, ${unit_type_id}, ${ qty*price } where ${qty || 0} > 0;
+
+        with price_list_compl as (
+
+        						select *
+        						from crosstab(
+        						$$select nomenklator_id::text, price_type_id, round(price*coalesce(currencies.value, 1), 2)
+        						from prices
+        						left join currencies on prices.currency_id = currencies.code
+
+        						where nomenklator_id in (
+
+        						select distinct
+        								complects.guid_complect as guid
+
+        							from complects
+
+        						            where complects.nomenklator_id = '${guid}'
+
+        						)
+
+        						order by 1$$,
+        						$$ SELECT '000000004' UNION ALL SELECT '000000003' UNION ALL SELECT '000000005'$$
+        						)
+
+        						AS (guid text, price1 numeric, price2 numeric, price3 numeric)
+        						)
+
+        							insert into order_good_complects ( complect_id, unit_type_id, qty, koeff, price, order_good_id  )
+
+
+                                        select complects.guid_complect as complect_id,
+
+        								complects.unit_type_id,
+        								order_goods.qty*complects.qty  as qty,
+        								complects.qty as koeff,
+        								round(complects.qty*coalesce(price_list_compl.price1, 0) , 2) as price,
+        								order_goods.id as order_good_id
+
+                                        from order_goods
+
+                                         left join complects on complects.nomenklator_id = order_goods.nomenklator_id
+
+                                         left join price_list_compl on complects.guid_complect = price_list_compl.guid
+
+
+                                     where order_goods.order_id = ${orderid} AND order_goods.nomenklator_id = '${guid}' AND coalesce(complects.guid_complect, '') != '';
+
+                         select id, nomenklator_id, qty from order_goods where order_goods.order_id = ${orderid} AND order_goods.nomenklator_id = '${guid}'
+
 
     `,
     values: [],
@@ -106,15 +170,33 @@ export function getOrdersList( userid ) {
 }
 
 export function getCart(params) {
+  //ARRAY[]::text[] children
   return {
     name: 'get-cart',
     text: `
-      SELECT t2.guid, t2.artikul, t2.name, replace(t2.guid_picture, '250x250', '82x82') guid_picture_small,
-      to_char(t4.created_at, 'DD/MM/YYYY') data_on, t4.sum sum_total, t2.parentguid, t2.synonym, t1.order_id, t1.qty, t1.price, t1.sum, t3.name unit_name
+    with compl as (SELECT guid, JSON_AGG(src_json) as compl_json
+    FROM (
+    	  SELECT t2.complect_id id,t1.nomenklator_id guid, t3.name, t4.name unit_name, t2.koeff, t2.qty, t2.price,
+        'https://newfurnitura.ru/upload/' || t3.guid_complect || '_82x82.jpg' guid_picture_compl,
+        t5.artikul
+    	  FROM order_goods t1
+    	  join order_good_complects t2 on t1.id = t2.order_good_id
+    	  join complects t3 on t2.complect_id = t3.guid_complect and  t1.nomenklator_id = t3.nomenklator_id
+    	  join unit_types t4 on t2.unit_type_id = t4.code
+        join nomenklators t5 on t5.guid = t3.nomenklator_id
+    	  where order_id = $1) src_json
+    	  group by guid)
+
+      SELECT t2.guid id, t2.guid, t2.artikul, t2.artikul_new, t2.name, replace(t2.guid_picture, '250x250', '82x82') guid_picture, t2.is_complect,
+      to_char(t4.created_at, 'DD/MM/YYYY') data_on, COALESCE(t4.sum::real, 0) sum_total, t2.parentguid, t2.synonym, t1.order_id,
+      COALESCE(t1.qty::real, 0) qty1, COALESCE(t1.qty::real, 0) qty2,
+      COALESCE(t1.price::real, 0) price1, t1.sum, case when t2.is_complect > 0 then 'компл.' else t3.name end unit_name, t1.unit_type_id,
+      COALESCE(compl.compl_json, '[]'::json)  children
       FROM order_goods t1
       inner join orders t4 on t4.id = t1.order_id
       inner join nomenklators t2 on t1.nomenklator_id = t2.guid
       inner join unit_types t3 on t1.unit_type_id = t3.code
+      left join compl on compl.guid = t1.nomenklator_id
       where order_id = $1
       order by t2.artikul
     `,

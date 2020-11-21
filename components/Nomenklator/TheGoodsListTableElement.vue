@@ -35,7 +35,7 @@
       </div>
     </v-col>
 
-    <v-col class="d-flex" cols="">
+    <v-col class="d-flex justify-center" cols="">
       <div class="d-flex align-self-center">
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">

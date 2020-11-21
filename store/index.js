@@ -9,5 +9,6 @@ export const actions = {
 
     const connectionid = this.$cookies.get("connectionid");
     await dispatch("nomenklator/setUserInfo", { connectionid });
+    await dispatch("nomenklator/refreshCountCart");
   },
 };

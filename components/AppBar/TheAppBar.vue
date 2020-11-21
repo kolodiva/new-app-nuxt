@@ -20,15 +20,25 @@
         </n-link>
       </v-toolbar-title>
       <TheToolbarItems :header="header3" />
-      <v-btn text :class="[header2.css_class]">
-        <v-img src="/korzina_belaya.png" width="30" contain class="" />
-      </v-btn>
+      <v-badge
+        v-if="cartCount > 0"
+        :content="cartCount"
+        :class="[header2.css_class]"
+        overlap
+      >
+        <v-img
+          src="/korzina_belaya.png"
+          width="30"
+          contain
+          class=""
+          style="cursor: pointer"
+          @click="$router.push('/cart')"
+        />
+      </v-badge>
       <v-spacer />
       <TheSearchField />
       <v-spacer />
-      <v-btn id="yourCity" text :class="['buttonMFWhiteColor']">
-        ГЕО.ИНФ.
-      </v-btn>
+      <v-btn id="yourCity" text :class="['buttonMFWhiteColor']"> </v-btn>
     </v-app-bar>
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
@@ -76,13 +86,17 @@
       <v-spacer />
       <TheSearchField />
       <v-spacer />
-      <v-btn text :class="[header2.css_class]">
-        <v-img
-          src="/korzina_belaya.png"
-          width="30"
-          contain
-          class="mr-4"
-        />КОРЗИНА
+
+      <v-badge
+        v-if="cartCount > 0"
+        :content="cartCount"
+        :class="[header2.css_class]"
+        overlap
+      >
+        <v-img src="/korzina_belaya.png" width="30" contain class="" />
+      </v-badge>
+      <v-btn text :class="[header2.css_class]" nlink to="/cart">
+        КОРЗИНА
       </v-btn>
     </v-toolbar>
   </div>
@@ -102,6 +116,7 @@ export default {
       header2: "headerMenu/getHeader2",
       header3: "headerMenu/getHeader3",
       filials: "headerMenu/getAllSortCity",
+      cartCount: "nomenklator/getCartCount",
     }),
   },
   mounted() {},

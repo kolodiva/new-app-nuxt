@@ -127,24 +127,53 @@
 
               <v-tab-item>
                 <v-card
-                  style="min-height: 500px; max-height: 500px; overflow-x: auto"
+                  style="
+                    min-height: 500px;
+                    max-height: 500px;
+                    overflow-x: auto;
+                    position: relative;
+                  "
                 >
                   <v-list>
                     <v-list-item-group>
-                      <v-list-item v-for="(item, i) in posComplects" :key="i">
+                      <v-list-item
+                        v-for="(item, i) in posComplects"
+                        :key="i"
+                        @click="openShowComplectPos(item)"
+                      >
                         <v-list-item-icon>
                           <v-img :src="item.pic_path_small" />
                         </v-list-item-icon>
                         <v-list-item-content>
                           <v-list-item-title
                             >{{ item.artikul }}, {{ item.name }}, в единице
-                            комплекта: {{ item.qty }}
+                            комплекта: {{ item.qty }} x
                             {{ item.unit_name }}
                           </v-list-item-title>
                         </v-list-item-content>
                       </v-list-item>
                     </v-list-item-group>
                   </v-list>
+
+                  <v-overlay z-index="10" :value="showComplectPos">
+                    <v-card-title
+                      >{{ infoComplectPos.artikul }}, {{ infoComplectPos.name
+                      }}<br />в единице комплекта: {{ infoComplectPos.qty }} x
+                      {{ infoComplectPos.unit_name }}</v-card-title
+                    >
+                    <v-img
+                      :src="infoComplectPos.pic_path"
+                      contain
+                      max-width="600"
+                    />
+                    <v-btn
+                      class="white--text mt-2"
+                      color="teal"
+                      @click="showComplectPos = false"
+                    >
+                      Закрыть
+                    </v-btn>
+                  </v-overlay>
                 </v-card>
               </v-tab-item>
             </v-tabs-items>
@@ -254,6 +283,8 @@ export default {
     fromRoute: null,
     textLabel: "",
     cur_tab_complects: 0,
+    showComplectPos: false,
+    infoComplectPos: {},
   }),
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -273,6 +304,16 @@ export default {
     },
     diffQty() {
       return parseFloat(this.pos.qty1) !== parseFloat(this.pos.qty2);
+    },
+  },
+  watch: {
+    showComplectPos(val) {
+      // val &&
+      //   setTimeout(() => {
+      //     if (this.showComplectPos === true) {
+      //       this.showComplectPos = false;
+      //     }
+      //   }, 2000);
     },
   },
   mounted() {
@@ -331,6 +372,11 @@ export default {
       } else {
         await this.$store.dispatch("nomenklator/chngeCart", -1);
       }
+    },
+
+    openShowComplectPos(pos) {
+      this.infoComplectPos = { ...pos };
+      this.showComplectPos = true;
     },
   },
 };
