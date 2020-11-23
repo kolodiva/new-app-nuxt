@@ -123,13 +123,21 @@ export const getters = {
   getBreadCrumb: (state) => {
     const pos = [];
 
-    state.breadCrumb.forEach((v) => {
-      pos.push({
-        text: v.name,
-        disable: false,
-        href: v.guid === null ? "/" : v.guid,
+    if (state.breadCrumb.length > 0) {
+      state.breadCrumb.forEach((v) => {
+        pos.push({
+          text: v.name,
+          disable: false,
+          to: v.guid === null ? "/" : v.guid,
+        });
       });
-    });
+    } else {
+      pos.push({
+        text: "На главную",
+        disable: false,
+        to: "/",
+      });
+    }
 
     return pos;
   },

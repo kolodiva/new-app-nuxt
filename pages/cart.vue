@@ -1,5 +1,6 @@
 <template>
   <v-card style="min-height: 80vh">
+    <TheBreadCrumbs :type-src="{ src: 'Cart' }" />
     <v-card-title class="headline pb-0">
       {{
         cartList.length == 0
@@ -9,7 +10,7 @@
     </v-card-title>
 
     <v-row class="pa-4" justify="space-between">
-      <v-col cols="7">
+      <v-col cols="">
         <v-treeview
           :items="cartList"
           expand-icon=""
@@ -34,7 +35,7 @@
             </v-img>
           </template>
           <template v-slot:label="{ item, leaf }">
-            <v-row v-if="leaf" class="">
+            <v-row v-if="leaf" class="" style="">
               <v-col cols="2">
                 <v-img
                   :src="item.guid_picture_compl"
@@ -53,7 +54,7 @@
                 >{{ getQtyPosCompl(item) }}, {{ item.unit_name }}</v-col
               >
             </v-row>
-            <v-row v-else class="align-center">
+            <v-row v-else class="align-center fontSize1rem">
               <v-col cols="2" class="">
                 {{ item.artikul }},<br />{{ item.artikul_new }}</v-col
               >
@@ -108,22 +109,12 @@
         </v-treeview>
       </v-col>
     </v-row>
-    <v-overlay z-index="10" :value="showComplectPos">
-      <v-card-title
-        >{{ infoComplectPos.artikul }}, {{ infoComplectPos.name }}<br />{{
-          infoComplectPos.qty
-        }}
-        {{ infoComplectPos.unit_name }}</v-card-title
-      >
-      <v-img :src="infoComplectPos.pic_path" contain max-width="600" />
-      <v-btn
-        class="white--text mt-2"
-        color="teal"
-        @click="showComplectPos = false"
-      >
-        Закрыть
-      </v-btn>
-    </v-overlay>
+    <TheDialogComplects
+      :info-complect-pos="infoComplectPos"
+      :open-dialog="showComplectPos"
+      from-cart="true"
+      @closeWin="closeComplectsView"
+    />
   </v-card>
 </template>
 <script>
@@ -194,6 +185,9 @@ export default {
       this.infoComplectPos.pic_path =
         "https://newfurnitura.ru/upload/" + pos.id + ".jpg";
       this.showComplectPos = true;
+    },
+    closeComplectsView(event) {
+      this.showComplectPos = false;
     },
   },
 };

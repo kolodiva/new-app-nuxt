@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TheBreadCrumbs :type-src="{ src: 'goodCard' }" />
     <v-container v-scroll="onIntersect" fluid>
       <v-row class="">
         <v-col class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
@@ -139,7 +140,7 @@
                       <v-list-item
                         v-for="(item, i) in posComplects"
                         :key="i"
-                        @click="openShowComplectPos(item)"
+                        @click.stop="openShowComplectPos(item)"
                       >
                         <v-list-item-icon>
                           <v-img :src="item.pic_path_small" />
@@ -154,26 +155,6 @@
                       </v-list-item>
                     </v-list-item-group>
                   </v-list>
-
-                  <v-overlay z-index="10" :value="showComplectPos">
-                    <v-card-title
-                      >{{ infoComplectPos.artikul }}, {{ infoComplectPos.name
-                      }}<br />в единице комплекта: {{ infoComplectPos.qty }} x
-                      {{ infoComplectPos.unit_name }}</v-card-title
-                    >
-                    <v-img
-                      :src="infoComplectPos.pic_path"
-                      contain
-                      max-width="600"
-                    />
-                    <v-btn
-                      class="white--text mt-2"
-                      color="teal"
-                      @click="showComplectPos = false"
-                    >
-                      Закрыть
-                    </v-btn>
-                  </v-overlay>
                 </v-card>
               </v-tab-item>
             </v-tabs-items>
@@ -256,6 +237,11 @@
       :foto-index="cur_tab_photos"
       @closeWin="closeBigView"
     />
+    <TheDialogComplects
+      :info-complect-pos="infoComplectPos"
+      :open-dialog="showComplectPos"
+      @closeWin="closeComplectsView"
+    />
   </div>
 </template>
 
@@ -336,6 +322,10 @@ export default {
 
     closeBigView(event) {
       this.openDialogBigView = false;
+    },
+
+    closeComplectsView(event) {
+      this.showComplectPos = false;
     },
 
     onIntersect(entries, observer) {
