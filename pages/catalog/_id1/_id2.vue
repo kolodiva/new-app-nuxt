@@ -37,6 +37,9 @@
                 <v-tab style="height: 30px" @click="goTo('#section_4')">
                   <v-spacer /> Инструкции и файлы
                 </v-tab>
+                <v-tab style="height: 30px" @click="goTo('#section_5')">
+                  <v-spacer /> С этим покупают
+                </v-tab>
               </v-tabs>
             </div>
           </div>
@@ -171,6 +174,40 @@
           <v-card id="section_4" style="height: 15vh" class="mt-1" flat
             ><v-card-text>Инструкции</v-card-text></v-card
           >
+          <v-card id="section_5" style="" class="mt-1" flat
+            ><v-card-text class="pb-0">С этим покупают</v-card-text>
+
+            <v-item-group>
+              <v-container>
+                <v-row dense align-center justify-center>
+                  <v-item
+                    v-for="n in 13"
+                    v-slot="{ active, toggle }"
+                    :key="n"
+                    style="width: 220px"
+                    class="ma-3"
+                  >
+                    <v-card
+                      :color="active ? 'primary' : ''"
+                      class="d-flex align-center"
+                      dark
+                      height="250"
+                      @click="toggle"
+                    >
+                      <v-scroll-y-transition>
+                        <div
+                          v-if="active"
+                          class="display-3 flex-grow-1 text-center"
+                        >
+                          Active
+                        </div>
+                      </v-scroll-y-transition>
+                    </v-card>
+                  </v-item>
+                </v-row>
+              </v-container>
+            </v-item-group>
+          </v-card>
         </v-col>
         <v-col style="" class="grey lighten-4">
           <div
@@ -340,6 +377,7 @@ export default {
         window.$("#section_2").offset().top - wScrL + addVal,
         window.$("#section_3").offset().top - wScrL + addVal,
         window.$("#section_4").offset().top - wScrL + addVal,
+        window.$("#section_5").offset().top - wScrL + addVal,
       ];
 
       this.cur_tab = curBlock.indexOf(curBlock.find((val) => val > 0)) + 1;
