@@ -266,6 +266,79 @@ export function getGoodCardComplects(params) {
     values: [],
   }
 }
+export function getGoodCardDopComplects(params) {
+
+
+  const textqry=`
+
+  create extension if not exists tablefunc;
+
+  with price_list_compl as (
+
+  			select *
+  			from crosstab(
+  			$$select nomenklator_id::text, price_type_id, round(price*coalesce(currencies.value, 1), 2)
+  			from prices
+  			left join currencies on prices.currency_id = currencies.code
+
+  			where nomenklator_id in (
+  				select distinct substr(t1.name, 34) as name
+  				from depots t1
+  				inner join nomenklators t2 on t1.guid = t2.guid and t2.synonym = '${params.synonym}' and t1.type='dop_compl'
+  			)
+
+  			order by 1$$,
+  			$$ SELECT '000000004' UNION ALL SELECT '000000003' UNION ALL SELECT '000000005'$$
+  			)
+
+  			AS (guid text, price1 numeric, price2 numeric, price3 numeric)
+  			)
+
+
+
+  			   SELECT
+                                                            substr(depots.name, 34) as guid,
+
+                                                            nomenklators.parentguid,
+                                                            nomenklators.synonym,
+                                                            nomenklators.name as name,
+                                                            nomenklators.artikul as artikul,
+                                                            nomenklators.artikul_new as artikul_new,
+
+                                                            coalesce(order_goods.qty , 0)::real as qty1,
+                                                            coalesce(order_goods.qty , 0)::real as qty2,
+
+                                                            round(COALESCE(order_goods.price, 0.00), 2) as price_order,
+
+                                                            'https://newfurnitura.ru/upload/' || substr(depots.name, 1, 32) || '_250x250.jpg' as guid_picture,
+
+                                                            coalesce(unit_types.name, '--') as unit_name,
+
+
+                                                            COALESCE(price_list_compl.price1, 0.00) as price1,
+                                                            COALESCE(price_list_compl.price2, 0.00) as price2,
+                                                            COALESCE(price_list_compl.price3, 0.00) as price3
+
+                                                            from depots
+
+                                                            left join price_list_compl on substr(depots.name, 34) = price_list_compl.guid
+                                                            left join nomenklators on substr(depots.name, 34) = nomenklators.guid
+                                                            left join unit_types on nomenklators.unit_type_id = unit_types.code
+
+                                                            left join orders on orders.id = ${params.orderid || null} and orders.status = 0
+                                                            left join order_goods on orders.id=order_goods.order_id and substr(depots.name, 34) = order_goods.nomenklator_id
+
+  														                              inner join nomenklators t2 on depots.guid = t2.guid and t2.synonym = '${params.synonym}' and depots.type='dop_compl'
+
+                                                            order by depots.name
+  `
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getPhotos250(params) {
 
   const textqry=`

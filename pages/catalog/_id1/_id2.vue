@@ -37,7 +37,11 @@
                 <v-tab style="height: 30px" @click="goTo('#section_4')">
                   <v-spacer /> Инструкции и файлы
                 </v-tab>
-                <v-tab style="height: 30px" @click="goTo('#section_5')">
+                <v-tab
+                  v-if="posDopComplects.length > 0"
+                  style="height: 30px"
+                  @click="goTo('#section_5')"
+                >
                   <v-spacer /> С этим покупают
                 </v-tab>
               </v-tabs>
@@ -61,6 +65,9 @@
           >
             <v-tabs-items v-model="cur_tab_complects">
               <v-tab-item>
+                <v-card-title class="pb-0"
+                  >{{ pos.artikul }}, {{ pos.artikul_new }}
+                </v-card-title>
                 <v-card-text class="">{{ pos.name }}</v-card-text>
                 <v-row align="center">
                   <v-col class="pt-0">
@@ -174,39 +181,22 @@
           <v-card id="section_4" style="height: 15vh" class="mt-1" flat
             ><v-card-text>Инструкции</v-card-text></v-card
           >
-          <v-card id="section_5" style="" class="mt-1" flat
-            ><v-card-text class="pb-0">С этим покупают</v-card-text>
+          <v-card
+            v-if="posDopComplects.length > 0"
+            id="section_5"
+            style=""
+            class="mt-1"
+            flat
+            ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
 
-            <v-item-group>
-              <v-container>
-                <v-row dense align-center justify-center>
-                  <v-item
-                    v-for="n in 13"
-                    v-slot="{ active, toggle }"
-                    :key="n"
-                    style="width: 220px"
-                    class="ma-3"
-                  >
-                    <v-card
-                      :color="active ? 'primary' : ''"
-                      class="d-flex align-center"
-                      dark
-                      height="250"
-                      @click="toggle"
-                    >
-                      <v-scroll-y-transition>
-                        <div
-                          v-if="active"
-                          class="display-3 flex-grow-1 text-center"
-                        >
-                          Active
-                        </div>
-                      </v-scroll-y-transition>
-                    </v-card>
-                  </v-item>
-                </v-row>
-              </v-container>
-            </v-item-group>
+            <vue-horizontal-list :items="posDopComplects" :options="options">
+              <template v-slot:default="{ item }">
+                <TheGoodsListMosaicElementDopComplects
+                  :key="item.guid"
+                  :pos="item"
+                />
+              </template>
+            </vue-horizontal-list>
           </v-card>
         </v-col>
         <v-col style="" class="grey lighten-4">
@@ -284,7 +274,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+import VueHorizontalList from "vue-horizontal-list";
 export default {
+  components: {
+    VueHorizontalList,
+  },
   async fetch({ app, params, query, store }) {
     if (params && params) {
       // console.log(params.id2);
@@ -308,6 +302,10 @@ export default {
     cur_tab_complects: 0,
     showComplectPos: false,
     infoComplectPos: {},
+    options: {
+      list: { padding: 12 },
+      autoplay: { play: false, repeat: true, speed: 3000 },
+    },
   }),
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -318,6 +316,7 @@ export default {
     ...mapGetters({
       pos: "nomenklator/getGoodCard",
       posComplects: "nomenklator/getGoodCardComplects",
+      posDopComplects: "nomenklator/getGoodCardDopComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
     }),
     txtLabel() {
@@ -426,5 +425,10 @@ export default {
 .centered-input >>> input::-webkit-outer-spin-button,
 .centered-input >>> input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+.item {
+  padding: 24px;
+  border-radius: 3px;
+  background: #f5f5f5;
 }
 </style>

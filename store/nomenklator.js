@@ -26,8 +26,11 @@ export const mutations = {
   SET_SUB_NOMENKLATOR(state, rows) {
     state.subNomenklator = rows;
   },
-  SET_GOOD_CARD(state, { rows, rowsphoto, breadcrumb, complects }) {
-    state.goodCard = { rows, rowsphoto, complects };
+  SET_GOOD_CARD(
+    state,
+    { rows, rowsphoto, breadcrumb, complects, dopcomplects }
+  ) {
+    state.goodCard = { rows, rowsphoto, breadcrumb, complects, dopcomplects };
   },
   SET_BREAD_CRUMB(state, rows) {
     state.breadCrumb = rows;
@@ -116,6 +119,9 @@ export const getters = {
   },
   getGoodCardComplects: (state) => {
     return state.goodCard.complects;
+  },
+  getGoodCardDopComplects: (state) => {
+    return state.goodCard.dopcomplects;
   },
   getGoodCardRowsPhoto: (state) => {
     return state.goodCard.rowsphoto;
@@ -218,16 +224,25 @@ export const actions = {
     const userid = (state.userInfo && state.userInfo.id) || 1;
     const token = this.$cookies.get("connectionid");
 
-    const { rows, rowsphoto, breadcrumb, complects } = await this.$api(
-      "getGoodCard",
-      {
-        userid,
-        synonym: id2,
-        token,
-      }
-    );
+    const {
+      rows,
+      rowsphoto,
+      breadcrumb,
+      complects,
+      dopcomplects,
+    } = await this.$api("getGoodCard", {
+      userid,
+      synonym: id2,
+      token,
+    });
 
-    commit("SET_GOOD_CARD", { rows, rowsphoto, breadcrumb, complects });
+    commit("SET_GOOD_CARD", {
+      rows,
+      rowsphoto,
+      breadcrumb,
+      complects,
+      dopcomplects,
+    });
   },
   async loadSeoTextMain({ commit, dispatch, state }) {
     const { seoText } = await this.$api("getSeoTextMain");

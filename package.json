@@ -41,6 +41,7 @@
     "require-dir": "^1.2.0",
     "stylelint-scss": "^3.18.0",
     "vue-cryptojs": "^2.1.5",
+    "vue-horizontal-list": "^1.2.0",
     "vue-slick-carousel": "^1.0.6"
   },
   "devDependencies": {
