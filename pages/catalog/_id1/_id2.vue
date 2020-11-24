@@ -38,7 +38,7 @@
                   <v-spacer /> Инструкции и файлы
                 </v-tab>
                 <v-tab
-                  v-if="posDopComplects.length > 0"
+                  v-if="posDopComplects && posDopComplects.length > 0"
                   style="height: 30px"
                   @click="goTo('#section_5')"
                 >
@@ -182,7 +182,7 @@
             ><v-card-text>Инструкции</v-card-text></v-card
           >
           <v-card
-            v-if="posDopComplects.length > 0"
+            v-if="posDopComplects && posDopComplects.length > 0"
             id="section_5"
             style=""
             class="mt-1"
