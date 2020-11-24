@@ -268,7 +268,6 @@ export function getGoodCardComplects(params) {
 }
 export function getGoodCardDopComplects(params) {
 
-
   const textqry=`
 
   create extension if not exists tablefunc;
@@ -332,7 +331,6 @@ export function getGoodCardDopComplects(params) {
 
                                                             order by depots.name
   `
-
   return {
     name: '',
     text: textqry,

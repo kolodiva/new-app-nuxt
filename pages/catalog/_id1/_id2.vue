@@ -189,7 +189,11 @@
             flat
             ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
 
-            <vue-horizontal-list :items="posDopComplects" :options="options">
+            <vue-horizontal-list
+              :items="posDopComplects"
+              :options="options"
+              class="pa-0 px-3"
+            >
               <template v-slot:default="{ item }">
                 <TheGoodsListMosaicElementDopComplects
                   :key="item.guid"

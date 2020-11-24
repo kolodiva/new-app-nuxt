@@ -54,12 +54,12 @@
       type="number"
       :class="[
         'mt-0',
+        'ml-2',
         'centered-input',
-        'mx-auto',
         'flex-grow-0',
         { 'change-value': diffQty },
       ]"
-      style="max-width: 280px"
+      style="width: 160px"
       dense
       :label="txtLabel"
       @click:clear="
