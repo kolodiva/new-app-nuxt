@@ -71,9 +71,10 @@ export async function getGoodCard( { synonym, userid, token } ) {
 
   const complects = await db.queryApp('getGoodCardComplects', { synonym, orderid })
 
+  const dopcomplects = await db.queryApp('getGoodCardDopComplects', { synonym, orderid })
   //console.log('complects', complects[1].rows)
 
-  return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows, complects: complects[1].rows  };
+  return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows, complects: complects[1].rows, dopcomplects: dopcomplects[1].rows  };
 }
 
 export async function getStrucCatalog() {
@@ -371,4 +372,14 @@ export async function getCart( params ) {
       return rows
     }
   return [];
+}
+
+//search
+export async function searchCatalog( {v} ) {
+
+  // console.log('txtSearchPart', v);
+
+  const searchedList  = await db.queryApp( 'getSearchNomenklator', v );
+
+  return searchedList.rows;
 }

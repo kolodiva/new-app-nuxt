@@ -117,6 +117,31 @@ export const getters = {
   getGoodCard: (state) => {
     return state.goodCard.rows[0];
   },
+  getGoodCardBreadCrumb: (state) => {
+    const pos = [];
+
+    if (
+      state.goodCard &&
+      state.goodCard.breadcrumb &&
+      state.goodCard.breadcrumb.length > 0
+    ) {
+      state.goodCard.breadcrumb.forEach((v) => {
+        pos.push({
+          text: v.name,
+          disable: false,
+          to: v.guid === null ? "/" : v.guid,
+        });
+      });
+    } else {
+      pos.push({
+        text: "На главную",
+        disable: false,
+        to: "/",
+      });
+    }
+
+    return pos;
+  },
   getGoodCardComplects: (state) => {
     return state.goodCard.complects;
   },

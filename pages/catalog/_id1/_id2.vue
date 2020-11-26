@@ -1,6 +1,9 @@
 <template>
   <div>
-    <TheBreadCrumbs :type-src="{ src: 'goodCard' }" />
+    <TheBreadCrumbs
+      :type-src="{ src: 'goodCard' }"
+      :good-card-bread-crumb="goodCardBreadCrumb"
+    />
     <v-container v-scroll="onIntersect" fluid>
       <v-row class="">
         <v-col class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
@@ -189,18 +192,22 @@
             flat
             ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
 
-            <vue-horizontal-list
-              :items="posDopComplects"
-              :options="options"
-              class="pa-0 px-3"
-            >
-              <template v-slot:default="{ item }">
-                <TheGoodsListMosaicElementDopComplects
-                  :key="item.guid"
-                  :pos="item"
-                />
-              </template>
-            </vue-horizontal-list>
+            <div id="app">
+              <section>
+                <vue-horizontal-list
+                  :items="posDopComplects"
+                  :options="options"
+                  class=""
+                >
+                  <template v-slot:default="{ item }">
+                    <TheGoodsListMosaicElementDopComplects
+                      :key="item.guid"
+                      :pos="item"
+                    />
+                  </template>
+                </vue-horizontal-list>
+              </section>
+            </div>
           </v-card>
         </v-col>
         <v-col style="" class="grey lighten-4">
@@ -307,7 +314,6 @@ export default {
     showComplectPos: false,
     infoComplectPos: {},
     options: {
-      list: { padding: 12 },
       autoplay: { play: false, repeat: true, speed: 3000 },
     },
   }),
@@ -320,6 +326,7 @@ export default {
     ...mapGetters({
       pos: "nomenklator/getGoodCard",
       posComplects: "nomenklator/getGoodCardComplects",
+      goodCardBreadCrumb: "nomenklator/getGoodCardBreadCrumb",
       posDopComplects: "nomenklator/getGoodCardDopComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
     }),

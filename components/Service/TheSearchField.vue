@@ -1,12 +1,89 @@
 <template>
-  <v-text-field
-    rounded
-    outlined
-    clearable
-    dense
-    prepend-inner-icon="mdi-magnify"
+  <v-autocomplete
+    v-model="select"
     dark
-    style="align-self: baseline"
+    dense
+    rounded
+    clearable
+    prepend-inner-icon="mdi-magnify"
+    :loading="loading"
+    :items="items"
+    :search-input.sync="search"
+    class=""
+    hide-no-data
+    hide-details
     placeholder="Введите часть Артикула или Наименования..."
-  ></v-text-field>
+    style=""
+    solo-inverted
+    cache-items
+    @change="onClick"
+  ></v-autocomplete>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      loading: false,
+      items: [],
+      search: null,
+      select: null,
+      states: [],
+    };
+  },
+  watch: {
+    search(val) {
+      val && val !== this.select && this.querySelections(val);
+    },
+  },
+  methods: {
+    onClick(e) {
+      if (e) {
+        const path = `/catalog/${e.parentguid}/${e.synonym}`;
+        this.$router.push(path);
+      }
+
+      // console.log(e);
+    },
+
+    async querySelections(v) {
+      if (this.loading || v.length < 3) {
+        return;
+      }
+
+      this.loading = true;
+      // Simulated ajax query
+      // console.log("v", v);
+      try {
+        const states = await this.$api("searchCatalog", { v });
+
+        this.items = states.map((e) => {
+          return (
+            {
+              text: e.descr,
+              value: { synonym: e.synonym, parentguid: e.parentguid },
+            } || {}
+          );
+        });
+
+        // console.log("this.items", this.items);
+
+        // this.items = items0.filter((e) => {
+        //   return (e || "").toLowerCase().includes((v || "").toLowerCase());
+        // });
+        // this.states = states;
+        // console.log(this.items);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        this.loading = false;
+      }
+      // setTimeout(() => {
+      //   this.items = this.states.filter((e) => {
+      //     return (e || "").toLowerCase().includes((v || "").toLowerCase());
+      //   });
+      //   this.loading = false;
+      // }, 500);
+    },
+  },
+};
+</script>

@@ -5,7 +5,7 @@
     class="d-flex flex-column"
     width=""
     min-height="484"
-    style="margin: 3px"
+    style="margin: 3px; position: relative"
   >
     <v-img
       v-if="pos.is_complect > 0"
@@ -39,12 +39,11 @@
     <v-divider class="mx-3" />
 
     <div
-      class="flex-grow-0 blueMfText overlay font-weight-light pa-3 text-center"
+      class="blueMfText font-weight-light pa-3 text-center"
+      style="height: 100px; overflow: hidden"
     >
       {{ pos.name }}
     </div>
-
-    <div class="flex-grow-1"></div>
 
     <v-text-field
       v-model="pos.qty2"
@@ -59,7 +58,7 @@
         'flex-grow-0',
         { 'change-value': diffQty },
       ]"
-      style="width: 160px"
+      style="width: 74%"
       dense
       :label="txtLabel"
       @click:clear="

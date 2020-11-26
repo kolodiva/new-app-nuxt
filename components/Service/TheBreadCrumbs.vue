@@ -1,6 +1,8 @@
 <template>
   <v-breadcrumbs
-    :items="breadCrumb"
+    :items="
+      typeSrc && typeSrc.src === 'goodCard' ? goodCardBreadCrumb : breadCrumb
+    "
     :class="[
       typeSrc ? 'justify-left' : 'justify-center',
       'text-subtitle-1',
@@ -25,7 +27,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  props: ["typeSrc"],
+  props: ["typeSrc", "goodCardBreadCrumb"],
 
   computed: {
     ...mapGetters({
