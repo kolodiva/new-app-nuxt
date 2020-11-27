@@ -607,7 +607,7 @@ export function getSearchNomenklator( searchtext ) {
     and t1.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
   	and t2.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
     and
-    (lower(t1.name) ~ all(array['${searchtext}']) or lower(t1.artikul) ~ all(array['${searchtext}']) or lower(t1.artikul_new) ~ all(array['${searchtext}']) )
+    ( lower(t1.name) ~ ${whereStr} or lower(t1.artikul) ~ ${whereStr} or lower(t1.artikul_new) ~ ${whereStr} )
   order by t1.name
     limit 20)
     select min(r1.id) id, r1.synonym, r1.descr, t1.parentguid
