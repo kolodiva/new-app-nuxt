@@ -66,7 +66,9 @@ export default {
     if (this.breadCrumb.length === 2) {
       const lastEl = this.breadCrumb[this.breadCrumb.length - 1];
 
-      this.active.push(lastEl.href);
+      // console.log(lastEl.to);
+
+      this.active.push(lastEl.to);
     }
 
     if (this.breadCrumb.length > 4) {
@@ -79,8 +81,8 @@ export default {
       const lastEl1 = this.breadCrumb[this.breadCrumb.length - 1];
       const lastEl2 = this.breadCrumb[this.breadCrumb.length - 2];
 
-      this.active.push(lastEl1.href);
-      this.open.push(lastEl2.href);
+      this.active.push(lastEl1.to);
+      this.open.push(lastEl2.to);
 
       let i = 3;
 
@@ -90,7 +92,7 @@ export default {
         const lastEl = this.breadCrumb[this.breadCrumb.length - i];
 
         try {
-          this.open.push(lastEl.href);
+          this.open.push(lastEl.to);
         } catch (e) {
         } finally {
         }

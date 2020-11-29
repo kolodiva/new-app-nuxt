@@ -15,7 +15,8 @@
     placeholder="Введите часть Артикула или Наименования..."
     style=""
     solo-inverted
-    cache-items
+    no-data-text="Не найдено запрошенных данных..."
+    no-filter
     @change="onClick"
   ></v-autocomplete>
 </template>
@@ -27,7 +28,6 @@ export default {
       items: [],
       search: null,
       select: null,
-      states: [],
     };
   },
   watch: {
@@ -55,6 +55,8 @@ export default {
       // console.log("v", v);
       try {
         const states = await this.$api("searchCatalog", { v });
+
+        // console.log("states", states);
 
         this.items = states.map((e) => {
           return (

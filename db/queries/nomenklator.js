@@ -588,6 +588,42 @@ export function getSearchNomenklator_old2( searchtext ) {
     values: [],
   }
 }
+export function getSearchNomenklator_old3(searchtext) {
+
+  const strQueryWhereExactly  = searchtext.split(' ').join('').toLowerCase()
+  const strQueryWhere         = '%' + searchtext.split(' ').join('%').toLowerCase() + '%'
+  const strQueryWhereArtikul  = searchtext.split(' ').join('%').toLowerCase() + '%'
+
+  const textqry = `
+
+  SELECT DISTINCT trim(nomenklators2.name) as descr, nomenklators2.guid synonym, nomenklators2.parentguid,
+         min(case when (lower(nomenklators1.artikul) = '${strQueryWhereExactly}' or lower(nomenklators1.artikul_new) = '${strQueryWhereExactly}' ) then 0 else 1 end) as ord
+                   FROM
+                   nomenklators as nomenklators1
+                   inner join nomenklators as nomenklators2 on nomenklators1.parentguid = nomenklators2.guid
+
+               WHERE ( lower(nomenklators1.name) like '${strQueryWhere}'
+                 OR lower(nomenklators2.name)  like '${strQueryWhere}'
+                   OR lower(nomenklators1.synonym)  like '${strQueryWhere}'
+                   OR lower(nomenklators2.synonym)  like '${strQueryWhere}'
+                     OR lower(nomenklators1.artikul) like '${strQueryWhereArtikul}'
+                     OR lower(nomenklators1.artikul_new) like '${strQueryWhereArtikul}'
+                       AND NOT nomenklators1.itgroup and nomenklators2.guid!='yandexpagesecret' and nomenklators2.guid!='sekretnaya_papka'
+                               and case when nomenklators2.parentguid is null then true else nomenklators2.parentguid != 'yandexpagesecret' end
+                               and case when nomenklators2.parentguid is null then true else nomenklators2.parentguid != 'sekretnaya_papka' end
+                       ) group by nomenklators2.guid, nomenklators2.parentguid, nomenklators2.name
+                       having nomenklators2.guid != 'sekretnaya_papka'
+                       ORDER BY ord, trim(nomenklators2.name)
+                       limit 30
+
+                       `
+                       // console.log(textqry);
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getSearchNomenklator( searchtext ) {
 
   let whereStr = searchtext.toLowerCase().split(' ');
@@ -600,7 +636,7 @@ export function getSearchNomenklator( searchtext ) {
 
   const textqry = `
   with r1 as (
-  select t2.id, t1.parentguid, t1.synonym, t1.name || ' (' || t1.artikul || ')' || ' (' || t1.artikul_new || ')' descr, t1.artikul, t1.artikul_new
+  select distinct t2.id, t1.parentguid, t1.synonym, t1.name || ' (' || t1.artikul || ')' || ' (' || t1.artikul_new || ')' descr, t1.artikul, t1.artikul_new
   	from nomenklators t1
   	inner join nomenklators t2 on t2.guid = t1.parentguid
     where not t1.itgroup
@@ -608,14 +644,14 @@ export function getSearchNomenklator( searchtext ) {
   	and t2.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
     and
     ( lower(t1.name) ~ ${whereStr} or lower(t1.artikul) ~ ${whereStr} or lower(t1.artikul_new) ~ ${whereStr} )
-  order by t1.name
+  order by descr
     limit 20)
-    select min(r1.id) id, r1.synonym, r1.descr, t1.parentguid
+    select distinct min(r1.id) id, r1.synonym, r1.descr, t1.parentguid
     from r1
     inner join nomenklators t1 on r1.id = t1.id
     group by r1.synonym, r1.descr, t1.parentguid
   `
-   //console.log(textqry);
+  // console.log(textqry);
   return {
     name: '',
     text: textqry,
