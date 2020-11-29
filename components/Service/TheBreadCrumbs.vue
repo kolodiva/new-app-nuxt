@@ -1,8 +1,6 @@
 <template>
   <v-breadcrumbs
-    :items="
-      typeSrc && typeSrc.src === 'goodCard' ? goodCardBreadCrumb : breadCrumb
-    "
+    :items="itemsBreadCrumb"
     :class="[
       typeSrc ? 'justify-left' : 'justify-center',
       'text-subtitle-1',
@@ -33,6 +31,24 @@ export default {
     ...mapGetters({
       breadCrumb: "nomenklator/getBreadCrumb",
     }),
+    itemsBreadCrumb_old() {
+      return this.typeSrc && this.typeSrc.src === "goodCard"
+        ? this.goodCardBreadCrumb
+        : this.typeSrc.src === "Cart"
+        ? [
+            {
+              text: "На главную",
+              disable: false,
+              to: "/",
+            },
+          ]
+        : this.breadCrumb;
+    },
+    itemsBreadCrumb() {
+      return this.typeSrc && this.typeSrc.src === "goodCard"
+        ? this.goodCardBreadCrumb
+        : this.breadCrumb;
+    },
   },
   methods: {},
 };
