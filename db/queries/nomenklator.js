@@ -636,7 +636,7 @@ export function getSearchNomenklator( searchtext ) {
 
   const textqry = `
   with r1 as (
-  select distinct t2.id, t1.parentguid, t1.synonym, ' (' || t1.artikul || ') ' || t1.name || ' (' || t1.artikul_new || ')' descr, t1.artikul, t1.artikul_new
+  select distinct t2.id, t1.parentguid, t1.synonym, ' (' || t1.artikul || ') ' || t1.name || ' (' || t1.artikul_new || ')' descr, t1.name, t1.artikul, t1.artikul_new
   	from nomenklators t1
   	inner join nomenklators t2 on t2.guid = t1.parentguid
     where not t1.itgroup
@@ -644,7 +644,7 @@ export function getSearchNomenklator( searchtext ) {
   	and t2.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
     and
     ( lower(t1.name || ' ' || t1.artikul || ' ' || t1.artikul_new ) ~ ${whereStr} )
-  order by descr
+  order by t1.name
     limit 20)
     select distinct min(r1.id) id, r1.synonym, r1.descr, t1.parentguid
     from r1
