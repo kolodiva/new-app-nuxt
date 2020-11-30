@@ -84,7 +84,7 @@ export function getSubNomenklator(params) {
     left join orders on orders.id = ${params.orderid || null} and orders.status = 0
     left join order_goods on order_goods.order_id = ${params.orderid || null} and price_list_total.guid = order_goods.nomenklator_id
 
-    left join unit_types on nomenklators.unit_type_id = unit_types.code
+    left join unit_types on right('0000' || nomenklators.unit_type_id, 3) = unit_types.code
 
     where nomenklators.parentguid='${params.parentguid}' and nomenklators.guid not in ('yandexpagesecret', 'sekretnaya_papka')
 
@@ -183,7 +183,7 @@ export function getGoodCard(params) {
     left join orders on orders.id = ${params.orderid || null} and orders.status = 0
     left join order_goods on order_goods.order_id = ${params.orderid || null} and price_list_total.guid = order_goods.nomenklator_id
 
-    left join unit_types on nomenklators.unit_type_id = unit_types.code
+    left join unit_types on right('0000' || nomenklators.unit_type_id, 3) = unit_types.code
 
     where nomenklators.synonym='${params.synonym}'
 
@@ -253,7 +253,7 @@ export function getGoodCardComplects(params) {
                                                       left join orders on orders.id = ${params.orderid || null} and orders.status = 0
                                                       left join order_goods on orders.id=order_goods.order_id and complects.nomenklator_id = order_goods.nomenklator_id and complects.nomenklator_id = order_goods.nomenklator_id
 
-                                                      left join unit_types on complects.unit_type_id = unit_types.code
+                                                      left join unit_types on right('0000' || complects.unit_type_id, 3) = unit_types.code
 
                                                       left join price_list_compl on complects.guid_complect = price_list_compl.guid
 
@@ -322,7 +322,7 @@ export function getGoodCardDopComplects(params) {
 
                                                             left join price_list_compl on substr(depots.name, 34) = price_list_compl.guid
                                                             left join nomenklators on substr(depots.name, 34) = nomenklators.guid
-                                                            left join unit_types on nomenklators.unit_type_id = unit_types.code
+                                                            left join unit_types on right('0000' || nomenklators.unit_type_id, 3) = unit_types.code
 
                                                             left join orders on orders.id = ${params.orderid || null} and orders.status = 0
                                                             left join order_goods on orders.id=order_goods.order_id and substr(depots.name, 34) = order_goods.nomenklator_id

@@ -95,7 +95,6 @@ export const mutations = {
     state.countCart = rows.length;
   },
 };
-
 export const getters = {
   isGroup: (state) => {
     return (
@@ -186,6 +185,9 @@ export const getters = {
     return state.userInfo && state.userInfo.id > 1
       ? state.userInfo.email
       : undefined;
+  },
+  getUserInfo: (state) => {
+    return state.userInfo ? state.userInfo : { email: "anonimus", id: 1 };
   },
   getCartCount: (state) => {
     return state.countCart;
@@ -381,5 +383,32 @@ export const actions = {
     const rows = await this.$api("getCart", { userid, token });
     // console.log(userid, conntoken)
     commit("SET_COUNT_CART", rows);
+  },
+  async procOrder(
+    { commit, dispatch, state },
+    { mister, filial, email, phone, info, mastercard }
+  ) {
+    let _email = email;
+    let _mister = mister;
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+    if (!email) {
+      _email = state.userInfo && state.userInfo.email;
+      _mister = _email;
+    }
+    const infoOrder = {
+      mister: _mister,
+      filial,
+      email: _email,
+      phone,
+      info,
+      userid,
+      token,
+      mastercard,
+    };
+
+    const rows = await this.$api("procOrder", infoOrder);
+
+    return rows;
   },
 };

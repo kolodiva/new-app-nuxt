@@ -103,7 +103,7 @@ export function chngOrder( {orderid, guid, qty, price, unit_type_id} ) {
     values: [],
   }
 }
-export function procOrder( orderid, dbinfo, mastercard ) {
+export function procOrder( {orderid, dbinfo, mastercard} ) {
   return {
     name: '',
     text: `
@@ -156,6 +156,16 @@ export function unitOrders( params ) {
   }
 }
 export function getOrdersList( userid ) {
+
+  console.log(`
+  select distinct t1.id, t1.status, to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order
+  from orders t1
+  inner join connections t2 on t1.connection_id=t2.id
+  where t1.status>0 and t2.user_id=${userid}
+  order by t1.id desc
+  `);
+
+
   return {
     name: '',
     text: `
@@ -171,6 +181,7 @@ export function getOrdersList( userid ) {
 
 export function getCart(params) {
   //ARRAY[]::text[] children
+
   return {
     name: 'get-cart',
     text: `
@@ -182,7 +193,7 @@ export function getCart(params) {
     	  FROM order_goods t1
     	  join order_good_complects t2 on t1.id = t2.order_good_id
     	  join complects t3 on t2.complect_id = t3.guid_complect and  t1.nomenklator_id = t3.nomenklator_id
-    	  join unit_types t4 on t2.unit_type_id = t4.code
+        join unit_types t4 on right('0000' || t2.unit_type_id, 3) = t4.code
         join nomenklators t5 on t5.guid = t3.nomenklator_id
     	  where order_id = $1) src_json
     	  group by guid)
@@ -195,7 +206,7 @@ export function getCart(params) {
       FROM order_goods t1
       inner join orders t4 on t4.id = t1.order_id
       inner join nomenklators t2 on t1.nomenklator_id = t2.guid
-      inner join unit_types t3 on t1.unit_type_id = t3.code
+      inner join unit_types t3 on right('0000' || t1.unit_type_id, 3) = t3.code
       left join compl on compl.guid = t1.nomenklator_id
       where order_id = $1
       order by t2.artikul
