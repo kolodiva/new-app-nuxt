@@ -24,6 +24,28 @@ async function getConnectionOrder( userid, connectionid, createnewconn = true  )
   return rows[0]
 }
 
+async function sendEmail(message) {
+
+  message.from = 'afmc@mail.ru';
+
+  const transport = await nodemailer.createTransport({
+    host: 'smtp.mail.ru',
+    port: 465,
+    secure: true,
+    auth: {
+       user: 'afmc@mail.ru',
+       pass: 'Pp123456'
+    }
+  });
+
+  transport.sendMail(message, function(err, info) {
+      if (err) {
+        //console.log(err)
+      } else {
+        //console.log(info);
+      }})
+
+}
 
 //nomenklator
 export async function getSubNomenklator( params ) {
@@ -197,37 +219,14 @@ export async function recoveryUserPassword( params, res ) {
 
   rows = result.rows;
 
-  // console.log('rows', rows);
-
-  const transport = nodemailer.createTransport({
-    host: 'smtp.mail.ru',
-    port: 465,
-    secure: true,
-    auth: {
-       user: 'afmc@mail.ru',
-       pass: 'Pp123456'
-    }
-});
-// transport.verify(function(error, success) {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log("Server is ready to take our messages");
-//   }
-// });
-const message = {
+  const message = {
     from: 'afmc@mail.ru', // Sender address
     to: params.email,         // List of recipients
     subject: 'Код восстановления пароля.', // Subject line
-    text: 'Здравствуйте! Вы запросили код восстановления пароля к своему аккаунту на сайте newfurnitura.ru. Введите код: ' + rows[0].inn + ' на странице сайта.' // Plain text body
-};
-transport.sendMail(message, function(err, info) {
-    if (err) {
-      //console.log(err)
-    } else {
-      //console.log(info);
-    }
-});
+    text: 'Здравствуйте! Вы запросили код восстановления пароля к своему аккаунту на сайте newfurnitura.ru. Введите код: ' + rows[0].inn + ' на странице авторизации.' // Plain text body
+  };
+
+  await sendEmail(message);
 
   return rows[0].inn
 }
@@ -344,6 +343,32 @@ async function unitOrders( userid, connectionid ) {
   return true
 }
 
+export async function procOrder( { userid, token, mister, filial,  email, phone, info, mastercard } ) {
+
+  let dbinfo
+
+  // console.log( userid, guid, qty, connectionid )
+  const { orderid }  = await getConnectionOrder( userid, token, false );
+
+  if (userid === 1) {
+    dbinfo = `Обращение: ${mister ? mister : '***'} / ${email ? email : '***'} / ${phone ? phone : '***'} / Предпочитаемый офис: ${filial ? filial : '***'} / Напутствие: ${info ? info : '***'}`
+  } else {
+    dbinfo = `- / Предпочитаемый офис: ${filial ? filial : '***'} / Напутствие: ${info ? info : '***'}`
+  }
+
+  const resOk = await db.queryApp('procOrder', {orderid, dbinfo, mastercard})
+
+  const message = {
+    to: email,         // List of recipients
+    subject: 'МФ-Комплект. Ваш Заказ ' + orderid + ' на сайте newfurnitura.ru', // Subject line
+    text: 'Здравствуйте ' + mister + '! Благодарим Вас за покупку.\n\nВаш Заказ: ' + orderid + ' отправлен в обработку.\n\nДоп.информация:\n' + dbinfo + '\n\nС уважением, МФ-Комплект.\nwww.newfurnitura.ru' // Plain text body
+  };
+
+  await sendEmail(message);
+
+  return [];
+}
+
 export async function chngeCart( { guid, qty, price1, unit_type_id, userid, token }, res) {
 
   const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
@@ -373,6 +398,14 @@ export async function getCart( params ) {
     }
   return [];
 }
+
+export async function getOrdersList( {userid} ) {
+
+  const { rows } = await db.queryApp('getOrdersList', userid )
+
+  return rows;
+}
+
 
 //search
 export async function searchCatalog( {v} ) {
