@@ -70,11 +70,34 @@ export async function getSubNomenklator( params ) {
   const breadcrumb = await db.queryApp('getBreadCrumbs', { parentguid })
 
   const seoText = await db.queryApp('getSeoText', { parentguid })
-  //const seoText = []
 
-  //console.log(breadcrumb.rows)
+  const canUseFilter = await db.queryAppSqlExec( "select count(*) as count_rec from nomenklators where guid=$1 and show_filter = 1", [parentguid] );
 
-  return {rows, breadcrumb: breadcrumb.rows, seoText: seoText.rows};
+  // console.log(parentguid, canUseFilter.rows[0].count_rec > 0)
+
+  return {rows, breadcrumb: breadcrumb.rows, seoText: seoText.rows, canUseFilter: canUseFilter.rows[0].count_rec > 0};
+}
+
+export async function getGroupFilter( params ) {
+
+  const { parentguid } = params;
+
+  const groupFilter = await db.queryAppSqlExec(' \
+  with guids as ( \
+             with recursive r as ( \
+                select name, parentguid, guid, itgroup from nomenklators where parentguid = $1 \
+                  union all \
+                select prop1.name, prop1.parentguid, prop1.guid, prop1.itgroup from nomenklators as prop1 join r on prop1.parentguid = r.guid \
+              ) \
+               select guid from r where not itgroup ) \
+               select distinct property, array_agg(DISTINCT properties.value order by properties.value) as arrayprop \
+  			 from properties as properties \
+  			 join guids on properties.nomenklator_id = guids.guid \
+  			 group by property \
+  			 order by property \
+    ', [parentguid] );
+
+  return {rows: groupFilter.rows};
 }
 
 export async function getGoodCard( { synonym, userid, token } ) {
