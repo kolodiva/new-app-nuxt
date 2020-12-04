@@ -2,50 +2,10 @@
   <v-container fluid>
     <v-row>
       <v-col md="2" class="hidden-sm-and-down mb-2">
-        <v-expansion-panels
-          v-if="switchFilter"
-          v-model="openPanel2"
-          focusable
-          multiple
-          class="mt-4"
-        >
-          <v-expansion-panel>
-            <v-expansion-panel-header>
-              Отбор по параметрам
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-list rounded dense>
-                <div v-for="(item, i) in groupFilter" :key="i">
-                  <v-list-group
-                    v-if="item.arrayprop.length > 1"
-                    color="primary"
-                  >
-                    <template v-slot:activator>
-                      <v-list-item-title>{{ item.property }}</v-list-item-title>
-                    </template>
-
-                    <v-list-item
-                      v-for="(item2, i2) in item.arrayprop"
-                      :key="i2"
-                    >
-                      <template v-slot:default="{ active }">
-                        <v-list-item-title
-                          class="ml-4"
-                          v-text="item2"
-                        ></v-list-item-title>
-
-                        <v-list-item-action>
-                          <v-checkbox :input-value="active"></v-checkbox>
-                        </v-list-item-action>
-                      </template>
-                    </v-list-item>
-                  </v-list-group>
-                </div>
-              </v-list>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-        <TheGoodsListLeftSideBar />
+        <TheGoodsListLeftSideBar
+          :switch-filter="switchFilter"
+          :parentguid="subNomenklator[0].parentguid"
+        />
       </v-col>
 
       <v-col md="8" sm="12" class="pt-0">
@@ -101,9 +61,7 @@ export default {
   data() {
     return {
       openPanel1: [0],
-      openPanel2: [0],
       switchFilter: false,
-      groupFilter: [],
     };
   },
   computed: {
@@ -112,26 +70,10 @@ export default {
       canUseFilter: "nomenklator/getCanUseFilter",
     }),
   },
-  watch: {
-    async switchFilter(v) {
-      if (
-        v === true &&
-        this.groupFilter.length === 0 &&
-        this.subNomenklator[0]
-      ) {
-        const { rows } = await this.$api("getGroupFilter", {
-          parentguid: this.subNomenklator[0].parentguid,
-        });
-
-        this.groupFilter.push(...rows);
-
-        //  console.log(this.groupFilter);
-      }
-    },
-  },
   mounted() {
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
     // $('#sidebar2').stickr({duration:0, offsetTop: 80});
   },
+  methods: {},
 };
 </script>

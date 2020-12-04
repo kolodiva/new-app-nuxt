@@ -1,6 +1,52 @@
 <template>
   <div id="sidebar1">
     <div>
+      <v-expansion-panels
+        v-if="switchFilter"
+        v-model="openPanel2"
+        focusable
+        multiple
+        class="mb-4"
+      >
+        <v-expansion-panel>
+          <v-expansion-panel-header class="">
+            Отбор по параметрам
+          </v-expansion-panel-header>
+          <v-row v-if="showResetFilter" justify="end" class="mx-0">
+            <v-chip
+              class="ma-2"
+              color=""
+              outlined
+              close
+              @click:close="setGroupFilter = [[]]"
+            >
+              Сбросить фильтр
+            </v-chip>
+          </v-row>
+          <v-expansion-panel-content class="pb-4">
+            <v-card-text
+              v-for="(item, i) in groupFilter"
+              :key="i"
+              class="py-0 pt-1"
+            >
+              <h3 class="">
+                {{ item.property }}
+              </h3>
+              <v-chip-group v-model="setGroupFilter[i]" column multiple>
+                <v-chip
+                  v-for="(item2, i2) in item.arrayprop"
+                  :key="i2"
+                  filter
+                  outlined
+                >
+                  {{ item2 }}
+                </v-chip>
+              </v-chip-group>
+            </v-card-text>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+
       <v-expansion-panels v-model="openPanel1" focusable multiple>
         <v-expansion-panel v-for="(item, i) in 1" :key="i">
           <v-expansion-panel-header>
@@ -33,13 +79,19 @@ import { mapGetters } from "vuex";
 import { scrollToElm } from "@/utils/scrolling";
 // const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export default {
+  props: ["switchFilter", "parentguid"],
   data() {
     return {
       openPanel1: [0],
+      openPanel2: [0],
       show: false,
       tree: [],
       open: [],
       active: [],
+
+      groupFilter: [],
+      setGroupFilter: [[]],
+      showResetFilter: false,
     };
   },
   computed: {
@@ -47,6 +99,23 @@ export default {
       strucCatalog: "nomenklator/strucCatalog",
       breadCrumb: "nomenklator/getBreadCrumb",
     }),
+  },
+  watch: {
+    setGroupFilter(v) {
+      // console.log(this.setGroupFilter[0].length);
+      this.showResetFilter = true;
+    },
+    async switchFilter(v) {
+      if (v === true && this.parentguid) {
+        const { rows } = await this.$api("getGroupFilter", {
+          parentguid: this.parentguid,
+        });
+
+        this.groupFilter.push(...rows);
+
+        //  console.log(this.groupFilter);
+      }
+    },
   },
   mounted() {
     if (this.breadCrumb.length === 2) {
