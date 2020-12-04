@@ -192,7 +192,7 @@
             flat
             ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
 
-            <div id="app">
+            <div>
               <section>
                 <vue-horizontal-list
                   :items="posDopComplects"
@@ -203,6 +203,7 @@
                     <TheGoodsListMosaicElementDopComplects
                       :key="item.guid"
                       :pos="item"
+                      @chngorder="chngorderdopcomplect"
                     />
                   </template>
                 </vue-horizontal-list>
@@ -391,6 +392,23 @@ export default {
       ];
 
       this.cur_tab = curBlock.indexOf(curBlock.find((val) => val > 0)) + 1;
+    },
+
+    async chngorderdopcomplect(pos) {
+      if (pos.qty2 === "" || pos.qty2 == null || parseFloat(pos.qty2) < 0) {
+        pos.qty2 = 0;
+      }
+
+      if (parseFloat(pos.qty1) === parseFloat(pos.qty2)) {
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "red",
+          text: `Мозги керак эмас.`,
+          timeout: 3000,
+          showing: true,
+        });
+      } else {
+        await this.$store.dispatch("nomenklator/chngeCartFromDopComplect", pos);
+      }
     },
 
     async chngorder() {

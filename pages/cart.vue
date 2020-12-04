@@ -150,17 +150,32 @@
                   :active.sync="activeOrders"
                   :items="itemsOrders"
                   :load-children="fetchOrders"
-                  :open.sync="openOrders"
-                  activatable
                   color="warning"
                   open-on-click
                   transition
                   dense
                 >
-                  <template v-slot:label="{ item, leaf }">
-                    <v-card-subtitle v-if="leaf" class="title py-0">
+                  <template v-slot:label="{ item }">
+                    <v-card-subtitle v-if="item.data_on" class="title py-0">
                       Заказ {{ item.id }} от {{ item.data_on }} сумма:
                       {{ item.sum }} к оплате картой {{ item.sum_for_payment }}
+                    </v-card-subtitle>
+                    <v-card-subtitle
+                      v-else-if="item.guid"
+                      class="subtitle py-0"
+                    >
+                      <tr>
+                        <td style="width: 90px">{{ item.artikul }}</td>
+                        <td style="width: 150px">
+                          {{ item.name }}
+                        </td>
+                        <td style="width: 50px; text-align: center">
+                          {{ item.qty }}
+                        </td>
+                        <td style="width: 60px; text-align: right">
+                          {{ item.sum }}
+                        </td>
+                      </tr>
                     </v-card-subtitle>
                     <v-card-title v-else class="headline py-0">
                       {{ item.name }}

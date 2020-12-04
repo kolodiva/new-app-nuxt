@@ -20,11 +20,15 @@ export const state = () => ({
   userInfo: undefined,
   countCart: 0,
   cartList: [],
+  canUseFilter: false,
 });
 
 export const mutations = {
   SET_SUB_NOMENKLATOR(state, rows) {
     state.subNomenklator = rows;
+  },
+  SET_CAN_USE_FILTER(state, canUseFilter) {
+    state.canUseFilter = canUseFilter;
   },
   SET_GOOD_CARD(
     state,
@@ -81,6 +85,23 @@ export const mutations = {
       state.cartList[0].sum_total = sumTotal.toFixed(2);
     }
   },
+  SET_NEW_QTY_FROMDOPCOMPLECT(state, { id, esc }) {
+    if (!state.goodCard.dopcomplects) {
+      return;
+    }
+
+    const obj = state.goodCard.dopcomplects.find((o) => o.guid === id);
+
+    // console.log(id, obj);
+
+    if (obj && esc === true) {
+      obj.qty2 = parseFloat(obj.qty1);
+    } else if (obj) {
+      obj.qty1 = parseFloat(obj.qty2);
+      obj.qty2 = parseFloat(obj.qty2);
+      obj.sum = parseFloat(obj.qty1 * obj.price1).toFixed(2);
+    }
+  },
   SET_SNACKBAR(state, snackbar) {
     state.snackbars = state.snackbars.concat(snackbar);
   },
@@ -109,6 +130,10 @@ export const getters = {
   getSubNomenklator: (state) => {
     return state.subNomenklator;
   },
+  getCanUseFilter: (state) => {
+    return state.canUseFilter;
+  },
+
   getCatalogTypeView: (state) => {
     return state.catalogTypeView;
   },
@@ -233,13 +258,17 @@ export const actions = {
 
     const userid = (state.userInfo && state.userInfo.id) || 1;
     const token = this.$cookies.get("connectionid");
-    const { rows, breadcrumb, seoText } = await this.$api("getSubNomenklator", {
-      userid,
-      parentguid: id,
-      token,
-    });
+    const { rows, breadcrumb, seoText, canUseFilter } = await this.$api(
+      "getSubNomenklator",
+      {
+        userid,
+        parentguid: id,
+        token,
+      }
+    );
 
     commit("SET_SUB_NOMENKLATOR", rows);
+    commit("SET_CAN_USE_FILTER", canUseFilter);
     commit("SET_BREAD_CRUMB", breadcrumb);
     commit("SET_SEO_TEXT", seoText);
     commit("SET_WAIT_LOAD_NOMENKLATOR", false);
@@ -368,6 +397,52 @@ export const actions = {
       });
     } else {
       commit("SET_NEW_QTY_FROMCART", { id: obj.id, esc: true });
+
+      await dispatch("setSnackbar", {
+        color: "red",
+        text: `Ошибка по многим разным причинам. Попробуйте позже.`,
+        timeout: 3000,
+        showing: true,
+      });
+    }
+  },
+  async chngeCartFromDopComplect({ commit, dispatch, state }, obj) {
+    // изменение по позиции из Доп комплектации так же специфично поэтому выделяем в отдельную процедуру
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+
+    const info = {
+      guid: obj.guid,
+      qty: parseFloat(obj.qty2) || 0,
+      price1: obj.price1,
+      unit_type_id: obj.unit_type_id,
+      userid,
+      token,
+    };
+
+    // console.log(info);
+
+    const resOk = await this.$api("chngeCart", info);
+
+    if (resOk === true) {
+      obj.qty2 = obj.qty2 === null ? 0 : parseFloat(obj.qty2);
+
+      const qty2eq0 = obj.qty2 === 0;
+
+      commit("SET_NEW_QTY_FROMDOPCOMPLECT", { id: obj.guid, esc: false });
+
+      await dispatch("refreshCountCart");
+
+      await dispatch("setSnackbar", {
+        color: qty2eq0 ? "lightgrey" : "green",
+        text: qty2eq0
+          ? `Позиция, ${obj.artikul} удалена из корзины.`
+          : `Позиция, ${obj.artikul} в кол-ве: ${obj.qty2} доб/изм.`,
+        timeout: 3000,
+        showing: true,
+      });
+    } else {
+      commit("SET_NEW_QTY_FROMDOPCOMPLECT", { id: obj.guid, esc: true });
 
       await dispatch("setSnackbar", {
         color: "red",

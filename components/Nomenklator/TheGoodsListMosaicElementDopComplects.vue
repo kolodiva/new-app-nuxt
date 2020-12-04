@@ -63,9 +63,9 @@
       :label="txtLabel"
       @click:clear="
         pos.qty2 = 0;
-        $emit('chngorder', id);
+        $emit('chngorder', pos);
       "
-      @keyup.enter="$emit('chngorder', id)"
+      @keyup.enter="$emit('chngorder', pos)"
       @keyup.esc="pos.qty2 = pos.qty1"
       @focus="$event.target.select()"
       @wheel="1 === 1"
@@ -75,7 +75,7 @@
         src="/cart.png"
         width="28"
         style="cursor: pointer"
-        @click="$emit('chngorder', id)"
+        @click="$emit('chngorder', pos)"
       />
     </v-text-field>
 
@@ -112,7 +112,7 @@
 
 <script>
 export default {
-  props: ["pos", "id"],
+  props: ["pos"],
   data() {
     return {
       show: false,

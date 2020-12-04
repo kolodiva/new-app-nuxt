@@ -41,5 +41,6 @@ module.exports = {
   queryStat: (name, params) => dbpgStat.query( text, params ),
   queryStat1: (name, params) => dbpgStat.query( queries[name](params) ),
   queryApp: (name, params) => dbpgApp1.query( queries[name](params) ),
+  queryAppSqlExec: (txtQuery, params) => dbpgApp1.query( {text: txtQuery, values: params} ),
 
 }

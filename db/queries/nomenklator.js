@@ -313,6 +313,8 @@ export function getGoodCardDopComplects(params) {
 
                                                             coalesce(unit_types.name, '--') as unit_name,
 
+                                                            nomenklators.unit_type_id unit_type_id,
+
 
                                                             COALESCE(price_list_compl.price1, 0.00) as price1,
                                                             COALESCE(price_list_compl.price2, 0.00) as price2,

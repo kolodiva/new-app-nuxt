@@ -155,7 +155,8 @@ export function unitOrders( params ) {
     values: [],
   }
 }
-export function getOrdersList( userid ) {
+
+export function getOrdersList_old( userid ) {
 
   console.log(`
   select distinct t1.id, t1.status, to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order
@@ -174,6 +175,28 @@ export function getOrdersList( userid ) {
     inner join connections t2 on t1.connection_id=t2.id
     where t1.status>0 and t2.user_id=${userid}
     order by t1.id desc
+    `,
+    values: [],
+  }
+}
+export function getOrdersList( userid ) {
+
+  return {
+    name: '',
+    text: `
+    with r1 as (select distinct t1.id, t1.status, to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order,
+     jsonb_build_object(  'guid', t3.nomenklator_id, 'name', t4.name, 'artikul', t4.artikul, 'artikul_new', t4.artikul_new, 'qty', t3.qty , 'sum', t3.sum  ) as order_goods
+
+      from orders t1
+      inner join connections t2 on t1.connection_id=t2.id
+      inner join order_goods t3 on t1.id = t3.order_id
+      inner join nomenklators t4 on t4.guid = t3.nomenklator_id
+      where t1.status>0 and t2.user_id=${userid})
+
+      select id, status, data_on, sum, sum_for_payment, sum_paid, data_paid, card_payment_order, json_agg(order_goods order by order_goods ->> 'name') children
+      from r1
+      group by id, status, data_on, sum, sum_for_payment, sum_paid, data_paid, card_payment_order
+      order by id desc
     `,
     values: [],
   }
