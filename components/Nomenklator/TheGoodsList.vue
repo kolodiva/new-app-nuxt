@@ -2,10 +2,21 @@
   <v-container fluid>
     <v-row>
       <v-col md="3" lg="2" class="hidden-sm-and-down" style="">
-        <TheGoodsListLeftSideBar />
+        <TheGoodsListLeftSideBar
+          :switch-filter="switchFilter"
+          :parentguid="subNomenklator[0].parentguid"
+        />
       </v-col>
 
-      <v-col md="9" lg="10" class="pt-0">
+      <v-col md="9" lg="10" class="pt-0" style="position: relative">
+        <v-row v-if="canUseFilter" style="position: absolute; z-index: 10">
+          <v-switch
+            v-model="switchFilter"
+            style="margin-left: 25px; margin-top: 0px"
+          >
+            <template v-slot:label> <div class="mt-2">Фильтр</div> </template>
+          </v-switch>
+        </v-row>
         <TheGoodsListMenu />
         <v-card
           min-height="100vh"
@@ -52,14 +63,14 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      openPanel1: [0],
-      openPanel2: [0],
+      switchFilter: false,
     };
   },
   computed: {
     ...mapGetters({
       subNomenklator: "nomenklator/getSubNomenklator",
       catalogTypeView: "nomenklator/getCatalogTypeView",
+      canUseFilter: "nomenklator/getCanUseFilter",
     }),
   },
   mounted() {
