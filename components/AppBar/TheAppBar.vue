@@ -23,7 +23,12 @@
       <v-spacer />
       <TheSearchField />
       <v-spacer />
-      <v-badge :content="cartCount" :class="[header2.css_class]" overlap>
+      <v-badge
+        :value="cartCount > 0"
+        :content="cartCount"
+        :class="[header2.css_class]"
+        overlap
+      >
         <v-img
           src="/korzina_belaya.png"
           width="30"
@@ -33,6 +38,7 @@
           @click="$router.push('/cart')"
         />
       </v-badge>
+
       <v-btn id="yourCity" text :class="['buttonMFWhiteColor']"> </v-btn>
     </v-app-bar>
     <v-toolbar height="105" width="100vw" flat>
@@ -83,6 +89,7 @@
       <v-spacer />
 
       <v-badge
+        :value="cartCount > 0"
         :content="cartCount"
         :class="[header2.css_class, 'mr-2']"
         overlap
