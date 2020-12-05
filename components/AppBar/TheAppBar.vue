@@ -20,6 +20,9 @@
         </n-link>
       </v-toolbar-title>
       <TheToolbarItems :header="header3" />
+      <v-spacer />
+      <TheSearchField />
+      <v-spacer />
       <v-badge
         v-if="cartCount > 0"
         :content="cartCount"
@@ -35,9 +38,6 @@
           @click="$router.push('/cart')"
         />
       </v-badge>
-      <v-spacer />
-      <TheSearchField />
-      <v-spacer />
       <v-btn id="yourCity" text :class="['buttonMFWhiteColor']"> </v-btn>
     </v-app-bar>
     <v-toolbar height="105" width="100vw" flat>
