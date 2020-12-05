@@ -115,13 +115,39 @@ export function getSubNomenklatorByFilter(params) {
   //
   let strQuery1 = [];
 
+  let dopTxt = '';
+
   params.filterParams.forEach((item, i) => {
+
+    if (i > 0) {
+      if (item.property === params.filterParams[i-1].property ) {
+        dopTxt = " union all "
+      } else {
+        dopTxt = " intersect "
+      }
+    }
+
       strQuery1.push(
-        `select prop.nomenklator_id as guid from properties as prop join guids on guids.guid = prop.nomenklator_id where  prop.property = '${item.property}' AND prop.value = '${item.value}'`
+        `${dopTxt} select prop.nomenklator_id as guid from properties as prop join guids on guids.guid = prop.nomenklator_id where  prop.property = '${item.property}' AND prop.value = '${item.value}'`
+      );
+  });
+
+  dopTxt = strQuery1.join(' ').split('intersect');
+
+  //console.log('dopTxt', dopTxt);
+
+  strQuery1 = [];
+
+  dopTxt.forEach((item, i) => {
+
+      strQuery1.push(
+        `(${item})`
       );
   });
 
   strQuery0 = strQuery0 + ' select distinct u1.guid from ( ' + strQuery1.join(' intersect ') + ' ) u1';
+
+  // console.log(strQuery0);
 
   const textqry=`
 
