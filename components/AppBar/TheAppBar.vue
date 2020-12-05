@@ -90,14 +90,13 @@
       <v-badge
         v-if="cartCount > 0"
         :content="cartCount"
-        :class="[header2.css_class]"
+        :class="[header2.css_class, 'mr-2']"
         overlap
+        style="cursor: pointer"
+        @click="$router.push('/cart')"
       >
         <v-img src="/korzina_belaya.png" width="30" contain class="" />
       </v-badge>
-      <v-btn text :class="[header2.css_class]" nlink to="/cart">
-        КОРЗИНА
-      </v-btn>
     </v-toolbar>
   </div>
 </template>

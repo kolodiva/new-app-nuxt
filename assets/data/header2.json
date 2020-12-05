@@ -21,17 +21,11 @@
       "name": "Доп.условия",
       "ref":"",
       "submenu" : [
-        {"name": "Возврат-Обмен",   "ref":""}
+        {"name": "Возврат-Обмен",   "ref":""},
+        {"name": "Спец.условия",   "ref":""}
       ],
       "css_class": "buttonMFGreyColor"
     },
-    "|",
-  {
-    "id": 4,
-    "name": "Спец.условия",
-    "ref":"",
-    "submenu" : ""
-  },
   {
     "id": 5,
     "name": "disabled",
