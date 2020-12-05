@@ -121,7 +121,7 @@ export function getSubNomenklatorByFilter(params) {
       );
   });
 
-  strQuery0 = strQuery0 + ' select distinct u1.guid from ( ' + strQuery1.join(' union all ') + ' ) u1';
+  strQuery0 = strQuery0 + ' select distinct u1.guid from ( ' + strQuery1.join(' intersect ') + ' ) u1';
 
   const textqry=`
 

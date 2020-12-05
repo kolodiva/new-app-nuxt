@@ -4,7 +4,9 @@
       <v-col md="3" lg="2" class="hidden-sm-and-down" style="">
         <TheGoodsListLeftSideBar
           :switch-filter="switchFilter"
-          :parentguid="subNomenklator[0].parentguid"
+          :parentguid="
+            (subNomenklator.length > 0 && subNomenklator[0].parentguid) || null
+          "
         />
       </v-col>
 
@@ -26,7 +28,10 @@
           flat
           tile
         >
-          <template v-if="catalogTypeView === 'mosaic'">
+          <template v-if="subNomenklator.length === 0">
+            <h2>Товар не найден по условиям отбора.</h2>
+          </template>
+          <template v-else-if="catalogTypeView === 'mosaic'">
             <TheGoodsListMosaicElement
               v-for="(pos, id) in subNomenklator"
               :id="id"
