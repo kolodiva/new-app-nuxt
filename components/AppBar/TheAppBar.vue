@@ -23,12 +23,7 @@
       <v-spacer />
       <TheSearchField />
       <v-spacer />
-      <v-badge
-        v-if="cartCount > 0"
-        :content="cartCount"
-        :class="[header2.css_class]"
-        overlap
-      >
+      <v-badge :content="cartCount" :class="[header2.css_class]" overlap>
         <v-img
           src="/korzina_belaya.png"
           width="30"
@@ -88,14 +83,18 @@
       <v-spacer />
 
       <v-badge
-        v-if="cartCount > 0"
         :content="cartCount"
         :class="[header2.css_class, 'mr-2']"
         overlap
-        style="cursor: pointer"
-        @click="$router.push('/cart')"
       >
-        <v-img src="/korzina_belaya.png" width="30" contain class="" />
+        <v-img
+          src="/korzina_belaya.png"
+          width="30"
+          contain
+          class=""
+          style="cursor: pointer"
+          @click="$router.push('/cart')"
+        />
       </v-badge>
     </v-toolbar>
   </div>
