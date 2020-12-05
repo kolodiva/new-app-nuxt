@@ -21,6 +21,7 @@ export const state = () => ({
   countCart: 0,
   cartList: [],
   canUseFilter: false,
+  userFilter: null,
 });
 
 export const mutations = {
@@ -114,6 +115,24 @@ export const mutations = {
   SET_COUNT_CART(state, rows) {
     state.cartList = rows;
     state.countCart = rows.length;
+  },
+  OPEN_FILTER(state, { rows, parentguid }) {
+    if (rows === null) {
+      state.userFilter = null;
+    } else {
+      state.userFilter = {
+        rows,
+        parentguid,
+        stateFilter: [[]],
+        filterOpened: true,
+      };
+    }
+  },
+  SET_FILTER_STATE(state, { groupFilter }) {
+    // console.log(groupFilter);
+    if (state.userFilter) {
+      state.userFilter.stateFilter = [...groupFilter];
+    }
   },
 };
 export const getters = {
@@ -220,6 +239,19 @@ export const getters = {
   getCartList: (state) => {
     return state.cartList;
   },
+  getUserFilter: (state) => {
+    return (state.userFilter && state.userFilter.rows) || [];
+  },
+  getUserFilterState: (state) => {
+    // const tmp = [[]];
+    return (state.userFilter && state.userFilter.stateFilter) || null;
+  },
+  getFilterOpened: (state) => {
+    return !!state.userFilter;
+  },
+  getParentGuid: (state) => {
+    return (state.userFilter && state.userFilter.parentguid) || null;
+  },
 };
 
 export const actions = {
@@ -247,31 +279,83 @@ export const actions = {
 
   async loadSubNumenklator({ commit, dispatch, state }, { id }) {
     commit("SET_WAIT_LOAD_NOMENKLATOR", true);
-    // const { userid, token } = this.$authinfo(this.$auth);
-
-    // console.log("getSubNomenklator_0_dispatcher");
-
-    // 1 ИСПОЛЬЗУЕМ В КАЧЕСТВЕ ID КЛИЕНТА TOKEN ИЗ GOOKIES ИБО ТАКАЯ ТЕНДЕНЦИЯ ЧТО ПРИ ВЫЗОВЕ ЭТОГО ДИСПАТЧЕРА ПОЧЕМУТО НЕ ВСЕГДА СУЩЕСТВУЕТ $AUTH И ПОЭТОМУ В БОЛЬШ СЛУЧАЕВ В КАЧ ID ИДЕТ 1 (ЕДИНИЦА)
-    // ПРИ ЭТОМ ВАЖНО НАСТРОИТЬ  ПОИСК USERID В CONNECTIONS ЧЕРЕЗ ПОИСК USERS ПО ТОКЕНУ И INNER JOIN ПО IDUSER
-    // 2 ПРОВЕРИТЬ СК ПО ВРЕМЕНИ ХРАНИТСЯ ОБЪЕКТ $AUTH В COOKIES ЕСТЬ ПОДОЗРЕНИЕ ЧТО В СВЯЗИ С ИСП REFRESH_TOKEN СИСТЕМА СБРАСЫВАЕТ ДАННЫЕ АВТОРИЗАЦИИ ЧЕРЕЗ 30 МИН
-    // ЕСЛИ ЭТО ТАК ТО РАССМОТРЕТЬ  ВАРИАНТ С ХРАНИЛИЩЕМ но ЕГО НЕДОСТАТКО ЧТО ЕГО НЕ ВЕЗДЕ МОЖНО ПРОЧИТАТЬ ХОТЯ ЭТО УЧЕНЬ УСЛОВНО
 
     const userid = (state.userInfo && state.userInfo.id) || 1;
     const token = this.$cookies.get("connectionid");
-    const { rows, breadcrumb, seoText, canUseFilter } = await this.$api(
-      "getSubNomenklator",
-      {
-        userid,
-        parentguid: id,
-        token,
-      }
-    );
 
-    commit("SET_SUB_NOMENKLATOR", rows);
-    commit("SET_CAN_USE_FILTER", canUseFilter);
-    commit("SET_BREAD_CRUMB", breadcrumb);
-    commit("SET_SEO_TEXT", seoText);
+    if (
+      state.userFilter &&
+      state.userFilter.parentguid &&
+      state.userFilter.parentguid !== id &&
+      id !== null
+    ) {
+      await commit("OPEN_FILTER", { rows: null });
+    }
+
+    const filterParams = [];
+
+    if (
+      state.userFilter &&
+      state.userFilter.rows &&
+      state.userFilter.stateFilter
+    ) {
+      state.userFilter.stateFilter.forEach((e, i) => {
+        if (e && e.length > 0) {
+          e.forEach((v, j) => {
+            filterParams.push({
+              property: state.userFilter.rows[i].property,
+              value: state.userFilter.rows[i].arrayprop[v],
+            });
+          });
+        }
+      });
+    }
+
+    // console.log(id, (state.userFilter && state.userFilter.parentguid) || null);
+    if (filterParams.length === 0) {
+      const parentguid =
+        (state.userFilter && state.userFilter.parentguid) || id;
+      const { rows, breadcrumb, seoText, canUseFilter } = await this.$api(
+        "getSubNomenklator",
+        {
+          userid,
+          parentguid,
+          token,
+        }
+      );
+
+      commit("SET_SUB_NOMENKLATOR", rows);
+      commit("SET_CAN_USE_FILTER", canUseFilter);
+      commit("SET_BREAD_CRUMB", breadcrumb);
+      commit("SET_SEO_TEXT", seoText);
+    } else {
+      const { rows } = await this.$api("getSubNomenklatorByFilter", {
+        userid,
+        parentguid: state.userFilter.parentguid,
+        token,
+        filterParams,
+      });
+      // console.log(rows);
+      commit("SET_SUB_NOMENKLATOR", rows);
+    }
     commit("SET_WAIT_LOAD_NOMENKLATOR", false);
+  },
+  async setFilterState({ commit, dispatch, state }, { groupFilter }) {
+    await commit("SET_FILTER_STATE", { groupFilter });
+  },
+  async openFilter({ commit, dispatch, state }, { parentguid }) {
+    const { rows } = await this.$api("getGroupFilter", {
+      parentguid,
+    });
+
+    // console.log(parentguid, rows);
+
+    commit("OPEN_FILTER", { rows, parentguid });
+  },
+  async closeFilter({ commit, dispatch, state }) {
+    const id = state.userFilter.parentguid;
+    await commit("OPEN_FILTER", { rows: null });
+    await dispatch("loadSubNumenklator", { id });
   },
   async loadGoodCard({ commit, dispatch, state }, { id2 }) {
     // commit('SET_WAIT_LOAD_NOMENKLATOR', true)

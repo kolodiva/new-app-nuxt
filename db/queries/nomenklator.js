@@ -97,6 +97,129 @@ export function getSubNomenklator(params) {
     values: [],
   }
 }
+export function getSubNomenklatorByFilter(params) {
+
+  let strQuery0 = `
+        with guids as (
+           with recursive r as (
+          select name, parentguid, guid, itgroup from nomenklators where parentguid = '${params.parentguid}'
+
+          union all
+
+          select prop1.name, prop1.parentguid, prop1.guid, prop1.itgroup from nomenklators as prop1 join r on prop1.parentguid = r.guid
+             )
+
+             select distinct guid from r where not itgroup
+        ) `;
+
+  //
+  let strQuery1 = [];
+
+  params.filterParams.forEach((item, i) => {
+      strQuery1.push(
+        `select prop.nomenklator_id as guid from properties as prop join guids on guids.guid = prop.nomenklator_id where  prop.property = '${item.property}' AND prop.value = '${item.value}'`
+      );
+  });
+
+  strQuery0 = strQuery0 + ' select distinct u1.guid from ( ' + strQuery1.join(' union all ') + ' ) u1';
+
+  const textqry=`
+
+  with price_list_total as (
+
+    with price_list_with_compl as (
+
+    select *
+    from crosstab(
+    $$select nomenklator_id::text, price_type_id, round(price*coalesce(currencies.value, 1), 2)
+    from prices
+    left join currencies on prices.currency_id = currencies.code
+
+    where nomenklator_id in (
+
+    select distinct
+        coalesce(complects.guid_complect, nomenklators.guid) as guid
+
+      from nomenklators
+
+               left join complects on complects.nomenklator_id = nomenklators.guid
+
+               where nomenklators.guid in (${strQuery0}) and nomenklators.guid not in ('yandexpagesecret', 'sekretnaya_papka')
+
+    )
+
+    order by 1$$,
+    $$ SELECT '000000004' UNION ALL SELECT '000000003' UNION ALL SELECT '000000005'$$
+    )
+
+    AS (guid text, price1 numeric, price2 numeric, price3 numeric)
+    )
+
+  select
+    nomenklators.guid,
+
+    sum(round(coalesce(complects.qty, 1) * pl.price1, 2)) as price1,
+    sum(round(coalesce(complects.qty, 1) * pl.price2, 2)) as price2,
+    sum(round(coalesce(complects.qty, 1) * pl.price3, 2)) as price3
+
+    from nomenklators
+
+       left join complects on complects.nomenklator_id = nomenklators.guid
+         join price_list_with_compl as pl on pl.guid = nomenklators.guid or pl.guid = complects.guid_complect
+
+         group by nomenklators.guid)
+
+  select
+  COALESCE(nomenklators.weight, 0) as weight,
+      nomenklators.guid,
+      nomenklators.parentguid,
+          nomenklators.artikul,
+          nomenklators.artikul_new,
+          nomenklators.name,
+          nomenklators.synonym,
+          nomenklators.itgroup,
+          nomenklators.guid_picture,
+          replace(nomenklators.guid_picture, '250x250', '82x82') guid_picture_small,
+          nomenklators.sort_field,
+          nomenklators.describe,
+          nomenklators.is_complect,
+          case when nomenklators.itgroup then '' else coalesce( case when nomenklators.is_complect > 0 then 'компл.' else unit_types.name end, 'нет ед.изм.') end as unit_name,
+          nomenklators.unit_type_id unit_type_id,
+
+    COALESCE(price_list_total.price1, 0.00) as price1,
+    COALESCE(price_list_total.price2, 0.00) as price2,
+    COALESCE(price_list_total.price3, 0.00) as price3,
+
+    COALESCE(order_goods.qty::real, 0) as qty1,
+    COALESCE(order_goods.qty::real, 0) as qty2,
+
+    round(COALESCE(order_goods.price, 0.00), 2) as price_order,
+
+    round(COALESCE(price_list_total.price1, 0.00)*COALESCE(order_goods.qty, 0.0000), 2) as total,
+
+      nomenklators.intrnt_keyword, nomenklators.intrnt_title, nomenklators.intrnt_description, nomenklators.intrnt_og_title
+
+    from nomenklators
+
+    left join price_list_total on nomenklators.guid = price_list_total.guid
+
+    left join orders on orders.id = ${params.orderid || null} and orders.status = 0
+    left join order_goods on order_goods.order_id = ${params.orderid || null} and price_list_total.guid = order_goods.nomenklator_id
+
+    left join unit_types on right('0000' || nomenklators.unit_type_id, 3) = unit_types.code
+
+    where nomenklators.guid in (${strQuery0}) and nomenklators.guid not in ('yandexpagesecret', 'sekretnaya_papka')
+
+    ORDER BY  nomenklators.itgroup desc, nomenklators.sort_field, nomenklators.name, nomenklators.artikul
+  `
+  //console.log(textqry);
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getGoodCard(params) {
 
   const textqry=`

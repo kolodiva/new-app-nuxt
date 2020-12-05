@@ -78,6 +78,28 @@ export async function getSubNomenklator( params ) {
   return {rows, breadcrumb: breadcrumb.rows, seoText: seoText.rows, canUseFilter: canUseFilter.rows[0].count_rec > 0};
 }
 
+export async function getSubNomenklatorByFilter( params ) {
+
+  // console.log( 'getSubNomenklator' );
+  // console.log( params );
+
+  const { parentguid, userid, token, filterParams } = params;
+
+  //connectionid мы получаем из ПАРАМЕТРОВ в кот middle-server засовывает этот параметр пр любом запросе
+  //console.log( { parentguid, userid, token } )
+
+  //console.log( token )
+
+  //Ищем номер Заказа без создания если его нет НЕ создаем новый
+  const { orderid }  = await getConnectionOrder( userid, token, false );
+
+  //const orderid = undefined;
+
+  const { rows } = await db.queryApp('getSubNomenklatorByFilter', { parentguid, orderid, filterParams })
+
+  return {rows};
+}
+
 export async function getGroupFilter( params ) {
 
   const { parentguid } = params;

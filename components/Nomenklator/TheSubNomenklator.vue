@@ -12,8 +12,10 @@
         <v-sheet min-height="" rounded="lg" class="" height="100vh">
           <v-row v-if="canUseFilter">
             <v-switch
-              v-model="switchFilter"
+              dense
               style="margin-left: 75px; margin-top: 0px"
+              :input-value="filterOpened"
+              @change="switchFilter"
             >
               <template v-slot:label> <div class="mt-2">Фильтр</div> </template>
             </v-switch>
@@ -61,19 +63,30 @@ export default {
   data() {
     return {
       openPanel1: [0],
-      switchFilter: false,
     };
   },
   computed: {
     ...mapGetters({
       subNomenklator: "nomenklator/getSubNomenklator",
       canUseFilter: "nomenklator/getCanUseFilter",
+      filterOpened: "nomenklator/getFilterOpened",
     }),
   },
+  watch: {},
   mounted() {
     window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
     // $('#sidebar2').stickr({duration:0, offsetTop: 80});
   },
-  methods: {},
+  methods: {
+    async switchFilter() {
+      if (this.filterOpened) {
+        await this.$store.dispatch("nomenklator/closeFilter");
+      } else {
+        await this.$store.dispatch("nomenklator/openFilter", {
+          parentguid: this.subNomenklator[0].parentguid,
+        });
+      }
+    },
+  },
 };
 </script>

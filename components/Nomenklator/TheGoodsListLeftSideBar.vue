@@ -1,52 +1,52 @@
 <template>
   <div id="sidebar1">
-    <div>
-      <v-expansion-panels
-        v-if="switchFilter"
-        v-model="openPanel2"
-        focusable
-        multiple
-        class="mb-4"
-      >
-        <v-expansion-panel>
-          <v-expansion-panel-header class="">
-            Отбор по параметрам
-          </v-expansion-panel-header>
-          <v-row v-if="showResetFilter" justify="end" class="mx-0">
-            <v-chip
-              class="ma-2"
-              color=""
-              outlined
-              close
-              @click:close="setGroupFilter = [[]]"
-            >
-              Сбросить фильтр
-            </v-chip>
-          </v-row>
-          <v-expansion-panel-content class="pb-4">
-            <v-card-text
-              v-for="(item, i) in groupFilter"
-              :key="i"
-              class="py-0 pt-1"
-            >
-              <h3 class="">
-                {{ item.property }}
-              </h3>
-              <v-chip-group v-model="setGroupFilter[i]" column multiple>
-                <v-chip
-                  v-for="(item2, i2) in item.arrayprop"
-                  :key="i2"
-                  filter
-                  outlined
-                >
-                  {{ item2 }}
-                </v-chip>
-              </v-chip-group>
-            </v-card-text>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
+    <v-expansion-panels
+      v-if="switchFilter && groupFilter.length > 0"
+      v-model="openPanel2"
+      focusable
+      multiple
+      class="mb-4"
+    >
+      <v-expansion-panel>
+        <v-expansion-panel-header class="">
+          Отбор по параметрам
+        </v-expansion-panel-header>
+        <v-row v-if="showResetFilter" justify="end" class="mx-0">
+          <v-chip
+            class="ma-2"
+            color=""
+            outlined
+            close
+            @click:close="setGroupFilter = [[]]"
+          >
+            Сбросить фильтр
+          </v-chip>
+        </v-row>
+        <v-expansion-panel-content class="pb-4">
+          <v-card-text
+            v-for="(item, i) in groupFilter"
+            :key="i"
+            class="py-0 pt-1"
+          >
+            <h3 class="">
+              {{ item.property }}
+            </h3>
+            <v-chip-group v-model="setGroupFilter[i]" column multiple>
+              <v-chip
+                v-for="(item2, i2) in item.arrayprop"
+                :key="i2"
+                filter
+                outlined
+              >
+                {{ item2 }}
+              </v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
 
+    <div id="sidebarGoodsGroup">
       <v-expansion-panels v-model="openPanel1" focusable multiple>
         <v-expansion-panel v-for="(item, i) in 1" :key="i">
           <v-expansion-panel-header>
@@ -89,7 +89,7 @@ export default {
       open: [],
       active: [],
 
-      groupFilter: [],
+      // groupFilter: [],
       setGroupFilter: [[]],
       showResetFilter: false,
     };
@@ -98,26 +98,43 @@ export default {
     ...mapGetters({
       strucCatalog: "nomenklator/strucCatalog",
       breadCrumb: "nomenklator/getBreadCrumb",
+      groupFilter: "nomenklator/getUserFilter",
+      userFilterState: "nomenklator/getUserFilterState",
+      userFilterParentGuid: "nomenklator/getParentGuid",
     }),
   },
   watch: {
-    setGroupFilter(v) {
-      // console.log(this.setGroupFilter[0].length);
-      this.showResetFilter = true;
-    },
-    async switchFilter(v) {
-      if (v === true && this.parentguid) {
-        const { rows } = await this.$api("getGroupFilter", {
-          parentguid: this.parentguid,
-        });
+    async setGroupFilter(v) {
+      const filterParams = [];
 
-        this.groupFilter.push(...rows);
+      this.setGroupFilter.forEach((e, i) => {
+        if (e && e.length > 0) {
+          e.forEach((v, j) => {
+            filterParams.push({
+              property: this.groupFilter[i].property,
+              value: this.groupFilter[i].arrayprop[v],
+            });
+          });
+        }
+      });
 
-        //  console.log(this.groupFilter);
-      }
+      await this.$store.dispatch("nomenklator/setFilterState", {
+        groupFilter: this.setGroupFilter,
+      });
+
+      await this.$store.dispatch("nomenklator/loadSubNumenklator", {
+        id: null,
+      });
+
+      this.showResetFilter = filterParams.length > 0;
     },
   },
   mounted() {
+    if (this.userFilterState) {
+      // console.log("1111111111111111111111111111111111111111111");
+      this.setGroupFilter = [...this.userFilterState];
+    }
+
     if (this.breadCrumb.length === 2) {
       const lastEl = this.breadCrumb[this.breadCrumb.length - 1];
 
@@ -157,7 +174,9 @@ export default {
     }
     /// //////////
     this.$nextTick(() => {
-      const box = document.querySelector(".v-expansion-panel-content__wrap");
+      const box = document.querySelector(
+        "#sidebarGoodsGroup .v-expansion-panel-content__wrap"
+      );
       const targetElm = document.querySelector(".v-treeview-node--active");
 
       try {

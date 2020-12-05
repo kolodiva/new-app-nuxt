@@ -11,8 +11,9 @@
       <v-col md="9" lg="10" class="pt-0" style="position: relative">
         <v-row v-if="canUseFilter" style="position: absolute; z-index: 10">
           <v-switch
-            v-model="switchFilter"
+            :input-value="filterOpened"
             style="margin-left: 25px; margin-top: 0px"
+            @change="switchFilter"
           >
             <template v-slot:label> <div class="mt-2">Фильтр</div> </template>
           </v-switch>
@@ -62,15 +63,14 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {
-      switchFilter: false,
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
       subNomenklator: "nomenklator/getSubNomenklator",
       catalogTypeView: "nomenklator/getCatalogTypeView",
       canUseFilter: "nomenklator/getCanUseFilter",
+      filterOpened: "nomenklator/getFilterOpened",
     }),
   },
   mounted() {
@@ -78,6 +78,15 @@ export default {
     // $('#sidebar2').stickr({duration:0, offsetTop: 80});
   },
   methods: {
+    async switchFilter() {
+      if (this.filterOpened) {
+        await this.$store.dispatch("nomenklator/closeFilter");
+      } else {
+        await this.$store.dispatch("nomenklator/openFilter", {
+          parentguid: this.subNomenklator[0].parentguid,
+        });
+      }
+    },
     async chngorder(id) {
       const pos = this.subNomenklator[id];
 
