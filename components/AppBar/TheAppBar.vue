@@ -82,7 +82,6 @@
       </div>
     </v-toolbar>
     <v-toolbar class="greyMfBckg" height="50" width="100vw">
-      <v-spacer />
       <TheToolbarItems :header="header2" :addresses="filials" />
       <v-spacer />
       <TheSearchField />
