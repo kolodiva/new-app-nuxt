@@ -2,7 +2,7 @@
   <v-row
     class="mb-3 greyMfBorder"
     no-gutters
-    style="width: 100vw; height: 100px"
+    style="width: 100vw; min-height: 100px"
   >
     <v-col cols="2">
       <n-link

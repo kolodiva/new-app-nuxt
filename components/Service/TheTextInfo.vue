@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 830px" class="mx-auto">
+  <div style="max-width: 830px" class="mx-auto px-5">
     <article style="overflow-y: hidden; color: #565656" v-html="seoText" />
   </div>
 </template>

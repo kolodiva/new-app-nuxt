@@ -26,14 +26,9 @@
       ],
       "css_class": "buttonMFGreyColor"
     },
+    "|",
   {
-    "id": 5,
-    "name": "disabled",
-    "ref":"",
-    "submenu" : ""
-  },
-  {
-    "id": 6,
+    "id": 3,
     "name": "addresses",
     "ref":"",
     "submenu" : ""

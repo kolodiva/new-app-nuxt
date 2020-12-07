@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col md="2" class="hidden-sm-and-down mb-2">
+      <v-col v-if="!showLimitWidth" md="2" class="">
         <TheGoodsListLeftSideBar
           :switch-filter="switchFilter"
           :parentguid="subNomenklator[0].parentguid"
@@ -54,6 +54,49 @@
         </v-sheet>
       </v-col>
     </v-row>
+    <v-navigation-drawer v-model="drawerFilter" app temporary dark width="350">
+      <v-toolbar
+        dense
+        color="transparent"
+        flat
+        @click="
+          drawerFilter = false;
+          filterOpened = false;
+        "
+      >
+        <v-spacer />
+        <v-btn icon>
+          <v-icon>mdi-undo-variant</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-divider />
+      <v-list nav>
+        <v-list-item-group v-model="groupDrawer" active-class="">
+          <template v-for="(item, i) in header3.items">
+            <v-list-group v-if="item.submenu" :key="i">
+              <template v-slot:activator>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+              </template>
+
+              <v-list-item
+                v-for="(item1, i1) in item.submenu"
+                :key="i1 * 100 + 1"
+              >
+                <v-list-item-title class="ml-5">{{
+                  item1.name
+                }}</v-list-item-title>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-item v-else :key="i">
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-list-item-group>
+      </v-list>
+
+      <v-divider />
+    </v-navigation-drawer>
   </v-container>
 </template>
 
@@ -63,6 +106,8 @@ export default {
   data() {
     return {
       openPanel1: [0],
+      drawerFilter: false,
+      groupDrawer: null,
     };
   },
   computed: {
@@ -70,6 +115,8 @@ export default {
       subNomenklator: "nomenklator/getSubNomenklator",
       canUseFilter: "nomenklator/getCanUseFilter",
       filterOpened: "nomenklator/getFilterOpened",
+      showLimitWidth: "service/getShowLimitWidth",
+      header3: "headerMenu/getHeader3",
     }),
   },
   watch: {},
@@ -79,7 +126,9 @@ export default {
   },
   methods: {
     async switchFilter() {
-      if (this.filterOpened) {
+      if (this.showLimitWidth) {
+        this.drawerFilter = true;
+      } else if (this.filterOpened) {
         await this.$store.dispatch("nomenklator/closeFilter");
       } else {
         await this.$store.dispatch("nomenklator/openFilter", {

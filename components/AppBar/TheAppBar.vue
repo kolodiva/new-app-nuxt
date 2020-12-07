@@ -8,7 +8,12 @@
       width="100vw"
       dark
     >
-      <v-toolbar-title>
+      <v-app-bar-nav-icon
+        v-if="showLimitWidth"
+        @click="drawerHeader3 = true"
+      ></v-app-bar-nav-icon>
+
+      <v-toolbar-title v-if="!showLimitWidth">
         <n-link to="/">
           <v-img
             class="pt-5"
@@ -19,7 +24,8 @@
           />
         </n-link>
       </v-toolbar-title>
-      <TheToolbarItems :header="header3" />
+
+      <TheToolbarItems v-if="!showLimitWidth" :header="header3" />
       <v-spacer />
       <TheSearchField />
       <v-spacer />
@@ -38,9 +44,64 @@
           @click="$router.push('/cart')"
         />
       </v-badge>
-
       <v-btn id="yourCity" text :class="['buttonMFWhiteColor']"> </v-btn>
     </v-app-bar>
+    <v-navigation-drawer v-model="drawerHeader3" app temporary dark width="350">
+      <v-toolbar dense color="transparent" flat @click="drawerHeader3 = false">
+        <v-spacer />
+        <v-btn icon>
+          <v-icon>mdi-undo-variant</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-divider />
+      <v-list nav>
+        <v-list-item-group v-model="groupHeader3" active-class="">
+          <template v-for="(item, i) in header3.items">
+            <v-list-group v-if="item.submenu" :key="i">
+              <template v-slot:activator>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+              </template>
+
+              <v-list-item
+                v-for="(item1, i1) in item.submenu"
+                :key="i1 * 100 + 1"
+              >
+                <v-list-item-title class="ml-5">{{
+                  item1.name
+                }}</v-list-item-title>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-item v-else :key="i">
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-list-item-group>
+      </v-list>
+
+      <v-divider />
+
+      <v-list-group>
+        <template v-slot:activator>
+          <v-list-item-title>Структура Каталога</v-list-item-title>
+        </template>
+
+        <v-treeview
+          v-model="tree"
+          :items="strucCatalog"
+          item-key="node_id"
+          hoverable
+          rounded
+          activatable
+          transition
+          dense
+          :open="open"
+          :active="active"
+          @update:active="fetchUsers"
+        >
+        </v-treeview>
+      </v-list-group>
+    </v-navigation-drawer>
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
         <n-link to="/">
@@ -112,7 +173,16 @@ import { mapGetters } from "vuex";
 export default {
   props: ["showSecondMenu", "userEmail"],
   data() {
-    return {};
+    return {
+      drawerHeader3: false,
+      groupHeader3: null,
+
+      widthLimit: 1000,
+
+      tree: [],
+      open: [],
+      active: [],
+    };
   },
   computed: {
     ...mapGetters({
@@ -121,10 +191,20 @@ export default {
       header3: "headerMenu/getHeader3",
       filials: "headerMenu/getAllSortCity",
       cartCount: "nomenklator/getCartCount",
+      showLimitWidth: "service/getShowLimitWidth",
+      strucCatalog: "nomenklator/strucCatalog",
     }),
   },
   mounted() {},
-  methods: {},
+  methods: {
+    fetchUsers(items) {
+      // console.log(items[0]);
+      if (items.length > 0) {
+        this.drawerHeader3 = false;
+        this.$router.push("/catalog/" + items[0]);
+      }
+    },
+  },
 };
 </script>
 

@@ -104,6 +104,7 @@ export const mutations = {
     }
   },
   SET_SNACKBAR(state, snackbar) {
+    state.snackbars = [];
     state.snackbars = state.snackbars.concat(snackbar);
   },
   SET_USER_INFO(state, userinfo) {
@@ -251,6 +252,9 @@ export const getters = {
   },
   getParentGuid: (state) => {
     return (state.userFilter && state.userFilter.parentguid) || null;
+  },
+  getSnackbars: (state) => {
+    return state.snackbars;
   },
 };
 

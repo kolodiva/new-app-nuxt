@@ -4,7 +4,7 @@
       <span v-if="item == '|'" :key="i" :class="header.css_class"
         >{{ item }}
       </span>
-      <v-menu v-else-if="item.submenu" :key="i" offset-y>
+      <v-menu v-else-if="item.submenu" :key="i" offset-y z-index="10">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             text
@@ -41,6 +41,7 @@
         v-else-if="item.name == 'addresses' && addresses"
         :key="i"
         offset-y
+        z-index="10"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn

@@ -1,5 +1,5 @@
 <template>
-  <v-app v-scroll="onScroll">
+  <v-app v-scroll="onScroll" v-resize="onResize" style="position: relative">
     <v-main>
       <TheAppBar
         :show-second-menu="showSecondMenu"
@@ -9,19 +9,9 @@
       <Nuxt />
       <TheFooter />
     </v-main>
-    <v-snackbar
-      v-for="(snackbar, index) in snackbars.filter((s) => s.showing)"
-      :key="snackbar.text + Math.random()"
-      v-model="snackbar.showing"
-      :timeout="snackbar.timeout"
-      :color="snackbar.color"
-      :style="`bottom: ${index * 60 + 8}px;`"
-      class="body-2"
-    >
-      {{ snackbar.text }}
-
-      <v-btn text @click="snackbar.showing = false">Закрыть</v-btn>
-    </v-snackbar>
+    <client-only>
+      <TheSnackbar :objects.sync="objects"></TheSnackbar>
+    </client-only>
     <v-fab-transition>
       <v-btn
         v-show="showScrollTop"
@@ -46,24 +36,38 @@
 
 // const consola = require('consola')
 import { mapGetters } from "vuex";
-import { mapState } from "vuex";
 export default {
   data: () => ({
     showSecondMenu: false,
     showScrollTop: false,
+    objects: [],
+    transitions: ["fab-transition", "scale-transition", "fade-transition"],
   }),
   computed: {
     ...mapGetters({
       userEmail: "nomenklator/getUserInfoEmail",
-    }),
-    ...mapState({
-      snackbars: (state) => state.nomenklator.snackbars,
+      snackbars: "nomenklator/getSnackbars",
     }),
   },
-  watch: {},
+  watch: {
+    snackbars(v) {
+      const msgs = this.snackbars || [];
+      if (msgs.length > 0) {
+        const el = msgs[0];
+        this.objects.push({
+          message: el.text,
+          bottom: true,
+          color: el.color,
+          transition: this.transitions[0],
+          timeout: el.timeout,
+        });
+      }
+    },
+  },
   beforeCreate() {},
   mounted() {
     this.setCityName();
+    this.onResize();
   },
   methods: {
     onScroll() {
@@ -71,6 +75,12 @@ export default {
         window.pageYOffset || document.documentElement.scrollTop;
       this.showSecondMenu = offsetTop > 100;
       this.showScrollTop = offsetTop > 250;
+    },
+    async onResize() {
+      await this.$store.commit("service/SET_WINDOW_SIZE", {
+        x: window.innerWidth,
+        y: window.innerHeight,
+      });
     },
     setCityName() {
       window.ymaps.ready(function () {
