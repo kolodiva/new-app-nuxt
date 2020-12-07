@@ -5,6 +5,11 @@ import nomenklTopLevelList from "@/assets/data/nomenkl-top-level.json";
 export const state = () => ({
   slides: "",
   nomenklTopLevel: nomenklTopLevelList.rows,
+  windowSize: {
+    x: 0,
+    y: 0,
+  },
+  widthLimit: 1000,
 });
 
 export const mutations = {
@@ -13,6 +18,9 @@ export const mutations = {
   },
   SET_YOUR_CITY(state, nameCity) {
     state.yourCity = nameCity;
+  },
+  SET_WINDOW_SIZE(state, { x, y }) {
+    state.windowSize = { x, y };
   },
 };
 
@@ -25,6 +33,9 @@ export const getters = {
   },
   getNomenklTopLevel: (state) => {
     return state.nomenklTopLevel;
+  },
+  getShowLimitWidth: (state) => {
+    return state.windowSize.x <= state.widthLimit;
   },
 };
 
