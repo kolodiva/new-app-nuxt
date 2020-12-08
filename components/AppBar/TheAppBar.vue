@@ -25,6 +25,34 @@
         </n-link>
       </v-toolbar-title>
 
+      <v-menu v-if="showLimitWidth && filials" offset-y z-index="10">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            text
+            max-height="40px"
+            v-bind="attrs"
+            :class="[header2.css_class, 'buttonMFMenu']"
+            v-on="on"
+          >
+            {{ filials[0].phone }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(subitem1, index) in filials"
+            :key="index"
+            @click="111"
+          >
+            <v-list-item-content>
+              <v-list-item-title class="buttonMFGreyColor">{{
+                subitem1.phone
+              }}</v-list-item-title>
+              <v-list-item-subtitle>{{ subitem1.city }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <TheToolbarItems v-if="!showLimitWidth" :header="header3" />
       <v-spacer />
       <TheSearchField />
@@ -78,12 +106,43 @@
           </template>
         </v-list-item-group>
       </v-list>
+      <v-divider />
+      <v-list nav>
+        <v-list-item-group v-model="groupHeader3" active-class="">
+          <template v-for="(item2, i2) in header2.items">
+            <v-list-group v-if="item2.submenu" :key="i2 * 100 + 1">
+              <template v-slot:activator>
+                <v-list-item-title>{{ item2.name }}</v-list-item-title>
+              </template>
+
+              <v-list-item
+                v-for="(item3, i3) in item2.submenu"
+                :key="i3 * 1000 + 1"
+              >
+                <v-list-item-title class="ml-5">{{
+                  item3.name
+                }}</v-list-item-title>
+              </v-list-item>
+            </v-list-group>
+
+            <div
+              v-else-if="item2.id === 3 || item2 === '|'"
+              :key="i2 * 100 + 1"
+              style="height: 0"
+            ></div>
+
+            <v-list-item v-else :key="i2 * 100 + 1">
+              <v-list-item-title>{{ item2.name }}</v-list-item-title>
+            </v-list-item>
+          </template>
+        </v-list-item-group>
+      </v-list>
 
       <v-divider />
 
       <v-list-group>
         <template v-slot:activator>
-          <v-list-item-title>Структура Каталога</v-list-item-title>
+          <v-list-item-title>Каталог</v-list-item-title>
         </template>
 
         <v-treeview
@@ -143,7 +202,46 @@
       </div>
     </v-toolbar>
     <v-toolbar class="greyMfBckg" height="50" width="100vw">
-      <TheToolbarItems :header="header2" :addresses="filials" />
+      <v-app-bar-nav-icon
+        v-if="showLimitWidth"
+        color="white"
+        @click="drawerHeader3 = true"
+      ></v-app-bar-nav-icon>
+
+      <TheToolbarItems
+        v-if="!showLimitWidth"
+        :header="header2"
+        :addresses="filials"
+      />
+
+      <v-menu v-if="showLimitWidth && filials" offset-y z-index="10">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            text
+            max-height="40px"
+            v-bind="attrs"
+            :class="[header2.css_class, 'buttonMFMenu']"
+            v-on="on"
+          >
+            {{ filials[0].phone }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(subitem1, index) in filials"
+            :key="index"
+            @click="111"
+          >
+            <v-list-item-content>
+              <v-list-item-title class="buttonMFGreyColor">{{
+                subitem1.phone
+              }}</v-list-item-title>
+              <v-list-item-subtitle>{{ subitem1.city }}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <v-spacer />
       <TheSearchField />
       <v-spacer />

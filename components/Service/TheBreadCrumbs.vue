@@ -31,19 +31,6 @@ export default {
     ...mapGetters({
       breadCrumb: "nomenklator/getBreadCrumb",
     }),
-    itemsBreadCrumb_old() {
-      return this.typeSrc && this.typeSrc.src === "goodCard"
-        ? this.goodCardBreadCrumb
-        : this.typeSrc.src === "Cart"
-        ? [
-            {
-              text: "На главную",
-              disable: false,
-              to: "/",
-            },
-          ]
-        : this.breadCrumb;
-    },
     itemsBreadCrumb() {
       return this.typeSrc && this.typeSrc.src === "goodCard"
         ? this.goodCardBreadCrumb
