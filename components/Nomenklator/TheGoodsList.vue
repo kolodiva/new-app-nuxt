@@ -1,30 +1,20 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-col v-if="!showLimitWidth" md="3" lg="2" class="" style="">
-        <TheGoodsListLeftSideBar
-          :switch-filter="switchFilter"
-          :parentguid="
-            (subNomenklator.length > 0 && subNomenklator[0].parentguid) || null
-          "
-        />
+    <v-row class="">
+      <v-col v-if="!showLimitWidth" style="max-width: 350px">
+        <TheGoodsListLeftSideBar :switch-filter="switchFilter" />
       </v-col>
 
-      <v-col md="9" lg="10" class="pt-0" style="position: relative; z-index: 2">
-        <v-row v-if="canUseFilter" style="position: absolute">
-          <v-switch
-            :input-value="filterOpened"
-            style="margin-left: 25px; margin-top: 0px"
-            @change="switchFilter"
-          >
-            <template v-slot:label> <div class="mt-2">Фильтр</div> </template>
-          </v-switch>
-        </v-row>
-        <TheGoodsListMenu />
+      <v-col class="pt-0" :style="{ 'max-width': widthRightSide }">
+        <TheGoodsListMenu
+          :can-use-filter="canUseFilter"
+          :filter-opened="_filterOpened"
+          @switchFilter="switchFilter"
+        />
         <v-card
           min-height="100vh"
           color="transparent"
-          class="d-flex flex-wrap justify-center align-content-start mt-4"
+          class="d-flex flex-wrap justify-center align-content-start"
           flat
           tile
         >
@@ -61,42 +51,11 @@
         </v-card>
       </v-col>
     </v-row>
-
-    <v-navigation-drawer v-model="drawerFilter" app temporary dark width="350">
-      <v-toolbar dense color="transparent" flat @click="drawerFilter = false">
-        <v-spacer />
-        <v-btn icon>
-          <v-icon>mdi-undo-variant</v-icon>
-        </v-btn>
-      </v-toolbar>
-      <v-divider />
-      <v-list nav>
-        <v-list-item-group v-model="groupDrawer" active-class="">
-          <template v-for="(item, i) in header3.items">
-            <v-list-group v-if="item.submenu" :key="i">
-              <template v-slot:activator>
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-              </template>
-
-              <v-list-item
-                v-for="(item1, i1) in item.submenu"
-                :key="i1 * 100 + 1"
-              >
-                <v-list-item-title class="ml-5">{{
-                  item1.name
-                }}</v-list-item-title>
-              </v-list-item>
-            </v-list-group>
-
-            <v-list-item v-else :key="i">
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
-            </v-list-item>
-          </template>
-        </v-list-item-group>
-      </v-list>
-
-      <v-divider />
-    </v-navigation-drawer>
+    <TheFilterDrawer
+      v-if="drawerFilter"
+      :open-win="drawerFilter"
+      @switchFilter="switchFilter"
+    />
   </v-container>
 </template>
 
@@ -104,7 +63,7 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return { drawerFilter: false, groupDrawer: null };
+    return { drawerFilter: false, groupDrawer: null, filterOpenedLocal: false };
   },
   computed: {
     ...mapGetters({
@@ -113,17 +72,36 @@ export default {
       canUseFilter: "nomenklator/getCanUseFilter",
       filterOpened: "nomenklator/getFilterOpened",
       showLimitWidth: "service/getShowLimitWidth",
-      header3: "headerMenu/getHeader3",
+      displayWidth: "service/getDisplayWidth",
     }),
+    widthRightSide() {
+      const res = this.showLimitWidth
+        ? "100vw"
+        : this.displayWidth - 370 + "px";
+      return res;
+    },
+    _filterOpened() {
+      return this.showLimitWidth ? this.filterOpenedLocal : this.filterOpened;
+    },
   },
   mounted() {
     // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
     // $('#sidebar2').stickr({duration:0, offsetTop: 80});
+    if (this.filterOpened && this.showLimitWidth) {
+      this.drawerFilter = true;
+      this.filterOpenedLocal = true;
+    }
   },
   methods: {
     async switchFilter() {
       if (this.showLimitWidth) {
-        this.drawerFilter = true;
+        if (!this.filterOpened) {
+          await this.$store.dispatch("nomenklator/openFilter", {
+            parentguid: this.subNomenklator[0].parentguid,
+          });
+        }
+        this.drawerFilter = !this.drawerFilter;
+        this.filterOpenedLocal = !this.filterOpenedLocal;
       } else if (this.filterOpened) {
         await this.$store.dispatch("nomenklator/closeFilter");
       } else {

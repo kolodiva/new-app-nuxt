@@ -47,6 +47,7 @@ export default {
     ...mapGetters({
       userEmail: "nomenklator/getUserInfoEmail",
       snackbars: "nomenklator/getSnackbars",
+      windowSize: "service/getWindowSize",
     }),
   },
   watch: {
@@ -77,10 +78,15 @@ export default {
       this.showScrollTop = offsetTop > 250;
     },
     async onResize() {
-      await this.$store.commit("service/SET_WINDOW_SIZE", {
-        x: window.innerWidth,
-        y: window.innerHeight,
-      });
+      if (
+        this.windowSize.x !== window.innerWidth ||
+        this.windowSize.y !== window.innerHeight
+      ) {
+        await this.$store.commit("service/SET_WINDOW_SIZE", {
+          x: window.innerWidth,
+          y: window.innerHeight,
+        });
+      }
     },
     setCityName() {
       window.ymaps.ready(function () {

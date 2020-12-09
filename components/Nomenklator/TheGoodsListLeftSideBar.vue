@@ -34,7 +34,7 @@
             <v-chip-group v-model="setGroupFilter[i]" column multiple>
               <v-chip
                 v-for="(item2, i2) in item.arrayprop"
-                :key="i2"
+                :key="i2 * 100 + 1"
                 filter
                 outlined
               >
@@ -49,9 +49,7 @@
     <div id="sidebarGoodsGroup">
       <v-expansion-panels v-model="openPanel1" focusable multiple>
         <v-expansion-panel v-for="(item, i) in 1" :key="i">
-          <v-expansion-panel-header>
-            Разделы каталога
-          </v-expansion-panel-header>
+          <v-expansion-panel-header> Каталог </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-treeview
               v-model="tree"
@@ -79,12 +77,11 @@ import { mapGetters } from "vuex";
 import { scrollToElm } from "@/utils/scrolling";
 // const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export default {
-  props: ["switchFilter", "parentguid"],
+  props: ["switchFilter"],
   data() {
     return {
       openPanel1: [0],
       openPanel2: [0],
-      show: false,
       tree: [],
       open: [],
       active: [],

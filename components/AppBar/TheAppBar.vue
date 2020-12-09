@@ -8,10 +8,12 @@
       width="100vw"
       dark
     >
-      <v-app-bar-nav-icon
-        v-if="showLimitWidth"
-        @click="drawerHeader3 = true"
-      ></v-app-bar-nav-icon>
+      <v-badge color="pink" dot overlap offset-x="20px" offset-y="20px">
+        <v-app-bar-nav-icon
+          v-if="showLimitWidth"
+          @click="drawerHeader3 = true"
+        ></v-app-bar-nav-icon>
+      </v-badge>
 
       <v-toolbar-title v-if="!showLimitWidth">
         <n-link to="/">
@@ -202,11 +204,13 @@
       </div>
     </v-toolbar>
     <v-toolbar class="greyMfBckg" height="50" width="100vw">
-      <v-app-bar-nav-icon
-        v-if="showLimitWidth"
-        color="white"
-        @click="drawerHeader3 = true"
-      ></v-app-bar-nav-icon>
+      <v-badge color="pink" dot overlap offset-x="20px" offset-y="20px">
+        <v-app-bar-nav-icon
+          v-if="showLimitWidth"
+          color="white"
+          @click="drawerHeader3 = true"
+        ></v-app-bar-nav-icon>
+      </v-badge>
 
       <TheToolbarItems
         v-if="!showLimitWidth"

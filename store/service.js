@@ -37,6 +37,12 @@ export const getters = {
   getShowLimitWidth: (state) => {
     return state.windowSize.x <= state.widthLimit;
   },
+  getDisplayWidth: (state) => {
+    return state.windowSize.x;
+  },
+  getWindowSize: (state) => {
+    return state.windowSize;
+  },
 };
 
 export const actions = {

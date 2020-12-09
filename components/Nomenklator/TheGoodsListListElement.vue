@@ -1,8 +1,8 @@
 <template>
-  <v-row class="mb-5" no-gutters style="width: 100vw; min-height: 220px">
-    <v-col lg="10" cols="12" class="greyMfBorder">
-      <v-row>
-        <v-col cols="4">
+  <v-row class="mb-5" style="width: 100vw; min-height: 220px">
+    <v-col width="80%" class="greyMfBorder">
+      <v-row style="" class="ma-0">
+        <v-col style="min-width: 220px; max-width: 250px">
           <n-link
             :to="`${pos.parentguid}/${pos.synonym}`"
             style="text-decoration: none"
@@ -25,7 +25,7 @@
           </n-link>
         </v-col>
 
-        <v-col cols="8">
+        <v-col style="min-width: 400px">
           <div>
             {{ pos.name }}<br />
             арктикул: {{ pos.artikul }}, новый:
@@ -33,50 +33,50 @@
             <v-card-text v-html="pos.describe"> </v-card-text>
           </div>
         </v-col>
-      </v-row>
-    </v-col>
 
-    <v-col lg="2" cols="12" class="pa-3 greyMfBorder">
-      <div class="d-flex">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon v-bind="attrs" style="transform: scale(-1, 1)" v-on="on"
-              >mdi-head-heart-outline
-            </v-icon>
-          </template>
-          <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
-          <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
-        </v-tooltip>
-        &nbsp;
-        <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
-      </div>
-      <v-text-field
-        v-model="pos.qty2"
-        rounded
-        filled
-        clearable
-        type="number"
-        :class="['mt-4', 'centered-input', { 'change-value': diffQty }]"
-        style="max-width: 235px"
-        dense
-        :label="txtLabel"
-        @click:clear="
-          pos.qty2 = 0;
-          $emit('chngorder', id);
-        "
-        @keyup.enter="$emit('chngorder', id)"
-        @keyup.esc="pos.qty2 = pos.qty1"
-        @focus="$event.target.select()"
-        @wheel="1 === 1"
-      >
-        <v-img
-          slot="append"
-          src="/cart.png"
-          width="28"
-          style="cursor: pointer"
-          @click="$emit('chngorder', id)"
-        />
-      </v-text-field>
+        <v-col class="pa-3" style="min-width: 250px; max-width: 250px">
+          <div class="d-flex">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon v-bind="attrs" style="transform: scale(-1, 1)" v-on="on"
+                  >mdi-head-heart-outline
+                </v-icon>
+              </template>
+              <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
+              <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
+            </v-tooltip>
+            &nbsp;
+            <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
+          </div>
+          <v-text-field
+            v-model="pos.qty2"
+            rounded
+            filled
+            clearable
+            type="number"
+            :class="['mt-4', 'centered-input', { 'change-value': diffQty }]"
+            style="max-width: 235px"
+            dense
+            :label="txtLabel"
+            @click:clear="
+              pos.qty2 = 0;
+              $emit('chngorder', id);
+            "
+            @keyup.enter="$emit('chngorder', id)"
+            @keyup.esc="pos.qty2 = pos.qty1"
+            @focus="$event.target.select()"
+            @wheel="1 === 1"
+          >
+            <v-img
+              slot="append"
+              src="/cart.png"
+              width="28"
+              style="cursor: pointer"
+              @click="$emit('chngorder', id)"
+            />
+          </v-text-field>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
