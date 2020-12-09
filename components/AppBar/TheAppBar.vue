@@ -8,7 +8,14 @@
       width="100vw"
       dark
     >
-      <v-badge color="pink" dot overlap offset-x="20px" offset-y="20px">
+      <v-badge
+        v-if="showLimitWidth"
+        color="pink"
+        dot
+        overlap
+        offset-x="20px"
+        offset-y="20px"
+      >
         <v-app-bar-nav-icon
           v-if="showLimitWidth"
           @click="drawerHeader3 = true"
@@ -204,7 +211,14 @@
       </div>
     </v-toolbar>
     <v-toolbar class="greyMfBckg" height="50" width="100vw">
-      <v-badge color="pink" dot overlap offset-x="20px" offset-y="20px">
+      <v-badge
+        v-if="showLimitWidth"
+        color="pink"
+        dot
+        overlap
+        offset-x="20px"
+        offset-y="20px"
+      >
         <v-app-bar-nav-icon
           v-if="showLimitWidth"
           color="white"
