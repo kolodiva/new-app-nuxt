@@ -8,7 +8,7 @@
     style="margin-left: 50px"
   >
     <template v-slot:activator>
-      <v-btn v-model="fab" color="blue darken-2" dark fab small left>
+      <v-btn v-model="fab" color="blue" dark fab small left>
         <v-icon v-if="fab">mdi-close</v-icon>
         <v-icon v-else>mdi-apps</v-icon>
       </v-btn>

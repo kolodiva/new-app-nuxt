@@ -8,7 +8,7 @@
         <v-badge color="pink" dot overlap>
           <v-btn
             fab
-            color="cyan darken-1"
+            color="blue"
             x-small
             class="mb-4"
             v-bind="attrs"
@@ -26,7 +26,7 @@
         <v-btn
           v-if="canUseFilter"
           fab
-          color="cyan darken-2"
+          color="blue"
           x-small
           v-bind="attrs"
           v-on="on"

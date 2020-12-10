@@ -146,4 +146,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+body,
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+</style>
