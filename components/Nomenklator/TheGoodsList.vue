@@ -1,16 +1,13 @@
 <template>
-  <v-container fluid>
-    <v-row class="">
-      <v-col v-if="!showLimitWidth" style="max-width: 350px">
-        <TheGoodsListLeftSideBar :switch-filter="switchFilter" />
-      </v-col>
-
-      <v-col class="pt-0" :style="{ 'max-width': widthRightSide }">
-        <TheGoodsListMenu
-          :can-use-filter="canUseFilter"
-          :filter-opened="_filterOpened"
-          @switchFilter="switchFilter"
-        />
+  <v-container>
+    <TheFixBtnQuickCatalog
+      :can-use-filter="canUseFilter"
+      @openQuickCatalog="drawerQuickCatalog = true"
+      @openFilter="switchFilter"
+    />
+    <v-row class="justify-center">
+      <v-col cols="10" class="pt-0">
+        <TheGoodsListMenu />
         <v-card
           min-height="100vh"
           color="transparent"
@@ -51,10 +48,14 @@
         </v-card>
       </v-col>
     </v-row>
-    <TheFilterDrawer
+    <TheDrawerFilter
       v-if="drawerFilter"
       :open-win="drawerFilter"
       @switchFilter="switchFilter"
+    />
+    <TheDrawerQuickCatalog
+      v-if="drawerQuickCatalog"
+      @closeQuickCatalog="drawerQuickCatalog = false"
     />
   </v-container>
 </template>
@@ -63,51 +64,36 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return { drawerFilter: false, groupDrawer: null, filterOpenedLocal: false };
+    return {
+      drawerFilter: false,
+      drawerQuickCatalog: false,
+      filterVissible: false,
+    };
   },
   computed: {
     ...mapGetters({
-      subNomenklator: "nomenklator/getSubNomenklator",
       catalogTypeView: "nomenklator/getCatalogTypeView",
+      subNomenklator: "nomenklator/getSubNomenklator",
       canUseFilter: "nomenklator/getCanUseFilter",
-      filterOpened: "nomenklator/getFilterOpened",
-      showLimitWidth: "service/getShowLimitWidth",
-      displayWidth: "service/getDisplayWidth",
+      filterFilled: "nomenklator/getFilterOpened",
+      filterFromGroup: "nomenklator/getFilterFromGroup",
     }),
-    widthRightSide() {
-      const res = this.showLimitWidth
-        ? "100vw"
-        : this.displayWidth - 370 + "px";
-      return res;
-    },
-    _filterOpened() {
-      return this.showLimitWidth ? this.filterOpenedLocal : this.filterOpened;
-    },
   },
   mounted() {
-    // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 80 });
-    // $('#sidebar2').stickr({duration:0, offsetTop: 80});
-    if (this.filterOpened && this.showLimitWidth) {
-      this.drawerFilter = true;
-      this.filterOpenedLocal = true;
-    }
+    this.drawerFilter = this.filterFilled && this.filterFromGroup;
   },
   methods: {
     async switchFilter() {
-      if (this.showLimitWidth) {
-        if (!this.filterOpened) {
-          await this.$store.dispatch("nomenklator/openFilter", {
-            parentguid: this.subNomenklator[0].parentguid,
-          });
-        }
-        this.drawerFilter = !this.drawerFilter;
-        this.filterOpenedLocal = !this.filterOpenedLocal;
-      } else if (this.filterOpened) {
-        await this.$store.dispatch("nomenklator/closeFilter");
-      } else {
+      if (!this.filterFilled) {
         await this.$store.dispatch("nomenklator/openFilter", {
           parentguid: this.subNomenklator[0].parentguid,
         });
+      }
+      this.drawerFilter = !this.drawerFilter;
+      this.filterVissible = !this.filterVissible;
+
+      if (this.filterFromGroup) {
+        await this.$store.commit("nomenklator/SET_FILTER_FROM_GROUP", false);
       }
     },
     async chngorder(id) {

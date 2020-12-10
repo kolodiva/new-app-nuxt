@@ -23,6 +23,7 @@
     "@nuxtjs/component-cache": "^1.1.6",
     "@nuxtjs/robots": "^2.4.2",
     "animate.css": "^4.1.1",
+    "array-to-tree": "^3.3.2",
     "bcrypt": "^5.0.0",
     "chokidar": "^3.4.2",
     "cookie-parser": "^1.4.5",
@@ -30,6 +31,7 @@
     "copy-to": "^2.0.1",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
+    "list-to-tree": "^2.2.3",
     "lodash": "^4.17.19",
     "nodemailer": "^6.4.16",
     "nuxt": "^2.14.6",
@@ -42,7 +44,8 @@
     "stylelint-scss": "^3.18.0",
     "vue-cryptojs": "^2.1.5",
     "vue-horizontal-list": "^1.2.0",
-    "vue-slick-carousel": "^1.0.6"
+    "vue-slick-carousel": "^1.0.6",
+    "vuetify-snackbar-queue": "^2.2.0"
   },
   "devDependencies": {
     "@mdi/js": "^5.3.45",

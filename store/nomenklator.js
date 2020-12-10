@@ -22,6 +22,7 @@ export const state = () => ({
   cartList: [],
   canUseFilter: false,
   userFilter: null,
+  userFilterFromGroup: null,
 });
 
 export const mutations = {
@@ -51,7 +52,8 @@ export const mutations = {
     state.waitNomenklatorLoad = val;
   },
   SET_STRUC_CATALOG(state, rows) {
-    state.strucCatalog = JSON.parse(rows);
+    // state.strucCatalog = JSON.parse(rows);
+    state.strucCatalog = rows;
   },
   SET_CATALOG_TYPE_VIEW(state, name) {
     state.catalogTypeView = name;
@@ -134,6 +136,9 @@ export const mutations = {
     if (state.userFilter) {
       state.userFilter.stateFilter = [...groupFilter];
     }
+  },
+  SET_FILTER_FROM_GROUP(state, v) {
+    state.userFilterFromGroup = v;
   },
 };
 export const getters = {
@@ -250,6 +255,9 @@ export const getters = {
   getFilterOpened: (state) => {
     return !!state.userFilter;
   },
+  getFilterFromGroup: (state) => {
+    return state.userFilterFromGroup;
+  },
   getParentGuid: (state) => {
     return (state.userFilter && state.userFilter.parentguid) || null;
   },
@@ -347,7 +355,7 @@ export const actions = {
   async setFilterState({ commit, dispatch, state }, { groupFilter }) {
     await commit("SET_FILTER_STATE", { groupFilter });
   },
-  async openFilter({ commit, dispatch, state }, { parentguid }) {
+  async openFilter({ commit, dispatch, state }, { parentguid, fromGroup }) {
     const { rows } = await this.$api("getGroupFilter", {
       parentguid,
     });
@@ -394,11 +402,9 @@ export const actions = {
     commit("SET_SEO_TEXT_MAIN", seoText);
   },
   async getStrucCatalog({ commit, dispatch, state }) {
-    const { rows } = await this.$api("getStrucCatalog");
+    const { tree } = await this.$api("getStrucCatalog");
 
-    // consola.log( rows[0].tree );
-
-    commit("SET_STRUC_CATALOG", rows[0].tree);
+    commit("SET_STRUC_CATALOG", tree);
   },
   async chngeCart({ commit, dispatch, state }, id) {
     const userid = (state.userInfo && state.userInfo.id) || 1;

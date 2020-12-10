@@ -1,5 +1,6 @@
 const db = require('../db')
 const nodemailer = require('nodemailer');
+const arrayToTree = require('array-to-tree');
 
 const {matchPass, genPass, genUuid} = require('./crypto')
 
@@ -144,13 +145,25 @@ export async function getGoodCard( { synonym, userid, token } ) {
   return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows, complects: complects[1].rows, dopcomplects: dopcomplects[1].rows  };
 }
 
-export async function getStrucCatalog() {
+export async function getStrucCatalog_old() {
 
   const rows = await db.queryApp('getStrucCatalog')
 
   //console.log(breadcrumb.rows)
 
   return rows;
+}
+
+export async function getStrucCatalog() {
+
+  const {rows} = await db.queryApp('getStrucCatalog')
+
+  const tree = arrayToTree(rows, {
+          customID: 'node_id',
+          parentProperty: 'parentguid'
+      });
+
+  return {tree};
 }
 
 //seo

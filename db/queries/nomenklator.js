@@ -546,7 +546,7 @@ export function getBreadCrumbs(params) {
     values: [],
   }
 }
-export function getStrucCatalog() {
+export function getStrucCatalog_old() {
 
   const textqry=`
   WITH RECURSIVE location_with_level AS (
@@ -619,6 +619,30 @@ export function getStrucCatalog() {
   }
 }
 
+export function getStrucCatalog() {
+
+  const textqry=`
+  With recursive r as (   select id::text, name, level_group, guid, '' as parentguid from nomenklators
+          where level_group = 1
+          and guid!='d6699c69-8e85-4709-9676-27a8c27c'
+
+        union all
+
+        select nomenklators.id::text || nom1.id::text as id , nom1.name, nom1.level_group, nom1.guid, nom1.parentguid from nomenklators as nom1 join nomenklators on nom1.parentguid = nomenklators.guid where nom1.itgroup )
+
+        select name, level_group, guid node_id, parentguid from r
+        where
+            guid!='sekretnaya_papka' and parentguid!='sekretnaya_papka'
+            and guid!='yandexpagesecret' and parentguid!='yandexpagesecret'
+              order by id
+              `
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 
 //nikolas
 export function getNomenklatorY() {

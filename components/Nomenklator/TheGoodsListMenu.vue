@@ -1,17 +1,5 @@
 <template>
   <v-toolbar dense flat rounded bordered class="">
-    <v-switch
-      v-if="canUseFilter"
-      :loading="filterOpened ? false : 'blue'"
-      dense
-      style=""
-      class="mt-5"
-      :input-value="filterOpened"
-      @change="$emit('switchFilter')"
-    >
-      <template v-slot:label> <div class="mt-2">Фильтр</div> </template>
-    </v-switch>
-
     <v-spacer></v-spacer>
 
     <v-toolbar-title class="body-2">Вид каталога:</v-toolbar-title>

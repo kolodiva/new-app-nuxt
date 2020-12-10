@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawerFilter" app light width="290">
+  <v-navigation-drawer v-model="drawerFilter" app light temporary width="290">
     <v-toolbar dense color="transparent" flat>
       <v-toolbar-title>Фильтр</v-toolbar-title>
       <v-spacer />
@@ -127,6 +127,8 @@ export default {
       });
 
       this.showResetFilter = false;
+
+      // this.$emit("switchFilter");
     },
   },
 };
