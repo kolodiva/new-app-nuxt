@@ -147,28 +147,6 @@
         </v-list-item-group>
       </v-list>
 
-      <v-divider />
-
-      <v-list-group>
-        <template v-slot:activator>
-          <v-list-item-title>Каталог</v-list-item-title>
-        </template>
-
-        <v-treeview
-          v-model="tree"
-          :items="strucCatalog"
-          item-key="node_id"
-          hoverable
-          rounded
-          activatable
-          transition
-          dense
-          :open="open"
-          :active="active"
-          @update:active="fetchUsers"
-        >
-        </v-treeview>
-      </v-list-group>
     </v-navigation-drawer>
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
