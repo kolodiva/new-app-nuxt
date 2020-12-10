@@ -146,7 +146,6 @@
           </template>
         </v-list-item-group>
       </v-list>
-
     </v-navigation-drawer>
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
@@ -159,6 +158,7 @@
             contain
           />
         </n-link>
+        
       </v-toolbar-title>
       <v-spacer />
       <TheToolbarItems :header="header1" />
