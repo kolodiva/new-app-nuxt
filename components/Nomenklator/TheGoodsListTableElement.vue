@@ -50,7 +50,7 @@
         <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
       </div>
     </v-col>
-    <v-col>
+    <v-col class="pr-2">
       <v-text-field
         v-model="pos.qty2"
         rounded

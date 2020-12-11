@@ -3,10 +3,11 @@
     <TheBreadCrumbs
       :type-src="{ src: 'goodCard' }"
       :good-card-bread-crumb="goodCardBreadCrumb"
+      :class="[showLimitWidth ? '' : 'ml-10']"
     />
-    <v-container v-scroll="onIntersect" fluid>
+    <v-container v-scroll="onIntersect">
       <v-row class="">
-        <v-col class="grey lighten-4 hidden-sm-and-down pr-0 pt-0">
+        <v-col class="grey lighten-4 pr-0 pt-0" style="max-width: 230px">
           <div
             id="sidebar1"
             style="
@@ -20,9 +21,9 @@
                 v-model="cur_tab"
                 class="ml-auto"
                 background-color="grey lighten-4"
-                vertical
                 style="margin-top: 2px"
                 active-class="background-color: white"
+                vertical
               >
                 <v-tabs-slider color="transparent"></v-tabs-slider>
                 <v-tab style="height: 30px" @click="backUp()">
@@ -52,7 +53,7 @@
           </div>
         </v-col>
 
-        <v-col md="8" sm="12" class="pt-0 pl-0 grey lighten-4">
+        <v-col class="pt-0 pl-0 grey lighten-4">
           <v-tabs
             v-model="cur_tab_complects"
             :height="posComplects && posComplects.length > 0 ? 48 : 0"
@@ -64,7 +65,7 @@
           <v-card
             id="section_1"
             flat
-            style="margin-top: 2px; max-height: 550px"
+            style="margin-top: 2px; min-height: 550px"
           >
             <v-tabs-items v-model="cur_tab_complects">
               <v-tab-item>
@@ -79,9 +80,8 @@
                         <v-hover v-slot:default="{ hover }">
                           <v-img
                             :src="`${photo.pic_path.replace('_250x250', '')}`"
-                            contain
-                            height="400"
                             class="mx-auto"
+                            style="min-height: 400px; max-width: 400px"
                           >
                             <v-row
                               class="fill-height flex-column"
@@ -121,7 +121,7 @@
                   </v-col>
 
                   <v-col>
-                    <v-simple-table dense>
+                    <v-simple-table dense class="">
                       <template v-slot:default>
                         <tbody>
                           <tr v-for="item in characts" :key="item.field">
@@ -136,15 +136,67 @@
                       </template>
                     </v-simple-table>
                   </v-col>
+
+                  <v-col v-if="showLimitWidth">
+                    <div class="pa-4">
+                      <div class="d-flex">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-icon
+                              v-bind="attrs"
+                              style="transform: scale(-1, 1)"
+                              v-on="on"
+                              >mdi-head-heart-outline
+                            </v-icon>
+                          </template>
+                          <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
+                          <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
+                        </v-tooltip>
+                        &nbsp;
+                        <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
+                      </div>
+
+                      <v-text-field
+                        v-model="pos.qty2"
+                        rounded
+                        filled
+                        clearable
+                        type="number"
+                        :class="[
+                          'mt-4',
+                          'centered-input',
+                          { 'change-value': diffQty },
+                        ]"
+                        style="max-width: 290px"
+                        dense
+                        :label="txtLabel"
+                        @keyup.esc="pos.qty2 = pos.qty1"
+                        @keyup.enter="chngorder()"
+                        @focus="$event.target.select()"
+                        @click:clear="
+                          pos.qty2 = 0;
+                          chngorder();
+                        "
+                      >
+                        <v-img
+                          slot="append"
+                          src="/cart.png"
+                          width="28"
+                          style="cursor: pointer"
+                          @click="chngorder()"
+                        />
+                      </v-text-field>
+                    </div>
+                  </v-col>
                 </v-row>
               </v-tab-item>
 
               <v-tab-item>
                 <v-card
+                  flat
                   style="
                     min-height: 500px;
                     max-height: 500px;
-                    overflow-x: auto;
                     position: relative;
                   "
                 >
@@ -159,11 +211,9 @@
                           <v-img :src="item.pic_path_small" />
                         </v-list-item-icon>
                         <v-list-item-content>
-                          <v-list-item-title
-                            >{{ item.artikul }}, {{ item.name }}, в единице
-                            комплекта: {{ item.qty }} x
-                            {{ item.unit_name }}
-                          </v-list-item-title>
+                          {{ item.artikul }}, {{ item.name }}, в единице
+                          комплекта: {{ item.qty }} x
+                          {{ item.unit_name }}
                         </v-list-item-content>
                       </v-list-item>
                     </v-list-item-group>
@@ -184,34 +234,12 @@
           <v-card id="section_4" style="height: 15vh" class="mt-1" flat
             ><v-card-text>Инструкции</v-card-text></v-card
           >
-          <v-card
-            v-if="posDopComplects && posDopComplects.length > 0"
-            id="section_5"
-            style=""
-            class="mt-1"
-            flat
-            ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
-
-            <div>
-              <section>
-                <vue-horizontal-list
-                  :items="posDopComplects"
-                  :options="options"
-                  class=""
-                >
-                  <template v-slot:default="{ item }">
-                    <TheGoodsListMosaicElementDopComplects
-                      :key="item.guid"
-                      :pos="item"
-                      @chngorder="chngorderdopcomplect"
-                    />
-                  </template>
-                </vue-horizontal-list>
-              </section>
-            </div>
-          </v-card>
         </v-col>
-        <v-col style="" class="grey lighten-4">
+        <v-col
+          v-if="!showLimitWidth"
+          class="grey lighten-4"
+          style="max-width: 230px"
+        >
           <div
             id="sidebar2"
             style="
@@ -269,6 +297,28 @@
           </div>
         </v-col>
       </v-row>
+      <v-card
+        v-if="posDopComplects && posDopComplects.length > 0"
+        id="section_5"
+        style=""
+        class="mt-1"
+        flat
+        ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
+
+        <div id="appDopComplects">
+          <section>
+            <vue-horizontal-list :items="posDopComplects" :options="options">
+              <template v-slot:default="{ item }">
+                <TheGoodsListMosaicElementDopComplects
+                  :key="item.guid"
+                  :pos="item"
+                  @chngorder="chngorderdopcomplect"
+                />
+              </template>
+            </vue-horizontal-list>
+          </section>
+        </div>
+      </v-card>
     </v-container>
     <TheCardGoodBigView
       :photos="photos"
@@ -316,6 +366,18 @@ export default {
     infoComplectPos: {},
     options: {
       autoplay: { play: false, repeat: true, speed: 3000 },
+      // responsive: [
+      //   { end: 576, size: 1 },
+      //   { start: 576, end: 768, size: 2 },
+      //   { start: 768, end: 992, size: 2 },
+      //   { start: 992, end: 1200, size: 3 },
+      // ],
+      list: {
+        // 1200 because @media (min-width: 1200px) and therefore I want to switch to windowed mode
+        // windowed: 2000,
+        // Because: #app {padding: 80px 24px;}
+        // padding: 24,
+      },
     },
   }),
   beforeRouteEnter(to, from, next) {
@@ -330,6 +392,7 @@ export default {
       goodCardBreadCrumb: "nomenklator/getGoodCardBreadCrumb",
       posDopComplects: "nomenklator/getGoodCardDopComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
+      showLimitWidth: "service/getShowLimitWidth",
     }),
     txtLabel() {
       return parseFloat(this.pos.qty1) === parseFloat(this.pos.qty2)
@@ -383,13 +446,23 @@ export default {
       const wScrL = window.$(window).scrollTop();
       const addVal = 150;
 
-      const curBlock = [
-        window.$("#section_1").offset().top - wScrL + addVal,
-        window.$("#section_2").offset().top - wScrL + addVal,
-        window.$("#section_3").offset().top - wScrL + addVal,
-        window.$("#section_4").offset().top - wScrL + addVal,
-        window.$("#section_5").offset().top - wScrL + addVal,
-      ];
+      const curBlock = [];
+
+      for (let i = 0; i <= 5; i++) {
+        try {
+          const nameObj = `#section_${i}`;
+          const tmp = window.$(nameObj).offset().top - wScrL + addVal;
+          curBlock.push(tmp);
+        } catch (e) {}
+      }
+
+      // const curBlock = [
+      //   window.$("#section_1").offset().top - wScrL + addVal,
+      //   window.$("#section_2").offset().top - wScrL + addVal,
+      //   window.$("#section_3").offset().top - wScrL + addVal,
+      //   window.$("#section_4").offset().top - wScrL + addVal,
+      //   window.$("#section_5").offset().top - wScrL + addVal,
+      // ];
 
       this.cur_tab = curBlock.indexOf(curBlock.find((val) => val > 0)) + 1;
     },
@@ -459,5 +532,21 @@ export default {
   padding: 24px;
   border-radius: 3px;
   background: #f5f5f5;
+}
+
+#appDopComplects {
+  max-width: 1200px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 0 15px;
+}
+
+@media (min-width: 1200px) {
+  /* #appDopComplects {
+    padding-left: 80px;
+    padding-right: 80px;
+  } */
 }
 </style>

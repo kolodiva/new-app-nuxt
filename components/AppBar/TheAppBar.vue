@@ -158,7 +158,6 @@
             contain
           />
         </n-link>
-        
       </v-toolbar-title>
       <v-spacer />
       <TheToolbarItems :header="header1" />

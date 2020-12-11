@@ -6,7 +6,7 @@
       @openFilter="switchFilter"
     />
     <v-row class="justify-center">
-      <v-col cols="10" class="pt-0">
+      <v-col class="pt-0" style="max-width: 85vw">
         <TheGoodsListMenu />
         <v-card
           min-height="100vh"

@@ -25,7 +25,7 @@
           </n-link>
         </v-col>
 
-        <v-col style="min-width: 400px">
+        <v-col style="min-width: 350px">
           <div>
             {{ pos.name }}<br />
             арктикул: {{ pos.artikul }}, новый:

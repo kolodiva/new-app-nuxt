@@ -3,7 +3,7 @@
     flat
     outlined
     class="d-flex flex-column"
-    width="300"
+    width="270"
     min-height="484"
     style="margin: 3px"
   >
@@ -59,7 +59,7 @@
         'flex-grow-0',
         { 'change-value': diffQty },
       ]"
-      style="max-width: 280px"
+      style="max-width: 250px"
       dense
       :label="txtLabel"
       @click:clear="
