@@ -7,8 +7,7 @@
       v-model="snackbar.show"
       v-bind="$attrs"
       :transition="snackbar.transition"
-      :top="snackbar.top"
-      :bottom="snackbar.bottom"
+      :top="true"
       :left="snackbar.left"
       :right="snackbar.right"
       :color="snackbar.color"
@@ -42,6 +41,7 @@
 </template>
 
 <script>
+// <!-- :bottom="snackbar.bottom" -->
 export default {
   // name: "VSnackbars",
   components: {
