@@ -5,17 +5,13 @@
       :good-card-bread-crumb="goodCardBreadCrumb"
       :class="[showLimitWidth ? '' : 'ml-10']"
     />
-    <v-container v-scroll="onIntersect">
+    <v-container v-scroll="onIntersect" v-resize="onResize" style="">
       <v-row class="">
-        <v-col class="grey lighten-4 pr-0 pt-0" style="max-width: 230px">
-          <div
-            id="sidebar1"
-            style="
-              transform: translate(0, 0);
-              transform: translate3d(0, 0, 0);
-              will-change: position, transform;
-            "
-          >
+        <v-col
+          class="grey lighten-4 pr-0 pt-0"
+          style="max-width: 230px; position: relative"
+        >
+          <div id="sidebar1" style="">
             <div>
               <v-tabs
                 v-model="cur_tab"
@@ -39,7 +35,7 @@
                   <v-spacer /> Характеристики
                 </v-tab>
                 <v-tab style="height: 30px" @click="goTo('#section_4')">
-                  <v-spacer /> Инструкции и файлы
+                  <v-spacer /> Инструкции
                 </v-tab>
                 <v-tab
                   v-if="posDopComplects && posDopComplects.length > 0"
@@ -231,23 +227,16 @@
           <v-card id="section_3" style="height: 50vh" class="mt-1" flat
             ><v-card-text>Характеристики</v-card-text></v-card
           >
-          <v-card id="section_4" style="height: 15vh" class="mt-1" flat
+          <v-card id="section_4" style="height: 17vh" class="mt-1" flat
             ><v-card-text>Инструкции</v-card-text></v-card
           >
         </v-col>
         <v-col
           v-if="!showLimitWidth"
           class="grey lighten-4"
-          style="max-width: 230px"
+          style="max-width: 230px; position: relative"
         >
-          <div
-            id="sidebar2"
-            style="
-              transform: translate(0, 0);
-              transform: translate3d(0, 0, 0);
-              will-change: position, transform;
-            "
-          >
+          <div id="sidebar2" style="">
             <div>
               <p>Артикул: {{ pos.artikul }}, {{ pos.artikul_new }}</p>
               <div class="d-flex">
@@ -337,6 +326,7 @@
 <script>
 import { mapGetters } from "vuex";
 import VueHorizontalList from "vue-horizontal-list";
+// import $ from "jquery";
 export default {
   components: {
     VueHorizontalList,
@@ -414,8 +404,8 @@ export default {
     },
   },
   mounted() {
-    window.$("#sidebar1").stickr({ duration: 0, offsetTop: 55 });
-    window.$("#sidebar2").stickr({ duration: 0, offsetTop: 55 });
+    // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 55 });
+    // window.$("#sidebar2").stickr({ duration: 0, offsetTop: 55 });
   },
   methods: {
     backUp() {
@@ -439,12 +429,94 @@ export default {
       this.showComplectPos = false;
     },
 
+    fixSideBar() {
+      const checkPoint1 = window.$("#sidebar1");
+
+      if (!checkPoint1) {
+        return;
+      }
+
+      const checkPoint2 = window.$("#sidebar2");
+
+      const wScrL = window.$(window).scrollTop();
+      const addVal = 150;
+
+      if (wScrL > addVal) {
+        const count1 =
+          window.$("#sidebar1").parent().offset().top +
+          window.$("#sidebar1").parent().height() -
+          window.$(window).scrollTop();
+
+        if (count1 < 202) {
+          checkPoint1.css("position", "relative");
+          checkPoint1.css("left", 0);
+          checkPoint1.css(
+            "top",
+            window.$("#sidebar1").parent().offset().top +
+              window.$("#sidebar1").parent().height() -
+              365 +
+              "px"
+          );
+
+          if (checkPoint2 && checkPoint2.parent().offset()) {
+            checkPoint2.css("position", "relative");
+            checkPoint2.css("left", 0);
+            checkPoint2.css(
+              "top",
+              window.$("#sidebar2").parent().offset().top +
+                window.$("#sidebar2").parent().height() -
+                365 +
+                "px"
+            );
+          }
+
+          return;
+        }
+
+        let step =
+          checkPoint1.parent().width() -
+          checkPoint1.width() +
+          checkPoint1.parent().offset().left +
+          12 +
+          "px";
+        checkPoint1.css("position", "fixed");
+        checkPoint1.css("top", "50px");
+        checkPoint1.css("left", step);
+
+        if (checkPoint2 && checkPoint2.parent().offset()) {
+          step =
+            checkPoint2.parent().width() -
+            checkPoint2.width() +
+            checkPoint2.parent().offset().left +
+            12 +
+            "px";
+          checkPoint2.css("position", "fixed");
+          checkPoint2.css("top", "50px");
+          checkPoint2.css("left", step);
+          checkPoint2.css("width", checkPoint2.parent().width() + "px");
+        }
+      } else {
+        checkPoint1.css("position", "static");
+        checkPoint1.css("top", "0px");
+
+        if (checkPoint2 && checkPoint2.parent().offset()) {
+          checkPoint2.css("position", "static");
+          checkPoint2.css("top", "0px");
+        }
+      }
+    },
+
+    onResize() {
+      this.fixSideBar();
+    },
     onIntersect(entries, observer) {
       // More information about these options
       // is located here: https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
       // this.isIntersecting = entries[0].intersectionRatio >= 0.5
       const wScrL = window.$(window).scrollTop();
       const addVal = 150;
+
+      this.fixSideBar();
 
       const curBlock = [];
 
