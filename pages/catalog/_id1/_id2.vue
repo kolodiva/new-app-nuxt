@@ -447,14 +447,17 @@ export default {
           window.$("#sidebar1").parent().height() -
           window.$(window).scrollTop();
 
-        if (count1 < 202) {
+        if (
+          count1 <
+          (this.posDopComplects && this.posDopComplects.length > 0 ? 209 : 202)
+        ) {
           checkPoint1.css("position", "relative");
           checkPoint1.css("left", 0);
           checkPoint1.css(
             "top",
             window.$("#sidebar1").parent().offset().top +
               window.$("#sidebar1").parent().height() -
-              365 +
+              395 +
               "px"
           );
 
@@ -465,7 +468,7 @@ export default {
               "top",
               window.$("#sidebar2").parent().offset().top +
                 window.$("#sidebar2").parent().height() -
-                365 +
+                385 +
                 "px"
             );
           }
