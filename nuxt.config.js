@@ -258,11 +258,11 @@ module.exports = {
         /^\/$/
       ],
 
-      key(route, context) {
-        // custom function to return cache key, when used previous
-        // properties (useHostPrefix, pages) are ignored. return
-        // falsy value to bypass the cache
-      },
+      // key(route, context) {
+      //   // custom function to return cache key, when used previous
+      //   // properties (useHostPrefix, pages) are ignored. return
+      //   // falsy value to bypass the cache
+      // },
 
       store: {
         type: 'memory',
@@ -273,7 +273,7 @@ module.exports = {
         max: 100,
 
         // number of seconds to store this page in cache
-        ttl: 3600,
+        ttl: 600,
       },
     },
 
