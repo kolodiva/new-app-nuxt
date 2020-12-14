@@ -57,6 +57,8 @@ export default {
             connectionid,
           });
 
+          await this.$store.dispatch("nomenklator/refreshCountCart");
+
           await this.$store.dispatch("nomenklator/setSnackbar", {
             color: "green",
             text: `Приветствуем Вас, ${loginInfo.email}`,

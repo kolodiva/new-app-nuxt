@@ -212,7 +212,7 @@ export function getCart(params) {
     FROM (
     	  SELECT t2.complect_id id,t1.nomenklator_id guid, t3.name, t4.name unit_name, t2.koeff, t2.qty, t2.price,
         'https://newfurnitura.ru/upload/' || t3.guid_complect || '_82x82.jpg' guid_picture_compl,
-        t5.artikul
+        t3.artikul
     	  FROM order_goods t1
     	  join order_good_complects t2 on t1.id = t2.order_good_id
     	  join complects t3 on t2.complect_id = t3.guid_complect and  t1.nomenklator_id = t3.nomenklator_id

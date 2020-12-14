@@ -84,12 +84,14 @@
       <v-btn id="yourCity" text :class="['buttonMFWhiteColor']"> </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawerHeader3" app temporary dark width="350">
-      <v-toolbar dense color="transparent" flat @click="drawerHeader3 = false">
+      <v-toolbar dense color="transparent" flat>
+        <v-btn icon to="/"> <v-icon>mdi-home</v-icon></v-btn>
         <v-spacer />
-        <v-btn icon>
+        <v-btn icon @click="drawerHeader3 = false">
           <v-icon>mdi-undo-variant</v-icon>
         </v-btn>
       </v-toolbar>
+
       <v-divider />
       <v-list nav>
         <v-list-item-group v-model="groupHeader3" active-class="">

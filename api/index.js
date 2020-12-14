@@ -258,8 +258,8 @@ export async function addNewUser( params, res ) {
 
   const rest = await getConnectionOrder( rows[0].id, connectionid, true );
 
-  //res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+  //res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
   return rest.remember_token;
 }
@@ -433,8 +433,8 @@ export async function chngeCart( { guid, qty, price1, unit_type_id, userid, toke
   const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
 
   if (remember_token && remember_token != token) {
-      //res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-      res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   }
 
   const resOk  = await chngOrder( orderid, guid, qty, price1, unit_type_id );

@@ -137,6 +137,8 @@ export default {
 
       await this.$store.commit("nomenklator/EMPTY_USER_INFO");
 
+      await this.$store.dispatch("nomenklator/refreshCountCart");
+
       this.$store.dispatch("nomenklator/setSnackbar", {
         color: "green",
         text: `До свидания, ${username}`,

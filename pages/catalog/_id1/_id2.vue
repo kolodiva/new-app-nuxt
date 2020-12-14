@@ -228,8 +228,8 @@
             ><v-card-title>Характеристики</v-card-title>
             <v-card-text v-html="descr_1"></v-card-text
           ></v-card>
-          <v-card id="section_4" style="height: 17vh" class="mt-1" flat
-            ><v-card-text>Инструкции</v-card-text></v-card
+          <v-card id="section_4" style="height: 17vh" class="mt-1" flat>
+            <v-card-title>Инструкции</v-card-title></v-card
           >
         </v-col>
         <v-col
@@ -394,21 +394,29 @@ export default {
       return parseFloat(this.pos.qty1) !== parseFloat(this.pos.qty2);
     },
     descr_0() {
-      const tmp = this.pos.describe
-        .split("\n")
-        .filter((v) => {
-          return v.includes("font-weight:");
-        })
-        .join("\n");
+      let tmp = "";
+      try {
+        tmp = this.pos.describe
+          .split("\n")
+          .filter((v) => {
+            return v.includes("font-weight:");
+          })
+          .join("\n");
+      } catch (e) {}
+
       return tmp;
     },
     descr_1() {
-      const tmp = this.pos.describe
-        .split("\n")
-        .filter((v) => {
-          return !v.includes("font-weight:");
-        })
-        .join("\n");
+      let tmp = "";
+      try {
+        tmp = this.pos.describe
+          .split("\n")
+          .filter((v) => {
+            return !v.includes("font-weight:");
+          })
+          .join("\n");
+      } catch (e) {}
+
       return tmp;
     },
   },

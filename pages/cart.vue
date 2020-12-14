@@ -28,8 +28,8 @@
                 </v-btn>
               </v-card-actions>
               <v-card-title class="py-0">
-                Информация о Вашем Заказе будет отправлена Вам на указанный
-                Email.
+                Информация о Заказе будет отправлена Вам на указанный при
+                регистрации Email.
               </v-card-title>
             </template>
             <v-row class="pb-0" justify="space-between">
@@ -56,8 +56,7 @@
                           `catalog/${item.parentguid}/${item.synonym}`
                         )
                       "
-                    >
-                    </v-img>
+                    />
                   </template>
                   <template v-slot:label="{ item, leaf }">
                     <v-row v-if="leaf" class="" style="">
@@ -75,18 +74,26 @@
                       <v-col class="align-self-center text-wrap" cols="4"
                         >{{ item.artikul }}, {{ item.name }}</v-col
                       >
-                      <v-col class="align-self-center" cols="2"
-                        >{{ getQtyPosCompl(item) }}, {{ item.unit_name }}</v-col
-                      >
+                      <v-col class="align-self-center" cols="2">
+                        {{ getQtyPosCompl(item) }}, {{ item.unit_name }}
+                      </v-col>
                     </v-row>
                     <v-row v-else class="align-center fontSize1rem">
-                      <v-col cols="2" class="">
+                      <v-col cols="2" class="text-wrap">
                         {{ item.artikul }},<br />{{ item.artikul_new }}</v-col
                       >
                       <v-col cols="4" class="text-wrap">{{ item.name }}</v-col>
-                      <v-col cols="1"
-                        >{{ item.unit_name }},<br />{{ item.price1 }}</v-col
-                      >
+                      <v-col cols="2" class=""
+                        >{{ item.unit_name }},<br />{{ item.price1 }}<br />
+                        <v-img
+                          v-if="item.is_complect > 0"
+                          class="ml-4"
+                          src="/isComplect.png"
+                          width="28"
+                          style="cursor: pointer"
+                          @click="togglePosComplect(item)"
+                        />
+                      </v-col>
                       <v-col cols="" class="">
                         <v-text-field
                           v-model="item.qty2"
@@ -121,14 +128,6 @@
                           />
                         </v-text-field>
                       </v-col>
-                      <v-col cols="1">
-                        <v-img
-                          v-if="item.is_complect > 0"
-                          src="/isComplect.png"
-                          width="32"
-                          style="cursor: pointer"
-                          @click="togglePosComplect(item)"
-                      /></v-col>
                     </v-row>
                   </template>
                 </v-treeview>
