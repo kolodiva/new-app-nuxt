@@ -66,9 +66,16 @@ export default {
     },
   },
   beforeCreate() {},
-  mounted() {
+  async mounted() {
     this.setCityName();
     this.onResize();
+
+    const connectionid = this.$cookies.get("connectionid");
+
+    if (!this.userEmail && connectionid) {
+      await this.$store.dispatch("nomenklator/setUserInfo", { connectionid });
+      await this.$store.dispatch("nomenklator/refreshCountCart");
+    }
   },
   methods: {
     onScroll() {

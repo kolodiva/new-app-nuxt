@@ -24,7 +24,7 @@ export default async (req, res, next) => {
 
   //res.setHeader("Set-Cookie", "SameSite=None; Secure");
 
-  if (result.status) {
+  if (result && result.status) {
     res.status(result.status).end(result.msg);
   } else {
     res.end(JSON.stringify(result));

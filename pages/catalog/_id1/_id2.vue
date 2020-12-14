@@ -221,12 +221,13 @@
 
           <v-card id="section_2" style="min-height: 20vh" class="mt-1" flat>
             <v-card-title>Описание</v-card-title>
-            <v-card-text v-html="pos.describe"></v-card-text
+            <v-card-text v-html="descr_0"></v-card-text
           ></v-card>
 
           <v-card id="section_3" style="height: 50vh" class="mt-1" flat
-            ><v-card-text>Характеристики</v-card-text></v-card
-          >
+            ><v-card-title>Характеристики</v-card-title>
+            <v-card-text v-html="descr_1"></v-card-text
+          ></v-card>
           <v-card id="section_4" style="height: 17vh" class="mt-1" flat
             ><v-card-text>Инструкции</v-card-text></v-card
           >
@@ -391,6 +392,24 @@ export default {
     },
     diffQty() {
       return parseFloat(this.pos.qty1) !== parseFloat(this.pos.qty2);
+    },
+    descr_0() {
+      const tmp = this.pos.describe
+        .split("\n")
+        .filter((v) => {
+          return v.includes("font-weight:");
+        })
+        .join("\n");
+      return tmp;
+    },
+    descr_1() {
+      const tmp = this.pos.describe
+        .split("\n")
+        .filter((v) => {
+          return !v.includes("font-weight:");
+        })
+        .join("\n");
+      return tmp;
     },
   },
   watch: {

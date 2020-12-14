@@ -7,8 +7,8 @@ export const actions = {
     await dispatch("nomenklator/loadSeoTextMain");
     await dispatch("nomenklator/getStrucCatalog");
 
-    const connectionid = this.$cookies.get("connectionid");
-    await dispatch("nomenklator/setUserInfo", { connectionid });
-    await dispatch("nomenklator/refreshCountCart");
+    // const connectionid = this.$cookies.get("connectionid");
+    // await dispatch("nomenklator/setUserInfo", { connectionid });
+    // await dispatch("nomenklator/refreshCountCart");
   },
 };

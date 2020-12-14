@@ -53,7 +53,6 @@ export default {
         try {
           const connectionid = await this.$api("loginUser", userInfo);
 
-          // console.log(data);
           await this.$store.dispatch("nomenklator/setUserInfo", {
             connectionid,
           });
