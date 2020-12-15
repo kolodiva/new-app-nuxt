@@ -145,42 +145,45 @@
           <v-card flat class="mx-5">
             <v-row class="pa-4">
               <v-col cols="12">
-                <v-treeview
-                  :active.sync="activeOrders"
-                  :items="itemsOrders"
-                  :load-children="fetchOrders"
-                  color="warning"
-                  open-on-click
-                  transition
+                <v-data-table
                   dense
+                  single-expand
+                  hide-default-header
+                  :headers="headers1"
+                  :items="itemOrders"
+                  item-key="id"
+                  show-expand
+                  :footer-props="{
+                    itemsPerPageText: 'Строк на странице',
+                  }"
                 >
-                  <template v-slot:label="{ item }">
-                    <v-card-subtitle v-if="item.data_on" class="title py-0">
-                      Заказ {{ item.id }} от {{ item.data_on }} сумма:
-                      {{ item.sum }} к оплате картой {{ item.sum_for_payment }}
-                    </v-card-subtitle>
-                    <v-card-subtitle
-                      v-else-if="item.guid"
-                      class="subtitle py-0"
-                    >
-                      <tr>
-                        <td style="width: 90px">{{ item.artikul }}</td>
-                        <td style="width: 150px">
-                          {{ item.name }}
-                        </td>
-                        <td style="width: 50px; text-align: center">
-                          {{ item.qty }}
-                        </td>
-                        <td style="width: 60px; text-align: right">
-                          {{ item.sum }}
-                        </td>
+                  <template v-slot:header="{ props: { headers } }">
+                    <thead>
+                      <tr class="">
+                        <th
+                          v-for="(item, i) in headers"
+                          :key="i"
+                          :class="`text-${item.align} white--text cyan`"
+                        >
+                          {{ item.text }}
+                        </th>
                       </tr>
-                    </v-card-subtitle>
-                    <v-card-title v-else class="headline py-0">
-                      {{ item.name }}
-                    </v-card-title>
+                    </thead>
                   </template>
-                </v-treeview>
+
+                  <template v-slot:expanded-item="{ headers, item }">
+                    <td :colspan="headers.length" class="pa-4">
+                      <v-data-table
+                        dense
+                        :headers="subheaders"
+                        :items="item.children"
+                        item-key="guid"
+                        hide-default-footer
+                      >
+                      </v-data-table>
+                    </td>
+                  </template>
+                </v-data-table>
               </v-col>
             </v-row>
           </v-card>
@@ -352,6 +355,107 @@ export default {
       itemOrders: [],
 
       tabOrders: null,
+
+      headers1: [
+        { text: "Номер", align: "right", sortable: true, value: "id" },
+        { text: "Дата", align: "center", sortable: false, value: "data_on" },
+        {
+          text: "Сумма (исх.), ₽",
+          align: "right",
+          sortable: false,
+          value: "sum",
+        },
+        {
+          text: "Сумма (факт.), ₽",
+          align: "right",
+          sortable: false,
+          value: "sum1",
+        },
+        {
+          text: "Сумма (к опл.), ₽",
+          align: "right",
+          sortable: false,
+          value: "sum_for_payment",
+        },
+        {
+          text: "Сумма (оплач.), ₽",
+          align: "right",
+          sortable: false,
+          value: "sum_paid",
+        },
+        {
+          text: "Состояние",
+          align: "left",
+          sortable: false,
+          value: "status",
+        },
+      ],
+      subheaders: [
+        {
+          text: "Артикул",
+          align: "center",
+          sortable: false,
+          value: "artikul",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Наименование",
+          align: "left",
+          sortable: false,
+          value: "name",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Кол-во (исх)",
+          align: "right",
+          sortable: false,
+          value: "qty",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Кол-во (факт)",
+          align: "right",
+          sortable: false,
+          value: "qty1",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Цена (исх)",
+          align: "right",
+          sortable: false,
+          value: "price",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Цена (факт)",
+          align: "right",
+          sortable: false,
+          value: "price1",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Сумма (исх)",
+          align: "right",
+          sortable: false,
+          value: "sum",
+          class: "cyan white--text",
+          divider: true,
+        },
+        {
+          text: "Сумма (факт)",
+          align: "right",
+          sortable: false,
+          value: "sum1",
+          class: "cyan white--text",
+          divider: true,
+        },
+      ],
     };
   },
   computed: {
@@ -375,8 +479,23 @@ export default {
   },
   watch: {},
   beforeCreate() {},
-  mounted() {},
+  async mounted() {
+    // console.log("userInfo.id", this.userInfo.id);
+    const userid = this.userInfo.id;
+
+    if (userid > 1) {
+      const rows = await this.$api("getOrdersList", {
+        userid,
+      });
+
+      this.itemOrders.push(...rows);
+    }
+  },
   methods: {
+    showEl(el) {
+      console.log(el);
+      return "11111111111";
+    },
     togglePosComplect(item) {
       this.open = this.open.indexOf(item.id) === 0 ? [] : [item.id];
     },
@@ -485,9 +604,6 @@ export default {
       this.sendOrderForm = false;
     },
     async fetchOrders(item) {
-      // Remove in 6 months and say
-      // you've made optimizations! :)
-      // await pause(1500);
       const rows = await this.$api("getOrdersList", {
         userid: this.userInfo.id,
       });

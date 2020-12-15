@@ -184,8 +184,32 @@ export function getOrdersList( userid ) {
   return {
     name: '',
     text: `
-    with r1 as (select distinct t1.id, t1.status, to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order,
-     jsonb_build_object(  'guid', t3.nomenklator_id, 'name', t4.name, 'artikul', t4.artikul, 'artikul_new', t4.artikul_new, 'qty', t3.qty , 'sum', t3.sum  ) as order_goods
+    with r1 as (select distinct t1.id,
+
+case
+when t1.status = 1 then 'Заказ отправлен'
+when t1.status = 2 then 'Создан резерв'
+when t1.status = 3 then 'Отправлен на склад'
+when t1.status = 4 then 'Ожид.сборка'
+when t1.status = 5 then 'Готов к отгрузке'
+when t1.status = 6 then 'Отгружен'
+when t1.status = 7 then 'Отменен'
+      else
+       'Нет данных'
+      end status,
+    to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum1, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order,
+     jsonb_build_object(
+      'guid', t3.nomenklator_id,
+      'name', t4.name,
+      'artikul', t4.artikul,
+      'artikul_new', t4.artikul_new,
+      'qty', t3.qty,
+      'qty1', t3.qty1 ,
+      'price', t3.price,
+      'price1', t3.price1 ,
+      'sum', t3.sum,
+      'sum1', t3.sum1
+    ) as order_goods
 
       from orders t1
       inner join connections t2 on t1.connection_id=t2.id
@@ -193,9 +217,9 @@ export function getOrdersList( userid ) {
       inner join nomenklators t4 on t4.guid = t3.nomenklator_id
       where t1.status>0 and t2.user_id=${userid})
 
-      select id, status, data_on, sum, sum_for_payment, sum_paid, data_paid, card_payment_order, json_agg(order_goods order by order_goods ->> 'name') children
+      select id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, json_agg(order_goods order by order_goods ->> 'name') children
       from r1
-      group by id, status, data_on, sum, sum_for_payment, sum_paid, data_paid, card_payment_order
+      group by id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order
       order by id desc
     `,
     values: [],
