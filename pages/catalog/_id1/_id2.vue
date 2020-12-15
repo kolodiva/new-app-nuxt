@@ -224,7 +224,7 @@
             <v-card-text v-html="descr_0"></v-card-text
           ></v-card>
 
-          <v-card id="section_3" style="height: 50vh" class="mt-1" flat
+          <v-card id="section_3" style="min-height: 20vh" class="mt-1" flat
             ><v-card-title>Характеристики</v-card-title>
             <v-card-text v-html="descr_1"></v-card-text
           ></v-card>

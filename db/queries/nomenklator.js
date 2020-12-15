@@ -811,7 +811,7 @@ export function getSearchNomenklator( searchtext ) {
 
   const textqry = `
   with r1 as (
-  select distinct t2.id, t1.parentguid, t1.synonym, ' (' || t1.artikul || ') ' || t1.name || ' (' || t1.artikul_new || ')' descr, t1.name, t1.artikul, t1.artikul_new
+  select distinct t2.id, t1.parentguid, t1.synonym, ' (' || t1.artikul || ') ' || t1.name || ' (' || t1.artikul_new || ')' descr, t1.name, t1.artikul, t1.artikul_new, t1.itgroup
   	from nomenklators t1
   	inner join nomenklators t2 on t2.guid = t1.parentguid
     where not t1.itgroup
@@ -821,10 +821,12 @@ export function getSearchNomenklator( searchtext ) {
     ( lower(t1.name || ' ' || t1.artikul || ' ' || t1.artikul_new ) ~ ${whereStr} )
   order by t1.name
     limit 20)
-    select distinct min(r1.id) id, r1.synonym, r1.descr, t1.parentguid
+    select id, synonym, synonym descr, guid parentguid, itgroup from nomenklators t where lower(synonym) ~ ${whereStr} and itgroup
+    	union all
+    select distinct min(r1.id) id, r1.synonym, r1.descr, t1.parentguid, r1.itgroup
     from r1
     inner join nomenklators t1 on r1.id = t1.id
-    group by r1.synonym, r1.descr, t1.parentguid
+    group by r1.synonym, r1.descr, t1.parentguid, r1.itgroup
   `
   // console.log(textqry);
   return {

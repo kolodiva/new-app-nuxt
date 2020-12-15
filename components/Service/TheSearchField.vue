@@ -38,7 +38,14 @@ export default {
   methods: {
     onClick(e) {
       if (e) {
-        const path = `/catalog/${e.parentguid}/${e.synonym}`;
+        let path = "";
+
+        if (e.itgroup) {
+          path = `/catalog/${e.parentguid}`;
+        } else {
+          path = `/catalog/${e.parentguid}/${e.synonym}`;
+        }
+
         this.$router.push(path);
       }
 
@@ -62,7 +69,11 @@ export default {
           return (
             {
               text: e.descr,
-              value: { synonym: e.synonym, parentguid: e.parentguid },
+              value: {
+                synonym: e.synonym,
+                parentguid: e.parentguid,
+                itgroup: e.itgroup,
+              },
             } || {}
           );
         });
