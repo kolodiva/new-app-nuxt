@@ -10,6 +10,7 @@ export const state = () => ({
     y: 0,
   },
   widthLimit: 1000,
+  tabCartOrder: null,
 });
 
 export const mutations = {
@@ -21,6 +22,12 @@ export const mutations = {
   },
   SET_WINDOW_SIZE(state, { x, y }) {
     state.windowSize = { x, y };
+  },
+  SET_CART_ORDER_SETTINGS(state, { tabOrders, expandedOrders }) {
+    state.tabCartOrder = { tabOrders, expandedOrders };
+  },
+  SET_EMPTY_CART_ORDER_SETTINGS(state) {
+    state.tabCartOrder = null;
   },
 };
 
@@ -42,6 +49,9 @@ export const getters = {
   },
   getWindowSize: (state) => {
     return state.windowSize;
+  },
+  getTabCartOrder: (state) => {
+    return state.tabCartOrder;
   },
 };
 

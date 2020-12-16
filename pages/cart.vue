@@ -148,38 +148,57 @@
                 <v-data-table
                   dense
                   single-expand
-                  hide-default-header
                   :headers="headers1"
                   :items="itemOrders"
                   item-key="id"
                   show-expand
-                  :footer-props="{
-                    itemsPerPageText: 'Строк на странице',
-                  }"
+                  :expanded.sync="expandedOrders"
+                  hide-default-footer
+                  :options="{ itemsPerPage: 30 }"
+                  class="elevation-1"
                 >
-                  <template v-slot:header="{ props: { headers } }">
-                    <thead>
-                      <tr class="">
-                        <th
-                          v-for="(item, i) in headers"
-                          :key="i"
-                          :class="`text-${item.align} white--text cyan`"
-                        >
-                          {{ item.text }}
-                        </th>
-                      </tr>
-                    </thead>
+                  <template v-slot:item.sum_for_payment="{ item }">
+                    {{ item.sum_for_payment }}
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-icon
+                          v-if="item.sum_for_payment > 0 && item.sum_paid == 0"
+                          class="ml-1 red--text"
+                          style="cursor: pointer"
+                          v-bind="attrs"
+                          v-on="on"
+                          @click.prevent="openSberPayment(item)"
+                          >mdi-credit-card-outline</v-icon
+                        ></template
+                      ><span>Перейти к оплате заказа</span></v-tooltip
+                    >
                   </template>
 
                   <template v-slot:expanded-item="{ headers, item }">
                     <td :colspan="headers.length" class="pa-4">
                       <v-data-table
+                        fixed-header
                         dense
                         :headers="subheaders"
                         :items="item.children"
                         item-key="guid"
                         hide-default-footer
                       >
+                        <template v-slot:item.artikul="{ item }">
+                          {{ item.artikul }}<br />{{ item.artikul_new }}
+                        </template>
+                        <template v-slot:item.name="{ item }">
+                          <div
+                            style="cursor: pointer"
+                            @click.prevent="
+                              openCart(
+                                `/catalog/${item.parentguid}/${item.synonym}`
+                              )
+                            "
+                          >
+                            {{ item.name }}
+                          </div>
+                        </template>
                       </v-data-table>
                     </td>
                   </template>
@@ -354,40 +373,59 @@ export default {
       openOrders: [],
       itemOrders: [],
 
-      tabOrders: null,
+      expandedOrders: [],
+
+      tabOrders: 0,
 
       headers1: [
-        { text: "Номер", align: "right", sortable: true, value: "id" },
-        { text: "Дата", align: "center", sortable: false, value: "data_on" },
+        {
+          text: "Номер",
+          align: "right",
+          sortable: true,
+          value: "id",
+          class: "blue--text",
+        },
+        {
+          text: "Дата",
+          align: "center",
+          sortable: false,
+          value: "data_on",
+          class: "blue--text",
+        },
         {
           text: "Сумма (исх.), ₽",
           align: "right",
           sortable: false,
           value: "sum",
+          class: "blue--text",
         },
         {
           text: "Сумма (факт.), ₽",
           align: "right",
           sortable: false,
           value: "sum1",
+          class: "blue--text",
         },
         {
           text: "Сумма (к опл.), ₽",
           align: "right",
           sortable: false,
           value: "sum_for_payment",
+          class: "blue--text",
         },
         {
           text: "Сумма (оплач.), ₽",
           align: "right",
           sortable: false,
           value: "sum_paid",
+          class: "blue--text",
         },
         {
           text: "Состояние",
           align: "left",
           sortable: false,
           value: "status",
+          class: "blue--text",
         },
       ],
       subheaders: [
@@ -465,6 +503,7 @@ export default {
     ...mapGetters({
       cartList: "nomenklator/getCartList",
       userInfo: "nomenklator/getUserInfo",
+      tabCartOrder: "service/getTabCartOrder",
     }),
     numOrder() {
       return this.cartList && this.cartList.length > 0
@@ -481,20 +520,80 @@ export default {
   beforeCreate() {},
   async mounted() {
     // console.log("userInfo.id", this.userInfo.id);
-    const userid = this.userInfo.id;
+    if (this.itemOrders.length === 0) {
+      const userid = this.userInfo.id;
 
-    if (userid > 1) {
-      const rows = await this.$api("getOrdersList", {
-        userid,
-      });
+      if (userid > 1) {
+        const rows = await this.$api("getOrdersList", {
+          userid,
+        });
 
-      this.itemOrders.push(...rows);
+        this.itemOrders.push(...rows);
+      }
+
+      if (this.tabCartOrder) {
+        this.tabOrders = this.tabCartOrder.tabOrders;
+        this.expandedOrders.push(this.tabCartOrder.expandedOrders);
+
+        await this.$store.commit("service/SET_EMPTY_CART_ORDER_SETTINGS");
+      }
     }
   },
   methods: {
-    showEl(el) {
-      console.log(el);
-      return "11111111111";
+    async openSberPayment(item) {
+      // console.log(item);
+      // api_token: "pcu5rej2ovuhl34isprub5jdke",
+      // console.log(/(?<=orderId=)(.*?)(?=&)/);
+      const ipay = await new window.IPAY({
+        api_token: "YRF3C5RFICWISEWFR6GJ",
+      });
+      // console.log(ipay);
+      if (ipay) {
+        window.ipayCheckout(
+          {
+            amount: item.sum_for_payment,
+            currency: "RUB",
+            order_number: item.order_1c,
+            description: `Оплата за мебельную фурнитуру по: ${item.order_1c}.`,
+          },
+
+          function (order) {
+            // const patt = new RegExp("(?<=orderId=)(.*?)(?=&)");
+            //
+            // let idOrder = "";
+
+            try {
+              // idOrder = patt.exec(order.successUrl)[1];
+              //
+              // const res = {
+              //   order_id: item.id,
+              //   payment_order_id: idOrder,
+              //   payment_order_number: order.orderNumber,
+              //   payment_digest: order.digest,
+              //   payment_email: order.email,
+              //   payment_status: order.status,
+              //   data_paid: order.paymentDate,
+              //   sum_paid: order.formattedAmount,
+              //   payment_pan_masked: order.panMasked,
+              // };
+              // console.log(res);
+            } catch (e) {
+              console.error(e);
+            }
+          },
+
+          function (order) {
+            // console.error();
+          }
+        );
+      }
+    },
+    async openCart(path) {
+      await this.$store.commit("service/SET_CART_ORDER_SETTINGS", {
+        tabOrders: this.tabOrders,
+        expandedOrders: this.expandedOrders[0],
+      });
+      this.$router.push(path);
     },
     togglePosComplect(item) {
       this.open = this.open.indexOf(item.id) === 0 ? [] : [item.id];

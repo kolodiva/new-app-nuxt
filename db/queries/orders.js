@@ -197,9 +197,11 @@ when t1.status = 7 then 'Отменен'
       else
        'Нет данных'
       end status,
-    to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum1, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order,
+    to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum1, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order, t1.order_1c,
      jsonb_build_object(
       'guid', t3.nomenklator_id,
+      'synonym', t4.synonym,
+      'parentguid', t4.parentguid,
       'name', t4.name,
       'artikul', t4.artikul,
       'artikul_new', t4.artikul_new,
@@ -217,10 +219,10 @@ when t1.status = 7 then 'Отменен'
       inner join nomenklators t4 on t4.guid = t3.nomenklator_id
       where t1.status>0 and t2.user_id=${userid})
 
-      select id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, json_agg(order_goods order by order_goods ->> 'name') children
+      select id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, order_1c, json_agg(order_goods order by order_goods ->> 'name') children
       from r1
-      group by id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order
-      order by id desc
+      group by id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, order_1c
+      order by id desc limit 50
     `,
     values: [],
   }

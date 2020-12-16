@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D Widget example</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="vue.min.js"></script>
+    <script src="photomechanics.js?v3"></script>
+    <style>
+        .items {
+            display: flex;
+            min-width: 600px;
+            max-width: calc(100% - 20px);
+        }
+
+        .item > div {
+            border: 1px solid #ccc;
+        }
+
+        .item {
+            margin: 10px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="items">
+    <div class="item">
+        <img src="31.jpg"
+             data-photomechanics='({
+                 helperText: "Нажмите для просмотра 3D фото",
+                 helperTimeout:1,
+                 menuBar: false,
+                 startImmediately: true,
+                 playOnClick: true,
+                 autoPlay: false,
+                 speed: 6,
+                 reverse: true,
+                 frames: 174,
+                 yframes: 1,
+                 zoomLevels: [20,100]
+                 })'/>
+        <script>
+            pm = new Photomechanics({});
+        </script>
+    </div>
+</div>
+</body>
+
+</html>

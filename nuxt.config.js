@@ -45,13 +45,21 @@ module.exports = {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { href: 'https://securepayments.sberbank.ru/payment/docsite/assets/css/modal.css' }
+    ],
     script: [
          {src: "/src/jquery.min.js"},
          {src: "/src/jquery.stickr.min.js"},
          {src: "/src/jquery.morecontent.min.js"},
          {src: "https://widget.cdek.ru/widget/widjet.js", id: "ISDEKscript", charset: "utf-8"},
          {src: "https://api-maps.yandex.ru/2.1/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU", type: "text/javascript"},
+         // {src: "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"},
+         {src: "https://3dsec.sberbank.ru/payment/docsite/assets/js/ipay.js"},
+         //{src: "/src/vue.min.js"},
+         //{src: "/src/photomechanics.js"},
+
      ],
   },
   /*

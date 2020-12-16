@@ -277,6 +277,8 @@ export const actions = {
   },
 
   async setUserInfo({ commit, dispatch, state }, { connectionid }) {
+    // console.log("connectionid", connectionid);
+
     const userInfo = await this.$api("getUserInfo", {
       connectionid,
     });

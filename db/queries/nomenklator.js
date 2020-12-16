@@ -821,7 +821,7 @@ export function getSearchNomenklator( searchtext ) {
     ( lower(t1.name || ' ' || t1.artikul || ' ' || t1.artikul_new ) ~ ${whereStr} )
   order by t1.name
     limit 20)
-    select id, synonym, synonym descr, guid parentguid, itgroup from nomenklators t where lower(synonym) ~ ${whereStr} and itgroup
+    select id, synonym, synonym descr, guid parentguid, itgroup from nomenklators t where lower(synonym || ' ' || name) ~ ${whereStr} and itgroup
     	union all
     select distinct min(r1.id) id, r1.synonym, r1.descr, t1.parentguid, r1.itgroup
     from r1
