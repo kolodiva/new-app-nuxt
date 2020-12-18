@@ -17,7 +17,11 @@
               {{
                 cartList.length == 0
                   ? "Ваша корзина пуста."
-                  : "Ваш заказ " + numOrder + " на сумму: " + sumOrder + " руб."
+                  : "Ваш заказ " +
+                    numOrder +
+                    " на сумму: " +
+                    new Intl.NumberFormat("ru-RU").format(sumOrder) +
+                    " руб."
               }}
             </v-card-title>
 
