@@ -136,7 +136,8 @@ module.exports = {
 
   robots: {
     UserAgent: '*',
-    Disallow: '/',
+    // Disallow: '/',
+    Allow: '/catalog/petli_mf/petlya_nakladnaya_MF_201A_Slide_on_3450',
   },
 
   styleResources: {
