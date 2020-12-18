@@ -148,9 +148,7 @@ export default {
     },
   },
   head() {
-    return {
-      title: "МФ-Комплект",
-    };
+    return {};
   },
 };
 </script>

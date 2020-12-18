@@ -150,7 +150,7 @@ export const getters = {
     );
   },
   pageHeader: (state) => {
-    return state.pageHeader ? state.pageHeader : "*****";
+    return state.pageHeader ? state.pageHeader : "Мебельная фурнитура";
   },
   getSubNomenklator: (state) => {
     return state.subNomenklator;

@@ -77,6 +77,7 @@ export default {
       canUseFilter: "nomenklator/getCanUseFilter",
       filterFilled: "nomenklator/getFilterOpened",
       filterFromGroup: "nomenklator/getFilterFromGroup",
+      pageHeader: "nomenklator/pageHeader",
     }),
   },
   mounted() {
@@ -114,6 +115,13 @@ export default {
         await this.$store.dispatch("nomenklator/chngeCart", id);
       }
     },
+  },
+
+  head() {
+    return {
+      title: `${this.pageHeader} - Купить ${this.pageHeader} для мебели | МЕБЕЛЬНАЯ ФУРНИТУРА | ВСЕ ДЛЯ МЕБЕЛИ | МФ-КОМПЛЕКТ Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар`,
+      meta: [],
+    };
   },
 };
 </script>

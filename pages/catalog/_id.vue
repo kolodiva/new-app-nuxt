@@ -43,6 +43,9 @@ export default {
     window.$("button.mrc-btn").css("outline", "none");
   },
   methods: {},
+  head() {
+    return {};
+  },
 };
 </script>
 

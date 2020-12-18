@@ -30,24 +30,19 @@ module.exports = {
   },
   head: {
     // titleTemplate: '%s - ' + process.env.npm_package_name,
-    titleTemplate: '%s',
+    //titleTemplate: '%s',
     htmlAttrs: {
         lang: 'ru',
       },
-    title: process.env.npm_package_name || '',
+    title: 'МЕБЕЛЬНАЯ ФУРНИТУРА | ВСЕ ДЛЯ МЕБЕЛИ | МФ-КОМПЛЕКТ | купить мебельную фурнитуру оптом и в розницу | Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
-      { name: 'description', content: 'Мебельная фурнитура. Наша складская программа, насчитывающая более 5000 наименований продукции, постоянно пополняется с учетом ваших потребностей.' },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || '',
-      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { href: 'https://securepayments.sberbank.ru/payment/docsite/assets/css/modal.css' }
+      { href: 'https://securepayments.sberbank.ru/payment/docsite/assets/css/modal.css' },
+      { rel: "canonical", href: 'https://newfurnitura.ru/', hid: "canonical" }
     ],
     script: [
          {src: "/src/jquery.min.js"},

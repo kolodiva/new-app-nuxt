@@ -24,6 +24,14 @@ export default {
   mounted() {
     // consola.info('test LOGIN')
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      // console.log(from);
+      if (!from.name) {
+        next("/");
+      }
+    });
+  },
   methods: {
     async loginUser(loginInfo, tOper = 1) {
       const { key1, key2 } = this.$getCryptoKey(this.$CryptoJS);
