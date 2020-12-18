@@ -548,6 +548,48 @@ export const actions = {
       });
     }
   },
+  async chngeCartFromOrdersList({ commit, dispatch, state }, obj) {
+    // изменение по позиции из Доп комплектации так же специфично поэтому выделяем в отдельную процедуру
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+
+    const info = {
+      guid: obj.guid,
+      qty: parseFloat(obj.qty) || 0,
+      price1: obj.priceCur,
+      unit_type_id: obj.unit_type_id,
+      userid,
+      token,
+    };
+
+    // console.log(info);
+    // debugger;
+    const resOk = await this.$api("chngeCart", info);
+
+    if (resOk === true) {
+      obj.qty = obj.qty === null ? 0 : parseFloat(obj.qty);
+
+      const qty2eq0 = obj.qty === 0;
+
+      await dispatch("refreshCountCart");
+
+      await dispatch("setSnackbar", {
+        color: qty2eq0 ? "lightgrey" : "green",
+        text: qty2eq0
+          ? `Позиция, ${obj.artikul} удалена из корзины.`
+          : `Позиция, ${obj.artikul} в кол-ве: ${obj.qty} доб/изм.`,
+        timeout: 3000,
+        showing: true,
+      });
+    } else {
+      await dispatch("setSnackbar", {
+        color: "red",
+        text: `Ошибка по многим разным причинам. Попробуйте позже.`,
+        timeout: 3000,
+        showing: true,
+      });
+    }
+  },
   async refreshCountCart({ commit, dispatch, state }) {
     const userid = (state.userInfo && state.userInfo.id) || 1;
     const token = this.$cookies.get("connectionid");

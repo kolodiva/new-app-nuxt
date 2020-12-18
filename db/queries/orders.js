@@ -199,9 +199,12 @@ when t1.status = 7 then 'Отменен'
       end status,
     to_char(t1.created_at, 'DD/MM/YYYY') data_on, t1.sum, t1.sum1, t1.sum_for_payment, t1.sum_paid, t1.data_paid, t1.card_payment_order, t1.order_1c,
      jsonb_build_object(
+       'ind', row_number() OVER(),
       'guid', t3.nomenklator_id,
+      'guidpicture', replace(t4.guid_picture, '250x250', '82x82'),
       'synonym', t4.synonym,
       'parentguid', t4.parentguid,
+      'unit_type_id', t4.unit_type_id,
       'name', t4.name,
       'artikul', t4.artikul,
       'artikul_new', t4.artikul_new,
@@ -210,13 +213,16 @@ when t1.status = 7 then 'Отменен'
       'price', t3.price,
       'price1', t3.price1 ,
       'sum', t3.sum,
-      'sum1', t3.sum1
+      'sum1', t3.sum1,
+      'priceCur', round(p1.price*coalesce(c1.value, 1), 2)
     ) as order_goods
 
       from orders t1
       inner join connections t2 on t1.connection_id=t2.id
       inner join order_goods t3 on t1.id = t3.order_id
       inner join nomenklators t4 on t4.guid = t3.nomenklator_id
+      left join prices p1 on t3.nomenklator_id = p1.nomenklator_id and p1.price_type_id = '000000004'
+      left join currencies c1 on p1.currency_id = c1.code
       where t1.status>0 and t2.user_id=${userid})
 
       select id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, order_1c, json_agg(order_goods order by order_goods ->> 'name') children

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="">
     <v-card style="min-height: 80vh">
       <TheBreadCrumbs :type-src="{ src: 'Cart' }" />
 
@@ -144,6 +144,9 @@
         <v-tab-item v-if="userInfo.id > 1">
           <v-card flat class="mx-5">
             <v-row class="pa-4">
+              <v-btn color="orange" class="ml-3" @click="refreshOrdersLit">
+                Обновить список Заказов
+              </v-btn>
               <v-col cols="12">
                 <v-data-table
                   dense
@@ -157,6 +160,12 @@
                   :options="{ itemsPerPage: 30 }"
                   class="elevation-1"
                 >
+                  <template v-slot:item.sum="{ item }">
+                    {{ new Intl.NumberFormat("ru-RU").format(item.sum) }}
+                  </template>
+                  <template v-slot:item.sum1="{ item }">
+                    {{ new Intl.NumberFormat("ru-RU").format(item.sum1) }}
+                  </template>
                   <template v-slot:item.sum_for_payment="{ item }">
                     {{ item.sum_for_payment }}
                     <v-tooltip bottom>
@@ -177,27 +186,62 @@
                   <template v-slot:expanded-item="{ headers, item }">
                     <td :colspan="headers.length" class="pa-4">
                       <v-data-table
-                        fixed-header
                         dense
                         :headers="subheaders"
                         :items="item.children"
                         item-key="guid"
                         hide-default-footer
                       >
+                        <template v-slot:top>
+                          <v-tooltip top>
+                            <template v-slot:activator="{ on, attrs }">
+                              <div
+                                class="ma-1 d-inline-flex"
+                                style="cursor: pointer"
+                                v-bind="attrs"
+                                v-on="on"
+                                @click="dialogAddAllOrderToCart = true"
+                              >
+                                <v-icon
+                                  class="mr-1 red--text"
+                                  style="cursor: pointer"
+                                  >mdi-cart-plus</v-icon
+                                >
+
+                                <span>Повторить без пены...</span>
+                              </div> </template
+                            ><span
+                              >Добавить весь Заказ в корзину с кол-вом</span
+                            >
+                          </v-tooltip>
+                        </template>
                         <template v-slot:item.artikul="{ item }">
                           {{ item.artikul }}<br />{{ item.artikul_new }}
                         </template>
                         <template v-slot:item.name="{ item }">
-                          <div
+                          <v-icon
+                            class="mr-3 red--text"
                             style="cursor: pointer"
-                            @click.prevent="
-                              openCart(
-                                `/catalog/${item.parentguid}/${item.synonym}`
-                              )
-                            "
+                            @click.prevent="showAddPos($event, item)"
+                            >mdi-cart-plus</v-icon
                           >
-                            {{ item.name }}
-                          </div>
+
+                          <v-tooltip top>
+                            <template v-slot:activator="{ on, attrs }">
+                              <span
+                                v-bind="attrs"
+                                style="cursor: pointer"
+                                v-on="on"
+                                @click.prevent="
+                                  openCart(
+                                    `/catalog/${item.parentguid}/${item.synonym}`
+                                  )
+                                "
+                              >
+                                {{ item.name }}
+                              </span> </template
+                            ><span>Открыть карточку товара</span>
+                          </v-tooltip>
                         </template>
                       </v-data-table>
                     </td>
@@ -209,6 +253,56 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
+
+    <v-menu
+      v-model="menuAddPos.showMenu"
+      :close-on-content-click="false"
+      :position-x="menuAddPos.x"
+      :position-y="menuAddPos.y"
+      absolute
+      offset-y
+    >
+      <v-card>
+        <v-list>
+          <v-list-item>
+            <v-list-item-avatar>
+              <img :src="menuAddPos.guidpicture" />
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ menuAddPos.name }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-text-field
+          v-model="menuAddPos.qty"
+          rounded
+          filled
+          style="width: 120px; height: 50px"
+          type="number"
+          class="ma-2 ml-auto"
+          dense
+          @wheel="1 === 1"
+          @keyup.enter="addPosFromOrdersList()"
+          @keyup.esc="menuAddPos.showMenu = false"
+          @focus="$event.target.select()"
+        >
+        </v-text-field>
+
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text @click="menuAddPos.showMenu = false"> НЕ сейчас </v-btn>
+          <v-btn color="primary" text @click="addPosFromOrdersList()">
+            Добавить в корзину?
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-menu>
 
     <v-dialog v-model="sendOrderForm" persistent max-width="600px">
       <v-card>
@@ -340,6 +434,26 @@
         </v-card>
       </v-dialog>
     </v-dialog>
+
+    <v-dialog v-model="dialogAddAllOrderToCart" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline"> Вопрос вопросов? </v-card-title>
+        <v-card-text>Добавить весь Заказ в корзину?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="green darken-1"
+            text
+            @click="dialogAddAllOrderToCart = false"
+          >
+            НЕ сейчас
+          </v-btn>
+          <v-btn color="green darken-1" text @click="addAllPosOrderToCart">
+            Да, конечно
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -354,6 +468,19 @@ export default {
     return {
       active: [],
       open: [],
+
+      menuAddPos: {
+        showMenu: null,
+        guid: null,
+        name: null,
+        qty: null,
+        guidpicture: null,
+        priceCur: null,
+        x: null,
+        y: null,
+      },
+
+      dialogAddAllOrderToCart: false,
 
       showComplectPos: false,
       infoComplectPos: {},
@@ -516,11 +643,22 @@ export default {
         : "0";
     },
   },
-  watch: {},
   beforeCreate() {},
+  created() {},
   async mounted() {
-    // console.log("userInfo.id", this.userInfo.id);
     if (this.itemOrders.length === 0) {
+      this.refreshOrdersLit();
+    }
+
+    if (this.tabCartOrder) {
+      this.tabOrders = this.tabCartOrder.tabOrders;
+      this.expandedOrders.push(this.tabCartOrder.expandedOrders);
+
+      await this.$store.commit("service/SET_EMPTY_CART_ORDER_SETTINGS");
+    }
+  },
+  methods: {
+    async refreshOrdersLit() {
       const userid = this.userInfo.id;
 
       if (userid > 1) {
@@ -528,22 +666,38 @@ export default {
           userid,
         });
 
-        this.itemOrders.push(...rows);
-      }
+        this.itemOrders = [];
 
-      if (this.tabCartOrder) {
-        this.tabOrders = this.tabCartOrder.tabOrders;
-        this.expandedOrders.push(this.tabCartOrder.expandedOrders);
-
-        await this.$store.commit("service/SET_EMPTY_CART_ORDER_SETTINGS");
+        this.$nextTick(() => {
+          this.itemOrders.push(...rows);
+        });
       }
-    }
-  },
-  methods: {
+    },
+    showAddPos(e, item) {
+      // e.preventDefault();
+
+      this.menuAddPos.showMenu = false;
+      this.menuAddPos.x = e.clientX;
+      this.menuAddPos.y = e.clientY;
+      this.menuAddPos.artikul = item.artikul;
+      this.menuAddPos.name = item.name;
+      this.menuAddPos.guid = item.guid;
+      this.menuAddPos.qty = item.qty;
+      this.menuAddPos.guidpicture = item.guidpicture;
+      this.menuAddPos.priceCur = item.priceCur;
+      this.menuAddPos.unit_type_id = item.unit_type_id;
+
+      this.$nextTick(() => {
+        this.menuAddPos.showMenu = true;
+      });
+    },
+    test(v) {
+      console.log(v, this.menuAddPos[v]);
+      this.menuAddPos[v] = false;
+    },
     async openSberPayment(item) {
       // console.log(item);
       // api_token: "pcu5rej2ovuhl34isprub5jdke",
-      // console.log(/(?<=orderId=)(.*?)(?=&)/);
       const ipay = await new window.IPAY({
         api_token: "YRF3C5RFICWISEWFR6GJ",
       });
@@ -630,6 +784,57 @@ export default {
         });
       } else {
         await this.$store.dispatch("nomenklator/chngeCartFromCart", pos);
+      }
+    },
+
+    addAllPosOrderToCart() {
+      this.dialogAddAllOrderToCart = false;
+
+      const posses =
+        (this.expandedOrders &&
+          this.expandedOrders.length > 0 &&
+          this.expandedOrders[0].children) ||
+        [];
+
+      let pos = {};
+
+      posses.forEach((item, i) => {
+        pos = {};
+
+        pos.artikul = item.artikul;
+        pos.guid = item.guid;
+        pos.qty = item.qty;
+        pos.priceCur = item.priceCur;
+        pos.unit_type_id = item.unit_type_id;
+
+        this.addPosFromOrdersList(pos);
+
+        // console.log(item.guid, item.qty);
+      });
+    },
+    async addPosFromOrdersList(posses = null) {
+      const pos = posses || this.menuAddPos;
+
+      pos.showMenu = false;
+
+      if (pos.qty === "" || pos.qty == null || parseFloat(pos.qty) < 0) {
+        pos.qty = 0;
+      }
+      if (pos.qty > 0) {
+        let cartPos = this.cartList.find((v) => v.guid === pos.guid);
+
+        cartPos = cartPos ? cartPos.qty1 : 0;
+
+        pos.qty = parseFloat(pos.qty) + cartPos;
+
+        await this.$store.dispatch("nomenklator/chngeCartFromOrdersList", pos);
+      } else {
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "red",
+          text: `Мозги керак эмас.`,
+          timeout: 3000,
+          showing: true,
+        });
       }
     },
     openShowComplectPos(pos) {
