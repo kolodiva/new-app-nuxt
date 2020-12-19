@@ -20,6 +20,7 @@
           <v-list-item
             v-for="(subitem, index) in item.submenu"
             :key="index"
+            :to="subitem.ref"
             @click="111"
           >
             <v-list-item-title :class="subitem.css_class">{{

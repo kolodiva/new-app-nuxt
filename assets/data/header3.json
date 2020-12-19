@@ -21,7 +21,7 @@
     "submenu" : [
       {"name": "Каталог продукции", "ref":""},
       {"name": "Прайс-лист", "ref":""},
-      {"name": "Загрузить Ваш заказ", "ref":""}
+      {"name": "Загрузить Ваш заказ", "ref":"/testexcel"}
     ],
     "css_class": "buttonMFGreyColor"
   },
