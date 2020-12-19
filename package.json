@@ -38,7 +38,6 @@
     "nuxt-robots-module": "^1.5.1",
     "nuxt-ssr-cache": "^1.5.2",
     "pg": "^8.3.3",
-    "pg-native": "^3.0.0",
     "readmore-js": "^2.2.1",
     "require-all": "^3.0.0",
     "require-dir": "^1.2.0",
@@ -46,6 +45,7 @@
     "vue-cryptojs": "^2.1.5",
     "vue-horizontal-list": "^1.2.0",
     "vue-slick-carousel": "^1.0.6",
+    "vue-social-sharing": "^3.0.4",
     "vuetify-snackbar-queue": "^2.2.0"
   },
   "devDependencies": {

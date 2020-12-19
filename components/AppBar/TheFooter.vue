@@ -1,7 +1,15 @@
 <template>
   <v-footer padless class="blueMfBckg" dark>
     <v-row class="" style="min-height: 250px">
-      <v-col> </v-col>
+      <v-col class="pl-5">
+        <TheSocials
+          :params="{
+            url: 'https://www.newfurnitura.ru/',
+            title: 'МФ-Комплект. Мебельная фурнитура',
+            description: '5000 наименований на любой вкус.',
+          }"
+        />
+      </v-col>
       <v-divider vertical class=""></v-divider>
       <v-col> </v-col>
       <v-divider vertical class=""></v-divider>
@@ -48,3 +56,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

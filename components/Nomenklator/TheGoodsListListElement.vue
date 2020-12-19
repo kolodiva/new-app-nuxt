@@ -30,7 +30,11 @@
             {{ pos.name }}<br />
             арктикул: {{ pos.artikul }}, новый:
             {{ pos.artikul_new }}
-            <v-card-text v-html="pos.describe"> </v-card-text>
+
+            <v-card-text class="pb-0" v-html="pos.describe"> </v-card-text>
+            <v-card-text class="pt-0"
+              >Вес брутто кг., {{ pos["weight"] }}</v-card-text
+            >
           </div>
         </v-col>
 

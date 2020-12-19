@@ -105,7 +105,10 @@
       <div v-show="show">
         <v-divider></v-divider>
 
-        <v-card-text v-html="pos.describe"> </v-card-text>
+        <v-card-text class="pb-0" v-html="pos.describe"> </v-card-text>
+        <v-card-text class="pt-0"
+          >Вес брутто кг., {{ pos["weight"] }}</v-card-text
+        >
       </div>
     </v-expand-transition>
   </v-card>

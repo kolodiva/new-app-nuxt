@@ -226,8 +226,10 @@
 
           <v-card id="section_3" style="min-height: 20vh" class="mt-1" flat
             ><v-card-title>Характеристики</v-card-title>
-            <v-card-text>Вес брутто кг., {{ pos["weight"] }}</v-card-text>
-            <v-card-text v-html="descr_1"></v-card-text
+            <v-card-text class="pb-0"
+              >Вес брутто кг., {{ pos["weight"] }}</v-card-text
+            >
+            <v-card-text class="pt-0" v-html="descr_1"></v-card-text
           ></v-card>
           <v-card id="section_4" style="height: 17vh" class="mt-1" flat>
             <v-card-title>Инструкции</v-card-title></v-card
