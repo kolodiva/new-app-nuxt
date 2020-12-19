@@ -7,8 +7,8 @@
       :description="params.description"
       style="text-decoration: none"
     >
-      <div class="socialIcon">
-        <i class="fab fa-facebook-square" aria-hidden="true"></i>
+      <div class="socialIcon fab">
+        <v-icon light class="facebook">mdi-facebook</v-icon>
       </div>
     </ShareNetwork>
 
@@ -19,8 +19,8 @@
       :description="params.description"
       style="text-decoration: none"
     >
-      <div class="socialIcon">
-        <i class="fab fa-twitter-square" aria-hidden="true"></i>
+      <div class="socialIcon fab">
+        <v-icon light class="twitter">mdi-twitter</v-icon>
       </div>
     </ShareNetwork>
     <ShareNetwork
@@ -30,19 +30,8 @@
       :description="params.description"
       style="text-decoration: none"
     >
-      <div class="socialIcon">
-        <i class="fab fa-telegram" aria-hidden="true"></i>
-      </div>
-    </ShareNetwork>
-    <ShareNetwork
-      network="viber"
-      :url="params.url"
-      :title="params.title"
-      :description="params.description"
-      style="text-decoration: none"
-    >
-      <div class="socialIcon">
-        <i class="fab fa-viber" aria-hidden="true"></i>
+      <div class="socialIcon fab">
+        <v-icon light class="telegram">mdi-telegram</v-icon>
       </div>
     </ShareNetwork>
   </div>
@@ -93,13 +82,10 @@ export default {
   color: #262626;
   transition: 0.5s;
 }
-.socialIcon .fa-facebook-square:hover {
+.socialIcon .facebook:hover {
   color: blue;
 }
-.socialIcon .fa-twitter-square:hover {
+.socialIcon .twitter:hover {
   color: green;
-}
-.socialIcon .fa-viber:hover {
-  color: violet;
 }
 </style>
