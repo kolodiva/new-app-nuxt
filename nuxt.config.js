@@ -134,11 +134,12 @@ module.exports = {
     // ['cookie-universal-nuxt', { alias: 'cookiz' }],
   ],
 
-  robots: {
-    UserAgent: '*',
-     Allow: '/catalog',
-    //Allow: '/catalog/petli_mf/petlya_nakladnaya_MF_201A_Slide_on_3450',
-  },
+  robots:[
+    {
+      UserAgent: '*',
+       Disallow:['/login'],
+    },
+  ],
 
   styleResources: {
         scss: [
