@@ -46,6 +46,7 @@
     "vue-horizontal-list": "^1.2.0",
     "vue-slick-carousel": "^1.0.6",
     "vue-social-sharing": "^3.0.4",
+    "vue-yandex-maps": "^0.10.9",
     "vuetify-snackbar-queue": "^2.2.0"
   },
   "devDependencies": {

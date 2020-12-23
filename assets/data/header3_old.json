@@ -16,15 +16,19 @@
     },
   {
     "id": 3,
-    "name": "Полезное",
-    "ref":"/service/downloads",
-    "submenu" : "",
+    "name": "Скачать",
+    "ref":"",
+    "submenu" : [
+      {"name": "Каталог продукции", "ref":""},
+      {"name": "Прайс-лист", "ref":""},
+      {"name": "Загрузить Ваш заказ", "ref":"/service/orderdownload"}
+    ],
     "css_class": "buttonMFGreyColor"
   },
   {
     "id": 4,
     "name": "Контакты",
-    "ref":"",
+    "ref":"/contacts",
     "submenu" : ""
   }
 ],

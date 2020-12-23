@@ -41,11 +41,11 @@ export default {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
 
+        let txtArea = "";
+
         reader.onload = (res) => {
           const data = new Uint8Array(res.target.result);
           const workbook = window.XLSX.read(data, { type: "array" });
-
-          let txtArea = "";
 
           if (workbook) {
             const firstSheetName = workbook.SheetNames[0];

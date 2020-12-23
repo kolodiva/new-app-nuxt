@@ -67,6 +67,8 @@
 
 <script>
 export default {
+  mounted() {},
+
   head() {
     return {
       meta: [
