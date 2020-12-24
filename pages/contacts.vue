@@ -43,7 +43,7 @@
               >
                 <v-col cols="">
                   <div
-                    class="title pa-1 d-inline-block"
+                    class="title py-2 px-3 d-inline-block"
                     style="border: 1px solid rgb(88, 89, 90); font-weight: bold"
                   >
                     {{ `${item1.name}` }}
