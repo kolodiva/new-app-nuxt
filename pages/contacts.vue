@@ -50,6 +50,38 @@
                   </div>
                   <br />
                   <div class="mt-2">{{ `${item1.address}` }}</div>
+
+                  <v-simple-table fixed-header height="420px">
+                    <template v-slot:default>
+                      <thead>
+                        <tr>
+                          <th class="text-left">ФИО</th>
+                          <th class="text-left">Доб.номер</th>
+                          <th class="text-left">Моб.номер</th>
+                          <th class="text-left">Email</th>
+                          <th class="text-left">Skype</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item2 in managers" :key="item2.name">
+                          <td class="py-2">
+                            <span
+                              class="font-weight-medium"
+                              v-html="item2.name"
+                            ></span>
+                            <span
+                              class="text-lowercase body-2"
+                              v-html="item2.position"
+                            ></span>
+                          </td>
+                          <td>{{ item2.tel_add }}</td>
+                          <td>{{ item2.tel_mob }}</td>
+                          <td>{{ item2.email }}</td>
+                          <td>{{ item2.skype }}</td>
+                        </tr>
+                      </tbody>
+                    </template>
+                  </v-simple-table>
                 </v-col>
                 <v-col cols="5" style="position: relative">
                   <div :id="`YMapsID_${i}_${j}`" style="height: 50vh"></div>
