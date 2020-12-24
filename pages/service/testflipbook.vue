@@ -2,8 +2,8 @@
   <div class="text-center mt-3">
     <h3>Любые обрамления по желанию Заказчика</h3>
     <h4>
-      Вставка тегов в HEAD и BODY которые должен заполнить Глеб по дынным Володи
-      SEO
+      Вставка тегов в HEAD и BODY которые должен заполнить Глеб по данными
+      Володи SEO
     </h4>
     <h5>
       На практике все намного проще. Наводите курсор на страницу появится Лупа
@@ -13,15 +13,10 @@
       <flipbook
         class="flipbook"
         :pages="[
-          '/31/31.3d/31.3d.20.0.jpg',
-          '/31/31.3d/31.3d.20.1.jpg',
-          '/31/31.3d/31.3d.20.2.jpg',
-          '/31/31.3d/31.3d.20.3.jpg',
-          '/31/31.3d/31.3d.20.4.jpg',
-          '/31/31.3d/31.3d.20.5.jpg',
-          '/31/31.3d/31.3d.20.6.jpg',
-          '/31/31.3d/31.3d.20.7.jpg',
-          '/31/31.3d/31.3d.20.8.jpg',
+          '/test/Proba1.jpg',
+          '/test/Proba2.jpg',
+          '/test/Proba3.jpg',
+          '/test/Proba4.jpg',
         ]"
       ></flipbook>
     </client-only>
@@ -80,6 +75,6 @@ export default {
 <style scoped>
 .flipbook {
   width: 90vw;
-  height: 90vh;
+  height: 80vh;
 }
 </style>

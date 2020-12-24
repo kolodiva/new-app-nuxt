@@ -66,13 +66,16 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  async fetch({ app, params, query, store }) {
-    // const { rows } = await this.$api("getGroupFilter");
+  async fetch() {
+    const rows = await this.$api("getManagers");
+
+    this.managers = { ...rows };
+    // console.log(rows);
+  },
+  data() {
+    return { panel: null, managers: [] };
   },
 
-  data() {
-    return { panel: null };
-  },
   computed: {
     ...mapGetters({
       filials: "headerMenu/getAllSortCity",
