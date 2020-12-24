@@ -18,21 +18,44 @@
         <v-expansion-panel-content>
           <v-divider />
           <v-card flat>
-            <v-row>
-              <v-col cols="">
-                <div
-                  class="title pa-1 d-inline-block"
-                  style="border: 1px solid rgb(88, 89, 90); font-weight: bold"
-                >
-                  {{ `${item.name}` }}
-                </div>
-                <br />
-                <div class="mt-2">{{ `${item.address}` }}</div>
-              </v-col>
-              <v-col cols="5" style="position: relative">
-                <div :id="`YMapsID_${i}`" style="height: 50vh"></div>
-              </v-col>
-            </v-row>
+            <template v-if="item.departments.length === 0">
+              <v-row>
+                <v-col cols="">
+                  <div
+                    class="title pa-1 d-inline-block"
+                    style="border: 1px solid rgb(88, 89, 90); font-weight: bold"
+                  >
+                    {{ `${item.name}` }}
+                  </div>
+                  <br />
+                  <div class="mt-2">{{ `${item.address}` }}</div>
+                </v-col>
+                <v-col cols="5" style="position: relative">
+                  <div :id="`YMapsID_${i}`" style="height: 50vh"></div>
+                </v-col>
+              </v-row>
+            </template>
+            <template v-else>
+              <v-row
+                v-for="(item1, j) in item.departments"
+                :key="i + j"
+                class="mb-2"
+              >
+                <v-col cols="">
+                  <div
+                    class="title pa-1 d-inline-block"
+                    style="border: 1px solid rgb(88, 89, 90); font-weight: bold"
+                  >
+                    {{ `${item1.name}` }}
+                  </div>
+                  <br />
+                  <div class="mt-2">{{ `${item1.address}` }}</div>
+                </v-col>
+                <v-col cols="5" style="position: relative">
+                  <div :id="`YMapsID_${i}_${j}`" style="height: 50vh"></div>
+                </v-col>
+              </v-row>
+            </template>
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -43,6 +66,10 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  async fetch({ app, params, query, store }) {
+    // const { rows } = await this.$api("getGroupFilter");
+  },
+
   data() {
     return { panel: null };
   },
@@ -57,50 +84,78 @@ export default {
 
       const v = v1 || v1 >= 0 ? 0 : 1;
 
-      const idpath = "YMapsID_" + val[v];
-
       // debugger;
       for (let i = 0; i < 7; i++) {
-        window.$("#YMapsID_" + i).empty();
+        if (i === 0) {
+          for (let j = 0; j < 3; j++) {
+            window.$("#YMapsID_" + i + "_" + j).empty();
+          }
+        } else {
+          window.$("#YMapsID_" + i).empty();
+        }
+      }
+
+      const curFilial = this.filials[val[v]];
+
+      const mscFilial = val[v] === 0;
+
+      let idpaths = [];
+
+      if (mscFilial) {
+        idpaths = ["YMapsID_0_0", "YMapsID_0_1", "YMapsID_0_2"];
+      } else {
+        idpaths = ["YMapsID_" + val[v]];
       }
 
       if (v === 0) {
         // fill map
-        const curFilial = this.filials[val[v]];
-        const myMap = new window.ymaps.Map(
-          idpath,
-          {
-            center: [curFilial.coordinates[0], curFilial.coordinates[1]],
-            zoom: 10,
-          },
+        let myMap = null;
 
-          { searchControlProvider: "yandex#search" }
-        );
-        myMap.controls.remove("fullscreenControl");
+        let srcData = null;
 
-        const myGeoObject = new window.ymaps.GeoObject(
-          {
-            // Описание геометрии.
-            geometry: {
-              type: "Point",
-              coordinates: [curFilial.coordinates[0], curFilial.coordinates[1]],
+        idpaths.forEach((item, i) => {
+          srcData =
+            curFilial.departments.length === 0
+              ? curFilial
+              : curFilial.departments[i];
+          myMap = new window.ymaps.Map(
+            item,
+            {
+              center: [srcData.coordinates[0], srcData.coordinates[1]],
+              zoom: 10,
             },
 
-            // Свойства.Контент метки.
-            properties: { iconContent: curFilial.coordinates[2] },
-          },
+            { searchControlProvider: "yandex#search" }
+          );
 
-          {
-            // Опции. Иконка метки будет растягиваться под размер ее содержимого.
+          myMap.controls.remove("fullscreenControl");
 
-            preset: "islands#blackStretchyIcon",
-            // Метку можно перемещать.
-            draggable: false,
-          }
-        );
+          const myGeoObject = new window.ymaps.GeoObject(
+            {
+              // Описание геометрии.
+              geometry: {
+                type: "Point",
+                coordinates: [srcData.coordinates[0], srcData.coordinates[1]],
+              },
 
-        //
-        myMap.geoObjects.add(myGeoObject);
+              // Свойства.Контент метки.
+              properties: {
+                iconContent: srcData.coordinates[2],
+              },
+            },
+
+            {
+              // Опции. Иконка метки будет растягиваться под размер ее содержимого.
+
+              preset: "islands#blackStretchyIcon",
+              // Метку можно перемещать.
+              draggable: false,
+            }
+          );
+
+          //
+          myMap.geoObjects.add(myGeoObject);
+        });
       }
     },
   },
