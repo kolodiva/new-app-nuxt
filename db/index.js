@@ -9,7 +9,7 @@ let connParam2   = null;
 if (process.env.NODE_ENV == 'production') {
   //размещение DO
   connParam1 = 'postgresql://postgres:fc18ecd9-10c3-4ce4-a40b-36a07285@localhost:5432/app1'
-  connParam2 = 'postgresql://postgres:123456@localhost:5432/statistica'
+  connParam2 = 'postgresql://postgres:fc18ecd9-10c3-4ce4-a40b-36a07285@localhost:5432/statistica'
 
   //Не забудь зольДат поменять при размещении на RF
   // conn_param = {'host':'172.17.0.3', 'password':'c2ec57df699966b3afef779a16fa5fff', 'port':'5432'};
