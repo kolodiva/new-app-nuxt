@@ -34,7 +34,11 @@
                 <v-tab style="height: 30px" @click="goTo('#section_3')">
                   <v-spacer /> Характеристики
                 </v-tab>
-                <v-tab style="height: 30px" @click="goTo('#section_4')">
+                <v-tab
+                  v-if="false"
+                  style="height: 30px"
+                  @click="goTo('#section_4')"
+                >
                   <v-spacer /> Инструкции
                 </v-tab>
                 <v-tab
@@ -231,7 +235,13 @@
             >
             <v-card-text class="pt-0" v-html="descr_1"></v-card-text
           ></v-card>
-          <v-card id="section_4" style="height: 17vh" class="mt-1" flat>
+          <v-card
+            v-if="false"
+            id="section_4"
+            style="height: 17vh"
+            class="mt-1"
+            flat
+          >
             <v-card-title>Инструкции</v-card-title></v-card
           >
         </v-col>
