@@ -1,20 +1,5 @@
 <template>
-  <div>
-    <client-only>
-      <Snowf
-        :amount="200"
-        :size="10"
-        :speed="1.5"
-        :wind="1"
-        :opacity="0.8"
-        :swing="1"
-        :z-index="null"
-        :resize="false"
-        color="#666"
-        image="https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/snow.png"
-      />
-    </client-only>
-
+  <div style="">
     <TheVueSlickCarousel />
 
     <div itemscope itemtype="https://schema.org/Article">

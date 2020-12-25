@@ -1,5 +1,8 @@
 <template>
   <v-app v-scroll="onScroll" v-resize="onResize" style="position: relative">
+    <!-- <client-only>
+      <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
+    </client-only> -->
     <v-main>
       <TheAppBar
         :show-second-menu="showSecondMenu"
@@ -42,6 +45,21 @@ export default {
     showScrollTop: false,
     objects: [],
     transitions: ["fab-transition", "scale-transition", "fade-transition"],
+    // snowConf: {
+    //   windPower: 1,
+    //   interaction: true,
+    //   speed: 1,
+    //   count: 24,
+    //   size: 10,
+    //   opacity: 1,
+    //   images: [
+    //     "https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/snow.png",
+    //     "https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/sock.png",
+    //     "https://raw.githubusercontent.com/bob-chen/let_it_snow/master/demo/tree.png",
+    //     "/favicon.ico",
+    //   ],
+    // },
+    // show: false,
   }),
   computed: {
     ...mapGetters({
@@ -76,6 +94,10 @@ export default {
       await this.$store.dispatch("nomenklator/setUserInfo", { connectionid });
       await this.$store.dispatch("nomenklator/refreshCountCart");
     }
+
+    // setTimeout(() => {
+    //   this.show = true;
+    // }, 1000);
   },
   methods: {
     onScroll() {

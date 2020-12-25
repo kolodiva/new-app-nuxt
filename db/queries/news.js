@@ -33,7 +33,9 @@ export function getManagers_old() {
   }
 }
 
-export function getManagers() {
+export function getManagers(id = undefined) {
+
+  const textWhereFilial = id ? "where filial = '" + id + "'" : "";
 
   const textqry=`
   with r2 as (
@@ -72,7 +74,7 @@ export function getManagers() {
        		)
   	) descr
 
-  	from r1
+  	from r1 ${textWhereFilial}
   	group by filial, rozn
   	order by filial, rozn)
 

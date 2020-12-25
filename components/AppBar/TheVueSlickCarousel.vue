@@ -1,13 +1,15 @@
 <template>
-  <VueSlickCarousel v-bind="options" style="margin-top: 20px">
-    <v-img
-      v-for="(item, i) in slidesLst"
-      :key="i"
-      :src="`https://newfurnitura.ru/news/${item.pic}`"
-      :height="hgt"
-      contain
-    />
-  </VueSlickCarousel>
+  <client-only>
+    <VueSlickCarousel v-bind="options" style="margin-top: 20px">
+      <v-img
+        v-for="(item, i) in slidesLst"
+        :key="i"
+        :src="`https://newfurnitura.ru/news/${item.pic}`"
+        :height="hgt"
+        contain
+      />
+    </VueSlickCarousel>
+  </client-only>
 </template>
 
 <script>

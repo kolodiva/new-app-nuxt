@@ -104,6 +104,7 @@
               <v-list-item
                 v-for="(item1, i1) in item.submenu"
                 :key="i1 * 100 + 1"
+                :to="item1 && item1.ref"
               >
                 <v-list-item-title class="ml-5">{{
                   item1.name
@@ -111,7 +112,7 @@
               </v-list-item>
             </v-list-group>
 
-            <v-list-item v-else :key="i">
+            <v-list-item v-else :key="i" :to="item && item.ref">
               <v-list-item-title>{{ item.name }}</v-list-item-title>
             </v-list-item>
           </template>

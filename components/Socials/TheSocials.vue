@@ -66,7 +66,7 @@ export default {
   display: block;
   background: linear-gradient(0deg, #fff, #ddd);
   border-radius: 50%;
-  line-height: calc(35px - 12px);
+  line-height: 20px;
   font-size: 15px;
   color: #262626;
   transition: 0.5s;
