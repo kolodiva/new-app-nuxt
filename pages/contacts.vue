@@ -35,10 +35,8 @@
                       <thead>
                         <tr>
                           <th class="text-left">ФИО</th>
-                          <th class="text-left">Доб.номер</th>
-                          <th class="text-left">Моб.номер</th>
-                          <th class="text-left">Email</th>
-                          <th class="text-left">Skype</th>
+                          <th class="text-left">Телефоны</th>
+                          <th class="text-left">Email/Skype</th>
                           <th class="text-left">Регионы</th>
                         </tr>
                       </thead>
@@ -57,12 +55,19 @@
                               v-html="item2.position"
                             ></span>
                           </td>
-                          <td>{{ item2.tel_add }}</td>
                           <td style="min-width: 160px">
+                            <span
+                              class=""
+                              v-html="'доб: ' + item2.tel_add"
+                            ></span
+                            ><br />
                             <span class="" v-html="item2.tel_mob"></span>
                           </td>
-                          <td>{{ item2.email }}</td>
-                          <td><span class="" v-html="item2.skype"></span></td>
+                          <td>
+                            <span class="" v-html="item2.email"></span><br />
+                            <span class="" v-html="item2.skype"> </span>
+                          </td>
+
                           <td>
                             <v-btn class="" x-small @click="openRegion(item2)"
                               >Регионы</v-btn
@@ -73,7 +78,10 @@
                     </template>
                   </v-simple-table>
                 </v-col>
-                <v-col cols="5" style="position: relative">
+                <v-col
+                  :cols="showLimitWidth ? 12 : 5"
+                  style="position: relative"
+                >
                   <div :id="`YMapsID_${i}`" style="height: 50vh"></div>
                 </v-col>
               </v-row>
@@ -99,10 +107,8 @@
                       <thead>
                         <tr>
                           <th class="text-left">ФИО</th>
-                          <th class="text-left">Доб.номер</th>
-                          <th class="text-left">Моб.номер</th>
-                          <th class="text-left">Email</th>
-                          <th class="text-left">Skype</th>
+                          <th class="text-left">Телефоны</th>
+                          <th class="text-left">Email/Skype</th>
                           <th class="text-left">Регионы</th>
                         </tr>
                       </thead>
@@ -121,12 +127,18 @@
                               v-html="item2.position"
                             ></span>
                           </td>
-                          <td>{{ item2.tel_add }}</td>
                           <td style="min-width: 160px">
+                            <span
+                              class=""
+                              v-html="'доб: ' + item2.tel_add"
+                            ></span
+                            ><br />
                             <span class="" v-html="item2.tel_mob"></span>
                           </td>
-                          <td>{{ item2.email }}</td>
-                          <td>{{ item2.skype }}</td>
+                          <td>
+                            <span class="" v-html="item2.email"></span><br />
+                            <span class="" v-html="item2.skype"> </span>
+                          </td>
                           <td>
                             <v-btn class="" x-small @click="openRegion(item2)"
                               >Регионы</v-btn
