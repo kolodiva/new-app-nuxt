@@ -98,7 +98,8 @@ module.exports = {
     {src: '~/plugins/api-context.client.js'},
     {src: '~/plugins/api-context.server.js'},
     {src: '~/plugins/crypto-js.js'},
-    {src: '~/plugins/flipbook.js', mode: 'client' }
+    {src: '~/plugins/flipbook.js', mode: 'client' },
+    {src: '~/plugins/snowfall.js', mode: 'client' }
     // { src: '~/plugins/ymapPlugin.js', mode: 'client' },
     //{src: '~/plugins/xlsx.client.js'},
     //{src: '~/plugins/read-more-js.js', mode: 'client'},

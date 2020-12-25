@@ -27,15 +27,15 @@ async function getConnectionOrder( userid, connectionid, createnewconn = true  )
 
 async function sendEmail(message) {
 
-  message.from = 'afmc@mail.ru';
+  message.from = 'informer@newfurnitura.ru';
 
   const transport = await nodemailer.createTransport({
-    host: 'smtp.mail.ru',
+    host: 'smtp.yandex.ru',
     port: 465,
     secure: true,
     auth: {
-       user: 'afmc@mail.ru',
-       pass: 'Pp123456'
+       user: 'informer@newfurnitura.ru',
+       pass: 'INFO-Mfc-111'
     }
   });
 
@@ -184,6 +184,12 @@ export async function getNewsBlock() {
 
   return rows;
 }
+export async function getManagers() {
+
+  const {rows} = await db.queryStat1('getManagers')
+
+  return rows;
+}
 
 //auth
 export async function loginUser( params, res ) {
@@ -226,8 +232,8 @@ export async function loginUser( params, res ) {
   const rest = await getConnectionOrder( rows[0].userid, connectionid, false );
 // console.log('rest ', rest)
 //
-  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-  //res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000  });
+  // res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000  });
 
   return rest.remember_token;
 }
@@ -258,8 +264,8 @@ export async function addNewUser( params, res ) {
 
   const rest = await getConnectionOrder( rows[0].id, connectionid, true );
 
-  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-  //res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  // res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+  res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
   return rest.remember_token;
 }
@@ -433,8 +439,8 @@ export async function chngeCart( { guid, qty, price1, unit_type_id, userid, toke
   const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
 
   if (remember_token && remember_token != token) {
-      res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      // res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+      res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   }
 
   const resOk  = await chngOrder( orderid, guid, qty, price1, unit_type_id );
