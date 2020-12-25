@@ -13,25 +13,14 @@
     </ShareNetwork>
 
     <ShareNetwork
-      network="twitter"
+      network="WhatsApp"
       :url="params.url"
       :title="params.title"
       :description="params.description"
       style="text-decoration: none"
     >
       <div class="socialIcon fab">
-        <v-icon light class="twitter">mdi-twitter</v-icon>
-      </div>
-    </ShareNetwork>
-    <ShareNetwork
-      network="telegram"
-      :url="params.url"
-      :title="params.title"
-      :description="params.description"
-      style="text-decoration: none"
-    >
-      <div class="socialIcon fab">
-        <v-icon light class="telegram">mdi-telegram</v-icon>
+        <v-icon light class="whatsapp">mdi-whatsapp</v-icon>
       </div>
     </ShareNetwork>
   </div>
@@ -85,7 +74,7 @@ export default {
 .socialIcon .facebook:hover {
   color: blue;
 }
-.socialIcon .twitter:hover {
+.socialIcon .whatsapp:hover {
   color: green;
 }
 </style>
