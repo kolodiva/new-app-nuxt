@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position: relative">
     <v-app-bar
       v-show="showSecondMenu"
       class="greyMfBckg"
@@ -7,6 +7,7 @@
       fixed
       width="100vw"
       dark
+      style=""
     >
       <v-badge
         v-if="showLimitWidth"
@@ -192,7 +193,35 @@
         </v-btn>
       </div>
     </v-toolbar>
-    <v-toolbar class="greyMfBckg" height="50" width="100vw">
+    <v-toolbar
+      class="greyMfBckg"
+      height="50"
+      width="100vw"
+      style="position: relative"
+    >
+      <v-img
+        class=""
+        style="
+          width: 114px;
+          left: 230px;
+          top: -90px;
+          z-index: 1050;
+          position: absolute;
+        "
+        src="/Shariki_NG.png"
+      />
+      <v-img
+        class="rotatingCycle"
+        style="
+          width: 114px;
+          right: 95px;
+          top: -100px;
+          z-index: 1050;
+          position: absolute;
+        "
+        src="/Kolokolchik_NG.png"
+      />
+
       <v-badge
         v-if="showLimitWidth"
         color="pink"
@@ -302,4 +331,43 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@-webkit-keyframes rotatingCycle /* Safari and Chrome */ {
+  50% {
+    -webkit-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+@keyframes rotatingCycle {
+  50% {
+    -ms-transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  100% {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.rotatingCycle {
+  -webkit-animation: rotatingCycle 4s linear infinite;
+  -moz-animation: rotatingCycle 4s linear infinite;
+  -ms-animation: rotatingCycle 4s linear infinite;
+  -o-animation: rotatingCycle 4s linear infinite;
+  animation: rotatingCycle 4s linear infinite;
+}
+</style>
