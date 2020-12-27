@@ -173,7 +173,9 @@ export default {
     },
   },
   head() {
-    return {};
+    return {
+      script: [{ src: "/src/bitrix24.js", body: true }],
+    };
   },
 };
 </script>

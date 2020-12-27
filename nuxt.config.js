@@ -60,7 +60,6 @@ module.exports = {
          //{src: "/src/vue.min.js"},
          //{src: "/src/photomechanics.js"},
          {src: "/src/gtm.js"},
-         {src: "/src/bitrix24.js"},
 
      ],
   },
