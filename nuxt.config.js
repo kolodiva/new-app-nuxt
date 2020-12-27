@@ -38,6 +38,9 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
+
+      { name: 'google-site-verification', content: 'AV5yKYiukTfI9OBsJT96a_sVbPuLIYkkzfCobrgcYtQ' },
+      { name: 'yandex-verification', content: '04304aa6cbb8684a' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -51,10 +54,12 @@ module.exports = {
          //{src: "/src/xlsx.mini.min.js"},
          {src: "https://widget.cdek.ru/widget/widjet.js", id: "ISDEKscript", charset: "utf-8"},
          {src: "https://api-maps.yandex.ru/2.1/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU", type: "text/javascript"},
-         // {src: "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"},
-         {src: "https://3dsec.sberbank.ru/payment/docsite/assets/js/ipay.js"},
+
+         {src: "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"},
+         //{src: "https://3dsec.sberbank.ru/payment/docsite/assets/js/ipay.js"},
          //{src: "/src/vue.min.js"},
          //{src: "/src/photomechanics.js"},
+         {src: "/src/gtm.js"},
 
      ],
   },
@@ -100,7 +105,7 @@ module.exports = {
     {src: '~/plugins/crypto-js.js'},
     {src: '~/plugins/flipbook.js', mode: 'client' },
     {src: '~/plugins/virtualscroll.js', mode: 'client' },
-    //{src: '~/plugins/perfectscrollbar.js', mode: 'client' },
+    {src: '~/plugins/perfectscrollbar.js', mode: 'client' },
 
     // {src: '~/plugins/virtualscrolllist.js', mode: 'client' }
 
