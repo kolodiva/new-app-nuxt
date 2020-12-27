@@ -2,7 +2,7 @@
 export function getNewsBlock() {
 
   const textqry=`
-  select header, picture1 icon, path_pic2 pic, path_pdf  pdf
+  select header, picture1 icon, path_pic2 pic, path_pdf
   from new_blocks
   where on_slider and on_public
   order by id desc
@@ -15,16 +15,36 @@ export function getNewsBlock() {
   }
 }
 
-export function getManagers_old() {
+export function getNewsArhive( {pageSize, currentLength, curFilial} ) {
+
+  let textWhereFilial = "";
+
+  if (curFilial === 0) {
+    textWhereFilial = "";
+  } else if (curFilial === 1) {
+    textWhereFilial = "where filials[1] = 1";
+  } else if (curFilial === 2) {
+    textWhereFilial = "where filials[6] = 1";
+  } else if (curFilial === 3) {
+    textWhereFilial = "where filials[4] = 1";
+  } else if (curFilial === 4) {
+    textWhereFilial = "where filials[5] = 1";
+  } else if (curFilial === 5) {
+    textWhereFilial = "where filials[7] = 1";
+  } else if (curFilial === 6) {
+    textWhereFilial = "where filials[3] = 1";
+  } else if (curFilial === 7) {
+    textWhereFilial = "where filials[2] = 1";
+}
 
   const textqry=`
-  select tmp.* from (
-  					  select order_by, filials, name, tel_add, tel_mob, email, skype, region, position, 0 rozn from managers_site
-  						where position like '%Директор по продажам%' and false
-  					  union all
-  					  select order_by, filials, name, tel_add, tel_mob, email, skype, region, position, case when lower(region) like '%розница%' then 1 else 0 end from managers_site where filials='{ 1000000 }' ) as tmp
-  					  order by tmp.rozn, tmp.order_by, tmp.name
+  select id, header, 'data:image/jpeg; base64, ' || encode(picture1, 'escape') icon, path_pdf
+  from new_blocks ${textWhereFilial}
+    order by id desc
+    limit ${pageSize}
+    offset ${currentLength ? currentLength : 0}
   `
+//console.log(textqry);
 
   return {
     name: '',
@@ -32,6 +52,7 @@ export function getManagers_old() {
     values: [],
   }
 }
+
 
 export function getManagers(id = undefined) {
 

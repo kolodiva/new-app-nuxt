@@ -23,6 +23,18 @@
         <v-icon light class="whatsapp">mdi-whatsapp</v-icon>
       </div>
     </ShareNetwork>
+
+    <ShareNetwork
+      network="Instagram"
+      url=""
+      title=""
+      description=""
+      style="text-decoration: none"
+    >
+      <div class="socialIcon fab">
+        <v-icon light class="instagram">mdi-instagram</v-icon>
+      </div>
+    </ShareNetwork>
   </div>
 </template>
 
@@ -53,6 +65,7 @@ export default {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   background: linear-gradient(0deg, #ddd, #fff);
   transition: 0.5s;
+  line-height: 20px;
 }
 
 .socialIcon:hover {
@@ -61,12 +74,11 @@ export default {
 }
 
 .socialIcon .fab {
-  widht: 100%;
+  width: 100%;
   height: 100%;
   display: block;
   background: linear-gradient(0deg, #fff, #ddd);
   border-radius: 50%;
-  line-height: 20px;
   font-size: 15px;
   color: #262626;
   transition: 0.5s;
@@ -76,5 +88,8 @@ export default {
 }
 .socialIcon .whatsapp:hover {
   color: green;
+}
+.socialIcon .instagram:hover {
+  color: violet;
 }
 </style>

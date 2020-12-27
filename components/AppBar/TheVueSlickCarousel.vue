@@ -1,13 +1,18 @@
 <template>
   <client-only>
     <VueSlickCarousel v-bind="options" style="margin-top: 20px">
-      <v-img
+      <a
         v-for="(item, i) in slidesLst"
         :key="i"
-        :src="`https://newfurnitura.ru/news/${item.pic}`"
-        :height="hgt"
-        contain
-      />
+        :href="getPathPdf(item)"
+        target="_blank"
+      >
+        <v-img
+          :src="`https://newfurnitura.ru/news/${item.pic}`"
+          :height="hgt"
+          contain
+        />
+      </a>
     </VueSlickCarousel>
   </client-only>
 </template>
@@ -80,6 +85,18 @@ export default {
     ...mapGetters({
       slidesLst: "service/getSlides",
     }),
+  },
+  methods: {
+    getPathPdf(item) {
+      // debugger;
+      const res =
+        item && item.path_pdf
+          ? (item.path_pdf.includes("advs")
+              ? "https://newfurnitura.ru/"
+              : "https://newfurnitura.ru/news/") + item.path_pdf
+          : "/";
+      return res;
+    },
   },
 };
 </script>

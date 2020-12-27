@@ -190,6 +190,14 @@ export async function getManagers( {id} ) {
 
   return rows;
 }
+export async function getNewsArhive( {pageSize, currentLength, curFilial} ) {
+
+  const {rows} = await db.queryApp('getNewsArhive', {pageSize, currentLength, curFilial} )
+
+  //console.log(rows)
+
+  return rows;
+}
 
 //auth
 export async function loginUser( params, res ) {

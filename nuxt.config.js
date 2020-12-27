@@ -99,7 +99,11 @@ module.exports = {
     {src: '~/plugins/api-context.server.js'},
     {src: '~/plugins/crypto-js.js'},
     {src: '~/plugins/flipbook.js', mode: 'client' },
-    {src: '~/plugins/snowfall.js', mode: 'client' }
+    {src: '~/plugins/virtualscroll.js', mode: 'client' },
+    //{src: '~/plugins/perfectscrollbar.js', mode: 'client' },
+
+    // {src: '~/plugins/virtualscrolllist.js', mode: 'client' }
+
     // { src: '~/plugins/ymapPlugin.js', mode: 'client' },
     //{src: '~/plugins/xlsx.client.js'},
     //{src: '~/plugins/read-more-js.js', mode: 'client'},
@@ -127,7 +131,11 @@ module.exports = {
     '@nuxtjs/style-resources',
     '@nuxtjs/robots',
     'nuxt-ssr-cache',
-     'vue-social-sharing/nuxt',
+     ['vue-social-sharing/nuxt', {
+         networks: {
+           instagram: 'https://www.instagram.com/mf_komplekt_msk/'
+         }
+       }],
      ['vue-yandex-maps/nuxt', {apiKey: "a0730179-856a-47bc-bc4a-eab5cf8d185a", lang: "ru_RU", version: "2.1"}],
     // ['@nuxtjs/yandex-metrika',
     //   {
