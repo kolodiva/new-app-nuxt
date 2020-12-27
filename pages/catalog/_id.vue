@@ -67,7 +67,7 @@
     </div>
 
     <TheBreadCrumbs />
-    <TheBreadCrumbs2 />
+    <!-- <TheBreadCrumbs2 /> -->
   </div>
 </template>
 <script>
