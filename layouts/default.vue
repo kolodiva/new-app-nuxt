@@ -6,17 +6,6 @@
       <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
     </client-only> -->
     <v-main>
-      <!-- Google Tag Manager (noscript) -->
-      <client-only>
-        <noscript
-          ><iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-59444LN"
-            height="0"
-            width="0"
-            style="display: none; visibility: hidden"
-          ></iframe
-        ></noscript>
-      </client-only>
       <TheAppBar
         :show-second-menu="showSecondMenu"
         :user-email="userEmail"
@@ -25,22 +14,6 @@
 
       <Nuxt />
       <TheFooter />
-      <client-only>
-        <script>
-          (function (w, d, u) {
-            var s = d.createElement("script");
-            s.async = true;
-            s.src = u + "?" + ((Date.now() / 60000) | 0);
-
-            var h = d.getElementsByTagName("script")[0];
-            h.parentNode.insertBefore(s, h);
-          })(
-            window,
-            document,
-            "https://cdn-ru.bitrix24.ru/b13663838/crm/site_button/loader_2_73qubw.js"
-          );
-        </script>
-      </client-only>
     </v-main>
     <client-only>
       <TheSnackbar :objects.sync="objects"></TheSnackbar>
