@@ -26,7 +26,7 @@ module.exports = {
    */
   router: {
   //   base: '/'
-    //middleware: 'stats'
+    middleware: 'stats'
   },
   head: {
     // titleTemplate: '%s - ' + process.env.npm_package_name,
