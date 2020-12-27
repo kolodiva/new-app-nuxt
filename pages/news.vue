@@ -123,7 +123,7 @@ const pageSize = 12;
 export default {
   data() {
     return {
-      list: [...Array(8)].map((x) => Array(0)),
+      list: [[], [], [], [], [], [], [], []],
       infHandler: [
         this.infiniteHandler1,
         this.infiniteHandler2,
