@@ -21,7 +21,6 @@
             v-for="(subitem, index) in item.submenu"
             :key="index"
             :to="subitem.ref"
-            @click="111"
           >
             <v-list-item-title :class="subitem.css_class">{{
               subitem.name
@@ -56,11 +55,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item
-            v-for="(subitem1, index) in addresses"
-            :key="index"
-            @click="111"
-          >
+          <v-list-item v-for="(subitem1, index) in addresses" :key="index">
             <v-list-item-content>
               <v-list-item-title class="buttonMFGreyColor">{{
                 subitem1.phone

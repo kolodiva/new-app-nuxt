@@ -47,11 +47,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item
-            v-for="(subitem1, index) in filials"
-            :key="index"
-            @click="111"
-          >
+          <v-list-item v-for="(subitem1, index) in filials" :key="index">
             <v-list-item-content>
               <v-list-item-title class="buttonMFGreyColor">{{
                 subitem1.phone
@@ -225,11 +221,7 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item
-            v-for="(subitem1, index) in filials"
-            :key="index"
-            @click="111"
-          >
+          <v-list-item v-for="(subitem1, index) in filials" :key="index">
             <v-list-item-content>
               <v-list-item-title class="buttonMFGreyColor">{{
                 subitem1.phone
