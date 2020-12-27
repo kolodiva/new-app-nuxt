@@ -5,13 +5,13 @@
       "name": "Доставка",
       "ref":"",
       "submenu" : [
-        {"name": "Москва",          "ref":"/advs/dostavka-moskva"},
-        {"name": "Новосибирск",     "ref":"/advs/dostavka-novosibirsk"},
-        {"name": "Екатеринбург",    "ref":"/advs/dostavka-yekaterinburg"},
-        {"name": "Ростов-на-Дону",  "ref":"/advs/dostavka-rostov-na-donu"},
-        {"name": "Казань",          "ref":"/advs/dostavka-kazan"},
-        {"name": "Санкт-Петербург", "ref":"/advs/dostavka-sankt-peterburg"},
-        {"name": "Краснодар",       "ref":"/advs/dostavka-krasnodar"}
+        {"name": "Москва",          "ref":"https://www.newfurnitura.ru/advs/dostavka-moskva"},
+        {"name": "Новосибирск",     "ref":"https://www.newfurnitura.ru/advs/dostavka-novosibirsk"},
+        {"name": "Екатеринбург",    "ref":"https://www.newfurnitura.ru/advs/dostavka-yekaterinburg"},
+        {"name": "Ростов-на-Дону",  "ref":"https://www.newfurnitura.ru/advs/dostavka-rostov-na-donu"},
+        {"name": "Казань",          "ref":"https://www.newfurnitura.ru/advs/dostavka-kazan"},
+        {"name": "Санкт-Петербург", "ref":"https://www.newfurnitura.ru/advs/dostavka-sankt-peterburg"},
+        {"name": "Краснодар",       "ref":"https://www.newfurnitura.ru/advs/dostavka-krasnodar"}
       ],
       "css_class": "buttonMFGreyColor"
     },
@@ -21,7 +21,7 @@
       "name": "Доп.условия",
       "ref":"",
       "submenu" : [
-        {"name": "Возврат-Обмен",   "ref":"/advs/vozvrat-obmen"},
+        {"name": "Возврат-Обмен",   "ref":"https://www.newfurnitura.ru//advs/vozvrat-obmen"},
         {"name": "Спец.условия",   "ref":""}
       ],
       "css_class": "buttonMFGreyColor"

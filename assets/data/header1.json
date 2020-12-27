@@ -3,7 +3,7 @@
   {
     "id": 1,
     "name": "О компании",
-    "ref":"/advs/about-company",
+    "ref":"https://www.newfurnitura.ru/advs/about-company",
     "submenu" : ""
   },
   "|",
