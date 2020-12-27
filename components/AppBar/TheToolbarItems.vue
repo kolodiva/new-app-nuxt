@@ -20,7 +20,8 @@
           <v-list-item
             v-for="(subitem, index) in item.submenu"
             :key="index"
-            :to="subitem.ref"
+            :href="subitem.href"
+            :to="subitem.to"
           >
             <v-list-item-title :class="subitem.css_class">{{
               subitem.name
@@ -71,7 +72,8 @@
         text
         max-height="40px"
         :class="[header.css_class]"
-        :to="item.ref"
+        :href="item.href"
+        :to="item.to"
       >
         {{ item.name }}
       </v-btn>

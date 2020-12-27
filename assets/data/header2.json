@@ -3,15 +3,16 @@
     {
       "id": 1,
       "name": "Доставка",
-      "ref":"",
+      "to": "",
+      "href":"",
       "submenu" : [
-        {"name": "Москва",          "ref":"https://www.newfurnitura.ru/advs/dostavka-moskva"},
-        {"name": "Новосибирск",     "ref":"https://www.newfurnitura.ru/advs/dostavka-novosibirsk"},
-        {"name": "Екатеринбург",    "ref":"https://www.newfurnitura.ru/advs/dostavka-yekaterinburg"},
-        {"name": "Ростов-на-Дону",  "ref":"https://www.newfurnitura.ru/advs/dostavka-rostov-na-donu"},
-        {"name": "Казань",          "ref":"https://www.newfurnitura.ru/advs/dostavka-kazan"},
-        {"name": "Санкт-Петербург", "ref":"https://www.newfurnitura.ru/advs/dostavka-sankt-peterburg"},
-        {"name": "Краснодар",       "ref":"https://www.newfurnitura.ru/advs/dostavka-krasnodar"}
+        {"name": "Москва",         "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-moskva"},
+        {"name": "Новосибирск",    "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-novosibirsk"},
+        {"name": "Екатеринбург",   "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-yekaterinburg"},
+        {"name": "Ростов-на-Дону", "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-rostov-na-donu"},
+        {"name": "Казань",         "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-kazan"},
+        {"name": "Санкт-Петербург","to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-sankt-peterburg"},
+        {"name": "Краснодар",      "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-krasnodar"}
       ],
       "css_class": "buttonMFGreyColor"
     },
@@ -19,10 +20,11 @@
     {
       "id": 2,
       "name": "Доп.условия",
-      "ref":"",
+      "to":"to",
+      "href":"",
       "submenu" : [
-        {"name": "Возврат-Обмен",   "ref":"https://www.newfurnitura.ru//advs/vozvrat-obmen"},
-        {"name": "Спец.условия",   "ref":""}
+        {"name": "Возврат-Обмен", "to": "",  "href":"https://www.newfurnitura.ru//advs/vozvrat-obmen"},
+        {"name": "Спец.условия",  "to": "",  "ref":""}
       ],
       "css_class": "buttonMFGreyColor"
     },
@@ -30,7 +32,8 @@
   {
     "id": 3,
     "name": "addresses",
-    "ref":"",
+    "to": "to",
+    "href":"",
     "submenu" : ""
   }
 ],
