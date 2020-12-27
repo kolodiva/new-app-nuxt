@@ -3,28 +3,32 @@
     {
       "id": 1,
       "name": "О компании",
-      "ref":"https://www.newfurnitura.ru/advs/about-company",
+      "href":"https://www.newfurnitura.ru/advs/about-company",
+      "to":"",
       "submenu" : "",
       "css_class": ""
     },
     {
       "id": 2,
       "name": "Новости",
-      "ref":"/news",
+      "to":"/news",
+      "href":"",
       "submenu" : "",
       "css_class": ""
     },
   {
     "id": 3,
     "name": "Полезное",
-    "ref":"/service/downloads",
+    "href":"",
+    "to":"/service/downloads",
     "submenu" : "",
     "css_class": "buttonMFGreyColor"
   },
   {
     "id": 4,
     "name": "Контакты",
-    "ref":"/contacts",
+    "to":"/contacts",
+    "href":"",
     "submenu" : ""
   }
 ],
