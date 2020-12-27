@@ -4,10 +4,10 @@ export default function ({ route, store, redirect }) {
   //   url: route.fullPath,
   // })
   // consola.info(route.path === undefined || route.path === '/')
-  store.commit(
-    "SET_BACKSPACE_BTN",
-    !(route.path === undefined || route.path === "/")
-  );
+  // store.commit(
+  //   "SET_BACKSPACE_BTN",
+  //   !(route.path === undefined || route.path === "/")
+  // );
 
   if (
     route &&

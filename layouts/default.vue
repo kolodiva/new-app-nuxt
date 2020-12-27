@@ -1,17 +1,13 @@
 <template>
   <v-app v-scroll="onScroll" v-resize="onResize" style="position: relative">
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- <client-only>
       <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
     </client-only> -->
     <v-main>
-      <TheAppBar
-        :show-second-menu="showSecondMenu"
-        :user-email="userEmail"
-        @logout="logout"
-      />
-
+      <!-- Google Tag Manager (noscript) -->
       <client-only>
-        <!-- Google Tag Manager (noscript) -->
         <noscript
           ><iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-59444LN"
@@ -20,18 +16,22 @@
             style="display: none; visibility: hidden"
           ></iframe
         ></noscript>
-        <!-- End Google Tag Manager (noscript) -->
       </client-only>
+      <TheAppBar
+        :show-second-menu="showSecondMenu"
+        :user-email="userEmail"
+        @logout="logout"
+      />
 
       <Nuxt />
       <TheFooter />
-
       <client-only>
         <script>
           (function (w, d, u) {
             var s = d.createElement("script");
             s.async = true;
             s.src = u + "?" + ((Date.now() / 60000) | 0);
+
             var h = d.getElementsByTagName("script")[0];
             h.parentNode.insertBefore(s, h);
           })(
