@@ -443,11 +443,11 @@ export default {
       //   }, 2000);
     },
   },
-  mounted() {
+  async mounted() {
     // console.log(this.fromRoute);
 
     if (this.fromRoute && !this.fromRoute.name) {
-      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
+      await this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
     }
 
     // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 55 });

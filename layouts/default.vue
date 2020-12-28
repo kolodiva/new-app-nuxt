@@ -170,8 +170,8 @@ export default {
     // }, 1000);
   },
   methods: {
-    closeShowMainDisclaimer() {
-      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);
+    async closeShowMainDisclaimer() {
+      await this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);
     },
     onScroll() {
       const offsetTop =

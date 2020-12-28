@@ -95,7 +95,7 @@ export default {
     });
   },
 
-  mounted() {
+  async mounted() {
     window.$("article").moreContent({
       height: 150,
       speed: 500,
@@ -110,7 +110,7 @@ export default {
     window.$("button.mrc-btn").css("outline", "none");
 
     if (this.fromRoute && !this.fromRoute.name) {
-      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
+      await this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
     }
   },
   methods: {},
