@@ -150,7 +150,11 @@ export const getters = {
     );
   },
   pageHeader: (state) => {
-    return state.pageHeader ? state.pageHeader : "Мебельная фурнитура";
+    return state.pageHeader
+      ? state.pageHeader.toUpperCase() === "YANDEXPAGESECRET"
+        ? "Товарный запас"
+        : state.pageHeader
+      : "Мебельная фурнитура";
   },
   getSubNomenklator: (state) => {
     return state.subNomenklator;
@@ -176,7 +180,10 @@ export const getters = {
     ) {
       state.goodCard.breadcrumb.forEach((v) => {
         pos.push({
-          text: v.name,
+          text:
+            v.name.toUpperCase() === "YANDEXPAGESECRET"
+              ? "Товарный запас"
+              : v.name,
           disable: false,
           to: v.guid === null ? "/" : v.guid,
         });
@@ -206,7 +213,10 @@ export const getters = {
     if (state.breadCrumb.length > 0) {
       state.breadCrumb.forEach((v) => {
         pos.push({
-          text: v.name,
+          text:
+            v.name.toUpperCase() === "YANDEXPAGESECRET"
+              ? "Товарный запас"
+              : v.name,
           disable: false,
           to: v.guid === null ? "/" : v.guid,
         });
