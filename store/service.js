@@ -11,7 +11,7 @@ export const state = () => ({
   },
   widthLimit: 1000,
   tabCartOrder: null,
-  showMainDisclaimer: false,
+  showMainDisclaimer: true,
 });
 
 export const mutations = {
