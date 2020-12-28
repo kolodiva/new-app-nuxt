@@ -169,9 +169,10 @@ export default {
     //   this.show = true;
     // }, 1000);
   },
+
   methods: {
-    async closeShowMainDisclaimer() {
-      await this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);
+    closeShowMainDisclaimer() {
+      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);
     },
     onScroll() {
       const offsetTop =

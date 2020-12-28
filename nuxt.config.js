@@ -55,7 +55,7 @@ module.exports = {
          {src: "https://widget.cdek.ru/widget/widjet.js", id: "ISDEKscript", charset: "utf-8"},
          {src: "https://api-maps.yandex.ru/2.1/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU", type: "text/javascript"},
 
-         {src: "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"},
+         //{src: "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"},
          //{src: "https://3dsec.sberbank.ru/payment/docsite/assets/js/ipay.js"},
          //{src: "/src/vue.min.js"},
          //{src: "/src/photomechanics.js"},

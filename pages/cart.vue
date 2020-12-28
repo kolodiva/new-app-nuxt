@@ -463,6 +463,7 @@
 <script>
 import { mapGetters } from "vuex";
 // const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default {
   async fetch({ app, params, query, store }) {
     // await store.dispatch("nomenklator/loadSubNumenklator", params);
@@ -702,8 +703,9 @@ export default {
     async openSberPayment(item) {
       // console.log(item);
       // api_token: "pcu5rej2ovuhl34isprub5jdke",
+      // api_token test: "YRF3C5RFICWISEWFR6GJ",
       const ipay = await new window.IPAY({
-        api_token: "YRF3C5RFICWISEWFR6GJ",
+        api_token: "pcu5rej2ovuhl34isprub5jdke",
       });
       // console.log(ipay);
       if (ipay) {
@@ -923,6 +925,17 @@ export default {
       //   .then((res) => item.children.push(...res))
       //   .catch((err) => console.warn(err));
     },
+  },
+
+  head() {
+    return {
+      script: [
+        {
+          src:
+            "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js",
+        },
+      ],
+    };
   },
 };
 </script>
