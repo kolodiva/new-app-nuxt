@@ -387,6 +387,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.fromRoute = from;
+      console.log(from);
     });
   },
   computed: {
@@ -444,7 +445,7 @@ export default {
     },
   },
   async mounted() {
-    // console.log(this.fromRoute);
+    console.log(this.fromRoute);
 
     if (this.fromRoute && !this.fromRoute.name) {
       await this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);

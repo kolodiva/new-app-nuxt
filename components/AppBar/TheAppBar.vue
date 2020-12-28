@@ -200,6 +200,7 @@
       style="position: relative"
     >
       <v-img
+        v-if="!showLimitWidth"
         class=""
         style="
           width: 114px;
@@ -211,6 +212,7 @@
         src="/Shariki_NG.png"
       />
       <v-img
+        v-if="!showLimitWidth"
         class="rotatingCycle"
         style="
           width: 114px;
