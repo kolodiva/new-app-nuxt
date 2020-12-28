@@ -76,9 +76,9 @@ export default {
     });
   },
 
-  async mounted() {
-    if (this.fromRoute && !this.fromRoute.name) {
-      await this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
+  mounted() {
+    if (!this.fromRoute || (this.fromRoute && !this.fromRoute.name)) {
+      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
     }
   },
 

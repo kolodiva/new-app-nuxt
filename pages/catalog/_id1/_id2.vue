@@ -397,7 +397,6 @@ export default {
       posDopComplects: "nomenklator/getGoodCardDopComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
       showLimitWidth: "service/getShowLimitWidth",
-      showMainDisclaimer: "service/showMainDisclaimer",
     }),
     txtLabel() {
       return parseFloat(this.pos.qty1) === parseFloat(this.pos.qty2)
@@ -445,10 +444,8 @@ export default {
     },
   },
   mounted() {
-    if (this.fromRoute && !this.fromRoute.name) {
-      console.log(this.fromRoute);
+    if (!this.fromRoute || (this.fromRoute && !this.fromRoute.name)) {
       this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
-      console.log(this.showMainDisclaimer);
     }
 
     // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 55 });
