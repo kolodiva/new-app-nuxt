@@ -49,7 +49,7 @@
             ВСЕ ВАШИ ЗАКАЗЫ ПОПАДУТ В НАШУ СИСТЕМУ ОБРАБОТКИ ЗАКАЗОВ,
           </div>
           <div class="text-center mx-auto subtitle-2" style="">
-            но будут обработаны ТОЛЬКО 11 января 2021 года.
+            но будут обработаны 11 января 2021 года.
           </div>
           <div
             class="text-center mx-auto subtitle-1 font-weight-bold mt-4"
