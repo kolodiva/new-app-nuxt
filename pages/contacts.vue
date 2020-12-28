@@ -109,7 +109,6 @@
                           <th class="text-left">ФИО</th>
                           <th class="text-left">Телефоны</th>
                           <th class="text-left">Email/Skype</th>
-                          <th class="text-left">Skype</th>
                           <th class="text-left">Регионы</th>
                         </tr>
                       </thead>

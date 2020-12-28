@@ -444,6 +444,12 @@ export default {
     },
   },
   mounted() {
+    // console.log(this.fromRoute);
+
+    if (this.fromRoute && !this.fromRoute.name) {
+      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
+    }
+
     // window.$("#sidebar1").stickr({ duration: 0, offsetTop: 55 });
     // window.$("#sidebar2").stickr({ duration: 0, offsetTop: 55 });
   },

@@ -89,6 +89,12 @@ export default {
     }),
   },
   beforeCreate() {},
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fromRoute = from;
+    });
+  },
+
   mounted() {
     window.$("article").moreContent({
       height: 150,
@@ -102,6 +108,10 @@ export default {
     });
     window.$("div.mrc-btn-wrap").css("text-align", "end");
     window.$("button.mrc-btn").css("outline", "none");
+
+    if (this.fromRoute && !this.fromRoute.name) {
+      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
+    }
   },
   methods: {},
   head() {

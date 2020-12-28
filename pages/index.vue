@@ -70,7 +70,17 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.fromRoute = from;
+    });
+  },
+
+  mounted() {
+    if (this.fromRoute && !this.fromRoute.name) {
+      this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", true);
+    }
+  },
 
   head() {
     return {

@@ -11,6 +11,7 @@ export const state = () => ({
   },
   widthLimit: 1000,
   tabCartOrder: null,
+  showMainDisclaimer: false,
 });
 
 export const mutations = {
@@ -29,9 +30,15 @@ export const mutations = {
   SET_EMPTY_CART_ORDER_SETTINGS(state) {
     state.tabCartOrder = null;
   },
+  SET_SHOW_MAIN_DISCLAIMER(state, val) {
+    state.showMainDisclaimer = val;
+  },
 };
 
 export const getters = {
+  showMainDisclaimer: (state) => {
+    return state.showMainDisclaimer;
+  },
   showSecondMenu: (state) => {
     return state.showSecondMenu;
   },
