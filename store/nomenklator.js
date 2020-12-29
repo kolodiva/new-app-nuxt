@@ -152,7 +152,7 @@ export const getters = {
   pageHeader: (state) => {
     return state.pageHeader
       ? state.pageHeader.toUpperCase() === "YANDEXPAGESECRET"
-        ? "Товарный запас"
+        ? "Каталог товаров"
         : state.pageHeader
       : "Мебельная фурнитура";
   },
@@ -182,7 +182,7 @@ export const getters = {
         pos.push({
           text:
             v.name.toUpperCase() === "YANDEXPAGESECRET"
-              ? "Товарный запас"
+              ? "Каталог товаров"
               : v.name,
           disable: false,
           to: v.guid === null ? "/" : v.guid,
