@@ -215,7 +215,7 @@ export const getters = {
         pos.push({
           text:
             v.name.toUpperCase() === "YANDEXPAGESECRET"
-              ? "Товарный запас"
+              ? "Каталог товаров"
               : v.name,
           disable: false,
           to: v.guid === null ? "/" : v.guid,
