@@ -42,7 +42,8 @@
             class="text-center mx-auto red--text subtitle-2 font-weight-medium"
             style="width: 270px"
           >
-            с 31 декабря по 11 января 2021 года!
+            с 31 декабря - 10 января 2021 года!<br/>
+            (выходные праздничные дни)
           </div>
           <v-divider class="mx-auto my-3" style="width: 270px" />
           <div class="text-center mx-auto subtitle-1 font-weight-bold" style="">
