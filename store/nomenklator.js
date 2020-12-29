@@ -211,14 +211,16 @@ export const getters = {
     const pos = [];
 
     if (state.breadCrumb.length > 0) {
+      let itsYPS = null;
       state.breadCrumb.forEach((v) => {
+        itsYPS = v.name.toUpperCase() === "YANDEXPAGESECRET";
         pos.push({
           text:
-            v.name.toUpperCase() === "YANDEXPAGESECRET"
+            itsYPS
               ? "Каталог товаров"
               : v.name,
           disable: false,
-          to: v.guid === null ? "/" : v.guid,
+          to: v.guid === null ? "/" : itsYPS ? "/" : v.guid,
         });
       });
     } else {
