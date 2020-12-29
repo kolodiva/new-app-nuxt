@@ -62,7 +62,12 @@
           </div>
           <v-divider class="mx-auto my-3" style="width: 270px" />
           <div class="text-center mx-auto mb-3" style="width: 270px">
-            С уважением Ваш, "МФ-КОМПЛЕКТ"
+            С уважением Ваш, "МФ-КОМПЛЕКТ"<br />
+          </div>
+          <div class="text-center mx-auto mb-3 red--text" style="width: 700px">
+            Сайт обновлен. Во избежание возможных недоразумений,<br />
+            просьба Перезайти в Личный кабинет, если Вы давно этого НЕ делали<br />
+            и после этого продолжать набирать Заказ.
           </div>
 
           <v-divider />

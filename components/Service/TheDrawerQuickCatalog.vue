@@ -1,19 +1,21 @@
 <template>
   <v-navigation-drawer v-model="onOpen" app temporary light width="400">
-    <v-treeview
-      v-model="tree"
-      :items="strucCatalog"
-      item-key="node_id"
-      hoverable
-      rounded
-      activatable
-      transition
-      dense
-      :open="open"
-      :active="active"
-      @update:active="letsGoFreddy"
-    >
-    </v-treeview>
+    <perfect-scrollbar style="height: 100vh">
+      <v-treeview
+        v-model="tree"
+        :items="strucCatalog"
+        item-key="node_id"
+        hoverable
+        rounded
+        activatable
+        transition
+        dense
+        :open="open"
+        :active="active"
+        @update:active="letsGoFreddy"
+      >
+      </v-treeview>
+    </perfect-scrollbar>
   </v-navigation-drawer>
 </template>
 <script>
