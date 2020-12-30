@@ -228,7 +228,7 @@ when t1.status = 7 then 'Отменен'
       select id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, order_1c, json_agg(order_goods order by order_goods ->> 'name') children
       from r1
       group by id, status, data_on, sum, sum1, sum_for_payment, sum_paid, data_paid, card_payment_order, order_1c
-      order by id desc limit 50
+      order by id desc
     `,
     values: [],
   }
