@@ -78,7 +78,7 @@ export function getManagers(id = undefined) {
 
   	union all
 
-  	select 1, '1', 2, 'Хренов<br/>Дмитрий<br/>Игоревич', '029', '+7 (915) 480-07-33 (моб.)<br/>+7 (916) 149-57-60<br/>+7 (916) 149-57-61', 'hrenov@newfurnitura.ru', '', '', '<br/>менеджер отдела<br/>снабжения'
+  	select 1, '1', 2, 'Хренов<br/>Дмитрий<br/>Игоревич', '177', '+7 (915) 480-07-33 (моб.)<br/>+7 (916) 149-57-60<br/>+7 (916) 149-57-61', 'hrenov@newfurnitura.ru', '', '', '<br/>менеджер отдела<br/>снабжения'
 
   	order by filial, rozn, order_by, manager
   )
