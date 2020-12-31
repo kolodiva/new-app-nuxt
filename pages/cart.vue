@@ -194,7 +194,7 @@
                         :headers="subheaders"
                         :items="item.children"
                         item-key="guid"
-                        hide-default-footer
+                        :options="{ itemsPerPage: 100 }"
                       >
                         <template v-slot:top>
                           <v-tooltip top>
