@@ -44,8 +44,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { href: 'https://securepayments.sberbank.ru/payment/docsite/assets/css/modal.css' },
-      { rel: "canonical", href: 'https://newfurnitura.ru/', hid: "canonical" }
+      { href: 'https://securepayments.sberbank.ru/payment/docsite/assets/css/modal.css' }
     ],
     script: [
          {src: "/src/jquery.min.js"},

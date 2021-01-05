@@ -661,6 +661,13 @@ export default {
           body: true,
         },
       ],
+      link: [
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: `https://newfurnitura.ru/catalog/${this.pos.parentguid}/${this.pos.synonym}`,
+        },
+      ],
     };
   },
 };
