@@ -145,6 +145,13 @@ export default {
           hid: "og:image:alt",
         },
       ],
+      link: [
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: "https://newfurnitura.ru",
+        },
+      ],
     };
   },
 };
