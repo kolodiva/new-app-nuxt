@@ -199,30 +199,6 @@
       width="100vw"
       style="position: relative"
     >
-      <v-img
-        v-if="!showLimitWidth"
-        class=""
-        style="
-          width: 114px;
-          left: 230px;
-          top: -90px;
-          z-index: 1050;
-          position: absolute;
-        "
-        src="/Shariki_NG.png"
-      />
-      <v-img
-        v-if="!showLimitWidth"
-        class="rotatingCycle"
-        style="
-          width: 114px;
-          right: 95px;
-          top: -100px;
-          z-index: 1050;
-          position: absolute;
-        "
-        src="/Kolokolchik_NG.png"
-      />
 
       <v-badge
         v-if="showLimitWidth"
