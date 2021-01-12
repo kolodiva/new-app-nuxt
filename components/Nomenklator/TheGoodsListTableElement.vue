@@ -31,7 +31,7 @@
       <div class="align-self-center">
         {{ pos.name }}
         <br />
-        арктикул: {{ pos.artikul }}, новый: {{ pos.artikul_new }}
+        артикул: {{ pos.artikul }}, новый: {{ pos.artikul_new }}
         <v-card-text class="pa-0 pt-2"
           >Вес брутто кг., {{ pos["weight"] }}</v-card-text
         >
