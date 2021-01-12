@@ -28,7 +28,7 @@
         <v-col style="min-width: 350px">
           <div>
             {{ pos.name }}<br />
-            арктиул: {{ pos.artikul }}, новый:
+            артикул: {{ pos.artikul }}, новый:
             {{ pos.artikul_new }}
 
             <v-card-text class="pb-0" v-html="pos.describe"> </v-card-text>
