@@ -13,6 +13,7 @@
           :src="cPic"
           contain
           max-height="95"
+          min-height="95"
           class=""
           style="cursor: pointer"
           @error="onImgErrorLoad"
