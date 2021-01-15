@@ -39,7 +39,6 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
 
-      { name: 'google-site-verification', content: 'AV5yKYiukTfI9OBsJT96a_sVbPuLIYkkzfCobrgcYtQ' },
       { name: 'google-site-verification', content: 'zYHlJzz8ftSxJgxT5pc4Fnq7thpCwbmn3bzu4knEnb4' },
       { name: 'yandex-verification', content: '04304aa6cbb8684a' },
     ],
