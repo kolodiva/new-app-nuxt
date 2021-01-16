@@ -1,0 +1,526 @@
+<link rel="stylesheet" href="https://securepayments.sberbank.ru/demopayment/docsite/assets/css/modal.css">
+<link rel="stylesheet" href="https://3dsec.sberbank.ru/demopayment/docsite/assets/css/modal.css">
+
+src="https://3dsec.sberbank.ru/demopayment/docsite/assets/js/ipay.js"
+var ipay = new IPAY({api_token: 'YRF3C5RFICWISEWFR6GJ'});
+
+
+<script>src="https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"/>
+<script>
+    var ipay = new IPAY({api_token: 'pcu5rej2ovuhl34isprub5jdke'});
+</script>
+
+//api ya map 464a67b1-e3c2-4456-9939-d8e7764056df
+                        servicepath: '../widget/scripts/service.php', //ссылка на файл service.php на вашем сайте
+    <script
+        src="https://api-maps.yandex.ru/2.1/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU"
+        type="text/javascript">
+    </script>
+
+                        servicepath: 'https://mfkomplekt.host/widget/scripts/service.php', //ссылка на файл service.php на вашем сайте
+                    <script type="text/javascript">
+                        var widjet = new ISDEKWidjet({
+                            defaultCity: 'Уфа',
+                            cityFrom: 'Омск',
+                            link: 'infowidjet',
+                            path: 'https://www.cdek.ru/website/edostavka/template/scripts/',
+                            servicepath: 'http://yoursite.net/service.php' //ссылка на файл service.php на вашем сайте
+                        });
+                    </script>
+
+                { this.state.isMobileDevice ?  <MainMobile guid = {this.props.guid} guidItemCard = { this.props.guidItemCard } chngeUser = {  this.state.chngeUser } /> :
+                                }
+
+                    <script type="text/javascript">
+                        var infoWidjet = new ISDEKWidjet ({
+                        showWarns: true, //сообщения о некритических ошибках виджета
+                        showErrors: true, //сообщения о критических ошибках виджета
+                        showLogs: true,
+                        defaultCity: 'Москва', //какой город отображается по умолчанию
+                        cityFrom: 'Химки', // из какого города будет идти доставка
+                        country: 'Россия', // можно выбрать страну, для которой отображать список ПВЗ
+                        link: 'infowidjet', // id элемента страницы, в который будет вписан виджет
+                        path: 'https://www.cdek.ru/website/edostavka/template/scripts/', //директория с библиотеками виджета
+                        servicepath: 'widget/scripts/service.php', //ссылка на файл service.php на вашем сайте
+                        apikey: 'a0730179-856a-47bc-bc4a-eab5cf8d185a', // ключ для корректной работы Яндекс.Карт, получить необходимо тут
+                        choose: false, //наличие кнопки выбора ПВЗ
+                        hidedress: true, //спрятать возможность примерки
+                        hidedelt: true //спрятать варианты доставки
+                    });
+                </script>
+
+                    <script type="text/javascript">
+                        var ourWidjet = new ISDEKWidjet ({
+                        showWarns: true, //сообщения о некритических ошибках виджета
+                        showErrors: true, //сообщения о критических ошибках виджета
+                        showLogs: true,
+                        defaultCity: 'Москва', //какой город отображается по умолчанию
+                        cityFrom: 'Химки', // из какого города будет идти доставка
+                        country: 'Россия', // можно выбрать страну, для которой отображать список ПВЗ
+                        link: 'infowidjet', // id элемента страницы, в который будет вписан виджет
+                        path: 'https://widget.cdek.ru/widget/scripts/', //директория с библиотеками виджета
+                        choose: false, //наличие кнопки выбора ПВЗ
+                        hidedress: true, //спрятать возможность примерки
+                        hidedelt: true //спрятать варианты доставки
+                        });
+                    </script>
+
+<% if @deviceMobile == false %>
+<% end %>
+
+ find /home/ftp_user/www/images -type f -exec sudo chmod 666 {} \;
+
+ sudo chown -R ftp_user /home/ftp_user/www/images
+
+ sudo chmod 0666 /home/ftp_user/www/images/*
+ sudo chmod 0777 /home/ftp_user/www/images/003cd572-bf35-4906-9a61-33bea460.jpg
+
+    dokku storage:mount app1 /home/ftp_user/www/images:/app/public/upload
+    dokku storage:mount app1 /home/ftp_user/www/news:/app/public/news
+    dokku storage:mount app1 /home/ftp_user/www/slider:/app/public/slider
+    dokku storage:mount app1 /home/ftp_user/www/advs:/app/public/advs
+    dokku storage:list app1
+
+ sudo passwd user
+
+Commands:
+
+    apps                                                                                         List your apps
+    apps:create <app>                                                                            Create a new app
+    apps:destroy <app>                                                                           Permanently destroy an app
+    apps:rename <old-app> <new-app>                                                              Rename an app
+    certs:add <app> CRT KEY                                                                      Add an ssl endpoint to an app. Can also import from a tarball on stdin
+    certs:chain CRT [CRT ...]                                                                    [NOT IMPLEMENTED] Print the ordered and complete chain for the given certif                    icate.
+    certs:generate <app> DOMAIN                                                                  Generate a key and certificate signing request (and self-signed certificate                    )
+    certs:info <app>                                                                             Show certificate information for an ssl endpoint.
+    certs:key <app> CRT KEY [KEY ...]                                                            [NOT IMPLEMENTED] Print the correct key for the given certificate.
+    certs:remove <app>                                                                           Remove an SSL Endpoint from an app.
+    certs:rollback <app>                                                                         [NOT IMPLEMENTED] Rollback an SSL Endpoint for an app.
+    certs:update <app> CRT KEY                                                                   Update an SSL Endpoint on an app. Can also import from a tarball on stdin
+    checks <app>                                                                                 Show zero-downtime status
+    checks:disable <app>                                                                         Disable zero-downtime checks
+    checks:enable <app>                                                                          Enable zero-downtime checks
+    config (<app>|--global)                                                                      Display all global or app-specific config vars
+    config:get (<app>|--global) KEY                                                              Display a global or app-specific config value
+    config:set (<app>|--global) KEY1=VALUE1 [KEY2=VALUE2 ...]                                    Set one or more config vars
+    config:unset (<app>|--global) KEY1 [KEY2 ...]                                                Unset one or more config vars
+    docker-options <app> [phase(s)]                                                              Display app's Docker options for all phases (or comma separated phase list)
+    docker-options:add <app> <phase(s)> OPTION                                                   Add Docker option to app for phase (comma separated phase list)
+    docker-options:remove <app> <phase(s)> OPTION                                                Remove Docker option from app for phase (comma separated phase list)
+    domains [<app>]                                                                              List domains
+    domains:add <app> DOMAIN                                                                     Add a domain to app
+    domains:clear <app>                                                                          Clear all domains for app
+    domains:disable <app>                                                                        Disable VHOST support
+    domains:enable <app>                                                                         Enable VHOST support
+    domains:remove <app> DOMAIN                                                                  Remove a domain from app
+    domains:set-global <domain>                                                                  Set global domain name
+    enter <app> [<container-type> || --container-id <container-id>]                              Connect to a specific app container
+    events [-t]                                                                                  Show the last events (-t follows)
+    events:list                                                                                  List logged events
+    events:off                                                                                   Disable events logger
+    events:on                                                                                    Enable events logger
+    help                                                                                         Print the list of commands
+    logs <app> [-h] [-t] [-n num] [-q] [-p process]                                              Show the last logs for an application
+    ls                                                                                           Pretty listing of deployed applications and containers
+    nginx:access-logs <app> [-t]                                                                 Show the nginx access logs for an application (-t follows)
+    nginx:build-config <app>                                                                     (Re)builds nginx config for given app
+    nginx:error-logs <app> [-t]                                                                  Show the nginx error logs for an application (-t follows)
+    plugin                                                                                       Print active plugins
+    plugin:disable <name>                                                                        Disable an installed plugin (third-party only)
+    plugin:enable <name>                                                                         Enable a previously disabled plugin
+    plugin:install [--core|git-url [--committish tag|branch|commit|--name custom-plugin-name]]   Optionally download git-url (with custom tag/committish) & run install trig                    ger for active plugins (or only core ones)
+    plugin:install-dependencies [--core]                                                         Run install-dependencies trigger for active plugins (or only core ones)
+    plugin:uninstall <name>                                                                      Uninstall a plugin (third-party only)
+    plugin:update [name [committish]]                                                            Optionally update named plugin from git (with custom tag/committish) & run                     update trigger for active plugins
+    proxy <app>                                                                                  Show proxy for app
+    proxy:disable <app>                                                                          Disable proxy for app
+    proxy:enable <app>                                                                           Enable proxy for app
+    proxy:set <app> <proxy_type>                                                                 NOT IMPLEMENTED YET!!
+    ps <app>                                                                                     List processes running in app container(s)
+    ps:rebuild <app>                                                                             Rebuild an app
+    ps:rebuildall                                                                                Rebuild all apps
+    ps:restart <app>                                                                             Restart app container(s)
+    ps:restartall                                                                                Restart all deployed app containers
+    ps:restore                                                                                   Start previously running apps e.g. after reboot
+    ps:scale [<app> <proc>=<count> [<proc>=<count>]]                                             Get/Set how many instances of a given process to run
+    ps:start <app>                                                                               Start app container(s)
+    ps:stop <app>                                                                                Stop app container(s)
+    run <app> <cmd>                                                                              Run a command in the environment of an application
+    shell                                                                                        Spawn dokku shell
+    storage:list <app>                                                                           List bind mounts for app's container(s) (host:container)
+    storage:mount <app> <host-dir:container-dir>                                                 Create a new bind mount
+    storage:unmount <app> <host-dir:container-dir>                                               Remove an existing bind mount
+    tags <app>                                                                                   List all app image tags
+    tags:create <app> <tag>                                                                      Add tag to latest running app image
+    tags:deploy <app> <tag>                                                                      Deploy tagged app image
+    tags:destroy <app> <tag>                                                                     Remove app image tag
+    tar:from <app> <url>                                                                         Loads an app tarball from url.
+    tar:in <app>                                                                                 Reads an tarball containing the app from stdin
+    trace [on/off]                                                                               Enable dokku tracing
+    url <app>                                                                                    Show the first URL for an application (compatibility)
+    urls <app>                                                                                   Show all URLs for an application
+    version                                                                                      Print dokku's version
+
+Community plugin commands:
+
+    postgres:clone <name> <new-name>   Create container <new-name> then copy data from <name> into <new-name>
+    postgres:connect <name>            Connect via psql to a Postgres service
+    postgres:create <name>             Create a Postgres service
+    postgres:destroy <name>            Delete the Postgres service and stop its container if there are no links left
+    postgres:export <name>             Export a dump of the Postgres service database
+    postgres:expose <name> [port]      Expose a Postgres service on custom port if provided (random port otherwise)
+    postgres:import <name> < <file>    Import a dump into the Postgres service database
+    postgres:info <name>               Print the connection information
+    postgres:link <name> <app>         Link the Postgres service to the app
+    postgres:list                      List all Postgres services
+    postgres:logs <name> [-t]          Print the most recent log(s) for this service
+    postgres:promote <name> <app>      Promote service <name> as DATABASE_URL in <app>
+    postgres:restart <name>            Graceful shutdown and restart of the Postgres service container
+    postgres:start <name>              Start a previously stopped Postgres service
+    postgres:stop <name>               Stop a running Postgres service
+    postgres:unexpose <name>           Unexpose a previously exposed Postgres service
+    postgres:unlink <name> <app>       Unlink the Postgres service from the app
+
+Driver={PostgreSQL Unicode}; Server=kolodiva.com; Port=1470; Database=app1;Uid=postgres; Pwd=cdcc9129eea6ab5101b175baee45b282
+
+
+************************************************
+ReactJS
+
+application.js
+
+gem 'react-rails', '~> 1.0'
+
+rails g react:install
+
+//= require react
+//= require react_ujs
+//= require components
+
+http://doam.ru/react_js_for_rails_developers_part_1/
+
+set SSL_CERT_FILE=d:\RailsInstaller\cacert.pem
+
+
+D:\Ruby24-x64\bin\bundle
+
+D:\Ruby24-x64\bin\rails assets:precompile
+
+D:\Ruby24-x64\bin\rails s
+
+//*****************************************************************
+//*****************************************************************
+
+git push dokkuDO master
+
+git remote remove dokku
+git remote add dokkuDO dokku@46.101.101.96:app1
+
+
+
+//*****************************************************************
+
+rails assets:precompile
+
+
+git init
+git add .
+git commit -a -m 'ddd'
+
+git push dokkuFV master
+
+git remote remove dokkuFV
+git remote add dokkuFV dokku@94.250.252.224:app1
+
+git remote add dokkuFV ssh://dokku@94.250.252.224:2203/app1
+
+
+postgres:expose app1
+
+dokku domains:enable app1
+
+root DsBG2F7
+
+
+//
+docker ps -a
+docker inspect app1.web.1
+//docker rm -v -f $( docker ps -a -q -f name=^/app1.web.1.15 )
+docker rm -v -f $( docker ps -a -q -f name=^/app1.web.1 )
+//push push push
+dokku ps:rebuildall
+reboot
+
+docker ps -a ( RAM 52% -> 19% )
+
+cd /home/nodejs
+cd mob-app-nuxt-old
+
+forever stop server.js
+
+
+//NUXT    cp /home/ftp_user/www/psql/nginx_nuxt.conf /home/dokku/app1/nginx.conf
+NUXT NEW   cp /home/ftp_user/www/psql/nginx_nuxt_new.conf /home/dokku/app1/nginx.conf
+
+
+//MARKO   cp /home/ftp_user/www/psql/nginx_withmob.conf /home/dokku/app1/nginx.conf
+
+//cp /home/ftp_user/www/psql/nginx_withoutmob.conf /home/dokku/app1/nginx.conf
+
+docker inspect app1.web.1 исправить в nginx порт для Rails
+
+service nginx restart
+
+forever stopall
+
+NUXT    NODE_ENV=production PORT=6000 forever start server/index_mob.js
+NUXT NEW    NODE_ENV=production PORT=7000 forever start server/index.js
+
+
+//MARKO   PORT1=8081 forever start server.js
+
+
+
+dokku logs app1 -t
+
+//
+dokku postgres:stop app1
+
+dokku postgres:start app1
+
+************************************************
+ssh root@46.101.101.96
+
+dokku help --all
+
+
+dokku apps
+
+
+dokku logs app1
+
+dokku postgres:list
+
+dokku postgres:info app1
+
+dokku run app1 rails db:migrate
+
+
+**************************************************
+
+
+
+    working with BYTEA and save file
+    для получения файла от польз нужно создавать форму с submitom и поле input в котором уст тип FILE такая херь передает автоматом файл на сервер
+    пример записи файла в БД PGSQL. Сам файл ка кобычно в разрешенном парметере переданными с сервера методом POST мы просто его READ прямо в поле БД типа BYTEA
+
+    Nomenklator.create guid: '123456', picture: item_params[:file].read
+
+    Отправка файла обратно из базы находим запись и перекодируем ее налету Base64 и методом sernd_data отпарвляем ответом
+
+    tOb = Nomenklator.find_by_guid '123456'
+
+    tOb1 = Base64.encode64( tOb.picture );
+
+    send_data(tOb1, type: 'image/jpeg', filename: 'yorik.jpg', disposition: 'inline' или attachment - откр новуцую вкладку  )
+
+    на стороне польз созд след процедуру кот уст для img src в виде ДАННЫХ а не ССЫЛКИ
+    $.post( '/getImg1', {id: 'ddd'} , (e) => {  $('#dddd').attr("src",  'data:image/jpeg; base64, ' + e ) } )
+
+    чтение файла изображения и отправка его пользователю
+
+    file_data = File.binread('d:/Rails5/app_mfk/watermark.jpg')
+
+    @hi = 'data:image/jpeg; base64, ' + Base64.encode64(file_data)
+
+
+***************************************************************
+
+include FunSftp
+
+conn = SFTPClient.new('kolodiva.com', 'ftp_user', 'site_Sftp')
+
+conn.upload!("my_local_file_name.txt", "some_remote_directory/give_a_name.txt")
+
+conn.download!("/www/images/003cd572-bf35-4906-9a61-33bea460.jpg", "e:/00000000000000000.jpg")
+
+dd = conn.entries("/www/images");
+
+
+dd.each { |rec| p Depot.create guid: '000000000000000', name: rec }
+
+ *******************************************************
+
+ Создание готового списка путей к картинкам на основании данных папки
+
+            # ModelNomenklRequery.getSQLQuery(  );
+
+            dd = Dir.glob('E:/Rails5/app_mfk/imgup/**/*')
+
+            strSQLExec = 'truncate depots;'
+
+            dd.each { |rec|
+
+                strSQLExec+= "insert into depots (guid, name) values('0000000000000000000', '#{ File.basename(rec, '.*') }#{ File.extname(rec) }');" if File.file?(rec)
+
+            }
+
+            # p strSQLExec
+            strSQLExec+="delete from depots where length(name) < 36;"
+            strSQLExec+="update depots set guid = (string_to_array(((string_to_array(name, '_'))[1]), '.'))[1] , name = 'https://kolodiva.com/upload/'::text || name;"
+
+
+            ModelNomenklRequery.getSQLQuery( strSQLExec );
+
+
+            # //////////////////////////////
+
+
+порядок следования филиалов при работе с БД в виде массива
+мск, рнд, нсб, екб, кзн, спб, крд
+
+//отрктыие окна ДА НЕТ
+openSmallWinYesNo( e.target, this.resSmallYesNo, { txtHeader: 'Вы уверены ? ', process: 'recNewsBlock' } );
+
+let evntOb = $(e.target);
+popupAlert(evntOb, 'Окейно');
+
+//
+<div className='col-auto px-0' style = { fontColor } ref = { ref => this.refSumPos = ref} dangerouslySetInnerHTML={{ __html: this.changeSumPos() }}/>
+let result = sumPos == 0 ? "<div class='text-center my-2' style='font-size:1.2rem; font-weight:bold;'></div>" : ReactDOMServer.renderToStaticMarkup( cardMosaicFieldRubKopOnlySum( sumPos ) );
+$(this.refSumPos).html( result )
+
+//pgsql
+pg_dump.exe --host localhost --port 5432 --username "kolodiva_test"  --format custom --encoding WIN1251 --no-privileges --verbose --file "D:\psqlbackup\CopyOrder.backup" "orders"
+
+pg_dump.exe --host localhost --port 5432 --username "postgres" --role "kolodiva_test" --no-password  --format custom --encoding WIN1251 --verbose --file "D:\psqlbackup\CopyOrder.backup" --table "public.cities" --table "public.complects" --table "public.connections" --table "public.currencies" --table "public.depots" --table "public.emails" --table "public.messages" --table "public.new_blocks" --table "public.nomenklators" --table "public.order_good_complects" --table "public.order_goods" --table "public.orders" --table "public.price_types" --table "public.prices" --table "public.properties" --table "public.rules" --table "public.stock_balances" --table "public.unit_types" --table "public.users" "orders"
+
+pg_restore.exe --host localhost --port 5432 --username "postgres" --dbname "orders" --role "kolodiva_test" --no-password  --clean --verbose "D:\psqlbackup\CopyOrder.backup"
+
+
+//////////////////
+                                <li className="dropdown">
+
+                                  <a id='currentCurs' type="" className="dropdown-toggle bckGrndTranspFontWhite px-2 nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    RUR
+                                  </a>
+
+                                  <div className="dropdown-menu">
+                                    <a className="dropdown-item" href="#"><span className='colorBlack'>RUR</span></a>
+                                    <a className="dropdown-item" href="#"><span className='colorBlack'>USD</span></a>
+                                    <a className="dropdown-item" href="#"><span className='colorBlack'>EUR</span></a>
+                                    <a className="dropdown-item" href="#"><span className='colorBlack'>CNY</span></a>
+                                  </div>
+
+                                </li>
+
+
+<Slider1 shouldUpdate={ !this.state.newsArhiv } />
+
+<img src={'<%= asset_path('glebsBox.jpg') %>'} alt="" className='img-fluid' style={{  }} />
+
+{/*                <div className='position-absolute w-100 h-100 text-center mt-4' style={{  }}>
+                    <img className='img-fluid' src={'<%= asset_path('jbraz.jpg', alt: '') %>'} style={{  }} />
+                </div>
+*/}
+                { winMob[this.state.indexPage] }
+
+
+                <div className='fixed-bottom text-left text-light pl-2 py-1' style={{ backgroundColor: 'rgb(0, 174, 198)' }}><span>MF-Komplect, 2018</span></div>
+
+
+08.07.2018 12:00:02 Поступление товаров и услуг МФО00000222 от 08.07.2018 12:00:02
+
+
+                        <div className='position-fixed fontGoodNames upOfPage d-none mt-3'
+                            style={{ bottom: 20, right: 10, cursor: 'pointer', fontWeight: 'bold' }}
+
+                            onClick={ (e) => { $('html, body').stop().animate({scrollTop: 370}, 500); } }
+
+                        >К началу страницы</div>
+///////////////////////
+Создать Бэкап - Восстановить Бэкап
+
+    dokku postgres:export app1 > /home/ftp_user/www/psql/app1
+    dokku postgres:import app1 < /home/ftp_user/www/psql/app1
+
+reboot
+dokku ps:restartall
+
+rails g migration add_column_weight_in_nomenklator
+gleb.lesenko.77@yandex.ru пароль skb8897
+
+
+    <!-- Yandex.Metrika counter Gleb-->
+    <script type="text/javascript" >
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter51108848 = new Ya.Metrika2({
+                        id:51108848,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true
+                    });
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks2");
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/51108848" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
+находится а коде станицы 1catalogPart
+{ isCromeBrowser() ? <i title='После сигнала назовите Артикул или часть Наименования.' className="fa fa-microphone position-absolute" style={{ cursor: 'pointer', right: '-25px', top: '7px' }} onClick = { (e) => { this.onVoiceInput(e) } } /> : null }
+
+////////////////////////////////////
+
+rails new ffff --database=postgresql --no-ri --no-rdoc -T
+//--webpack=react --ruby=d:/Ruby25-x64/bin/ruby.exe
+
+rails new test_react_redux --database=postgresql --no-ri --no-rdoc --webpack=react -T --ruby=d:/Ruby24-x64/bin/ruby.exe
+
+rails webpacker:install
+rails webpacker:install:react
+
+rails generate react:install
+yarn install
+
+
+
+
+                  this.state.data.map( (rec, ind) => {
+                                                        return(
+
+                                                          <div key={ind} className='p-2'>
+                                                            <img src={rec.guid_picture} style={{ maxHeight: '80px'}} />
+                                                          </div>
+
+                                                          ); } ) ;
+
+
+
+
+ffmpeg -i TEN_video2.mp4 -vcodec libx264 -acodec aac TEN_video2_1.mp4
+
+1478
+
+https://www.xvideos.com/video42414935/_
+
+9389004      VQGDYRU
+
+
+//адресные изм на сайте
+класс в модуле enothe.scss
+dispMngExpnd 
+/*max-height: 500px;*/
