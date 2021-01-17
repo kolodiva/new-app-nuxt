@@ -107,7 +107,7 @@ export default {
       if (parseFloat(pos.qty1) === parseFloat(pos.qty2)) {
         await this.$store.dispatch("nomenklator/setSnackbar", {
           color: "red",
-          text: `Мозги керак эмас.`,
+          text: `Необходимо изменить Количество.`,
           timeout: 3000,
           showing: true,
         });

@@ -23,6 +23,7 @@ export const state = () => ({
   canUseFilter: false,
   userFilter: null,
   userFilterFromGroup: null,
+  orderListFromExcel: [],
 });
 
 export const mutations = {
@@ -140,6 +141,9 @@ export const mutations = {
   SET_FILTER_FROM_GROUP(state, v) {
     state.userFilterFromGroup = v;
   },
+  SET_ORDER_LIST_FROM_EXCEL(state, rows) {
+    state.orderListFromExcel = rows;
+  },
 };
 export const getters = {
   isGroup: (state) => {
@@ -215,10 +219,7 @@ export const getters = {
       state.breadCrumb.forEach((v) => {
         itsYPS = v.name.toUpperCase() === "YANDEXPAGESECRET";
         pos.push({
-          text:
-            itsYPS
-              ? "Каталог товаров"
-              : v.name,
+          text: itsYPS ? "Каталог товаров" : v.name,
           disable: false,
           to: v.guid === null ? "/" : itsYPS ? "/" : v.guid,
         });
@@ -275,6 +276,10 @@ export const getters = {
   },
   getSnackbars: (state) => {
     return state.snackbars;
+  },
+
+  getOrderListFromExcel: (state) => {
+    return state.orderListFromExcel;
   },
 };
 
@@ -601,6 +606,30 @@ export const actions = {
         showing: true,
       });
     }
+  },
+  async chngeCartFromExcelLoader({ commit, dispatch, state }, arrayOrderList) {
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+
+    const info = {
+      arrayOrderList,
+      userid,
+      token,
+    };
+
+    // console.log(info);
+    const { rows } = await this.$api("addCartFromExcel", info);
+
+    await commit("SET_ORDER_LIST_FROM_EXCEL", rows);
+
+    await dispatch("refreshCountCart");
+
+    await dispatch("setSnackbar", {
+      color: "green",
+      text: "Ваш Заказ успешно загружен. Не найденные позиции в верхней части.",
+      timeout: 6000,
+      showing: true,
+    });
   },
   async refreshCountCart({ commit, dispatch, state }) {
     const userid = (state.userInfo && state.userInfo.id) || 1;

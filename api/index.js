@@ -442,6 +442,84 @@ export async function procOrder( { userid, token, mister, filial,  email, phone,
   return [];
 }
 
+export async function addCartFromExcel( { userid, token, arrayOrderList }, res ) {
+
+  const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
+
+  if (remember_token && remember_token != token) {
+      res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
+      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  }
+
+  let strQuery = "";
+
+  arrayOrderList.forEach( (el, ind) => {
+    strQuery = strQuery + ' select ' + (ind + 1) + " as order, " + "'" + el[0] + "' as art, " + el[1] + ' as qty union all '
+  });
+
+  strQuery = strQuery + " select 0, '111111111111111111111111', 0 ";
+
+  const strQuery1 = `with artFilter as (  \
+  	with price_list as ( \
+    		select * \
+    		from crosstab( \
+    			$$select nomenklator_id::text, price_type_id, round(price*coalesce(currencies.value, 1), 2) \
+    		from prices \
+    		left join currencies on prices.currency_id = currencies.code \
+    		where nomenklator_id in ( \
+    		select distinct \
+        		nomenklators.guid as guid \
+  		from nomenklators \
+  	  	where nomenklators.guid in ( \
+          with artFilter as (  \
+            ${strQuery} \
+          ) \
+          select distinct \
+          		t2.guid as guid \
+          		  from artFilter t1 \
+          		join nomenklators t2 on t2.artikul = t1.art \
+            ) \
+          ) \
+            order by 1$$, \
+            $$ SELECT '000000004' UNION ALL SELECT '000000003' UNION ALL SELECT '000000005'$$ \
+          ) \
+            AS (guid text, price1 numeric, price2 numeric, price3 numeric) \
+          )	\
+          	select distinct \
+          		case when nomenklators.name is null then 0 else 1 end fsort, \
+          		max(t3.order) order1, \
+          		art, \
+          		max(nomenklators.name) as name, \
+          		max(nomenklators.guid) as guid, \
+          		max(unit_type_id) as unit_type_id, \
+          		max(unit_types.name) as unit_name, \
+          		max(t3.qty) as qty, \
+          		max(p1.price1) as price1 \
+          		from ( \
+                ${strQuery}
+              ) as t3 \
+              left join nomenklators on artikul = art \
+          		left join unit_types on unit_types.code = unit_type_id \
+          		left join price_list p1 on p1.guid = nomenklators.guid \
+          		where art <> '111111111111111111111111' \
+          		group by fsort, art \
+          ) \
+          	select * from artFilter \
+  `;
+
+  const {rows} = await db.dbpgApp1.query(strQuery1);
+
+  for (const el of rows) {
+    if (el.guid) {
+      await db.queryApp('chngOrder', { orderid, guid: el.guid, qty: el.qty, price: el.price1, unit_type_id: el.unit_type_id } )
+    }
+  };
+
+  await db.queryApp('chngSumOrder', orderid );
+
+  return {rows}
+}
+
 export async function chngeCart( { guid, qty, price1, unit_type_id, userid, token }, res) {
 
   const {connid, orderid, remember_token}  = await getConnectionOrder( userid, token );
@@ -455,6 +533,7 @@ export async function chngeCart( { guid, qty, price1, unit_type_id, userid, toke
 
   return resOk;
 }
+
 
 export async function getCart( params ) {
 

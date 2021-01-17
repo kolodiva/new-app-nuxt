@@ -78,7 +78,8 @@
           @click="$router.push('/cart')"
         />
       </v-badge>
-      <v-btn id="yourCity" text :class="['buttonMFWhiteColor']"> </v-btn>
+      <v-btn id="yourCity" text :class="['buttonMFWhiteColor', 'ml-4']">
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawerHeader3" app temporary dark width="350">
       <v-toolbar dense color="transparent" flat>
@@ -199,7 +200,6 @@
       width="100vw"
       style="position: relative"
     >
-
       <v-badge
         v-if="showLimitWidth"
         color="pink"

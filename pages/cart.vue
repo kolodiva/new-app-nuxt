@@ -33,7 +33,7 @@
               </v-card-actions>
               <v-card-title class="py-0">
                 Информация о Заказе будет отправлена Вам на указанный при
-                регистрации Email.
+                отправке Email.
               </v-card-title>
             </template>
             <v-row class="pb-0" justify="space-between">
@@ -334,7 +334,7 @@
                     v-model="mister"
                     clearable
                     type="text"
-                    label="Обращение*"
+                    label="Как к Вам обращаться*"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="6" class="py-0">
@@ -389,7 +389,9 @@
               </v-col>
             </v-row>
           </v-container>
-          <small v-if="userInfo.id === 1">* обязательное поле Анонима</small>
+          <small v-if="userInfo.id === 1" class="red--text"
+            >* обязательное поле Анонима</small
+          >
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -414,11 +416,10 @@
             </v-btn>
           </v-card-actions>
           <v-card-title class="subtitle-1" style="word-break: break-word">
-            ВАШ ЗАКАЗ АНОНИМНЫЙ. ВЫ МОЖЕТЕ ПРОДОЛЖИТЬ, НО НУЖНО УКАЗАТЬ СПОСОБ
-            СВЯЗИ С ВАМИ, ЛИБО ВОЙТИ В СИСТЕМУ ПОД СВОИМ АККАУНТОМ. ЕСЛИ ВЫ
-            ОЧИСТИТЕ КУКИ ИЛИ ОТКРОЕТЕ САЙТ В ДРУГОМ БРАУЗЕРЕ В КАЧЕСТВЕ
-            АНОНИМНОГО ПОКУПАТЕЛЯ, ТО УЖЕ НЕ СМОЖЕТЕ УВИДЕТЬ СВОЙ ЗАКАЗ.
-            РЕКОМЕНДУЕМ ВАМ ВОЙТИ/ЗАРЕГИСТРИРОВАТЬСЯ ПОД СВОИМ ЛОГИНОМ.
+            Ваш заказ Анонимный. Вы можете продолжить, но нужно указать способы
+            связи с Вами, либо войти/зарег. в системе. Если Вы откроете сайт в
+            другом браузере, оставаясь Анонимным покупателем,то уже не сможете
+            продолжать работать с текущим Заказом.
           </v-card-title>
           <v-card-actions>
             <v-btn color="primary" text to="/login"> Войти </v-btn>
@@ -429,10 +430,10 @@
               text
               @click="questAnonymus = false"
             >
-              Заполните форму
+              Заполните пожалуйста данные Формы
             </v-btn>
             <v-btn v-else color="primary" text @click="sendOrder2">
-              Отправить
+              Буду отправлять Анонимно
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -784,7 +785,7 @@ export default {
       if (parseFloat(pos.qty1) === parseFloat(pos.qty2)) {
         await this.$store.dispatch("nomenklator/setSnackbar", {
           color: "red",
-          text: `Мозги керак эмас.`,
+          text: `Необходимо изменить Количество.`,
           timeout: 3000,
           showing: true,
         });
@@ -837,7 +838,7 @@ export default {
       } else {
         await this.$store.dispatch("nomenklator/setSnackbar", {
           color: "red",
-          text: `Мозги керак эмас.`,
+          text: `Необходимо изменить Количество.`,
           timeout: 3000,
           showing: true,
         });

@@ -816,7 +816,7 @@ export function getSearchNomenklator( searchtext ) {
   	inner join nomenklators t2 on t2.guid = t1.parentguid
     where not t1.itgroup
     and t1.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
-  	and t2.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
+  	and ( t2.parentguid is null or t2.parentguid not in ('yandexpagesecret', 'sekretnaya_papka') )
     and
     ( lower(t1.name || ' ' || t1.artikul || ' ' || t1.artikul_new ) ~ ${whereStr} )
   order by t1.name
@@ -828,7 +828,7 @@ export function getSearchNomenklator( searchtext ) {
     inner join nomenklators t1 on r1.id = t1.id
     group by r1.synonym, r1.descr, t1.parentguid, r1.itgroup
   `
-  // console.log(textqry);
+     //console.log(textqry);
   return {
     name: '',
     text: textqry,
