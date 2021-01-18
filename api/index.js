@@ -270,6 +270,11 @@ export async function addNewUser( params, res ) {
 
   rows = result.rows;
 
+  try {
+    await unitOrders( rows[0].id, connectionid )
+  } catch (e) {
+  }
+
   const rest = await getConnectionOrder( rows[0].id, connectionid, true );
 
   res.cookie("connectionid", rest.remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
@@ -448,7 +453,7 @@ export async function addCartFromExcel( { userid, token, arrayOrderList }, res )
 
   if (remember_token && remember_token != token) {
       res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      //res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   }
 
   let strQuery = "";
@@ -526,7 +531,7 @@ export async function chngeCart( { guid, qty, price1, unit_type_id, userid, toke
 
   if (remember_token && remember_token != token) {
       res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000, sameSite: 'none', secure: true });
-      //res.cookie('connectionid', remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      //res.cookie("connectionid", remember_token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
   }
 
   const resOk  = await chngOrder( orderid, guid, qty, price1, unit_type_id );
@@ -545,6 +550,24 @@ export async function getCart( params ) {
 
     if (orderid) {
       const { rows } = await db.queryApp('getCart', [orderid])
+
+      return rows
+    }
+  return [];
+}
+
+export async function emptyCart( params ) {
+
+  //console.log('params', params);
+
+  const { userid, token } = params;
+
+  const { orderid }  = await getConnectionOrder( userid, token, false );
+
+    if (orderid) {
+      const { rows } = await db.queryApp('emptyCart', orderid)
+
+      await db.queryApp('chngSumOrder', orderid );
 
       return rows
     }

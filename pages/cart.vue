@@ -30,6 +30,13 @@
                 <v-btn color="orange" @click="sendOrderForm = !sendOrderForm">
                   Отправить заказ в обработку
                 </v-btn>
+                <v-spacer />
+                <v-btn
+                  color="orange"
+                  @click="dialogEmptyCart = !dialogEmptyCart"
+                >
+                  Очистить корзину
+                </v-btn>
               </v-card-actions>
               <v-card-title class="py-0">
                 Информация о Заказе будет отправлена Вам на указанный при
@@ -459,6 +466,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="dialogEmptyCart" persistent max-width="350">
+      <v-card>
+        <v-card-title class=""> Предупреждение </v-card-title>
+        <v-card-text>Очистить текущую корзину?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialogEmptyCart = false">
+            НЕ сейчас
+          </v-btn>
+          <v-btn color="green darken-1" text @click="emptyCart">
+            Да, Очистить ее
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -487,6 +510,7 @@ export default {
       },
 
       dialogAddAllOrderToCart: false,
+      dialogEmptyCart: false,
 
       showComplectPos: false,
       infoComplectPos: {},
@@ -925,6 +949,15 @@ export default {
       // return await this.$api("getOrdersList", this.userInfo.id)
       //   .then((res) => item.children.push(...res))
       //   .catch((err) => console.warn(err));
+    },
+    async emptyCart() {
+      try {
+        await this.$store.dispatch("nomenklator/emptyCart");
+        this.dialogEmptyCart = false;
+        this.$router.push("/");
+      } catch (e) {
+      } finally {
+      }
     },
   },
 

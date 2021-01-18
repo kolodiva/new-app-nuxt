@@ -665,4 +665,25 @@ export const actions = {
 
     return rows;
   },
+  async emptyCart({ commit, dispatch, state }) {
+    const userid = (state.userInfo && state.userInfo.id) || 1;
+    const token = this.$cookies.get("connectionid");
+
+    const info = {
+      userid,
+      token,
+    };
+
+    // console.log(info);
+    await this.$api("emptyCart", info);
+
+    await dispatch("refreshCountCart");
+
+    await dispatch("setSnackbar", {
+      color: "green",
+      text: "Ваша Корзина пуста.",
+      timeout: 6000,
+      showing: true,
+    });
+  },
 };

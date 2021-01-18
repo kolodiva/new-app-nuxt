@@ -27,8 +27,15 @@
         </v-col>
 
         <v-col style="min-width: 350px">
+          <n-link
+            :to="`${pos.parentguid}/${pos.synonym}`"
+            style="text-decoration: none"
+          >
+            <div style="cursor: pointer">
+              {{ pos.name }}
+            </div>
+          </n-link>
           <div>
-            {{ pos.name }}<br />
             артикул: {{ pos.artikul }}, новый:
             {{ pos.artikul_new }}
 

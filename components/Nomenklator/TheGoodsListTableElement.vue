@@ -30,8 +30,14 @@
 
     <v-col cols="" class="d-flex">
       <div class="align-self-center">
-        {{ pos.name }}
-        <br />
+        <n-link
+          :to="`${pos.parentguid}/${pos.synonym}`"
+          style="text-decoration: none"
+        >
+          <div style="cursor: pointer">
+            {{ pos.name }}
+          </div>
+        </n-link>
         артикул: {{ pos.artikul }}, новый: {{ pos.artikul_new }}
         <v-card-text class="pa-0 pt-2"
           >Вес брутто кг., {{ pos["weight"] }}</v-card-text

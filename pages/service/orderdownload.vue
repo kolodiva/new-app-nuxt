@@ -4,6 +4,10 @@
       Загрузить Заказ из Эксель. Файл НЕ более 30кб и без заголовков. 1-я
       колонка Наш артикул 2-я колонка кол-во.
     </h2>
+    <v-btn v-if="orderListFromExcel.length > 0" color="orange" to="/cart">
+      Перейти в Корзину
+    </v-btn>
+
     <v-file-input
       accept=".xls, .xlsx"
       autofocus

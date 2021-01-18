@@ -116,7 +116,7 @@ export function chngSumOrder( orderid ) {
   return {
     name: '',
     text: `
-    update orders t1 set sum=(select sum(t2.sum) from order_goods t2 where t2.order_id=${orderid}) where id=${orderid}
+    update orders t1 set sum=(select coalesce(sum(t2.sum), 0) from order_goods t2 where t2.order_id=${orderid}) where id=${orderid}
     `,
     values: [],
   }
@@ -267,5 +267,18 @@ export function getCart(params) {
       order by t2.artikul
     `,
     values: params,
+  }
+}
+
+export function emptyCart(orderid) {
+
+  return {
+    name: 'empty-cart',
+    text: `
+    with deleted as (delete from order_good_complects where order_good_id in
+      ( select id from order_goods where order_id = ${orderid}))
+        delete from order_goods where order_id = ${orderid};
+    `,
+    values: [],
   }
 }
