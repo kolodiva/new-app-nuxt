@@ -25,7 +25,7 @@
             :rules="[
               required(userInfo.email),
               emailFormat(userInfo.email),
-              maxLength('Длинноватс.', 30),
+              maxLength('Длинноватс.', 60),
             ]"
           />
           <v-text-field
