@@ -267,14 +267,23 @@ NUXT NEW   cp /home/ftp_user/www/psql/nginx_nuxt_new.conf /home/dokku/app1/nginx
 
 //cp /home/ftp_user/www/psql/nginx_withoutmob.conf /home/dokku/app1/nginx.conf
 
-docker inspect app1.web.1 исправить в nginx порт для Rails
+docker inspect app1.web.1 //исправить в nginx порт для Rails
+
+//уточнить порты работы PG если нужно изменить в коде сайта
+dokku postgres:info app1
+dokku postgres:info statistica
+
 
 service nginx restart
 
 forever stopall
 
-NUXT    NODE_ENV=production PORT=6000 forever start server/index_mob.js
+NUXT MOB   NODE_ENV=production PORT=6000 forever start server/index_mob.js
 NUXT NEW    NODE_ENV=production PORT=7000 forever start server/index.js
+
+cd /home/ftp_user/www/images
+chown -R ftp_user:ftp_user .
+1726  Jan 07 21:13:40 find /home/ftp_user/www/images -type f -exec sudo chmod 777 {} \;
 
 
 //MARKO   PORT1=8081 forever start server.js
@@ -522,5 +531,5 @@ https://www.xvideos.com/video42414935/_
 
 //адресные изм на сайте
 класс в модуле enothe.scss
-dispMngExpnd 
+dispMngExpnd
 /*max-height: 500px;*/

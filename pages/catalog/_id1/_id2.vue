@@ -69,126 +69,162 @@
           >
             <v-tabs-items v-model="cur_tab_complects">
               <v-tab-item>
-                <v-card-title class="pb-0"
-                  >{{ pos.artikul }}, {{ pos.artikul_new }}
-                </v-card-title>
-                <v-card-text class="">{{ pos.name }}</v-card-text>
-                <v-row align="center">
-                  <v-col class="pt-0">
-                    <v-tabs-items v-model="cur_tab_photos">
-                      <v-tab-item v-for="(photo, i) in photos" :key="i">
-                        <v-hover v-slot:default="{ hover }">
-                          <v-img
-                            :src="`${photo.pic_path.replace('_250x250', '')}`"
-                            class="mx-auto"
-                            style="min-height: 400px; max-width: 400px"
-                          >
-                            <v-row
-                              class="fill-height flex-column"
-                              justify="center"
-                              style="cursor: pointer"
-                              @click="openDialogBigView = true"
+                <div itemscope="" itemtype="http://schema.org/Product">
+                  <meta itemprop="name" :content="pos.name" />
+                  <meta itemprop="description" :content="descr_3" />
+                  <link
+                    itemprop="url"
+                    :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+                  />
+                  <link itemprop="image" :href="pos.guid_picture" />
+                  <meta itemprop="category" :content="categoryCard" />
+                  <meta itemprop="model" :content="pos.artikul_new" />
+                  <div
+                    itemprop="offers"
+                    itemscope=""
+                    itemtype="http://schema.org/Offer"
+                  >
+                    <meta itemprop="priceCurrency" content="RUB" />
+                    <meta itemprop="price" :content="pos.price1" />
+                    <link
+                      itemprop="availability"
+                      href="http://schema.org/InStock"
+                    />
+                  </div>
+
+                  <meta
+                    property="og:title"
+                    :content="`Лучшая цена 👍: ${pos.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`"
+                  />
+                  <meta property="og:description" :content="descr_3" />
+                  <meta
+                    property="og:url"
+                    :content="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+                  />
+                  <meta property="og:type" content="website" />
+                  <meta property="og:image" :content="pos.guid_picture" />
+
+                  <v-card-title class="pb-0"
+                    >{{ pos.artikul }}, {{ pos.artikul_new }}
+                  </v-card-title>
+                  <v-card-text class="">{{ pos.name }}</v-card-text>
+                  <v-row align="center">
+                    <v-col class="pt-0">
+                      <v-tabs-items v-model="cur_tab_photos">
+                        <v-tab-item v-for="(photo, i) in photos" :key="i">
+                          <v-hover v-slot:default="{ hover }">
+                            <v-img
+                              :src="`${photo.pic_path.replace('_250x250', '')}`"
+                              class="mx-auto"
+                              style="min-height: 400px; max-width: 400px"
                             >
-                              <div class="align-self-center">
-                                <v-btn
-                                  :class="{ 'show-btns': hover }"
-                                  color="transparent"
-                                  icon
-                                  x-lage
-                                >
-                                  <v-icon
-                                    x-large
-                                    :class="{ greyMfText: hover }"
+                              <v-row
+                                class="fill-height flex-column"
+                                justify="center"
+                                style="cursor: pointer"
+                                @click="openDialogBigView = true"
+                              >
+                                <div class="align-self-center">
+                                  <v-btn
+                                    :class="{ 'show-btns': hover }"
+                                    color="transparent"
+                                    icon
+                                    x-lage
                                   >
-                                    mdi-magnify-plus
-                                  </v-icon></v-btn
-                                >
-                              </div>
-                            </v-row>
-                          </v-img>
-                        </v-hover>
-                      </v-tab-item>
-                    </v-tabs-items>
-                    <v-tabs v-model="cur_tab_photos" centered>
-                      <v-tab v-for="(photo, i) in photos" :key="i">
-                        <v-img
-                          :src="`${photo.pic_path}`"
-                          contain
-                          max-width="55"
-                        />
-                      </v-tab>
-                    </v-tabs>
-                  </v-col>
+                                    <v-icon
+                                      x-large
+                                      :class="{ greyMfText: hover }"
+                                    >
+                                      mdi-magnify-plus
+                                    </v-icon></v-btn
+                                  >
+                                </div>
+                              </v-row>
+                            </v-img>
+                          </v-hover>
+                        </v-tab-item>
+                      </v-tabs-items>
+                      <v-tabs v-model="cur_tab_photos" centered>
+                        <v-tab v-for="(photo, i) in photos" :key="i">
+                          <v-img
+                            :src="`${photo.pic_path}`"
+                            contain
+                            max-width="55"
+                          />
+                        </v-tab>
+                      </v-tabs>
+                    </v-col>
 
-                  <v-col>
-                    <v-simple-table dense class="">
-                      <template v-slot:default>
-                        <tbody>
-                          <tr v-for="item in characts" :key="item.field">
-                            <td style="border-bottom: 1px dotted #cccccc">
-                              {{ item.field }}
-                            </td>
-                            <td style="border-bottom: 0px">
-                              {{ pos[item.val] }}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </template>
-                    </v-simple-table>
-                  </v-col>
+                    <v-col>
+                      <v-simple-table dense class="">
+                        <template v-slot:default>
+                          <tbody>
+                            <tr v-for="item in characts" :key="item.field">
+                              <td style="border-bottom: 1px dotted #cccccc">
+                                {{ item.field }}
+                              </td>
+                              <td style="border-bottom: 0px">
+                                {{ pos[item.val] }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </template>
+                      </v-simple-table>
+                    </v-col>
 
-                  <v-col v-if="showLimitWidth">
-                    <div class="pa-4">
-                      <div class="d-flex">
-                        <v-tooltip bottom>
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-icon
-                              v-bind="attrs"
-                              style="transform: scale(-1, 1)"
-                              v-on="on"
-                              >mdi-head-heart-outline
-                            </v-icon>
-                          </template>
-                          <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
-                          <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
-                        </v-tooltip>
-                        &nbsp;
-                        <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
+                    <v-col v-if="showLimitWidth">
+                      <div class="pa-4">
+                        <div class="d-flex">
+                          <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-icon
+                                v-bind="attrs"
+                                style="transform: scale(-1, 1)"
+                                v-on="on"
+                                >mdi-head-heart-outline
+                              </v-icon>
+                            </template>
+                            <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
+                            <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
+                          </v-tooltip>
+                          &nbsp;
+                          <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
+                        </div>
+
+                        <v-text-field
+                          v-model="pos.qty2"
+                          rounded
+                          filled
+                          clearable
+                          type="number"
+                          :class="[
+                            'mt-4',
+                            'centered-input',
+                            { 'change-value': diffQty },
+                          ]"
+                          style="max-width: 290px"
+                          dense
+                          :label="txtLabel"
+                          @keyup.esc="pos.qty2 = pos.qty1"
+                          @keyup.enter="chngorder()"
+                          @focus="$event.target.select()"
+                          @click:clear="
+                            pos.qty2 = 0;
+                            chngorder();
+                          "
+                        >
+                          <v-img
+                            slot="append"
+                            src="/cart.png"
+                            width="28"
+                            style="cursor: pointer"
+                            @click="chngorder()"
+                          />
+                        </v-text-field>
                       </div>
-
-                      <v-text-field
-                        v-model="pos.qty2"
-                        rounded
-                        filled
-                        clearable
-                        type="number"
-                        :class="[
-                          'mt-4',
-                          'centered-input',
-                          { 'change-value': diffQty },
-                        ]"
-                        style="max-width: 290px"
-                        dense
-                        :label="txtLabel"
-                        @keyup.esc="pos.qty2 = pos.qty1"
-                        @keyup.enter="chngorder()"
-                        @focus="$event.target.select()"
-                        @click:clear="
-                          pos.qty2 = 0;
-                          chngorder();
-                        "
-                      >
-                        <v-img
-                          slot="append"
-                          src="/cart.png"
-                          width="28"
-                          style="cursor: pointer"
-                          @click="chngorder()"
-                        />
-                      </v-text-field>
-                    </div>
-                  </v-col>
-                </v-row>
+                    </v-col>
+                  </v-row>
+                </div>
               </v-tab-item>
 
               <v-tab-item>
@@ -432,6 +468,27 @@ export default {
 
       return tmp;
     },
+    descr_3() {
+      let tmp = "";
+      try {
+        tmp = this.pos.intrnt_microdata.description;
+      } catch (e) {}
+
+      return tmp;
+    },
+    categoryCard() {
+      let tmp = "";
+      try {
+        if (this.goodCardBreadCrumb) {
+          const val = this.goodCardBreadCrumb[
+            this.goodCardBreadCrumb.length - 1
+          ];
+          tmp = val.text;
+        }
+      } catch (e) {}
+
+      return tmp;
+    },
   },
   watch: {
     showComplectPos(val) {
@@ -625,49 +682,7 @@ export default {
   },
   head() {
     return {
-      title: `${this.pos.name} - Купить в Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар | Описание, фото, характеристики, цены в Интернет магазине МФ-Комплект`,
-      meta: [
-        {
-          name: "description",
-          content: `${this.pos.name} по цене ${this.pos.price1} руб., купить в Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар (стоимость мелкий опт ${this.pos.price2} руб.). Доставка во все города РФ. Оптовые цены и скидки, акции, распродажи в Интернет магазине мебельной фурнитуры МФ-Комплект`,
-        },
-        {
-          property: "og:type",
-          content: "Большой ассортимент и выгодные цены 👍:",
-        },
-        {
-          property: "og:title",
-          content: `Лучшая цена 👍: ${this.pos.name} ⭐ ⭐ ⭐ ⭐ ⭐`,
-          body: true,
-        },
-        {
-          name: "og:description",
-          content: `${this.pos.name} по цене ${this.pos.price1} руб., купить в Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар (стоимость мелкий опт ${this.pos.price2} руб.). Доставка во все города РФ. Оптовые цены и скидки, акции, распродажи в Интернет магазине мебельной фурнитуры МФ-Комплект`,
-          body: true,
-        },
-        {
-          name: "og:url",
-          content: `/catalog/${this.pos.parentguid}/${this.pos.synonym}`,
-          body: true,
-        },
-        {
-          name: "og:type",
-          content: `website`,
-          body: true,
-        },
-        {
-          name: "og:image",
-          content: `${this.pos.guid_picture}`,
-          body: true,
-        },
-      ],
-      link: [
-        {
-          hid: "canonical",
-          rel: "canonical",
-          href: `https://newfurnitura.ru/catalog/${this.pos.parentguid}/${this.pos.synonym}`,
-        },
-      ],
+      title: `${this.pos.intrnt_microdata.title} - Купить в Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар | Описание, фото, характеристики, цены в Интернет магазине МФ-Комплект`,
     };
   },
 };
