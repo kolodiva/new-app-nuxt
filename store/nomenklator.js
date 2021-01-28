@@ -431,6 +431,8 @@ export const actions = {
       complects,
       dopcomplects,
     });
+
+    return rows && rows.length > 0;
   },
   async loadSeoTextMain({ commit, dispatch, state }) {
     const { seoText } = await this.$api("getSeoTextMain");
