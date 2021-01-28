@@ -155,8 +155,14 @@ module.exports = {
 
   robots:[
     {
-      UserAgent: '*',
-       Disallow:['/login'],
+      UserAgent: 'Googlebot',
+      Sitemap: 'sitemap.xml',
+       Disallow:['/login*', '/orders*', '*?orderId*', '/cart'],
+    },
+    {
+      UserAgent: 'Yandex',
+      Sitemap: 'sitemap.xml',
+       Disallow:['/login*', '/orders*', '*?orderId*', '/cart'],
     },
   ],
 
