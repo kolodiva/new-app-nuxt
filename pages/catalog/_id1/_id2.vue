@@ -381,10 +381,14 @@ export default {
   components: {
     VueHorizontalList,
   },
-  async fetch({ app, params, query, store }) {
+  async fetch({ app, params, query, store, router, redirect }) {
     if (params && params) {
       // console.log(params.id2);
-      await store.dispatch("nomenklator/loadGoodCard", params);
+      const res = await store.dispatch("nomenklator/loadGoodCard", params);
+
+      if (!res) {
+        redirect("/error");
+      }
     }
   },
   data: () => ({

@@ -153,6 +153,13 @@ export const getters = {
       state.subNomenklator[0].itgroup
     );
   },
+  getHeaderDescription: (state) => {
+    return (
+      state.breadCrumb &&
+      state.breadCrumb.length > 0 &&
+      state.breadCrumb[state.breadCrumb.length - 1].intrnt_microdata
+    );
+  },
   pageHeader: (state) => {
     return state.pageHeader
       ? state.pageHeader.toUpperCase() === "YANDEXPAGESECRET"
@@ -172,7 +179,9 @@ export const getters = {
   },
 
   getGoodCard: (state) => {
-    return state.goodCard.rows[0];
+    return state.goodCard.rows && state.goodCard.rows.length > 0
+      ? state.goodCard.rows[0]
+      : null;
   },
   getBreadCrumb: (state) => {
     const pos = [];

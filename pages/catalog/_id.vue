@@ -10,7 +10,11 @@
       <meta itemprop="headline name" content="Главная страница сайта" />
       <meta
         itemprop="description"
-        content="Мебельная фурнитура. Наша складская программа, насчитывающая более 5000 наименований продукции, постоянно пополняется с учетом ваших потребностей."
+        :content="
+          getDescription
+            ? getDescription.description
+            : 'Мебельная фурнитура. Наша складская программа, насчитывающая более 5000 наименований продукции, постоянно пополняется с учетом ваших потребностей.'
+        "
       />
       <meta itemprop="author" content="MFKomplekt" />
       <meta
@@ -86,6 +90,7 @@ export default {
   computed: {
     ...mapGetters({
       isGroup: "nomenklator/isGroup",
+      getDescription: "nomenklator/getHeaderDescription",
     }),
   },
   beforeCreate() {},

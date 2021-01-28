@@ -133,6 +133,10 @@ export async function getGoodCard( { synonym, userid, token } ) {
 
   const rowsPhotos250 = await db.queryApp('getPhotos250', { synonym } )
 
+  if (rows.length === 0) {
+    return {status: 404, msg: "Товар с таким Кодом НЕ найден."};
+  }
+
   const parentguid = rows[0].parentguid
 
   const breadcrumb = await db.queryApp('getBreadCrumbs', { parentguid  })
