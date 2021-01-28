@@ -139,6 +139,8 @@
               <v-list-item
                 v-for="(item3, i3) in item2.submenu"
                 :key="i3 * 1000 + 1"
+                :to="item3 && item3.to"
+                :href="item3 && item3.href"
               >
                 <v-list-item-title class="ml-5">{{
                   item3.name
