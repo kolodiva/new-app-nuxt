@@ -174,6 +174,33 @@ export const getters = {
   getGoodCard: (state) => {
     return state.goodCard.rows[0];
   },
+  getBreadCrumb: (state) => {
+    const pos = [];
+
+    if (state.breadCrumb.length > 0) {
+      let itsYPS = null;
+      state.breadCrumb.forEach((v, ind) => {
+        itsYPS = v.name.toUpperCase() === "YANDEXPAGESECRET";
+        pos.push({
+          text: itsYPS ? "Каталог товаров" : v.name,
+          disable: false,
+          to: v.guid === null ? "/" : itsYPS ? "/" : v.guid,
+          ind: ind + 1,
+          qty: state.breadCrumb.length,
+        });
+      });
+    } else {
+      pos.push({
+        text: "На главную",
+        disable: false,
+        to: "/",
+        ind: 1,
+        qty: 1,
+      });
+    }
+
+    return pos;
+  },
   getGoodCardBreadCrumb: (state) => {
     const pos = [];
 
@@ -182,7 +209,7 @@ export const getters = {
       state.goodCard.breadcrumb &&
       state.goodCard.breadcrumb.length > 0
     ) {
-      state.goodCard.breadcrumb.forEach((v) => {
+      state.goodCard.breadcrumb.forEach((v, ind) => {
         pos.push({
           text:
             v.name.toUpperCase() === "YANDEXPAGESECRET"
@@ -190,6 +217,8 @@ export const getters = {
               : v.name,
           disable: false,
           to: v.guid === null ? "/" : v.guid,
+          ind: ind + 1,
+          qty: state.breadCrumb.length,
         });
       });
     } else {
@@ -197,6 +226,8 @@ export const getters = {
         text: "На главную",
         disable: false,
         to: "/",
+        ind: 1,
+        qty: 1,
       });
     }
 
@@ -210,29 +241,6 @@ export const getters = {
   },
   getGoodCardRowsPhoto: (state) => {
     return state.goodCard.rowsphoto;
-  },
-  getBreadCrumb: (state) => {
-    const pos = [];
-
-    if (state.breadCrumb.length > 0) {
-      let itsYPS = null;
-      state.breadCrumb.forEach((v) => {
-        itsYPS = v.name.toUpperCase() === "YANDEXPAGESECRET";
-        pos.push({
-          text: itsYPS ? "Каталог товаров" : v.name,
-          disable: false,
-          to: v.guid === null ? "/" : itsYPS ? "/" : v.guid,
-        });
-      });
-    } else {
-      pos.push({
-        text: "На главную",
-        disable: false,
-        to: "/",
-      });
-    }
-
-    return pos;
   },
   getSeoText: (state) => {
     return state.seoText;

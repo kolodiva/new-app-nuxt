@@ -7,18 +7,28 @@
       'pb-0',
     ]"
     style=""
+    itemscope
+    itemtype="https://schema.org/BreadcrumbList"
   >
     <template v-slot:divider>
       <v-icon>mdi-chevron-right</v-icon>
     </template>
 
     <template v-slot:item="{ item }">
-      <v-breadcrumbs-item
-        :to="item.to == '/' ? '/' : '/catalog/' + item.to"
-        exact
+      <li
+        itemprop="itemListElement"
+        itemscope
+        itemtype="https://schema.org/ListItem"
       >
-        {{ item.text }}
-      </v-breadcrumbs-item>
+        <NuxtLink
+          itemprop="item"
+          :to="item.to == '/' ? '/' : '/catalog/' + item.to"
+          style="text-decoration: none"
+        >
+          <span itemprop="name">{{ item.text }}</span></NuxtLink
+        >
+        <meta itemprop="position" :content="item.ind" />
+      </li>
     </template>
   </v-breadcrumbs>
 </template>
