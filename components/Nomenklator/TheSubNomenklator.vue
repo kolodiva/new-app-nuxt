@@ -11,7 +11,8 @@
         <n-link
           v-for="(pos, id) in subNomenklator"
           :key="id"
-          :to="`${pos.guid}`"
+          exact
+          :to="`/catalog/${pos.guid}`"
           style="text-decoration: none"
         >
           <v-card class="ma-4" tile flat>
