@@ -42,6 +42,7 @@
                 itemtype="http://schema.org/Offer"
               >
                 <meta itemprop="priceCurrency" content="RUB" />
+                <meta itemprop="price" :content="pos.price1" />
                 <link
                   itemprop="availability"
                   href="http://schema.org/InStock"
