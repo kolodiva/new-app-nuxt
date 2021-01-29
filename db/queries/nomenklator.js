@@ -75,7 +75,8 @@ export function getSubNomenklator(params) {
 
     round(COALESCE(price_list_total.price1, 0.00)*COALESCE(order_goods.qty, 0.0000), 2) as total,
 
-      nomenklators.intrnt_keyword, nomenklators.intrnt_title, nomenklators.intrnt_description, nomenklators.intrnt_og_title
+      nomenklators.intrnt_keyword, nomenklators.intrnt_title, nomenklators.intrnt_description, nomenklators.intrnt_og_title, nomenklators.intrnt_microdata
+
 
     from nomenklators
 
@@ -498,7 +499,8 @@ export function getPhotos250(params) {
   nomenklators.artikul as artikul,
   nomenklators.artikul_new as artikul_new,
   null as serv,
-  0 as sort
+  0 as sort,
+  '' as alt
   from nomenklators
   where nomenklators.synonym='${params.synonym}'
   union all
@@ -508,7 +510,8 @@ export function getPhotos250(params) {
   nomenklators.artikul as artikul,
   nomenklators.artikul_new as artikul_new,
   depots.name as serv,
-  1
+  1,
+  depots.alt
   from nomenklators left join depots on nomenklators.guid = depots.guid
   where nomenklators.synonym='${params.synonym}' and COALESCE(depots.name, '') like '%250x250%' )
   select * from r where pic_path <> '' order by sort, pic_path
@@ -531,7 +534,8 @@ export function getBreadCrumbs(params) {
 
 						union all
 
-						select nom.id, nom.level_group, nom.guid, nom.parentguid, nom.name, nom.intrnt_keyword, nom.intrnt_title, nom.intrnt_description, nom.intrnt_og_title, nom.intrnt_microdata from nomenklators as nom join r on nom.guid = r.parentguid
+						select nom.id, nom.level_group, nom.guid, nom.parentguid, nom.name, nom.intrnt_keyword, nom.intrnt_title, nom.intrnt_description, nom.intrnt_og_title, nom.intrnt_microdata
+            from nomenklators as nom join r on nom.guid = r.parentguid
 					)
 
 					select 0 as id, 'Дом' as name, null as guid,  0  as level_group, '' as intrnt_keyword, '' as intrnt_title, '' as intrnt_description, '' as intrnt_og_title, '{}'::jsonb as intrnt_microdata

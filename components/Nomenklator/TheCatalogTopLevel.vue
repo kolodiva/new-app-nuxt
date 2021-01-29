@@ -10,15 +10,16 @@
       >
         <v-card class="ma-1" tile flat>
           <v-hover v-slot:default="{ hover }">
-            <v-img
-              eager
+            <img
               :src="`./index_pic/${pos.file_name}.png`"
-              contain
-              width="160"
-              height="160"
               :class="`${hover ? 'grey lighten-3' : 'grey lighten-2'}`"
-              style="border-radius: 10px; border: 20px solid #eaecec"
-              aspect-ratio="1"
+              style="
+                border-radius: 10px;
+                border: 20px solid #eaecec;
+                width: 160px;
+                height: 160px;
+                object-fit: contain;
+              "
               :alt="`${pos.name}`"
             />
           </v-hover>

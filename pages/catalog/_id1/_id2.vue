@@ -85,7 +85,6 @@
                     itemtype="http://schema.org/Offer"
                   >
                     <meta itemprop="priceCurrency" content="RUB" />
-                    <meta itemprop="price" :content="pos.price1" />
                     <link
                       itemprop="availability"
                       href="http://schema.org/InStock"
@@ -112,44 +111,27 @@
                     <v-col class="pt-0">
                       <v-tabs-items v-model="cur_tab_photos">
                         <v-tab-item v-for="(photo, i) in photos" :key="i">
-                          <v-hover v-slot:default="{ hover }">
-                            <v-img
+                          <div style="position: relative">
+                            <img
                               :src="`${photo.pic_path.replace('_250x250', '')}`"
-                              class="mx-auto"
-                              style="min-height: 400px; max-width: 400px"
-                            >
-                              <v-row
-                                class="fill-height flex-column"
-                                justify="center"
-                                style="cursor: pointer"
-                                @click="openDialogBigView = true"
-                              >
-                                <div class="align-self-center">
-                                  <v-btn
-                                    :class="{ 'show-btns': hover }"
-                                    color="transparent"
-                                    icon
-                                    x-lage
-                                  >
-                                    <v-icon
-                                      x-large
-                                      :class="{ greyMfText: hover }"
-                                    >
-                                      mdi-magnify-plus
-                                    </v-icon></v-btn
-                                  >
-                                </div>
-                              </v-row>
-                            </v-img>
-                          </v-hover>
+                              class="d-block mx-auto"
+                              style="
+                                min-height: 400px;
+                                max-width: 400px;
+                                cursor: pointer;
+                              "
+                              :alt="photo.name + ' ' + photo.alt"
+                              @click="openDialogBigView = true"
+                            />
+                          </div>
                         </v-tab-item>
                       </v-tabs-items>
                       <v-tabs v-model="cur_tab_photos" centered>
                         <v-tab v-for="(photo, i) in photos" :key="i">
-                          <v-img
+                          <img
                             :src="`${photo.pic_path}`"
-                            contain
-                            max-width="55"
+                            style="max-width: 55px; object-fit: contain"
+                            :alt="photo.name + ' ' + photo.alt"
                           />
                         </v-tab>
                       </v-tabs>

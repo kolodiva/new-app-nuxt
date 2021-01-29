@@ -25,12 +25,10 @@
 
       <v-toolbar-title v-if="!showLimitWidth">
         <n-link to="/">
-          <v-img
-            class="pt-5"
+          <img
+            class="pt-1"
             src="/logo_small.png"
-            max-height="50"
-            max-width="90"
-            contain
+            style="max-width: 90px; object-fit: contain"
           />
         </n-link>
       </v-toolbar-title>
@@ -69,12 +67,10 @@
         :class="[header2.css_class]"
         overlap
       >
-        <v-img
+        <img
           src="/korzina_belaya.png"
-          width="30"
-          contain
           class=""
-          style="cursor: pointer"
+          style="cursor: pointer; max-width: 30px; object-fit: contain"
           @click="$router.push('/cart')"
         />
       </v-badge>
@@ -164,12 +160,15 @@
     <v-toolbar height="105" width="100vw" flat>
       <v-toolbar-title>
         <n-link to="/">
-          <v-img
+          <img
             class=""
             src="/logo_big.png"
-            max-height="80"
-            max-width="212"
-            contain
+            style="
+              cursor: pointer;
+              max-width: 212px;
+              max-height: 80px;
+              object-fit: contain;
+            "
           />
         </n-link>
       </v-toolbar-title>

@@ -7,11 +7,16 @@
     min-height="484"
     style="margin: 3px"
   >
-    <v-img
+    <img
       v-if="pos.is_complect > 0"
       src="/isComplect.png"
-      width="32"
-      style="cursor: pointer; position: absolute; right: 5px; top: 5px"
+      style="
+        cursor: pointer;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        width: 32px;
+      "
     />
 
     <div class="flex-grow-0 pa-1 pl-2">
@@ -25,16 +30,20 @@
       :to="`${pos.parentguid}/${pos.synonym}`"
       style="text-decoration: none"
     >
-      <v-img
-        :src="cPic"
-        contain
-        max-height="298"
-        min-height="298"
-        class=""
-        style="cursor: pointer"
-        @error="onImgErrorLoad"
-      >
-      </v-img>
+      <div style="position: relative">
+        <img
+          :src="cPic"
+          class=""
+          style="
+            cursor: pointer;
+            max-height: 260px;
+            min-height: 260px;
+            object-fit: contain;
+          "
+          :alt="pos.intrnt_microdata.title"
+          @error="onImgErrorLoad"
+        />
+      </div>
     </n-link>
 
     <v-divider class="mx-3" />
@@ -72,11 +81,10 @@
       @focus="$event.target.select()"
       @wheel="1 === 1"
     >
-      <v-img
+      <img
         slot="append"
         src="/cart.png"
-        width="28"
-        style="cursor: pointer"
+        style="cursor: pointer; width: 28px"
         @click="$emit('chngorder', id)"
       />
     </v-text-field>

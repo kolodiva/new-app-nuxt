@@ -27,14 +27,12 @@
         nect-icon="mdi-chevron-right"
       >
         <v-tab-item v-for="(photo, i) in photos" :key="i">
-          <v-img
+          <img
             :src="`${photo.pic_path.replace('_250x250', '')}`"
-            contain
-            class="mx-auto"
-            min-height="40vh"
-            max-height="65vh"
-          >
-          </v-img> </v-tab-item
+            class="d-block mx-auto"
+            style="min-height: 40vh; max-height: 65vh; object-fit: contain"
+            :alt="photo.name + ' ' + photo.alt"
+          /> </v-tab-item
       ></v-tabs-items>
       <v-divider />
 
@@ -45,7 +43,11 @@
             :key="i"
             style="height: 100px; width: 120px"
           >
-            <v-img :src="`${photo.pic_path}`" contain max-width="120" />
+            <img
+              :src="`${photo.pic_path}`"
+              style="max-width: 120px; object-fit: contain"
+              :alt="photo.name + ' ' + photo.alt"
+            />
           </v-tab>
         </v-tabs>
       </v-card-actions>

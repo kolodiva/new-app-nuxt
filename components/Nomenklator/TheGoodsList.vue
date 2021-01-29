@@ -18,32 +18,73 @@
           <template v-if="subNomenklator.length === 0">
             <h2>Товар не найден по условиям отбора.</h2>
           </template>
-          <template v-else-if="catalogTypeView === 'mosaic'">
-            <TheGoodsListMosaicElement
+          <template v-else>
+            <div
               v-for="(pos, id) in subNomenklator"
-              :id="id"
               :key="id"
-              :pos="pos"
-              @chngorder="chngorder"
-            />
-          </template>
-          <template v-else-if="catalogTypeView === 'list'">
-            <TheGoodsListListElement
-              v-for="(pos, id) in subNomenklator"
-              :id="id"
-              :key="id"
-              :pos="pos"
-              @chngorder="chngorder"
-            />
-          </template>
-          <template v-else-if="catalogTypeView === 'table'">
-            <TheGoodsListTableElement
-              v-for="(pos, id) in subNomenklator"
-              :id="id"
-              :key="id"
-              :pos="pos"
-              @chngorder="chngorder"
-            />
+              itemscope=""
+              itemtype="http://schema.org/Product"
+            >
+              <meta itemprop="name" :content="pos.name" />
+              <meta
+                itemprop="description"
+                :content="pos.intrnt_microdata.description"
+              />
+              <link
+                itemprop="url"
+                :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+              />
+              <link itemprop="image" :href="pos.guid_picture" />
+              <meta itemprop="model" :content="pos.artikul_new" />
+              <div
+                itemprop="offers"
+                itemscope=""
+                itemtype="http://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="RUB" />
+                <link
+                  itemprop="availability"
+                  href="http://schema.org/InStock"
+                />
+              </div>
+
+              <meta
+                property="og:title"
+                :content="`Лучшая цена 👍: ${pos.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`"
+              />
+              <meta
+                property="og:description"
+                :content="pos.intrnt_microdata.description"
+              />
+              <meta
+                property="og:url"
+                :content="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+              />
+              <meta property="og:type" content="website" />
+              <meta property="og:image" :content="pos.guid_picture" />
+
+              <template v-if="catalogTypeView === 'mosaic'">
+                <TheGoodsListMosaicElement
+                  :id="id"
+                  :pos="pos"
+                  @chngorder="chngorder"
+                />
+              </template>
+              <template v-else-if="catalogTypeView === 'list'">
+                <TheGoodsListListElement
+                  :id="id"
+                  :pos="pos"
+                  @chngorder="chngorder"
+                />
+              </template>
+              <template v-else-if="catalogTypeView === 'table'">
+                <TheGoodsListTableElement
+                  :id="id"
+                  :pos="pos"
+                  @chngorder="chngorder"
+                />
+              </template>
+            </div>
           </template>
         </v-card>
       </v-col>
@@ -78,6 +119,7 @@ export default {
       filterFilled: "nomenklator/getFilterOpened",
       filterFromGroup: "nomenklator/getFilterFromGroup",
       pageHeader: "nomenklator/pageHeader",
+      pageTitle: "nomenklator/pageTitle",
     }),
   },
   mounted() {
@@ -119,7 +161,7 @@ export default {
 
   head() {
     return {
-      title: `${this.pageHeader} - Купить ${this.pageHeader} для мебели | МЕБЕЛЬНАЯ ФУРНИТУРА | ВСЕ ДЛЯ МЕБЕЛИ | МФ-КОМПЛЕКТ Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар`,
+      title: `${this.pageTitle} - Купить ${this.pageTitle} для мебели | МЕБЕЛЬНАЯ ФУРНИТУРА | ВСЕ ДЛЯ МЕБЕЛИ | МФ-КОМПЛЕКТ Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар`,
       meta: [],
     };
   },

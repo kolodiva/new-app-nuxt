@@ -16,16 +16,17 @@
         >
           <v-card class="ma-4" tile flat>
             <v-hover v-slot:default="{ hover }">
-              <v-img
-                eager
+              <img
                 :src="`${pos.guid_picture_small}`"
-                contain
-                width="160"
-                height="160"
                 :class="`${hover ? 'grey lighten-3' : 'grey lighten-2'}`"
-                style="border-radius: 10px; border: 20px solid #eaecec"
-                aspect-ratio="1"
-                :alt="`${pos.name}`"
+                style="
+                  border-radius: 10px;
+                  border: 20px solid #eaecec;
+                  width: 160px;
+                  height: 160px;
+                  object-fit: contain;
+                "
+                :alt="`${pos.intrnt_microdata.title}`"
               />
             </v-hover>
 
@@ -63,6 +64,7 @@ export default {
       canUseFilter: "nomenklator/getCanUseFilter",
       filterFilled: "nomenklator/getFilterOpened",
       pageHeader: "nomenklator/pageHeader",
+      pageTitle: "nomenklator/pageTitle",
     }),
   },
   watch: {},
@@ -84,7 +86,7 @@ export default {
 
   head() {
     return {
-      title: `${this.pageHeader} - Купить ${this.pageHeader} для мебели | МЕБЕЛЬНАЯ ФУРНИТУРА | ВСЕ ДЛЯ МЕБЕЛИ | МФ-КОМПЛЕКТ Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар`,
+      title: `${this.pageTitle} - Купить ${this.pageTitle} для мебели | МЕБЕЛЬНАЯ ФУРНИТУРА | ВСЕ ДЛЯ МЕБЕЛИ | МФ-КОМПЛЕКТ Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар`,
       meta: [],
     };
   },

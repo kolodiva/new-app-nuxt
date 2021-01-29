@@ -13,6 +13,7 @@ export const state = () => ({
   goodCard: [],
   breadCrumb: [],
   pageHeader: "",
+  pageTitle: "",
   seoText: "",
   seoTextMain: "",
   waitNomenklatorLoad: undefined,
@@ -41,7 +42,18 @@ export const mutations = {
   },
   SET_BREAD_CRUMB(state, rows) {
     state.breadCrumb = rows;
-    state.pageHeader = rows.length > 1 ? rows[rows.length - 1].name : "";
+
+    if (rows && rows.length > 1) {
+      const lastRec = rows[rows.length - 1];
+
+      state.pageHeader = lastRec.name;
+
+      if (lastRec.intrnt_microdata && lastRec.intrnt_microdata.title) {
+        state.pageTitle = lastRec.intrnt_microdata.title;
+      } else {
+        state.pageTitle = "lastRec.name";
+      }
+    }
   },
   SET_SEO_TEXT(state, rows) {
     state.seoText = rows.length > 0 ? rows[0].content : "";
@@ -166,6 +178,9 @@ export const getters = {
         ? "Каталог товаров"
         : state.pageHeader
       : "Мебельная фурнитура";
+  },
+  pageTitle: (state) => {
+    return state.pageTitle;
   },
   getSubNomenklator: (state) => {
     return state.subNomenklator;

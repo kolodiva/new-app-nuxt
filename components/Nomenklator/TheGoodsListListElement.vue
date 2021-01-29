@@ -1,5 +1,5 @@
 <template>
-  <v-row class="mb-5" style="width: 100vw; min-height: 220px">
+  <v-row class="mb-5" style="width: 83vw; min-height: 220px">
     <v-col width="80%" class="greyMfBorder">
       <v-row style="" class="ma-0">
         <v-col style="min-width: 220px; max-width: 250px">
@@ -7,22 +7,30 @@
             :to="`${pos.parentguid}/${pos.synonym}`"
             style="text-decoration: none"
           >
-            <v-img
-              :src="cPic"
-              contain
-              max-height="298"
-              min-height="298"
-              class=""
-              style="cursor: pointer"
-              @error="onImgErrorLoad"
-            >
-              <v-img
+            <div style="position: relative">
+              <img
+                :src="cPic"
+                class=""
+                style="
+                  cursor: pointer;
+                  max-height: 220px;
+                  min-height: 220px;
+                  object-fit: contain;
+                "
+                :alt="pos.intrnt_microdata.title"
+                @error="onImgErrorLoad"
+              />
+              <img
                 v-if="pos.is_complect > 0"
                 src="/isComplect.png"
-                width="32"
-                style="cursor: pointer; position: absolute; right: 15px"
+                style="
+                  cursor: pointer;
+                  position: absolute;
+                  right: 15px;
+                  width: 32px;
+                "
               />
-            </v-img>
+            </div>
           </n-link>
         </v-col>
 

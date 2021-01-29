@@ -2,29 +2,38 @@
   <v-row
     class="mb-3 greyMfBorder"
     no-gutters
-    style="width: 100vw; min-height: 100px"
+    style="width: 83vw; min-height: 100px"
   >
     <v-col cols="2">
       <n-link
         :to="`${pos.parentguid}/${pos.synonym}`"
         style="text-decoration: none"
       >
-        <v-img
-          :src="cPic"
-          contain
-          max-height="95"
-          min-height="95"
-          class=""
-          style="cursor: pointer"
-          @error="onImgErrorLoad"
-        >
-          <v-img
+        <div style="position: relative">
+          <img
+            :src="cPic"
+            class="d-block mx-auto"
+            style="
+              cursor: pointer;
+              max-height: 95px;
+              min-height: 95px;
+              object-fit: contain;
+            "
+            :alt="pos.intrnt_microdata.title"
+            @error="onImgErrorLoad"
+          />
+          <img
             v-if="pos.is_complect > 0"
             src="/isComplect.png"
-            width="16"
-            style="cursor: pointer; position: absolute; right: 60px; top: 5px"
+            style="
+              cursor: pointer;
+              position: absolute;
+              right: 15px;
+              top: 5px;
+              width: 16px;
+            "
           />
-        </v-img>
+        </div>
       </n-link>
     </v-col>
 
