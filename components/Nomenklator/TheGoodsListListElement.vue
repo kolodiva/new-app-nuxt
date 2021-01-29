@@ -3,10 +3,7 @@
     <v-col width="80%" class="greyMfBorder">
       <v-row style="" class="ma-0">
         <v-col style="min-width: 220px; max-width: 250px">
-          <n-link
-            :to="`${pos.parentguid}/${pos.synonym}`"
-            style="text-decoration: none"
-          >
+          <n-link append :to="`${pos.synonym}`" style="text-decoration: none">
             <div style="position: relative">
               <img
                 :src="cPic"
@@ -35,10 +32,7 @@
         </v-col>
 
         <v-col style="min-width: 350px">
-          <n-link
-            :to="`${pos.parentguid}/${pos.synonym}`"
-            style="text-decoration: none"
-          >
+          <n-link append :to="`${pos.synonym}`" style="text-decoration: none">
             <div style="cursor: pointer">
               {{ pos.name }}
             </div>

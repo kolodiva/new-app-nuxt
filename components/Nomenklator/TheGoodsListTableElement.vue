@@ -5,10 +5,7 @@
     style="width: 83vw; min-height: 100px"
   >
     <v-col cols="2">
-      <n-link
-        :to="`${pos.parentguid}/${pos.synonym}`"
-        style="text-decoration: none"
-      >
+      <n-link append :to="`${pos.synonym}`" style="text-decoration: none">
         <div style="position: relative">
           <img
             :src="cPic"
@@ -39,10 +36,7 @@
 
     <v-col cols="" class="d-flex">
       <div class="align-self-center">
-        <n-link
-          :to="`${pos.parentguid}/${pos.synonym}`"
-          style="text-decoration: none"
-        >
+        <n-link append :to="`${pos.synonym}`" style="text-decoration: none">
           <div style="cursor: pointer">
             {{ pos.name }}
           </div>

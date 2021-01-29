@@ -26,10 +26,7 @@
       }}</span>
     </div>
 
-    <n-link
-      :to="`${pos.parentguid}/${pos.synonym}`"
-      style="text-decoration: none"
-    >
+    <n-link append :to="`${pos.synonym}`" style="text-decoration: none">
       <div style="position: relative">
         <img
           :src="cPic"
