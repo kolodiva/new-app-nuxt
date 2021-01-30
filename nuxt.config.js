@@ -156,12 +156,12 @@ module.exports = {
   robots:[
     {
       UserAgent: 'Googlebot',
-      Sitemap: 'sitemap.xml',
+      Sitemap: 'https://www.newfurnitura.ru/sitemap.xml',
        Disallow:['/login*', '/orders*', '*?orderId*', '/cart'],
     },
     {
       UserAgent: 'Yandex',
-      Sitemap: 'sitemap.xml',
+      Sitemap: 'https://www.newfurnitura.ru/sitemap.xml',
        Disallow:['/login*', '/orders*', '*?orderId*', '/cart'],
     },
   ],
