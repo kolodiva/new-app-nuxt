@@ -271,11 +271,10 @@
               >
                 <v-tooltip top>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-img
-                      class="mx-auto"
-                      max-width="72"
+                    <img
+                      class="d-block mx-auto"
                       src="/icon-pdf.png"
-                      style="cursor: pointer"
+                      style="cursor: pointer; max-width: 72px"
                       v-bind="attrs"
                       v-on="on"
                       @click="downloadResource(posInstr.pic_path)"
