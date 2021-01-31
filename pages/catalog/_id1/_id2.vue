@@ -35,7 +35,7 @@
                   <v-spacer /> Характеристики
                 </v-tab>
                 <v-tab
-                  v-if="false"
+                  v-if="instructions && instructions.length > 0"
                   style="height: 30px"
                   @click="goTo('#section_4')"
                 >
@@ -255,14 +255,41 @@
             <v-card-text class="pt-0" v-html="descr_1"></v-card-text
           ></v-card>
           <v-card
-            v-if="false"
+            v-if="instructions && instructions.length > 0"
             id="section_4"
-            style="height: 17vh"
             class="mt-1"
             flat
           >
-            <v-card-title>Инструкции</v-card-title></v-card
-          >
+            <v-card-title>Инструкции</v-card-title>
+
+            <v-row class="mx-0">
+              <v-card
+                v-for="(posInstr, ind) in instructions"
+                :key="ind"
+                flat
+                class="pa-3"
+              >
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-img
+                      class="mx-auto"
+                      max-width="72"
+                      src="/icon-pdf.png"
+                      style="cursor: pointer"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="downloadResource(posInstr.pic_path)"
+                    />
+                  </template>
+                  <span>Просмотреть информацию</span>
+                </v-tooltip>
+
+                <v-card-subtitle style="max-width: 135px; text-align: center"
+                  ><span>{{ posInstr.alt }}</span></v-card-subtitle
+                >
+              </v-card>
+            </v-row>
+          </v-card>
         </v-col>
         <v-col
           v-if="!showLimitWidth"
@@ -419,6 +446,7 @@ export default {
       goodCardBreadCrumb: "nomenklator/getGoodCardBreadCrumb",
       posDopComplects: "nomenklator/getGoodCardDopComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
+      instructions: "nomenklator/getInstructions",
       showLimitWidth: "service/getShowLimitWidth",
     }),
     txtLabel() {
@@ -665,6 +693,10 @@ export default {
     openShowComplectPos(pos) {
       this.infoComplectPos = { ...pos };
       this.showComplectPos = true;
+    },
+
+    downloadResource(path) {
+      window.open(path);
     },
   },
   head() {

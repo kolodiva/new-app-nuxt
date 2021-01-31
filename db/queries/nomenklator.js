@@ -523,6 +523,25 @@ export function getPhotos250(params) {
     values: [],
   }
 }
+export function getInstructions(params) {
+
+  const textqry=`
+  select
+  COALESCE(depots.name, '') as pic_path,
+  nomenklators.name as name,
+  nomenklators.artikul as artikul,
+  nomenklators.artikul_new as artikul_new,
+  depots.alt
+  from nomenklators inner join depots on nomenklators.guid = depots.guid
+  where nomenklators.synonym='${params.synonym}' and type='instruction'
+  `
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getBreadCrumbs(params) {
 
   const textqry=`

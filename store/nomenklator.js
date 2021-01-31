@@ -36,9 +36,16 @@ export const mutations = {
   },
   SET_GOOD_CARD(
     state,
-    { rows, rowsphoto, breadcrumb, complects, dopcomplects }
+    { rows, rowsphoto, rowsinstructions, breadcrumb, complects, dopcomplects }
   ) {
-    state.goodCard = { rows, rowsphoto, breadcrumb, complects, dopcomplects };
+    state.goodCard = {
+      rows,
+      rowsphoto,
+      rowsinstructions,
+      breadcrumb,
+      complects,
+      dopcomplects,
+    };
   },
   SET_BREAD_CRUMB(state, rows) {
     state.breadCrumb = rows;
@@ -266,6 +273,9 @@ export const getters = {
   getGoodCardRowsPhoto: (state) => {
     return state.goodCard.rowsphoto;
   },
+  getInstructions: (state) => {
+    return state.goodCard.rowsinstructions;
+  },
   getSeoText: (state) => {
     return state.seoText;
   },
@@ -430,6 +440,7 @@ export const actions = {
     const {
       rows,
       rowsphoto,
+      rowsinstructions,
       breadcrumb,
       complects,
       dopcomplects,
@@ -442,6 +453,7 @@ export const actions = {
     commit("SET_GOOD_CARD", {
       rows,
       rowsphoto,
+      rowsinstructions,
       breadcrumb,
       complects,
       dopcomplects,

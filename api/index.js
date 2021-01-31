@@ -131,11 +131,12 @@ export async function getGoodCard( { synonym, userid, token } ) {
 
   const { rows } = await db.queryApp('getGoodCard', { synonym, orderid } )
 
-  const rowsPhotos250 = await db.queryApp('getPhotos250', { synonym } )
-
   if (rows.length === 0) {
     return {status: 404, msg: "Товар с таким Кодом НЕ найден."};
   }
+  const rowsInstructions = await db.queryApp('getInstructions', { synonym } )
+
+  const rowsPhotos250 = await db.queryApp('getPhotos250', { synonym } )
 
   const parentguid = rows[0].parentguid
 
@@ -146,7 +147,7 @@ export async function getGoodCard( { synonym, userid, token } ) {
   const dopcomplects = await db.queryApp('getGoodCardDopComplects', { synonym, orderid })
   //console.log('complects', complects[1].rows)
 
-  return { rows: rows, rowsphoto: rowsPhotos250.rows, breadcrumb: breadcrumb.rows, complects: complects[1].rows, dopcomplects: dopcomplects[1].rows  };
+  return { rows: rows, rowsphoto: rowsPhotos250.rows, rowsinstructions: rowsInstructions.rows, breadcrumb: breadcrumb.rows, complects: complects[1].rows, dopcomplects: dopcomplects[1].rows  };
 }
 
 export async function getStrucCatalog_old() {
