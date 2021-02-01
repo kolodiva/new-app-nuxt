@@ -111,6 +111,8 @@
 </template>
 
 <script>
+// import axios from "axios";
+
 import { mapGetters } from "vuex";
 const pageSize = 12;
 
@@ -128,6 +130,7 @@ export default {
       path_to_file_pdf: null,
       data_file_pdf: null,
       selectCity: [],
+      selectedFile: "",
     };
   },
 
@@ -193,10 +196,11 @@ export default {
 
         formData.append(
           "pdf_doc",
-          this.path_to_file_pdf,
+          this.selectedFile,
           this.newcard.path_pdf_new
         );
         await fetch("https://www.newfurnitura.ru/news", {
+          // await fetch("http://localhost:5000/test", {
           method: "POST",
           body: formData,
         });
@@ -233,12 +237,14 @@ export default {
         this.pic2 = imgData;
       }
     },
-    async previewPathToFilePDF() {
+    async previewPathToFilePDF(file) {
       // debugger;
       if (this.path_to_file_pdf) {
         // this.pic2 = URL.createObjectURL(this.pic2new);
         const { imgData } = await this.readImgAsData(this.path_to_file_pdf);
         this.data_file_pdf = imgData;
+
+        this.selectedFile = file;
       }
     },
     async openNewCard(item) {
