@@ -224,7 +224,7 @@ export function getSubNomenklatorByFilter(params) {
 
     round(COALESCE(price_list_total.price1, 0.00)*COALESCE(order_goods.qty, 0.0000), 2) as total,
 
-      nomenklators.intrnt_keyword, nomenklators.intrnt_title, nomenklators.intrnt_description, nomenklators.intrnt_og_title
+      nomenklators.intrnt_keyword, nomenklators.intrnt_title, nomenklators.intrnt_description, nomenklators.intrnt_og_title, nomenklators.intrnt_microdata
 
     from nomenklators
 

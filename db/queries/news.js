@@ -53,6 +53,21 @@ export function getNewsArhive( {pageSize, currentLength, curFilial} ) {
   }
 }
 
+export function getNewCard( id ) {
+
+  const textqry=`
+  select id, name, 'data:image/jpeg; base64, ' || encode(picture1, 'escape') pic1, path_pic2 pic2, on_slider, on_public, filials, path_pdf, date
+  from new_blocks where id = ${id}
+  `
+//console.log(textqry);
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
+
 
 export function getManagers(id = undefined) {
 

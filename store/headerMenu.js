@@ -30,4 +30,9 @@ export const getters = {
 
     return list;
   },
+  getCityNameClassicOrder: (state) => {
+    const list = ["МСК", "РНД", "НСБ", "ЕКБ", "КЗН", "СПБ", "КРД"];
+
+    return list;
+  },
 };

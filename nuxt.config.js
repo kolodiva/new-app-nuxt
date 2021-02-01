@@ -157,12 +157,12 @@ module.exports = {
     {
       UserAgent: 'Googlebot',
       Sitemap: 'https://www.newfurnitura.ru/sitemap.xml',
-       Disallow:['/login*', '/orders*', '*?orderId*', '/cart'],
+       Disallow:['/login*', '/orders*', '*?orderId*', '/cart', '/service*'],
     },
     {
       UserAgent: 'Yandex',
       Sitemap: 'https://www.newfurnitura.ru/sitemap.xml',
-       Disallow:['/login*', '/orders*', '*?orderId*', '/cart'],
+       Disallow:['/login*', '/orders*', '*?orderId*', '/cart', '/service*'],
     },
   ],
 

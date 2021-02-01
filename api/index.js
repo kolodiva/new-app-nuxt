@@ -2,6 +2,8 @@ const db = require('../db')
 const nodemailer = require('nodemailer');
 const arrayToTree = require('array-to-tree');
 
+//const fs = require('fs')
+
 const {matchPass, genPass, genUuid} = require('./crypto')
 
 //connections
@@ -105,7 +107,7 @@ export async function getGroupFilter( params ) {
 
   const { parentguid } = params;
 
-  const groupFilter = await db.queryAppSqlExec(' \
+  const txtQuery = ' \
   with guids as ( \
              with recursive r as ( \
                 select name, parentguid, guid, itgroup from nomenklators where parentguid = $1 \
@@ -118,7 +120,8 @@ export async function getGroupFilter( params ) {
   			 join guids on properties.nomenklator_id = guids.guid \
   			 group by property \
   			 order by property \
-    ', [parentguid] );
+    ';
+  const groupFilter = await db.queryAppSqlExec( txtQuery, [parentguid] );
 
   return {rows: groupFilter.rows};
 }
@@ -202,6 +205,37 @@ export async function getNewsArhive( {pageSize, currentLength, curFilial} ) {
   //console.log(rows)
 
   return rows;
+}
+
+export async function getNewCard( {id} ) {
+
+  const {rows} = await db.queryApp('getNewCard', id )
+
+  //console.log(rows)
+
+  return rows;
+}
+export async function saveNewCard( {params} ) {
+
+  //const {rows} = await db.queryApp('getNewCard', id )
+
+  //console.log(params)
+
+  // f = File.open('e:/store/11111/' + params.path_pdf_new, 'wb');
+
+  //fs.writeFile( 'e:/store/11111/' + params.path_pdf_new, Base64.decode64( params.data_file_pdf ) )
+  // fs.open('e:/store/11111/' + params.path_pdf_new, 'w', function (err, file) {
+  //   if (err) throw err;
+  //   console.log('Saved!');
+  // });
+  //fs.writeFile( 'e:/store/11111/' + params.path_pdf_new, params.data_file_pdf, (err) => {
+  // fs.writeFile( 'e:/store/11111/' + params.path_pdf_new, params.data_file_pdf, (err) => {
+  //   if (err) throw err;
+  // } )
+
+ // f.close
+
+  return 'ok';
 }
 
 //auth
