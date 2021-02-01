@@ -199,7 +199,7 @@ export default {
           this.selectedFile,
           this.newcard.path_pdf_new
         );
-        await fetch("https://www.newfurnitura.ru/news", {
+        await fetch("https://www.newfurnitura.ru/advs", {
           // await fetch("http://localhost:5000/test", {
           method: "POST",
           body: formData,
