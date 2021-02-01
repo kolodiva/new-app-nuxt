@@ -25,6 +25,8 @@ app.post('/loadfile', (req, res) => {
 
     // Use the mv() method to place the file somewhere on your server
     //myFile.mv(`${__dirname}/test/${myFile.name}`, function (err) {
+    console.log('__dirname: ' + __dirname);
+    
     myFile.mv(`/home/ftp_user/www/news/${myFile.name}`, function (err) {
         if (err) {
             console.log(err)
