@@ -11,7 +11,7 @@ const cors = require('cors')
 app.use(cookieParser())
 
 // middle ware
-app.use(express.static('test'))
+app.use(express.static('newsfolder'))
 app.use(cors())
 app.use(fileUpload());
 
