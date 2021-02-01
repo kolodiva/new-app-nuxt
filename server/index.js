@@ -26,7 +26,7 @@ app.post('/loadfile', (req, res) => {
     // Use the mv() method to place the file somewhere on your server
     //myFile.mv(`${__dirname}/test/${myFile.name}`, function (err) {
 
-    myFile.mv(`/newsfolder/${myFile.name}`, function (err) {
+    myFile.mv(`${myFile.name}`, function (err) {
         if (err) {
             console.log(err)
             return res.status(500).send({ msg: "fuck eroor", dirname:  __dirname});
