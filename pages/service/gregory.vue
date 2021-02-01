@@ -111,7 +111,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 
 import { mapGetters } from "vuex";
 const pageSize = 12;
@@ -164,7 +164,7 @@ export default {
 
       return res[1] ? res[1].trim() : null;
     },
-    async saveNewBlock() {
+    saveNewBlock() {
       const tmpSelectCity = [0, 0, 0, 0, 0, 0, 0];
       this.selectCity.forEach((item, i) => {
         tmpSelectCity[this.filials.indexOf(item)] = 1;
@@ -194,16 +194,20 @@ export default {
         //
         const formData = new FormData();
 
-        formData.append(
-          "pdf_doc",
-          this.selectedFile,
-          this.newcard.path_pdf_new
-        );
-        await fetch("https://www.newfurnitura.ru/advs", {
-          // await fetch("http://localhost:5000/test", {
-          method: "POST",
-          body: formData,
-        });
+        formData.append("file", this.selectedFile, this.newcard.path_pdf_new);
+        // await fetch("https://www.newfurnitura.ru/advs", {
+        //   // await fetch("http://localhost:5000/test", {
+        //   method: "POST",
+        //   body: formData,
+        // });
+        axios
+          .post("http://localhost:5000/loadfile", formData)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
 
       // console.log(this.getRandomString(22));

@@ -5,7 +5,35 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const https = require('https')
 
+const fileUpload = require('express-fileupload');
+const cors = require('cors')
+
 app.use(cookieParser())
+
+// middle ware
+app.use(express.static('test'))
+app.use(cors())
+app.use(fileUpload());
+
+app.post('/loadfile', (req, res) => {
+
+    if (!req.files) {
+        return res.status(500).send({ msg: "file is not found" })
+    }
+
+    const myFile = req.files.file;
+
+    // Use the mv() method to place the file somewhere on your server
+    //myFile.mv(`${__dirname}/test/${myFile.name}`, function (err) {
+    myFile.mv(`/home/ftp_user/www/news/${myFile.name}`, function (err) {
+        if (err) {
+            console.log(err)
+            return res.status(500).send({ msg: "fuck eroor" });
+        }
+        return res.send({ file: myFile.name, path: `/${myFile.name}`, ty: myFile.type });
+    });
+})
+
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
