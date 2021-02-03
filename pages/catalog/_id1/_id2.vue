@@ -766,6 +766,26 @@ export default {
           name: "og:image:height",
           content: `600`,
         },
+        {
+          name: "og:image",
+          content: `${this.pos.guid_picture}`,
+        },
+        {
+          name: "og:image:secure_url",
+          content: `${this.pos.guid_picture}`,
+        },
+        {
+          name: "og:image:type",
+          content: `image/jpeg`,
+        },
+        {
+          name: "og:image:width",
+          content: `250`,
+        },
+        {
+          name: "og:image:height",
+          content: `250`,
+        },
       ],
     };
   },
