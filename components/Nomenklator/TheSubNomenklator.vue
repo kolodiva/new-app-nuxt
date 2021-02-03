@@ -32,11 +32,6 @@
           itemprop="itemListElement"
           itemscope
         >
-          <link
-            itemprop="url"
-            :href="`https://www.newfurnitura.ru/catalog/${pos.guid}`"
-          />
-          <link itemprop="name" :href="pos.name" />
           <v-card class="ma-4" tile flat>
             <v-hover v-slot:default="{ hover }">
               <img

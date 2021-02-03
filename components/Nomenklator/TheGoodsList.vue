@@ -37,11 +37,6 @@
               itemscope
               itemprop="itemListElement"
             >
-              <link
-                itemprop="url"
-                :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
-              />
-              <link itemprop="name" :href="pos.name" />
               <div itemscope="" itemtype="http://schema.org/Product">
                 <meta itemprop="name" :content="pos.name" />
                 <meta
