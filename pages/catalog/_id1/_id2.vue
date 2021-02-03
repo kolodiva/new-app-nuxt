@@ -750,6 +750,22 @@ export default {
           name: "og:image",
           content: `${this.pos.guid_picture.replace("_250x250", "")}`,
         },
+        {
+          name: "og:image:secure_url",
+          content: `${this.pos.guid_picture.replace("_250x250", "")}`,
+        },
+        {
+          name: "og:image:type",
+          content: `image/jpeg`,
+        },
+        {
+          name: "og:image:width",
+          content: `600`,
+        },
+        {
+          name: "og:image:height",
+          content: `600`,
+        },
       ],
     };
   },
