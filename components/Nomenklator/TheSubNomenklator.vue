@@ -30,7 +30,7 @@
           :to="`/catalog/${pos.guid}`"
           style="text-decoration: none"
           itemprop="itemListElement"
-          itemtype="https://schema.org/ListItem"
+          itemscope
         >
           <link
             itemprop="url"
