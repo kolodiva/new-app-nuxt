@@ -34,7 +34,8 @@
       v-for="(filial, ind) in filialsExclMSC"
       :key="ind"
       itemscope
-      itemtype="https://schema.org/subOrganization"
+      itemprop="subOrganization"
+      itemtype="https://schema.org/LocalBusiness"
     >
       <meta itemprop="name" :content="filial.name" />
       <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
