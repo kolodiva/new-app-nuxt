@@ -17,23 +17,24 @@
           itemscope
           itemtype="https://schema.org/ItemList"
         >
+          <link
+            itemprop="itemListOrder"
+            href="https://schema.org/ItemListOrderDescending"
+          />
+          <link
+            itemprop="url"
+            :href="`https://www.newfurnitura.ru/catalog/${subNomenklator[0].parentguid}`"
+          />
+          <link itemprop="name" :href="pageHeader" />
+          <meta itemprop="numberOfItems" :content="subNomenklator.length" />
           <template v-if="subNomenklator.length === 0">
             <h2>Товар не найден по условиям отбора.</h2>
           </template>
           <template v-else>
-            <link
-              itemprop="itemListOrder"
-              href="https://schema.org/ItemListOrderDescending"
-            />
-            <link
-              itemprop="url"
-              :href="`https://www.newfurnitura.ru/catalog/${subNomenklator[0].parentguid}`"
-            />
-            <link itemprop="name" :href="pageHeader" />
-            <meta itemprop="numberOfItems" :content="subNomenklator.length" />
             <div
               v-for="(pos, id) in subNomenklator"
               :key="id"
+              itemscope
               itemprop="itemListElement"
             >
               <div itemscope="" itemtype="http://schema.org/Product">
