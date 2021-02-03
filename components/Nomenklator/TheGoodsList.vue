@@ -34,10 +34,8 @@
             <div
               v-for="(pos, id) in subNomenklator"
               :key="id"
-              itemscope
-              itemprop="itemListElement"
             >
-              <div itemscope="" itemtype="http://schema.org/Product">
+              <div  itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
                 <meta itemprop="name" :content="pos.name" />
                 <meta
                   itemprop="description"
