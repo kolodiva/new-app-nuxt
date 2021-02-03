@@ -1,8 +1,6 @@
 <template>
   <div>
     <TheBreadCrumbs microdata="true" />
-    <TheTextInfo />
-    <ThePageHeader />
 
     <div itemscope itemtype="https://schema.org/Article">
       <link itemprop="mainEntityOfPage" href="https://www.newfurnitura.ru/" />
@@ -27,46 +25,15 @@
         datetime="2020-12-15"
         content="2020-12-15"
       />
-      <div
-        itemprop="publisher"
-        itemscope
-        itemtype="https://schema.org/Organization"
-      >
-        <div
-          itemprop="logo"
-          itemscope
-          itemtype="https://schema.org/ImageObject"
-        >
-          <img
-            itemprop="url image"
-            src="https://www.newfurnitura.ru/upload/emblems/mf.png"
-            alt="Логотип МФ"
-            title=""
-            style="display: none"
-          />
-        </div>
-        <meta itemprop="name" content="Мебельная Фурнитура Подрезково" />
-        <meta itemprop="telephone" content="+7 (495) 925-26-27" />
+      <TheSchemaOrganization />
+      <TheTextInfo v-if="isGroup" />
+      <ThePageHeader />
 
-        <div
-          itemprop="address"
-          itemscope="itemscope"
-          itemtype="https://schema.org/PostalAddress"
-        >
-          <meta itemprop="postalCode" content="141446" />
-          <meta
-            itemprop="addressLocality"
-            content="Россия, Московская область, город Химки,"
-          />
-          <meta
-            itemprop="streetAddress"
-            content="микрорайон Подрезково, улица Центральная, дом 2/5"
-          />
-        </div>
-      </div>
-      <span itemprop="articleBody">
-        <TheSubNomenklator v-if="isGroup" />
-        <TheGoodsList v-else />
+      <span v-if="isGroup">
+        <TheSubNomenklator />
+      </span>
+      <span v-else itemprop="articleBody">
+        <TheGoodsList />
       </span>
     </div>
 

@@ -17,6 +17,12 @@
           itemprop="itemListOrder"
           href="https://schema.org/ItemListOrderDescending"
         />
+        <link
+          itemprop="url"
+          :href="`https://www.newfurnitura.ru/catalog/${subNomenklator[0].parentguid}`"
+        />
+        <link itemprop="name" :href="pageHeader" />
+        <meta itemprop="numberOfItems" :content="subNomenklator.length" />
         <n-link
           v-for="(pos, id) in subNomenklator"
           :key="id"
@@ -24,7 +30,13 @@
           :to="`/catalog/${pos.guid}`"
           style="text-decoration: none"
           itemprop="itemListElement"
+          itemtype="https://schema.org/ListItem"
         >
+          <link
+            itemprop="url"
+            :href="`https://www.newfurnitura.ru/catalog/${pos.guid}`"
+          />
+          <link itemprop="name" :href="pos.name" />
           <v-card class="ma-4" tile flat>
             <v-hover v-slot:default="{ hover }">
               <img

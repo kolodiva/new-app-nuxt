@@ -30,6 +30,17 @@ export const getters = {
 
     return list;
   },
+  getAllSortCityExclMsc: (state) => {
+    const list = _.sortBy(state.addresses, "id");
+
+    _.forEach(list, (v) => {
+      v.phone_call = v.phone.replace(/[^0-9||+]/g, "");
+    });
+
+    list.shift();
+
+    return list;
+  },
   getCityNameClassicOrder: (state) => {
     const list = ["МСК", "РНД", "НСБ", "ЕКБ", "КЗН", "СПБ", "КРД"];
 

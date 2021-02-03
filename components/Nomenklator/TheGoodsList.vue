@@ -25,6 +25,12 @@
               itemprop="itemListOrder"
               href="https://schema.org/ItemListOrderDescending"
             />
+            <link
+              itemprop="url"
+              :href="`https://www.newfurnitura.ru/catalog/${subNomenklator[0].parentguid}`"
+            />
+            <link itemprop="name" :href="pageHeader" />
+            <meta itemprop="numberOfItems" :content="subNomenklator.length" />
             <div
               v-for="(pos, id) in subNomenklator"
               :key="id"

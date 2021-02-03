@@ -1,6 +1,10 @@
 <template>
   <div style="max-width: 830px" class="mx-auto px-5">
-    <article style="overflow-y: hidden; color: #565656" v-html="seoText" />
+    <article
+      style="overflow-y: hidden; color: #565656"
+      itemprop="articleBody"
+      v-html="seoText"
+    />
   </div>
 </template>
 <script>
