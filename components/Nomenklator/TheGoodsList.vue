@@ -34,76 +34,77 @@
             <div
               v-for="(pos, id) in subNomenklator"
               :key="id"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="http://schema.org/Product"
             >
-              <div  itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">
-                <meta itemprop="name" :content="pos.name" />
-                <meta
-                  itemprop="description"
-                  :content="pos.intrnt_microdata.description"
-                />
+              <meta itemprop="name" :content="pos.name" />
+              <meta
+                itemprop="description"
+                :content="pos.intrnt_microdata.description"
+              />
+              <link
+                itemprop="url"
+                :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+              />
+              <link itemprop="image" :href="pos.guid_picture" />
+              <meta
+                itemprop="brand"
+                :content="
+                  pos.intrnt_microdata.Product_brand
+                    ? pos.intrnt_microdata.Product_brand
+                    : 'МФ'
+                "
+              />
+              <meta
+                itemprop="manufacturer"
+                :content="
+                  pos.intrnt_microdata.Product_brand
+                    ? pos.intrnt_microdata.Product_brand
+                    : 'МФ'
+                "
+              />
+              <meta itemprop="model" :content="pos.artikul_new" />
+
+              <meta
+                v-if="pos.intrnt_microdata.Product_color"
+                itemprop="color"
+                :content="pos.intrnt_microdata.Product_color"
+              />
+              <div
+                itemprop="offers"
+                itemscope=""
+                itemtype="http://schema.org/Offer"
+              >
+                <meta itemprop="priceCurrency" content="RUB" />
+                <meta itemprop="price" :content="pos.price1" />
                 <link
-                  itemprop="url"
-                  :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+                  itemprop="availability"
+                  href="http://schema.org/InStock"
                 />
-                <link itemprop="image" :href="pos.guid_picture" />
-                <meta
-                  itemprop="brand"
-                  :content="
-                    pos.intrnt_microdata.Product_brand
-                      ? pos.intrnt_microdata.Product_brand
-                      : 'МФ'
-                  "
-                />
-                <meta
-                  itemprop="manufacturer"
-                  :content="
-                    pos.intrnt_microdata.Product_brand
-                      ? pos.intrnt_microdata.Product_brand
-                      : 'МФ'
-                  "
-                />
-                <meta itemprop="model" :content="pos.artikul_new" />
-
-                <meta
-                  v-if="pos.intrnt_microdata.Product_color"
-                  itemprop="color"
-                  :content="pos.intrnt_microdata.Product_color"
-                />
-                <div
-                  itemprop="offers"
-                  itemscope=""
-                  itemtype="http://schema.org/Offer"
-                >
-                  <meta itemprop="priceCurrency" content="RUB" />
-                  <meta itemprop="price" :content="pos.price1" />
-                  <link
-                    itemprop="availability"
-                    href="http://schema.org/InStock"
-                  />
-                </div>
-
-                <template v-if="catalogTypeView === 'mosaic'">
-                  <TheGoodsListMosaicElement
-                    :id="id"
-                    :pos="pos"
-                    @chngorder="chngorder"
-                  />
-                </template>
-                <template v-else-if="catalogTypeView === 'list'">
-                  <TheGoodsListListElement
-                    :id="id"
-                    :pos="pos"
-                    @chngorder="chngorder"
-                  />
-                </template>
-                <template v-else-if="catalogTypeView === 'table'">
-                  <TheGoodsListTableElement
-                    :id="id"
-                    :pos="pos"
-                    @chngorder="chngorder"
-                  />
-                </template>
               </div>
+
+              <template v-if="catalogTypeView === 'mosaic'">
+                <TheGoodsListMosaicElement
+                  :id="id"
+                  :pos="pos"
+                  @chngorder="chngorder"
+                />
+              </template>
+              <template v-else-if="catalogTypeView === 'list'">
+                <TheGoodsListListElement
+                  :id="id"
+                  :pos="pos"
+                  @chngorder="chngorder"
+                />
+              </template>
+              <template v-else-if="catalogTypeView === 'table'">
+                <TheGoodsListTableElement
+                  :id="id"
+                  :pos="pos"
+                  @chngorder="chngorder"
+                />
+              </template>
             </div>
           </template>
         </v-card>
