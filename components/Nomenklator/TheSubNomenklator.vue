@@ -7,13 +7,23 @@
     />
 
     <v-sheet min-height="100vh" class="pl-10" height="">
-      <v-row align="start" :style="{ 'justify-content': 'center' }">
+      <v-row
+        align="start"
+        :style="{ 'justify-content': 'center' }"
+        itemscope
+        itemtype="https://schema.org/ItemList"
+      >
+        <link
+          itemprop="itemListOrder"
+          href="https://schema.org/ItemListOrderDescending"
+        />
         <n-link
           v-for="(pos, id) in subNomenklator"
           :key="id"
           exact
           :to="`/catalog/${pos.guid}`"
           style="text-decoration: none"
+          itemprop="itemListElement"
         >
           <v-card class="ma-4" tile flat>
             <v-hover v-slot:default="{ hover }">

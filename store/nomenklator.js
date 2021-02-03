@@ -176,7 +176,7 @@ export const getters = {
     return (
       state.breadCrumb &&
       state.breadCrumb.length > 0 &&
-      state.breadCrumb[state.breadCrumb.length - 1].intrnt_microdata
+      state.breadCrumb[state.breadCrumb.length - 1]
     );
   },
   pageHeader: (state) => {

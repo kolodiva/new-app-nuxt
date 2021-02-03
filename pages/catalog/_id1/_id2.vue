@@ -4,6 +4,7 @@
       :type-src="{ src: 'goodCard' }"
       :good-card-bread-crumb="goodCardBreadCrumb"
       :class="[showLimitWidth ? '' : 'ml-10']"
+      microdata="true"
     />
     <v-container v-scroll="onIntersect" v-resize="onResize" style="">
       <v-row class="">
@@ -76,9 +77,33 @@
                     itemprop="url"
                     :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
                   />
-                  <link itemprop="image" :href="pos.guid_picture" />
+                  <link
+                    itemprop="image"
+                    :href="pos.guid_picture.replace('_250x250', '')"
+                  />
                   <meta itemprop="category" :content="categoryCard" />
+                  <meta
+                    itemprop="brand"
+                    :content="
+                      pos.intrnt_microdata.Product_brand
+                        ? pos.intrnt_microdata.Product_brand
+                        : 'МФ'
+                    "
+                  />
+                  <meta
+                    itemprop="manufacturer"
+                    :content="
+                      pos.intrnt_microdata.Product_brand
+                        ? pos.intrnt_microdata.Product_brand
+                        : 'МФ'
+                    "
+                  />
                   <meta itemprop="model" :content="pos.artikul_new" />
+                  <meta
+                    v-if="pos.intrnt_microdata.Product_color"
+                    itemprop="color"
+                    :content="pos.intrnt_microdata.Product_color"
+                  />
                   <div
                     itemprop="offers"
                     itemscope=""
@@ -92,22 +117,20 @@
                     />
                   </div>
 
-                  <meta
-                    property="og:title"
-                    :content="`Лучшая цена 👍: ${pos.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`"
-                  />
-                  <meta property="og:description" :content="descr_3" />
-                  <meta
-                    property="og:url"
-                    :content="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
-                  />
-                  <meta property="og:type" content="website" />
-                  <meta property="og:image" :content="pos.guid_picture" />
-
                   <v-card-title class="pb-0"
                     >{{ pos.artikul }}, {{ pos.artikul_new }}
                   </v-card-title>
-                  <v-card-text class="">{{ pos.name }}</v-card-text>
+                  <h1
+                    class="pl-4"
+                    style="
+                      font-size: 0.875rem;
+                      font-weight: 400;
+                      height: 30px;
+                      letter-spacing: 0.0071428571em;
+                    "
+                  >
+                    {{ pos.name }}
+                  </h1>
                   <v-row align="center">
                     <v-col class="pt-0">
                       <v-tabs-items v-model="cur_tab_photos">
@@ -701,6 +724,33 @@ export default {
   head() {
     return {
       title: `${this.pos.intrnt_microdata.title} - Купить в Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар | Описание, фото, характеристики, цены в Интернет магазине МФ-Комплект`,
+      description: `${this.pos.intrnt_microdata.description}`,
+      meta: [
+        {
+          name: "og:title",
+          content: `Лучшая цена 👍: ${this.pos.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`,
+        },
+        {
+          name: "og:description",
+          content: `Лучшая цена 👍: ${this.pos.intrnt_microdata.description} ⭐ ⭐ ⭐ ⭐ ⭐`,
+        },
+        {
+          name: "og:site_name",
+          content: `Мебельная фурнитура Подрезково`,
+        },
+        {
+          name: "og:url",
+          content: `https://newfurnitura.ru/catalog/${this.pos.parentguid}/${this.pos.synonym}`,
+        },
+        {
+          name: "og:type",
+          content: `website`,
+        },
+        {
+          name: "og:image",
+          content: `${this.pos.guid_picture.replace("_250x250", "")}`,
+        },
+      ],
     };
   },
 };

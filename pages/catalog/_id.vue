@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheBreadCrumbs />
+    <TheBreadCrumbs microdata="true" />
     <TheTextInfo />
     <ThePageHeader />
 
@@ -12,7 +12,7 @@
         itemprop="description"
         :content="
           getDescription
-            ? getDescription.description
+            ? getDescription.intrnt_microdata.description
             : 'Мебельная фурнитура. Наша складская программа, насчитывающая более 5000 наименований продукции, постоянно пополняется с учетом ваших потребностей.'
         "
       />
@@ -111,7 +111,42 @@ export default {
   },
   methods: {},
   head() {
-    return {};
+    return {
+      title: `${this.getDescription.intrnt_microdata.title} - Купить в Москва, Санкт-Петербург, Казань, Екатеринбург, Ростов-на-Дону, Краснодар | Описание, фото, характеристики, цены в Интернет магазине МФ-Комплект`,
+      meta: [
+        {
+          name: "description",
+          content: `${this.getDescription.intrnt_microdata.description}`,
+        },
+        {
+          name: "og:title",
+          content: `Лучшая цена 👍: ${this.getDescription.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`,
+        },
+        {
+          name: "og:description",
+          content: `Лучшая цена 👍: ${this.getDescription.intrnt_microdata.description} ⭐ ⭐ ⭐ ⭐ ⭐`,
+        },
+        {
+          name: "og:site_name",
+          content: `Мебельная фурнитура Подрезково`,
+        },
+        {
+          name: "og:url",
+          content: `https://newfurnitura.ru/catalog/${this.getDescription.guid}`,
+        },
+        {
+          name: "og:type",
+          content: `website`,
+        },
+        {
+          name: "og:image",
+          content: `${this.getDescription.guid_picture.replace(
+            "_250x250",
+            ""
+          )}`,
+        },
+      ],
+    };
   },
 };
 </script>

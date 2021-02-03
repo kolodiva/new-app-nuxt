@@ -14,16 +14,23 @@
           class="d-flex flex-wrap justify-center align-content-start"
           flat
           tile
+          itemscope
+          itemtype="https://schema.org/ItemList"
         >
           <template v-if="subNomenklator.length === 0">
             <h2>Товар не найден по условиям отбора.</h2>
           </template>
           <template v-else>
+            <link
+              itemprop="itemListOrder"
+              href="https://schema.org/ItemListOrderDescending"
+            />
             <div
               v-for="(pos, id) in subNomenklator"
               :key="id"
               itemscope=""
               itemtype="http://schema.org/Product"
+              itemprop="itemListElement"
             >
               <meta itemprop="name" :content="pos.name" />
               <meta
@@ -35,7 +42,29 @@
                 :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
               />
               <link itemprop="image" :href="pos.guid_picture" />
+              <meta
+                itemprop="brand"
+                :content="
+                  pos.intrnt_microdata.Product_brand
+                    ? pos.intrnt_microdata.Product_brand
+                    : 'МФ'
+                "
+              />
+              <meta
+                itemprop="manufacturer"
+                :content="
+                  pos.intrnt_microdata.Product_brand
+                    ? pos.intrnt_microdata.Product_brand
+                    : 'МФ'
+                "
+              />
               <meta itemprop="model" :content="pos.artikul_new" />
+
+              <meta
+                v-if="pos.intrnt_microdata.Product_color"
+                itemprop="color"
+                :content="pos.intrnt_microdata.Product_color"
+              />
               <div
                 itemprop="offers"
                 itemscope=""
@@ -48,21 +77,6 @@
                   href="http://schema.org/InStock"
                 />
               </div>
-
-              <meta
-                property="og:title"
-                :content="`Лучшая цена 👍: ${pos.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`"
-              />
-              <meta
-                property="og:description"
-                :content="pos.intrnt_microdata.description"
-              />
-              <meta
-                property="og:url"
-                :content="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
-              />
-              <meta property="og:type" content="website" />
-              <meta property="og:image" :content="pos.guid_picture" />
 
               <template v-if="catalogTypeView === 'mosaic'">
                 <TheGoodsListMosaicElement
