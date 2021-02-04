@@ -2,6 +2,7 @@
   <v-container>
     <TheFixBtnQuickCatalog
       :can-use-filter="canUseFilter"
+      goods-list="true"
       @openQuickCatalog="drawerQuickCatalog = true"
       @openFilter="switchFilter"
     />
