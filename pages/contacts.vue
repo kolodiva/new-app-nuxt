@@ -16,8 +16,7 @@
           >
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-divider />
-          <v-card flat>
+          <v-card flat class="mt-3">
             <template v-if="item.departments.length === 0">
               <v-row>
                 <v-col cols="">

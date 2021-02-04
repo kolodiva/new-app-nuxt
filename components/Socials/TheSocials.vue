@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-3">
     <ShareNetwork
       network="facebook"
       :url="params.url"
