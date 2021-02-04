@@ -10,14 +10,14 @@
           <v-icon v-else color="blue"> mdi-apps </v-icon>
         </v-btn>
       </template>
-      <v-btn fab dark x-small color="green">
-        <v-icon @click="chngViewType('mosaic')">mdi-apps</v-icon>
+      <v-btn fab dark x-small color="green" @click="chngViewType('mosaic')">
+        <v-icon>mdi-apps</v-icon>
       </v-btn>
-      <v-btn fab dark x-small color="indigo">
-        <v-icon @click="chngViewType('list')">mdi-format-list-checkbox</v-icon>
+      <v-btn fab dark x-small color="indigo" @click="chngViewType('list')">
+        <v-icon>mdi-format-list-checkbox</v-icon>
       </v-btn>
-      <v-btn fab dark x-small color="red">
-        <v-icon @click="chngViewType('table')">mdi-view-headline</v-icon>
+      <v-btn fab dark x-small color="red" @click="chngViewType('table')">
+        <v-icon>mdi-view-headline</v-icon>
       </v-btn>
     </v-speed-dial>
 
