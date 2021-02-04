@@ -25,7 +25,6 @@
         datetime="2020-12-15"
         content="2020-12-15"
       />
-      <TheSchemaOrganization />
       <TheTextInfo v-if="isGroup" />
       <ThePageHeader />
 
