@@ -53,7 +53,7 @@ export default {
     },
 
     async querySelections(v) {
-      if (this.loading || v.length < 3 || v.length > 40) {
+      if (this.loading || v.length < 3 || v.length > 100) {
         return;
       }
 

@@ -23,6 +23,7 @@
             href="https://schema.org/ItemListOrderDescending"
           />
           <link
+            v-if="subNomenklator[0]"
             itemprop="url"
             :href="`https://www.newfurnitura.ru/catalog/${subNomenklator[0].parentguid}`"
           />
@@ -48,7 +49,10 @@
                 itemprop="url"
                 :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
               />
-              <link itemprop="image" :href="pos.guid_picture" />
+              <link
+                itemprop="image"
+                :href="pos.guid_picture.replace('_250x250', '')"
+              />
               <meta
                 itemprop="brand"
                 :content="

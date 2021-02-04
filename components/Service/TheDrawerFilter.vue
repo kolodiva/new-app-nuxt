@@ -10,7 +10,7 @@
     <v-divider />
     <v-card flat>
       <v-row v-if="showResetFilter" justify="end" class="mx-0">
-        <v-chip class="ma-2" color="" outlined close @click:close="resetFilter">
+        <v-chip class="ma-2" color="" outlined close link @click="resetFilter">
           Сбросить фильтр
         </v-chip>
       </v-row>
@@ -111,6 +111,8 @@ export default {
       });
 
       this.showResetFilter = filterParams.length > 0;
+
+      window.$("html, body").animate({ scrollTop: 0 }, "fast");
     },
   },
   mounted() {},
@@ -127,6 +129,18 @@ export default {
       });
 
       this.showResetFilter = false;
+
+      if (window.$("article")) {
+        window.$("article").moreContent({
+          height: 150,
+          speed: 500,
+          shadow: true,
+        });
+        window.$("div.mrc-btn-wrap").css("text-align", "end");
+        window.$("button.mrc-btn").css("outline", "none");
+      }
+
+      window.$("html, body").animate({ scrollTop: 0 }, "fast");
 
       // this.$emit("switchFilter");
     },
