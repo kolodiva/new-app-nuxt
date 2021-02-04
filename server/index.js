@@ -11,29 +11,29 @@ const cors = require('cors')
 app.use(cookieParser())
 
 // middle ware
-app.use('/newsfolder', express.static(__dirname + '/newsfolder'))
-app.use(cors())
-app.use(fileUpload());
-
-app.post('/loadfile', (req, res) => {
-
-    if (!req.files) {
-        return res.status(500).send({ msg: "file is not found" })
-    }
-
-    const myFile = req.files.file;
-
-    // Use the mv() method to place the file somewhere on your server
-    //myFile.mv(`${__dirname}/test/${myFile.name}`, function (err) {
-
-    myFile.mv(`/newsfolder/${myFile.name}`, function (err) {
-        if (err) {
-            console.log(err)
-            return res.status(500).send({ msg: "fuck eroor", dirname:  __dirname});
-        }
-        return res.send({ file: myFile.name, path: `/${myFile.name}`, ty: myFile.type });
-    });
-})
+// app.use('/newsfolder', express.static(__dirname + '/newsfolder'))
+// app.use(cors())
+// app.use(fileUpload());
+//
+// app.post('/loadfile', (req, res) => {
+//
+//     if (!req.files) {
+//         return res.status(500).send({ msg: "file is not found" })
+//     }
+//
+//     const myFile = req.files.file;
+//
+//     // Use the mv() method to place the file somewhere on your server
+//     //myFile.mv(`${__dirname}/test/${myFile.name}`, function (err) {
+//
+//     myFile.mv(`/newsfolder/${myFile.name}`, function (err) {
+//         if (err) {
+//             console.log(err)
+//             return res.status(500).send({ msg: "fuck eroor", dirname:  __dirname});
+//         }
+//         return res.send({ file: myFile.name, path: `/${myFile.name}`, ty: myFile.type });
+//     });
+// })
 
 
 // Import and Set Nuxt.js options
