@@ -181,6 +181,12 @@ export async function getSeoTextMain() {
 
   return {seoText: seoText.rows};
 }
+export async function getAdvsHtml({id}) {
+
+  const advsHtml = await db.queryApp('getAdvsHtml', { id })
+
+  return {rows  : advsHtml.rows};
+}
 
 
 //news

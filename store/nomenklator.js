@@ -25,6 +25,7 @@ export const state = () => ({
   userFilter: null,
   userFilterFromGroup: null,
   orderListFromExcel: [],
+  advsHtml: null,
 });
 
 export const mutations = {
@@ -162,6 +163,10 @@ export const mutations = {
   },
   SET_ORDER_LIST_FROM_EXCEL(state, rows) {
     state.orderListFromExcel = rows;
+  },
+
+  SET_ADVS_HTML(state, rows) {
+    state.advsHtml = rows;
   },
 };
 export const getters = {
@@ -322,6 +327,9 @@ export const getters = {
 
   getOrderListFromExcel: (state) => {
     return state.orderListFromExcel;
+  },
+  getAdvsHtml: (state) => {
+    return state.advsHtml;
   },
 };
 
@@ -730,6 +738,16 @@ export const actions = {
       text: "Ваша Корзина пуста.",
       timeout: 6000,
       showing: true,
+    });
+  },
+
+  async loadAdvsHtml({ commit, dispatch, state }, { id }) {
+    const { rows } = await this.$api("getAdvsHtml", {
+      id,
+    });
+
+    commit("SET_ADVS_HTML", {
+      rows,
     });
   },
 };

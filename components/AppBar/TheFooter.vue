@@ -71,8 +71,7 @@
               <v-expansion-panel-content
                 style="max-height: 70vh; overflow-y: auto"
               >
-                <v-divider />
-                <v-card flat>
+                <v-card flat class="mt-4">
                   <template v-if="item.departments.length === 0">
                     <v-row>
                       <v-col cols="">

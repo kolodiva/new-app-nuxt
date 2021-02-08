@@ -147,3 +147,17 @@ export function getSeoText(params) {
     values: [],
   }
 }
+
+export function getAdvsHtml(params) {
+
+  const textqry=`
+				select alt from depots where type='html_code' and name='${params.id}'
+  `
+//console.log(params.parentguid);
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
