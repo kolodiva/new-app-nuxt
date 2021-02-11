@@ -1,5 +1,9 @@
 <template>
-  <div itemprop="author" itemscope itemtype="https://schema.org/Organization">
+  <div
+    itemprop="author publisher"
+    itemscope
+    itemtype="https://schema.org/Organization"
+  >
     <meta itemprop="name" content="Мебельная Фурнитура Подрезково" />
     <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
       <img

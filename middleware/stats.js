@@ -8,7 +8,7 @@ export default function ({ route, store, redirect }) {
   //   "SET_BACKSPACE_BTN",
   //   !(route.path === undefined || route.path === "/")
   // );
-
+  // console.log(route.fullPath);
   if (
     route &&
     route.fullPath &&
@@ -29,6 +29,7 @@ export default function ({ route, store, redirect }) {
 
   if (route && route.fullPath && route.fullPath.includes("?itemcard=")) {
     const newPath = route.fullPath.replace("?itemcard=", "/");
+
     return redirect(newPath);
   }
 

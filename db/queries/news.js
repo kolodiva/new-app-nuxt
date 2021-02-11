@@ -151,7 +151,7 @@ export function getSeoText(params) {
 export function getAdvsHtml(params) {
 
   const textqry=`
-				select alt from depots where type='html_code' and name='${params.id}'
+				select alt, intrnt_html from advshtml where type='html_code' and name='${params.id}'
   `
 //console.log(params.parentguid);
 

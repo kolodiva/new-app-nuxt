@@ -62,18 +62,23 @@ export default {
   beforeCreate() {},
 
   mounted() {
-    window.$("article").moreContent({
-      height: 150,
-      speed: 500,
-      shadow: true,
-      // useCss: true,
-      // tpl: {
-      //   btn: '<button class="mrc-btn" style="cursor: pointer"></button>',
-      //   btnWrap: '<div class="mrc-btn-wrap" ></div>',
-      // },
-    });
-    window.$("div.mrc-btn-wrap").css("text-align", "end");
-    window.$("button.mrc-btn").css("outline", "none");
+    const tmp = window.$("article");
+    if (tmp && tmp[0]) {
+      const tmp1 = tmp[0];
+
+      window.$(tmp1).moreContent({
+        height: 150,
+        speed: 500,
+        shadow: true,
+        // useCss: true,
+        // tpl: {
+        //   btn: '<button class="mrc-btn" style="cursor: pointer"></button>',
+        //   btnWrap: '<div class="mrc-btn-wrap" ></div>',
+        // },
+      });
+      window.$("div.mrc-btn-wrap").css("text-align", "end");
+      window.$("button.mrc-btn").css("outline", "none");
+    }
   },
   methods: {},
   head() {
