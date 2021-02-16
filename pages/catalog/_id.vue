@@ -117,6 +117,13 @@ export default {
           )}`,
         },
       ],
+      link: [
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: `https://newfurnitura.ru${this.$route.fullPath}`,
+        },
+      ],
     };
   },
 };
