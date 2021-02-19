@@ -1,7 +1,12 @@
 <template>
   <div>
     <TheVueSlickCarousel />
-    <v-container id="section_1" class="my-5" style="max-width: 800px">
+    <v-container
+      v-if="estKontakt"
+      id="section_1"
+      class="my-5"
+      style="max-width: 800px"
+    >
       <ThePageHeader descr="რეკლამა არის პროგრესის ძრავა" />
       <v-toolbar dense flat
         ><v-spacer /><v-btn text @click="openNewCard(false)"
@@ -117,6 +122,11 @@
         <infinite-loading @infinite="infiniteHandler"></infinite-loading>
       </v-container>
     </v-container>
+    <v-container v-else style="max-width: 800px" min-height="30vh">
+      <h2 class="my-15">
+        Приветствуем тебя усталый Путник. Далеко ты забрел, но пусто здесь ...
+      </h2>
+    </v-container>
   </div>
 </template>
 
@@ -127,7 +137,6 @@ import { mapGetters } from "vuex";
 const pageSize = 24;
 
 export default {
-  middleware: ["auth-admin"],
   data() {
     return {
       list: [],
@@ -148,6 +157,14 @@ export default {
     ...mapGetters({
       filials: "headerMenu/getCityNameClassicOrder",
     }),
+    estKontakt() {
+      const userInfo = this.$store.state.nomenklator.userInfo;
+
+      return userInfo
+        ? userInfo.email.toLowerCase() === "afmc@mail.ru" ||
+            userInfo.email.toLowerCase() === "adv.mfc@gmail.com"
+        : false;
+    },
   },
   mounted() {},
 
