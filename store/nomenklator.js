@@ -680,7 +680,8 @@ export const actions = {
 
     await dispatch("setSnackbar", {
       color: "green",
-      text: "Ваш Заказ успешно загружен. Не найденные позиции в верхней части.",
+      text:
+        "Ваш Заказ успешно загружен. Не найденные позиции (если они есть) в верхней части.",
       timeout: 6000,
       showing: true,
     });

@@ -9,8 +9,10 @@
     </v-btn>
 
     <v-file-input
+      ref="filexlsload"
       accept=".xls, .xlsx"
       autofocus
+      clearable
       show-size
       label="Укажите загружаемый файл."
       width="400"
@@ -92,8 +94,17 @@ export default {
     },
 
     async getFile(file) {
-      if (!file || file.size > 30000) {
-        console.log("Нельзя грузить большие файлы.");
+      if (file && file.size > 30000) {
+        this.$refs.filexlsload.reset();
+
+        await this.$store.dispatch("nomenklator/setSnackbar", {
+          color: "red",
+          text: `Размер файла ограничен 30КБ. А так же Пустые и НЕ выбранные не подходят.`,
+          timeout: 5000,
+        });
+        // console.log("Нельзя грузить большие файлы.");
+        return;
+      } else if (!file) {
         return;
       }
 

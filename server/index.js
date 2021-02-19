@@ -5,35 +5,30 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const https = require('https')
 
-//const fileUpload = require('express-fileupload');
 const cors = require('cors')
 
 app.use(cookieParser())
 
-// middle ware
-// app.use('/newsfolder', express.static(__dirname + '/newsfolder'))
-// app.use(cors())
-// app.use(fileUpload());
+var multer  = require('multer')
+// var upload = multer({ dest: './static/storefolder/news' })
+
 //
-// app.post('/loadfile', (req, res) => {
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './storefolder/news')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
 //
-//     if (!req.files) {
-//         return res.status(500).send({ msg: "file is not found" })
-//     }
-//
-//     const myFile = req.files.file;
-//
-//     // Use the mv() method to place the file somewhere on your server
-//     //myFile.mv(`${__dirname}/test/${myFile.name}`, function (err) {
-//
-//     myFile.mv(`/newsfolder/${myFile.name}`, function (err) {
-//         if (err) {
-//             console.log(err)
-//             return res.status(500).send({ msg: "fuck eroor", dirname:  __dirname});
-//         }
-//         return res.send({ file: myFile.name, path: `/${myFile.name}`, ty: myFile.type });
-//     });
-// })
+app.post('/loadfile', upload.single('file'), (req, res) => {
+  return res.status(200).send({ res: "it's Ok" })
+  //return res.status(200)
+})
 
 
 // Import and Set Nuxt.js options

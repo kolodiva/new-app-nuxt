@@ -223,25 +223,30 @@ export async function getNewCard( {id} ) {
 }
 export async function saveNewCard( {params} ) {
 
-  //const {rows} = await db.queryApp('getNewCard', id )
+  let id = params.id ? params.id : null
+  let rows = null;
 
-  //console.log(params)
+if (id) {
+  // const {rows} = await db.queryAppSqlExec( "select * from new_blocks where id=$1", [id] );
+  // console.log(rows)
+  await db.queryAppSqlExec( "update new_blocks set name = $2, header = $3, main_html = $4, on_slider = $5, filials = $6 where id=$1 RETURNING id", [id, params.name, params.name, params.name, params.on_slider, params.filials] );
 
-  // f = File.open('e:/store/11111/' + params.path_pdf_new, 'wb');
+} else {
+  const {rows} = await db.queryAppSqlExec( "insert into new_blocks(name, header, main_html, on_slider, on_public, filials, created_at, updated_at, date, code) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id", [params.name, params.name, params.name, params.on_slider, true, params.filials, new Date(), new Date(), new Date(), genUuid()] );
+  id = rows[0].id
+}
 
-  //fs.writeFile( 'e:/store/11111/' + params.path_pdf_new, Base64.decode64( params.data_file_pdf ) )
-  // fs.open('e:/store/11111/' + params.path_pdf_new, 'w', function (err, file) {
-  //   if (err) throw err;
-  //   console.log('Saved!');
-  // });
-  //fs.writeFile( 'e:/store/11111/' + params.path_pdf_new, params.data_file_pdf, (err) => {
-  // fs.writeFile( 'e:/store/11111/' + params.path_pdf_new, params.data_file_pdf, (err) => {
-  //   if (err) throw err;
-  // } )
+if (params.pic1name) {
+  await db.queryAppSqlExec( "update new_blocks set picture1 = $2 where id=$1 RETURNING id", [id, params.pic1] );
+}
+if (params.pic2name) {
+  await db.queryAppSqlExec( "update new_blocks set path_pic2 = $2 where id=$1 RETURNING id", [id, params.pic2name] );
+}
+if (params.path_pdf_new) {
+  await db.queryAppSqlExec( "update new_blocks set path_pdf = $2 where id=$1 RETURNING id", [id, params.path_pdf_new] );
+}
 
- // f.close
-
-  return 'ok';
+return id;
 }
 
 //auth
