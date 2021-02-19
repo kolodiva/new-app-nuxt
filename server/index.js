@@ -5,7 +5,7 @@ const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const https = require('https')
 
-const fileUpload = require('express-fileupload');
+//const fileUpload = require('express-fileupload');
 const cors = require('cors')
 
 app.use(cookieParser())
