@@ -222,6 +222,7 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    maxChunkSize: 300000,
     // vendor: ['vuetify'],
     /*
      ** You can extend webpack config here
