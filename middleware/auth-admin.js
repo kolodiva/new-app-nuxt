@@ -2,7 +2,7 @@
 
 export default function ({ $auth, route, redirect, store }) {
   const userEmail = store.getters["nomenklator/getUserInfoEmail"];
-  // console.log(userEmail);
+  console.log(userEmail);
   if (
     !userEmail ||
     userEmail !== "afmc@mail.ru" ||
