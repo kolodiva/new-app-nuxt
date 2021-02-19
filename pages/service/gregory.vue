@@ -194,8 +194,8 @@ export default {
         this.pic2new = null;
         this.path_to_file_pdf = null;
         this.selectedFile1 = "";
-        this.selectedFile1 = "";
         this.selectedFile2 = "";
+        this.selectedFile3 = "";
         this.selectCity = [];
         this.filials.forEach((pos, ind) => {
           this.selectCity.push(this.filials[ind]);
@@ -287,6 +287,9 @@ export default {
           params: this.newcard,
         });
 
+        this.selectedFile1 = "";
+        this.selectedFile2 = "";
+        this.selectedFile3 = "";
         // console.log(res);
 
         try {
