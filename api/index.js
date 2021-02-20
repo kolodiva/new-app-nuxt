@@ -27,26 +27,40 @@ async function getConnectionOrder( userid, connectionid, createnewconn = true  )
   return rows[0]
 }
 
+export async function getParams({param}) {
+    const {rows} = await db.queryAppSqlExec( "select content from settings where param=$1 and accessible=$2", [param, true] );
+    return rows
+}
+
 async function sendEmail(message) {
 
-  message.from = 'informer@newfurnitura.ru';
+  const {rows} = await db.queryAppSqlExec( "select content from settings where param=$1 and accessible=$2", ['email_order_response', true] );
 
-  const transport = await nodemailer.createTransport({
-    host: 'smtp.yandex.ru',
-    port: 465,
-    secure: true,
-    auth: {
-       user: 'informer@newfurnitura.ru',
-       pass: 'INFO-Mfc-111'
-    }
-  });
+  if (rows && rows.length) {
 
-  transport.sendMail(message, function(err, info) {
-      if (err) {
-        //console.log(err)
-      } else {
-        //console.log(info);
-      }})
+    const params = rows[0].content
+
+    //console.log(params);
+
+    message.from = params.email;
+
+    const transport = await nodemailer.createTransport({
+      host: 'smtp.yandex.ru',
+      port: 465,
+      secure: true,
+      auth: {
+         user: params.email,
+         pass: params.pass
+      }
+    });
+
+    transport.sendMail(message, function(err, info) {
+        if (err) {
+          //console.log(err)
+        } else {
+          //console.log(info);
+        }})
+  }
 
 }
 
