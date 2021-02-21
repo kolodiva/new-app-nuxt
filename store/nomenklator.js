@@ -695,7 +695,7 @@ export const actions = {
   },
   async procOrder(
     { commit, dispatch, state },
-    { mister, filial, email, phone, info, mastercard }
+    { mister, filial, email, phone, info, mastercard, city }
   ) {
     let _email = email;
     let _mister = mister;
@@ -714,6 +714,7 @@ export const actions = {
       userid,
       token,
       mastercard,
+      city,
     };
 
     const rows = await this.$api("procOrder", infoOrder);

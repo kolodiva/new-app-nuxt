@@ -107,7 +107,7 @@ export function procOrder( {orderid, dbinfo, mastercard} ) {
   return {
     name: '',
     text: `
-      update orders set status = 1, info='${ dbinfo }', card_payment_order='${mastercard}' where id=${orderid}
+      update orders set status = 1, info='${ dbinfo }', card_payment_order='${mastercard}' where id=${orderid} RETURNING sum
     `,
     values: [],
   }

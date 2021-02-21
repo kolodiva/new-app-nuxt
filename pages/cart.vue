@@ -884,6 +884,12 @@ export default {
         this.questAnonymus = true;
       } else {
         try {
+          let city = "";
+          try {
+            city = window.$("#yourCity").html();
+          } catch (e) {
+            city = "НЕ определен";
+          }
           await this.$store.dispatch("nomenklator/procOrder", {
             mister: this.mister,
             filial: this.defFil,
@@ -892,6 +898,7 @@ export default {
             info: this.lastWord,
             mastercard: this.mastercard,
             showEmail: false,
+            city,
           });
           await this.$store.dispatch("nomenklator/setSnackbar", {
             color: "green",
@@ -913,6 +920,12 @@ export default {
     },
     async sendOrder2() {
       try {
+        let city = "";
+        try {
+          city = window.$("#yourCity").html();
+        } catch (e) {
+          city = "НЕ определен";
+        }
         await this.$store.dispatch("nomenklator/procOrder", {
           mister: this.mister,
           filial: this.defFil,
@@ -920,6 +933,7 @@ export default {
           phone: this.phone,
           info: this.lastWord,
           mastercard: this.mastercard,
+          city,
         });
         await this.$store.dispatch("nomenklator/setSnackbar", {
           color: "green",

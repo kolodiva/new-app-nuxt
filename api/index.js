@@ -1,6 +1,7 @@
 const db = require('../db')
 const nodemailer = require('nodemailer');
 const arrayToTree = require('array-to-tree');
+const http = require('https');
 
 //const fs = require('fs')
 
@@ -32,6 +33,32 @@ export async function getParams({param}) {
     return rows
 }
 
+async function sendCreateTask(taskinfo) {
+
+  const options = {
+  host: 'b24-sjyom9.bitrix24.ru',
+  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
+};
+
+//console.log(options.host + options.path);
+
+const callback = function(response) {
+  var str = '';
+
+  //another chunk of data has been received, so append it to `str`
+  response.on('data', function (chunk) {
+    str += chunk;
+  });
+
+  //the whole response has been received, so we just print it out here
+  response.on('end', function () {
+    return (str);
+  });
+}
+
+await http.request(options, callback).end();
+
+}
 async function sendEmail(message) {
 
   const {rows} = await db.queryAppSqlExec( "select content from settings where param=$1 and accessible=$2", ['email_order_response', true] );
@@ -485,7 +512,7 @@ async function unitOrders( userid, connectionid ) {
   return true
 }
 
-export async function procOrder( { userid, token, mister, filial,  email, phone, info, mastercard } ) {
+export async function procOrder( { userid, token, mister, filial,  email, phone, info, mastercard, city } ) {
 
   let dbinfo
 
@@ -497,8 +524,15 @@ export async function procOrder( { userid, token, mister, filial,  email, phone,
   } else {
     dbinfo = `- / Предпочитаемый офис: ${filial ? filial : '***'} / Напутствие: ${info ? info : '***'}`
   }
+  const geograf = city ? `\nПредполагаемая география: ${city}` : ' ';
+  const dopinfo = (dbinfo + geograf).replace(/'/g, " ");
 
-  const resOk = await db.queryApp('procOrder', {orderid, dbinfo, mastercard})
+  //console.log(dopinfo)
+
+  const {rows} = await db.queryApp('procOrder', {orderid, dbinfo: dopinfo, mastercard})
+
+  //console.log(resOk)
+
 
   const message = {
     to: email,         // List of recipients
@@ -506,7 +540,29 @@ export async function procOrder( { userid, token, mister, filial,  email, phone,
     text: 'Здравствуйте ' + mister + '! Благодарим Вас за покупку.\n\nВаш Заказ: ' + orderid + ' отправлен в обработку.\n\nДоп.информация:\n' + dbinfo + '\n\nС уважением, МФ-Комплект.\nwww.newfurnitura.ru' // Plain text body
   };
 
+try {
   await sendEmail(message);
+} catch (e) {
+}
+
+//ответ Красноперофф
+let currentdate = new Date();
+//currentdate = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '-' + (currentdate.getDate() < 10 ? '0' : '') + currentdate.getDate() + 'T' + (currentdate.getHours() < 10 ? '0' : '') + currentdate.getHours() + ':' + (currentdate.getSeconds() < 10 ? '0' : '') + currentdate.getSeconds() + ':00';
+currentdate = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '-' + (currentdate.getDate() < 10 ? '0' : '') + currentdate.getDate() + 'T23:59:59';
+const taskinfo = {
+  GROUP_ID: 94,
+  RESPONSIBLE_ID: 30,
+  TITLE: `Интернет заказ № ${orderid} на сумму ${rows[0].sum} руб. Отправлен в обработку в 1С. Ожидайте прихода.`,
+  DESCRIPTION: `Детали Заказа:\n${dopinfo.replace('- /', (email ? email : '***' + ' /'))}`,
+  DEADLINE: currentdate,
+};
+
+try {
+  const res = await sendCreateTask(taskinfo);
+  //console.log(res);
+} catch (e) {
+  console.log(e);
+}
 
   return [];
 }

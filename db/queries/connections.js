@@ -48,8 +48,8 @@ async function chngOrder( orderid, guid, qty, price, unit_type_id ) {
   return ( res[1].rowCount === 1 )
 }
 
-async function procOrder( orderid, mister, filial,  email, phone, info ) {
-  const res = await dbpgApp1.query( queries['procOrder']( orderid, mister, filial, email, phone, info ) )
+async function procOrder( orderid, mister, filial,  email, phone, info, city ) {
+  const res = await dbpgApp1.query( queries['procOrder']( orderid, mister, filial, email, phone, info, city ) )
 }
 
 async function unitOrders( { userid }, connectionid ) {
