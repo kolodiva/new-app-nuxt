@@ -13,9 +13,18 @@ var multer  = require('multer')
 // var upload = multer({ dest: './static/storefolder/news' })
 
 //
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './storefolder/news')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname)
+//   }
+// })
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './storefolder/news')
+    cb(null, '/home/ftp_user/www/news')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
