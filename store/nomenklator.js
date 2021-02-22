@@ -420,6 +420,8 @@ export const actions = {
       commit("SET_SUB_NOMENKLATOR", rows);
     }
     commit("SET_WAIT_LOAD_NOMENKLATOR", false);
+
+    return state.subNomenklator.length > 0;
   },
   async setFilterState({ commit, dispatch, state }, { groupFilter }) {
     await commit("SET_FILTER_STATE", { groupFilter });

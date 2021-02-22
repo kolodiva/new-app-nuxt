@@ -44,9 +44,16 @@
 import { mapGetters } from "vuex";
 
 export default {
-  async fetch({ app, params, query, store }) {
+  async fetch({ app, params, query, store, error }) {
     if (params && params.id) {
-      await store.dispatch("nomenklator/loadSubNumenklator", params);
+      const res = await store.dispatch(
+        "nomenklator/loadSubNumenklator",
+        params
+      );
+
+      if (!res) {
+        error({ statusCode: 404, message: "Товарная позиция НЕ найдена" });
+      }
     }
   },
 
@@ -121,7 +128,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: `https://newfurnitura.ru${this.$route.fullPath}`,
+          href: `https://www.newfurnitura.ru${this.$route.fullPath}`,
         },
       ],
     };

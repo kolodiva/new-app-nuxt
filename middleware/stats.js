@@ -8,7 +8,14 @@ export default function ({ route, store, redirect }) {
   //   "SET_BACKSPACE_BTN",
   //   !(route.path === undefined || route.path === "/")
   // );
-  // console.log(route.fullPath);
+  // console.log(route);
+  if (route && route.fullPath && route.fullPath.slice(-1) === "/") {
+    const newPath = route.fullPath.slice(0, -1);
+    return redirect(newPath);
+  }
+  // console.log("*******************************");
+  // console.log(route);
+
   if (
     route &&
     route.fullPath &&

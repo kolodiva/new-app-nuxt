@@ -413,13 +413,14 @@ export default {
   components: {
     VueHorizontalList,
   },
-  async fetch({ app, params, query, store, router, redirect }) {
+  async fetch({ app, params, query, store, router, redirect, error }) {
     if (params && params) {
       // console.log(params.id2);
       const res = await store.dispatch("nomenklator/loadGoodCard", params);
 
       if (!res) {
-        redirect("/error");
+        // redirect("/error");
+        error({ statusCode: 404, message: "Товарная позиция НЕ найдена" });
       }
     }
   },
@@ -791,7 +792,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: `https://newfurnitura.ru${this.$route.fullPath}`,
+          href: `https://www.newfurnitura.ru${this.$route.fullPath}`,
         },
       ],
     };
