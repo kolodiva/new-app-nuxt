@@ -1,7 +1,7 @@
 // const consola = require('consola')
 export default function ({ route, store, redirect }) {
   if (process.server) {
-    console.log(route);
+    //console.log(route);
     let fullPath = "";
     let newPath = route.path.toLowerCase();
     let changed = route.path !== newPath;
