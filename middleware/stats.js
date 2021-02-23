@@ -39,9 +39,6 @@ export default function ({ route, store, redirect }) {
     if (newPath.slice(-1) === "/") {
       newPath = newPath.slice(0, -1);
     }
-    if (newPath.slice(-3) === "%2f") {
-      newPath = newPath.slice(0, -3);
-    }
     newPath = newPath.replace("?itemcard=", "/");
 
     return redirect(newPath.toLowerCase());
@@ -75,10 +72,10 @@ export default function ({ route, store, redirect }) {
     route.fullPath &&
     route.fullPath !== route.fullPath.toLowerCase()
   ) {
-    let newPath = route.fullPath.toLowerCase();
-    if (newPath.slice(-1) === "/") {
-      newPath = newPath.slice(0, -1);
-    }
+    const newPath = route.fullPath.toLowerCase();
+    // if (newPath.slice(-1) === "/") {
+    //   newPath = newPath.slice(0, -1);
+    // }
     return redirect(newPath);
   }
 

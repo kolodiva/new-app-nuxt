@@ -41,7 +41,9 @@
                 v-bind="attrs"
                 v-on="on"
                 @click="
-                  downloadResource('https://www.newfurnitura.ru/news/PriceList.xls')
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/PriceList.xls'
+                  )
                 "
               />
             </template>
