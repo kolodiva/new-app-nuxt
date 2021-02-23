@@ -9,10 +9,6 @@ export default function ({ route, store, redirect }) {
   //   !(route.path === undefined || route.path === "/")
   // );
   // console.log(route);
-  if (route && route.fullPath && route.fullPath.slice(-1) === "/") {
-    const newPath = route.fullPath.slice(0, -1);
-    return redirect(newPath);
-  }
   // console.log("*******************************");
   // console.log(route);
 
@@ -47,6 +43,19 @@ export default function ({ route, store, redirect }) {
 
   if (route && route.fullPath && route.fullPath.includes("//?utm_source=")) {
     const newPath = route.fullPath.replace("//?utm_source=", "/?utm_source=");
+    return redirect(newPath);
+  }
+
+  if (route && route.fullPath && route.fullPath.slice(-1) === "/") {
+    const newPath = route.fullPath.slice(0, -1);
+    return redirect(newPath);
+  }
+  if (
+    route &&
+    route.fullPath &&
+    route.fullPath !== route.fullPath.toLowerCase()
+  ) {
+    const newPath = route.fullPath.toLowerCase();
     return redirect(newPath);
   }
 
