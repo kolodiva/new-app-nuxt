@@ -34,29 +34,36 @@ export default function ({ route, store, redirect }) {
   }
 
   if (route && route.fullPath && route.fullPath.includes("?itemcard=")) {
-    let newPath = route.fullPath.replace("?itemcard=", "/");
+    let newPath = route.fullPath;
 
     if (newPath.slice(-1) === "/") {
       newPath = newPath.slice(0, -1);
     }
+
+    newPath = newPath.replace("?itemcard=", "/");
 
     return redirect(newPath.toLowerCase());
   }
 
   if (route && route.fullPath && route.fullPath.includes("///?utm_source=")) {
-    let newPath = route.fullPath.replace("///?utm_source=", "/?utm_source=");
+    let newPath = route.fullPath;
+
     if (newPath.slice(-1) === "/") {
       newPath = newPath.slice(0, -1);
     }
+
+    newPath = newPath.replace("///?utm_source=", "/?utm_source=");
 
     return redirect(newPath.toLowerCase());
   }
 
   if (route && route.fullPath && route.fullPath.includes("//?utm_source=")) {
-    let newPath = route.fullPath.replace("//?utm_source=", "/?utm_source=");
+    let newPath = route.fullPath;
+
     if (newPath.slice(-1) === "/") {
       newPath = newPath.slice(0, -1);
     }
+    newPath = newPath.replace("//?utm_source=", "/?utm_source=");
 
     return redirect(newPath.toLowerCase());
   }
