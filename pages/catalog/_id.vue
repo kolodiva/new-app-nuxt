@@ -110,7 +110,7 @@ export default {
         },
         {
           name: "og:url",
-          content: `https://newfurnitura.ru/catalog/${this.getDescription.guid}`,
+          content: `https://www.newfurnitura.ru/catalog/${this.getDescription.guid}`,
         },
         {
           name: "og:type",

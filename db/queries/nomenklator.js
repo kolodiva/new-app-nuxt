@@ -387,8 +387,8 @@ export function getGoodCardComplects(params) {
 
                                                       complects.qty::real qty,
                                                       coalesce(order_goods.qty::real , 0) as qty_order,
-                                                      'https://newfurnitura.ru/upload/' || complects.guid_complect || '.jpg' as pic_path,
-                                                      'https://newfurnitura.ru/upload/' || complects.guid_complect || '_82x82.jpg' as pic_path_small,
+                                                      'https://www.newfurnitura.ru/upload/' || complects.guid_complect || '.jpg' as pic_path,
+                                                      'https://www.newfurnitura.ru/upload/' || complects.guid_complect || '_82x82.jpg' as pic_path_small,
                                                       coalesce(unit_types.name, '--') as unit_name,
                                                       coalesce(unit_types.code, '--') as unit_code,
 
@@ -459,7 +459,7 @@ export function getGoodCardDopComplects(params) {
 
                                                             round(COALESCE(order_goods.price, 0.00), 2) as price_order,
 
-                                                            'https://newfurnitura.ru/upload/' || substr(depots.name, 1, 32) || '_250x250.jpg' as guid_picture,
+                                                            'https://www.newfurnitura.ru/upload/' || substr(depots.name, 1, 32) || '_250x250.jpg' as guid_picture,
 
                                                             coalesce(unit_types.name, '--') as unit_name,
 

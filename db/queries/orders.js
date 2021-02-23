@@ -243,7 +243,7 @@ export function getCart(params) {
     with compl as (SELECT guid, JSON_AGG(src_json) as compl_json
     FROM (
     	  SELECT t2.complect_id id,t1.nomenklator_id guid, t3.name, t4.name unit_name, t2.koeff, t2.qty, t2.price,
-        'https://newfurnitura.ru/upload/' || t3.guid_complect || '_82x82.jpg' guid_picture_compl,
+        'https://www.newfurnitura.ru/upload/' || t3.guid_complect || '_82x82.jpg' guid_picture_compl,
         t3.artikul
     	  FROM order_goods t1
     	  join order_good_complects t2 on t1.id = t2.order_good_id

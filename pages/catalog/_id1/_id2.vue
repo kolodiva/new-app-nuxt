@@ -75,7 +75,7 @@
                   <meta itemprop="description" :content="descr_3" />
                   <link
                     itemprop="url"
-                    :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+                    :href="`https://www.newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
                   />
                   <link
                     itemprop="image"
@@ -741,7 +741,7 @@ export default {
         },
         {
           name: "og:url",
-          content: `https://newfurnitura.ru/catalog/${this.pos.parentguid}/${this.pos.synonym}`,
+          content: `https://www.newfurnitura.ru/catalog/${this.pos.parentguid}/${this.pos.synonym}`,
         },
         {
           name: "og:type",

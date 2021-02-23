@@ -871,7 +871,7 @@ export default {
     openShowComplectPos(pos) {
       this.infoComplectPos = { ...pos };
       this.infoComplectPos.pic_path =
-        "https://newfurnitura.ru/upload/" + pos.id + ".jpg";
+        "https://www.newfurnitura.ru/upload/" + pos.id + ".jpg";
       this.showComplectPos = true;
     },
     closeComplectsView(event) {

@@ -107,7 +107,7 @@ export default {
   computed: {
     cPic() {
       return this.errLoadImg
-        ? "https://newfurnitura.ru/upload/8126cd02-1094-46d4-a70a-f2e2d5b5_250x250.jpg"
+        ? "https://www.newfurnitura.ru/upload/8126cd02-1094-46d4-a70a-f2e2d5b5_250x250.jpg"
         : this.pos.guid_picture;
     },
     btnColor() {

@@ -377,8 +377,8 @@ export default {
       const res =
         item && item.path_pdf
           ? (item.path_pdf.includes("advs")
-              ? "https://newfurnitura.ru/"
-              : "https://newfurnitura.ru/news/") + item.path_pdf
+              ? "https://www.newfurnitura.ru/"
+              : "https://www.newfurnitura.ru/news/") + item.path_pdf
           : "/";
       return res;
     },

@@ -47,7 +47,7 @@
               />
               <link
                 itemprop="url"
-                :href="`https://newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
+                :href="`https://www.newfurnitura.ru/catalog/${pos.parentguid}/${pos.synonym}`"
               />
               <link
                 itemprop="image"
