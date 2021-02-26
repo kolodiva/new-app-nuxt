@@ -1,7 +1,7 @@
 // const consola = require('consola')
 export default function ({ route, store, redirect }) {
   // console.log(route);
-  if (route.fullPath === "/") {
+  if (route.fullPath === "/" || route.path === "/") {
     return;
   }
   if (process.server) {
