@@ -34,10 +34,10 @@ export async function getParams({param}) {
 }
 
 async function sendCreateTask(taskinfo) {
-
+//path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
   const options = {
   host: 'b24-sjyom9.bitrix24.ru',
-  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
+  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}`),
 };
 
 //console.log(options.host + options.path);
