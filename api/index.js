@@ -37,10 +37,16 @@ async function sendCreateTask(taskinfo) {
 //path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
   const options = {
   host: 'b24-sjyom9.bitrix24.ru',
-  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}`),
+  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
 };
 
-//console.log(options.host + options.path);
+if (taskinfo.AUDITORS > 0) {
+  options.path = options.path + `&TASKDATA[AUDITORS][0]=${taskinfo.AUDITORS}`
+}
+
+// console.log(options.host + options.path);
+//
+// return
 
 const callback = function(response) {
   var str = '';
@@ -552,10 +558,38 @@ currentdate = currentdate.getFullYear() + '-' + (currentdate.getMonth() + 1) + '
 const taskinfo = {
   GROUP_ID: 94,
   RESPONSIBLE_ID: 30,
+  AUDITORS: 0,
   TITLE: `Интернет заказ № ${orderid} на сумму ${rows[0].sum} руб. Отправлен в обработку в 1С. Ожидайте прихода.`,
   DESCRIPTION: `Детали Заказа:\n${dopinfo.replace('- /', (email ? email : '***' + ' /'))}`,
   DEADLINE: currentdate,
 };
+
+if (/Новосибирск/.test(filial)) {
+  taskinfo.RESPONSIBLE_ID = 62;
+  taskinfo.AUDITORS = 60;
+}
+if (/Екатеринбург/.test(filial)) {
+  taskinfo.RESPONSIBLE_ID = 72;
+  taskinfo.AUDITORS = 76;
+}
+if (/Казань/.test(filial)) {
+  taskinfo.RESPONSIBLE_ID = 50;
+  taskinfo.AUDITORS = 48;
+}
+if (/Ростов-на-Дону/.test(filial)) {
+  taskinfo.RESPONSIBLE_ID = 58;
+  taskinfo.AUDITORS = 34;
+}
+if (/Краснодар/.test(filial)) {
+  taskinfo.RESPONSIBLE_ID = 38;
+  taskinfo.AUDITORS = 36;
+}
+// 30 красноперов мск
+// 62 манютина нсб 60 князев
+// 50 кирилова кзн 48 кирилов
+// 72 бражкина екб 76 медведчиков
+// 38 клочков крд 36 бурса
+// 58 пахомов рнд 34 скляров
 
 try {
   const res = await sendCreateTask(taskinfo);
