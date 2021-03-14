@@ -564,6 +564,10 @@ const taskinfo = {
   DEADLINE: currentdate,
 };
 
+if (/Санкт-Петербург/.test(filial)) {
+  taskinfo.RESPONSIBLE_ID = 44;
+  //taskinfo.AUDITORS = 60;
+}
 if (/Новосибирск/.test(filial)) {
   taskinfo.RESPONSIBLE_ID = 62;
   taskinfo.AUDITORS = 60;
@@ -590,6 +594,7 @@ if (/Краснодар/.test(filial)) {
 // 72 бражкина екб 76 медведчиков
 // 38 клочков крд 36 бурса
 // 58 пахомов рнд 34 скляров
+// 44 волков спб
 
 try {
   const res = await sendCreateTask(taskinfo);
