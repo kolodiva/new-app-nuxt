@@ -240,6 +240,7 @@
                     min-height: 500px;
                     max-height: 500px;
                     position: relative;
+                    overflow-y: scroll;
                   "
                 >
                   <v-list>
