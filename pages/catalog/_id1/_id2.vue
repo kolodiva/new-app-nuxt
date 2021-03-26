@@ -43,6 +43,13 @@
                   <v-spacer /> Инструкции
                 </v-tab>
                 <v-tab
+                  v-if="youtubechick && youtubechick.length > 0"
+                  style="height: 30px"
+                  @click="goTo('#section_6')"
+                >
+                  <v-spacer /> Ютубчик
+                </v-tab>
+                <v-tab
                   v-if="posDopComplects && posDopComplects.length > 0"
                   style="height: 30px"
                   @click="goTo('#section_5')"
@@ -281,7 +288,7 @@
           <v-card
             v-if="instructions && instructions.length > 0"
             id="section_4"
-            class="mt-1"
+            class="mt-1 mb-3"
             flat
           >
             <v-card-title>Инструкции</v-card-title>
@@ -305,6 +312,41 @@
                     />
                   </template>
                   <span>Просмотреть информацию</span>
+                </v-tooltip>
+
+                <v-card-subtitle style="max-width: 135px; text-align: center"
+                  ><span>{{ posInstr.alt }}</span></v-card-subtitle
+                >
+              </v-card>
+            </v-row>
+          </v-card>
+          <v-card
+            v-if="youtubechick && youtubechick.length > 0"
+            id="section_6"
+            class="my-4"
+            flat
+          >
+            <v-card-title>Ютубчик</v-card-title>
+
+            <v-row class="mx-0">
+              <v-card
+                v-for="(posInstr, ind) in youtubechick"
+                :key="ind"
+                flat
+                class="pa-3"
+              >
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <img
+                      class="d-block mx-auto"
+                      src="/youtube-play.png"
+                      style="cursor: pointer; max-width: 72px"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="downloadResource(posInstr.pic_path)"
+                    />
+                  </template>
+                  <span>Просмотреть видео в новом окне</span>
                 </v-tooltip>
 
                 <v-card-subtitle style="max-width: 135px; text-align: center"
@@ -373,7 +415,7 @@
         v-if="posDopComplects && posDopComplects.length > 0"
         id="section_5"
         style=""
-        class="mt-1"
+        class="mt-3"
         flat
         ><v-card-text class="pb-0 mb-n5">С этим покупают</v-card-text>
 
@@ -471,6 +513,7 @@ export default {
       posDopComplects: "nomenklator/getGoodCardDopComplects",
       photos: "nomenklator/getGoodCardRowsPhoto",
       instructions: "nomenklator/getInstructions",
+      youtubechick: "nomenklator/getYoutubechick",
       showLimitWidth: "service/getShowLimitWidth",
     }),
     txtLabel() {

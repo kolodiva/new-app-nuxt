@@ -542,6 +542,26 @@ export function getInstructions(params) {
     values: [],
   }
 }
+export function getYoutubechick(params) {
+
+  const textqry=`
+  select
+  COALESCE(depots.name, '') as pic_path,
+  nomenklators.name as name,
+  nomenklators.artikul as artikul,
+  nomenklators.artikul_new as artikul_new,
+  depots.alt,
+  depots.intrnt_html params
+  from nomenklators inner join depots on nomenklators.guid = depots.guid
+  where nomenklators.synonym='${params.synonym}' and type='youtubechick'
+  `
+
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getBreadCrumbs(params) {
 
   const textqry=`

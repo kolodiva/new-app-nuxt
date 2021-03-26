@@ -37,12 +37,21 @@ export const mutations = {
   },
   SET_GOOD_CARD(
     state,
-    { rows, rowsphoto, rowsinstructions, breadcrumb, complects, dopcomplects }
+    {
+      rows,
+      rowsphoto,
+      rowsinstructions,
+      rowsyoutubechick,
+      breadcrumb,
+      complects,
+      dopcomplects,
+    }
   ) {
     state.goodCard = {
       rows,
       rowsphoto,
       rowsinstructions,
+      rowsyoutubechick,
       breadcrumb,
       complects,
       dopcomplects,
@@ -281,6 +290,9 @@ export const getters = {
   getInstructions: (state) => {
     return state.goodCard.rowsinstructions;
   },
+  getYoutubechick: (state) => {
+    return state.goodCard.rowsyoutubechick;
+  },
   getSeoText: (state) => {
     return state.seoText;
   },
@@ -451,6 +463,7 @@ export const actions = {
       rows,
       rowsphoto,
       rowsinstructions,
+      rowsyoutubechick,
       breadcrumb,
       complects,
       dopcomplects,
@@ -464,6 +477,7 @@ export const actions = {
       rows,
       rowsphoto,
       rowsinstructions,
+      rowsyoutubechick,
       breadcrumb,
       complects,
       dopcomplects,
