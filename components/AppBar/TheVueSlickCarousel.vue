@@ -91,7 +91,7 @@ export default {
       // debugger;
       const res =
         item && item.path_pdf
-          ? (item.path_pdf.includes("advs")
+          ? ( (item.path_pdf.includes("advs/") || item.path_pdf.includes("catalog/"))
               ? "https://www.newfurnitura.ru/"
               : "https://www.newfurnitura.ru/news/") + item.path_pdf
           : "/";
