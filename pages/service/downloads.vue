@@ -26,7 +26,7 @@
 
           <v-card-subtitle style="max-width: 135px"
             ><span
-              >Каталог 2020<br />МФ-Комплект<br />~ 100 MB</span
+              >Каталог 2021<br />МФ-Комплект<br />~ 100 MB</span
             ></v-card-subtitle
           >
         </v-card>
