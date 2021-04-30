@@ -571,7 +571,7 @@ if (/Санкт-Петербург/.test(filial)) {
   //taskinfo.AUDITORS = 60;
 }
 if (/Новосибирск/.test(filial)) {
-  taskinfo.RESPONSIBLE_ID = 62;
+  taskinfo.RESPONSIBLE_ID = 1486;
   taskinfo.AUDITORS = 60;
 }
 if (/Екатеринбург/.test(filial)) {
@@ -592,6 +592,7 @@ if (/Краснодар/.test(filial)) {
 }
 // 30 красноперов мск
 // 62 манютина нсб 60 князев
+// 1486 салабаева нсб 60 князев
 // 50 кирилова кзн 48 кирилов
 // 72 бражкина екб 76 медведчиков
 // 38 клочков крд 36 бурса
