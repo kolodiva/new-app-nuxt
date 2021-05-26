@@ -842,6 +842,37 @@ export function getSearchNomenklator_old3(searchtext) {
     values: [],
   }
 }
+
+export function getSearchNomenklatorExactly( searchtext ) {
+
+  let whereStr = "'" + searchtext.toLowerCase().replace(/ /g,'') + "'";
+
+  const textqry = `
+  with r1 as (
+  select distinct t2.id, t1.parentguid, t1.synonym, ' (' || t1.artikul || ') ' || t1.name || ' (' || t1.artikul_new || ')' descr, t1.name, t1.artikul, t1.artikul_new, t1.itgroup
+  	from nomenklators t1
+  	inner join nomenklators t2 on t2.guid = t1.parentguid
+    where not t1.itgroup
+    and t1.parentguid not in ('yandexpagesecret', 'sekretnaya_papka')
+  	and ( t2.parentguid is null or t2.parentguid not in ('yandexpagesecret', 'sekretnaya_papka') )
+    and
+    (lower(t1.artikul) = ${whereStr} or lower(t1.artikul_new) = ${whereStr} )
+  order by t1.name
+    limit 20)
+    select id, synonym, synonym descr, guid parentguid, itgroup from nomenklators t where lower(synonym || ' ' || name) ~ ${whereStr} and itgroup
+    	union all
+    select distinct min(r1.id) id, r1.synonym, r1.descr, t1.parentguid, r1.itgroup
+    from r1
+    inner join nomenklators t1 on r1.id = t1.id
+    group by r1.synonym, r1.descr, t1.parentguid, r1.itgroup
+  `
+     //console.log(textqry);
+  return {
+    name: '',
+    text: textqry,
+    values: [],
+  }
+}
 export function getSearchNomenklator( searchtext ) {
 
   let whereStr = searchtext.toLowerCase().split(' ');

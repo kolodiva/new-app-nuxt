@@ -749,7 +749,19 @@ export async function searchCatalog( {v} ) {
 
   // console.log('txtSearchPart', v);
 
-  const searchedList  = await db.queryApp( 'getSearchNomenklator', v );
+  //по просьбе трудячщихся сначала ищем ПОЛНОЕ совпадение, затем уже по аналогии
+  let res = await db.queryApp('getSearchNomenklatorExactly', v)
 
-  return searchedList.rows;
+  if (res.rows.length === 0) {
+    res = await db.queryApp('getSearchNomenklator', v)
+  }
+
+  const {rows} = res;
+
+  return rows;
+
+// //
+//   const searchedList  = await db.queryApp( 'getSearchNomenklator', v );
+//
+//   return searchedList.rows;
 }

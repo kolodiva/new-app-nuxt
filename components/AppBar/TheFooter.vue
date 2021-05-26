@@ -2,13 +2,30 @@
   <v-footer padless class="blueMfBckg" dark>
     <v-row class="" style="min-height: 250px">
       <v-col class="pl-5">
-        <TheSocials
-          :params="{
-            url: 'https://www.newfurnitura.ru/',
-            title: 'МФ-Комплект. Мебельная фурнитура',
-            description: '5000 наименований на любой вкус.',
-          }"
-        />
+        <v-row style="flex-direction: column; height: 75vh">
+          <v-col>
+            <TheSocials
+              :params="{
+                url: 'https://www.newfurnitura.ru/',
+                title: 'МФ-Комплект. Мебельная фурнитура',
+                description: '5000 наименований на любой вкус.',
+              }"
+            />
+          </v-col>
+          <v-col>
+            <a
+              href="https://webmaster.yandex.ru/siteinfo/?site=https://www.newfurnitura.ru"
+            >
+              <img
+                width="88"
+                height="31"
+                alt=""
+                border="0"
+                src="https://yandex.ru/cycounter?https://www.newfurnitura.ru&theme=light&lang=ru"
+              />
+            </a>
+          </v-col>
+        </v-row>
       </v-col>
       <v-divider vertical class=""></v-divider>
       <v-col> </v-col>
