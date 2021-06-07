@@ -765,3 +765,14 @@ export async function searchCatalog( {v} ) {
 //
 //   return searchedList.rows;
 }
+
+//stock-taking
+export async function getStockTakings( {pageSize, currentLength, curFilial} ) {
+
+  //const {rows} = await db.queryApp('getStockTaking', {pageSize, currentLength, curFilial} )
+  const {rows} = await db.queryApp('getStockTakings', {pageSize, currentLength, curFilial})
+
+  //console.log(rows)
+
+  return rows;
+}
