@@ -12,17 +12,15 @@
       </div>
     </ShareNetwork>
 
-    <ShareNetwork
-      network="WhatsApp"
-      :url="params.url"
-      :title="params.title"
-      :description="params.description"
-      style="text-decoration: none"
+    <a
+      href="https://wa.me/79169604255"
+      target="_blank"
+      title="Напишите нам в онлайн чат"
     >
       <div class="socialIcon fab">
         <v-icon light class="whatsapp">mdi-whatsapp</v-icon>
-      </div>
-    </ShareNetwork>
+      </div></a
+    >
 
     <ShareNetwork
       network="Instagram"
