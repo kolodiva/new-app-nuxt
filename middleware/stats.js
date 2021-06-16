@@ -6,7 +6,7 @@ export default function ({ route, store, redirect }) {
   }
   if (process.server) {
     let fullPath = "";
-    let advsPath = "";
+    // const advsPath = "";
     let newPath = route.path.toLowerCase();
     let changed = route.path !== newPath;
 
@@ -23,30 +23,28 @@ export default function ({ route, store, redirect }) {
       changed = true;
     }
 
-    if (route && route.path && route.path.includes("/advs/")) {
-      let tmpPath0 = route.path;
-
-      const aPath0 = tmpPath0.split("/");
-
-      const aPath1 = aPath0.filter(function (el) {
-        return el !== "";
-      });
-
-      tmpPath0 = "/" + aPath1.join("/");
-
-      if (!tmpPath0.includes(".html")) {
-        tmpPath0 = tmpPath0 + ".html";
-      }
-
-      advsPath = tmpPath0;
-
-      changed = true;
-    }
+    // if (route && route.path && route.path.includes("/advs/")) {
+    //   let tmpPath0 = route.path;
+    //
+    //   const aPath0 = tmpPath0.split("/");
+    //
+    //   const aPath1 = aPath0.filter(function (el) {
+    //     return el !== "";
+    //   });
+    //
+    //   tmpPath0 = "/" + aPath1.join("/");
+    //
+    //   if (!tmpPath0.includes(".html")) {
+    //     tmpPath0 = tmpPath0 + ".html";
+    //   }
+    //
+    //   advsPath = tmpPath0;
+    //
+    //   changed = true;
+    // }
 
     if (changed) {
-      if (advsPath) {
-        redirect(301, advsPath);
-      } else if (fullPath) {
+      if (fullPath) {
         redirect(301, fullPath);
       } else {
         redirect(301, route.fullPath.replace(route.path, newPath));
