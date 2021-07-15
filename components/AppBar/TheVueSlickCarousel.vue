@@ -107,13 +107,27 @@ export default {
   methods: {
     getPathPdf(item) {
       // debugger;
-      const res =
-        item && item.path_pdf
-          ? (item.path_pdf.includes("advs/") ||
-            item.path_pdf.includes("catalog/")
-              ? "https://www.newfurnitura.ru/"
-              : "https://www.newfurnitura.ru/news/") + item.path_pdf
-          : "/";
+      let res = "/";
+
+      if (item && item.path_pdf) {
+        if (
+          item.path_pdf.includes("advs/") ||
+          item.path_pdf.includes("catalog/")
+        ) {
+          res = "https://www.newfurnitura.ru/" + item.path_pdf;
+        } else if (item.path_pdf.includes("https://")) {
+          res = item.path_pdf;
+        } else {
+          res = "https://www.newfurnitura.ru/news/" + item.path_pdf;
+        }
+      }
+      // const res =
+      //   item && item.path_pdf
+      //     ? (item.path_pdf.includes("advs/") ||
+      //       item.path_pdf.includes("catalog/")
+      //         ? "https://www.newfurnitura.ru/"
+      //         : "https://www.newfurnitura.ru/news/") + item.path_pdf
+      //     : "/";
       return res;
     },
   },
