@@ -108,9 +108,14 @@ export default {
             text: `Спасибо Вам за Регистрацию, ${loginInfo.email}`,
             timeout: 5000,
           });
-          //
-          // await this.$store.dispatch('nomenklator/refreshCountCart')
-          //
+
+          // setTimeout(() => {
+          //   window.dataLayer.push({
+          //     event: "logged-in",
+          //     userID: loginInfo.id,
+          //   });
+          // }, 2000);
+
           this.$router.replace("/");
         } catch (e) {
           // consola.info(e.response.data)

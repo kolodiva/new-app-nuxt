@@ -29,6 +29,7 @@
         bottom
         small
         left
+        style="margin-bottom: 40px"
         @click="$vuetify.goTo('#app', { duration: 500, offset: 0 })"
       >
         <v-icon>mdi-chevron-up</v-icon>
@@ -98,12 +99,10 @@ export default {
       await this.$store.dispatch("nomenklator/setUserInfo", { connectionid });
       await this.$store.dispatch("nomenklator/refreshCountCart");
     }
-
     // setTimeout(() => {
     //   this.show = true;
     // }, 1000);
   },
-
   methods: {
     closeShowMainDisclaimer() {
       this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);

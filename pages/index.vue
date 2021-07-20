@@ -66,12 +66,25 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
+  computed: {
+    ...mapGetters({
+      clientId: "nomenklator/getUserInfoClientId",
+    }),
+  },
 
-  mounted() {},
+  mounted() {
+    if (this.clientId) {
+      window.dataLayer.push({
+        event: "logged-in",
+        userID: this.clientId,
+      });
+    }
+  },
 
   head() {
     return {

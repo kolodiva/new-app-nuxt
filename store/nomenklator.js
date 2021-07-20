@@ -308,6 +308,11 @@ export const getters = {
       ? state.userInfo.email
       : undefined;
   },
+  getUserInfoClientId: (state) => {
+    return state.userInfo && state.userInfo.id > 1
+      ? state.userInfo.id
+      : undefined;
+  },
   getUserInfo: (state) => {
     return state.userInfo ? state.userInfo : { email: "anonimus", id: 1 };
   },
