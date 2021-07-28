@@ -572,7 +572,7 @@ if (/Санкт-Петербург/.test(filial)) {
 }
 if (/Новосибирск/.test(filial)) {
   taskinfo.RESPONSIBLE_ID = 1486;
-  taskinfo.AUDITORS = 60;
+  taskinfo.AUDITORS = 62;
 }
 if (/Екатеринбург/.test(filial)) {
   taskinfo.RESPONSIBLE_ID = 72;
