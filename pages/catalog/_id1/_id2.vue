@@ -47,7 +47,7 @@
                   style="height: 30px"
                   @click="goTo('#section_6')"
                 >
-                  <v-spacer /> Ютубчик
+                  <v-spacer /> Видеоматериалы
                 </v-tab>
                 <v-tab
                   v-if="posDopComplects && posDopComplects.length > 0"
@@ -326,7 +326,7 @@
             class="my-4"
             flat
           >
-            <v-card-title>Ютубчик</v-card-title>
+            <v-card-title>Видеоматериалы</v-card-title>
 
             <v-row class="mx-0">
               <v-card
