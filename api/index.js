@@ -97,6 +97,20 @@ async function sendEmail(message) {
 
 }
 
+//api Bitrix24
+export async function getcdata( {id} ) {
+
+  let result = null;
+
+  if (id) {
+    result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24 where code=$1", [id] );
+  } else {
+    result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24" );
+  }
+
+  return result.rows;
+}
+
 //nomenklator
 export async function getSubNomenklator( params ) {
 
