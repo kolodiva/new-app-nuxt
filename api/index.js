@@ -98,11 +98,11 @@ async function sendEmail(message) {
 }
 
 //api Bitrix24
-export async function getcdata( {id, pass} ) {
+export async function getcdata( {id, id2} ) {
 
   let result = null;
 
-  if (pass && pass === process.env.PASS_1C) {
+  if (id2 && id2 === process.env.PASS_1C) {
 
     if (id) {
       result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24 where code=$1", [id] );
