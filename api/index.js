@@ -98,15 +98,22 @@ async function sendEmail(message) {
 }
 
 //api Bitrix24
-export async function getcdata( {id} ) {
+export async function getcdata( {id, pass} ) {
 
   let result = null;
 
-  if (id) {
-    result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24 where code=$1", [id] );
+  if (pass && pass === process.env.PASS_1C) {
+
+    if (id) {
+      result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24 where code=$1", [id] );
+    } else {
+      result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24" );
+    }
+
   } else {
-    result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24" );
+    result = { rows: [] };
   }
+
 
   return result.rows;
 }

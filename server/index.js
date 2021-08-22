@@ -7,6 +7,9 @@ const https = require('https')
 
 const cors = require('cors')
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 app.use(cookieParser())
 
 var multer  = require('multer')
