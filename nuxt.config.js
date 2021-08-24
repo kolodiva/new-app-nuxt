@@ -76,6 +76,7 @@ module.exports = {
 
 // '~/api/index.js'
   serverMiddleware: [
+    '~/serverMiddleware/check-itemcard.js',
     '~/serverMiddleware/check-malformed.js',
     { path: "/api", handler: require("body-parser").json() },
         {
