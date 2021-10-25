@@ -105,9 +105,9 @@ export async function getcdata( {id, id2} ) {
   if (id2 && id2 === process.env.PASS_1C) {
 
     if (id) {
-      result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24 where code=$1", [id] );
+      result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price, url from nomenklators_bitrix24 where code=$1", [id] );
     } else {
-      result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price from nomenklators_bitrix24" );
+      result = await db.queryAppStatSqlExec( "select id_bitrix24 id, guid, name, code, new_article, mesure, price, planned_price, future_price, minus6_price, url from nomenklators_bitrix24" );
     }
 
   } else {
