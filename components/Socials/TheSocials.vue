@@ -24,7 +24,7 @@
       </div>
     </ShareNetwork>
 
-    <!-- <a
+    <a
       href="https://wa.me/79169604255"
       target="_blank"
       title="Напишите нам в онлайн чат"
@@ -32,7 +32,7 @@
       <div class="socialIcon fab">
         <v-icon light class="whatsapp">mdi-whatsapp</v-icon>
       </div></a
-    > -->
+    >
 
     <ShareNetwork
       network="Instagram"
