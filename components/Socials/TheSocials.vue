@@ -34,7 +34,7 @@
       </div></a
     >
 
-    <ShareNetwork
+    <!-- <ShareNetwork
       network="Instagram"
       url=""
       title=""
@@ -44,7 +44,7 @@
       <div class="socialIcon fab">
         <v-icon light class="instagram">mdi-instagram</v-icon>
       </div>
-    </ShareNetwork>
+    </ShareNetwork> -->
   </div>
 </template>
 
