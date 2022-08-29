@@ -61,6 +61,7 @@ export function getSubNomenklator(params) {
           nomenklators.sort_field,
           nomenklators.describe,
           nomenklators.is_complect,
+          nomenklators.is_discount,
           case when nomenklators.itgroup then '' else coalesce( case when nomenklators.is_complect > 0 then 'компл.' else unit_types.name end, 'нет ед.изм.') end as unit_name,
           nomenklators.unit_type_id unit_type_id,
 
@@ -210,6 +211,7 @@ export function getSubNomenklatorByFilter(params) {
           nomenklators.sort_field,
           nomenklators.describe,
           nomenklators.is_complect,
+          nomenklators.is_discount,
           case when nomenklators.itgroup then '' else coalesce( case when nomenklators.is_complect > 0 then 'компл.' else unit_types.name end, 'нет ед.изм.') end as unit_name,
           nomenklators.unit_type_id unit_type_id,
 
@@ -310,6 +312,7 @@ export function getGoodCard(params) {
           nomenklators.sort_field,
           nomenklators.describe,
           nomenklators.is_complect,
+          nomenklators.is_discount,
           case when nomenklators.itgroup then '' else coalesce( case when nomenklators.is_complect > 0 then 'компл.' else unit_types.name end, 'нет ед.изм.') end as unit_name,
           nomenklators.unit_type_id unit_type_id,
 

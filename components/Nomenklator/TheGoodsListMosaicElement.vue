@@ -19,6 +19,19 @@
       "
     />
 
+    <img
+      v-if="pos.is_discount === true"
+      src="/isDiscount.png"
+      style="
+        cursor: pointer;
+        position: absolute;
+        left: 15px;
+        top: 45px;
+        width: 32px;
+        z-index: 1;
+      "
+    />
+
     <div class="flex-grow-0 pa-1 pl-2">
       <span class="d-block caption">{{ pos.artikul_new }}</span>
       <span class="d-block overlay font-weight-medium mt-n1">{{

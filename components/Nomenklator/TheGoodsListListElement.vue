@@ -27,6 +27,16 @@
                   width: 32px;
                 "
               />
+              <img
+                v-if="pos.is_discount === true"
+                src="/isDiscount.png"
+                style="
+                  cursor: pointer;
+                  position: absolute;
+                  left: 0px;
+                  width: 32px;
+                "
+              />
             </div>
           </n-link>
         </v-col>
