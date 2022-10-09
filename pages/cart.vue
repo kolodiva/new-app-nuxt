@@ -12,37 +12,29 @@
 
       <v-tabs-items v-model="tabOrders">
         <v-tab-item v-if="cartList.length > 0">
+          <v-card flat class="mx-10 mt-2">
+            <p style="font-size: 0.8rem; color: red; margin-bottom: 0">
+              Бесплатные виды доставки<br />Следующие виды доставки мы
+              осуществляем бесплатно: <br />
+              - доставка до пункта приёма производится бесплатно для любой суммы
+              заказа.<br />
+              - доставка товаров по Москве и в пределах 20 км от МКАД, а так же
+              до пунктов приёма транспортных компаний, при сумме заказа свыше 30
+              000 рублей, в будние дни с 10 до 17 часов<br />
+              Дата и время доставки согласовываются с менеджером.
+            </p>
+          </v-card>
           <v-card flat class="mx-5">
-            <v-card-title class="headline pb-0">
+            <v-card-title class="headline pb-0 pt-2">
               {{
                 cartList.length == 0
                   ? "Ваша корзина пуста."
-                  : "Ваш заказ " +
-                    numOrder +
-                    " на сумму: " +
+                  : "Ваш заказ на сумму: " +
                     new Intl.NumberFormat("ru-RU").format(sumOrder) +
                     " руб."
               }}
             </v-card-title>
 
-            <template v-if="cartList.length > 0">
-              <v-card-actions>
-                <v-btn color="orange" @click="sendOrderForm = !sendOrderForm">
-                  Отправить заказ в обработку
-                </v-btn>
-                <v-spacer />
-                <v-btn
-                  color="orange"
-                  @click="dialogEmptyCart = !dialogEmptyCart"
-                >
-                  Очистить корзину
-                </v-btn>
-              </v-card-actions>
-              <v-card-title class="py-0">
-                Информация о Заказе будет отправлена Вам на указанный при
-                отправке Email.
-              </v-card-title>
-            </template>
             <v-row class="pb-0" justify="space-between">
               <v-col cols="">
                 <v-treeview
@@ -150,6 +142,30 @@
               from-cart="true"
               @closeWin="closeComplectsView"
             />
+            <template v-if="cartList.length > 0">
+              <v-row class="pb-0">
+                <v-col cols="">
+                  <v-card-actions class="justify-end">
+                    <v-btn
+                      color="orange"
+                      @click="sendOrderForm = !sendOrderForm"
+                    >
+                      Отправить заказ в обработку
+                    </v-btn>
+                    <v-btn
+                      color="orange"
+                      @click="dialogEmptyCart = !dialogEmptyCart"
+                    >
+                      Очистить корзину
+                    </v-btn>
+                  </v-card-actions>
+                  <v-card-title class="py-0 justify-end">
+                    Информация о Заказе будет отправлена Вам на указанный при
+                    отправке Email.
+                  </v-card-title>
+                </v-col>
+              </v-row>
+            </template>
           </v-card>
         </v-tab-item>
         <v-tab-item v-if="userInfo.id > 1">
@@ -664,7 +680,7 @@ export default {
     }),
     numOrder() {
       return this.cartList && this.cartList.length > 0
-        ? this.cartList[0].order_id + " от " + this.cartList[0].data_on
+        ? this.cartLit[0].order_id + " от " + this.cartList[0].data_on
         : "***";
     },
     sumOrder() {
