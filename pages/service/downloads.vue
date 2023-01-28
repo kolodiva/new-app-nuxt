@@ -16,12 +16,12 @@
                 v-on="on"
                 @click="
                   downloadResource(
-                    'https://www.newfurnitura.ru/news/Catalog_MF_2019.pdf'
+                    'https://www.newfurnitura.ru/news/Catalog_MF_2023.pdf'
                   )
                 "
               />
             </template>
-            <span>Загрузить каталог МФ-Комплект 2020 год (~ 100 MB)</span>
+            <span>Загрузить каталог МФ-Комплект 2023 год (~ 100 MB)</span>
           </v-tooltip>
 
           <v-card-subtitle style="max-width: 135px"
