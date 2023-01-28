@@ -6,13 +6,13 @@
       "to": "",
       "href":"",
       "submenu" : [
-        {"name": "Москва",         "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-moskva"},
-        {"name": "Новосибирск",    "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-novosibirsk"},
-        {"name": "Екатеринбург",   "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-yekaterinburg"},
-        {"name": "Ростов-на-Дону", "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-rostov-na-donu"},
-        {"name": "Казань",         "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-kazan"},
-        {"name": "Санкт-Петербург","to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-sankt-peterburg"},
-        {"name": "Краснодар",      "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-krasnodar"}
+        {"name": "Москва",         "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-moskva.html"},
+        {"name": "Новосибирск",    "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-novosibirsk.html"},
+        {"name": "Екатеринбург",   "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-yekaterinburg.html"},
+        {"name": "Ростов-на-Дону", "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-rostov-na-donu.html"},
+        {"name": "Казань",         "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-kazan.html"},
+        {"name": "Санкт-Петербург","to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-sankt-peterburg.html"},
+        {"name": "Краснодар",      "to": "",  "href":"https://www.newfurnitura.ru/advs/dostavka-krasnodar.html"}
       ],
       "css_class": "buttonMFGreyColor"
     },
@@ -23,7 +23,7 @@
       "to":"",
       "href":"",
       "submenu" : [
-        {"name": "Возврат-Обмен", "to": "",  "href":"https://www.newfurnitura.ru/advs/vozvrat-obmen"},
+        {"name": "Возврат-Обмен", "to": "",  "href":"https://www.newfurnitura.ru/advs/vozvrat-obmen.html"},
         {"name": "Спец.условия",  "to": "",  "ref":""}
       ],
       "css_class": "buttonMFGreyColor"
