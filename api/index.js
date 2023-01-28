@@ -273,7 +273,7 @@ export async function getManagers( inpData ) {
 
   let id = undefined;
 
-  if ('id' in inpData) {
+  if (!inpData && 'id' in inpData) {
       id = inpData.id;
   }
 
