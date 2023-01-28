@@ -71,7 +71,7 @@ export function getNewCard( id ) {
 //export function getManagers(id = undefined) {
 export function getManagers(id) {
 
-  const textWhereFilial = id ? "where filial = '" + id + "'" : "";
+  const textWhereFilial = id == undefined ? "" : "where filial = '" + id + "'" ;
 
   const textqry=`
   with r2 as (
