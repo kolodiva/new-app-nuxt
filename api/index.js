@@ -268,7 +268,10 @@ export async function getNewsBlock() {
 
   return rows;
 }
-export async function getManagers( {id} ) {
+// export async function getManagers( {id} ) {
+export async function getManagers( inpData ) {
+
+  const id = inpData?.id?
 
   const {rows} = await db.queryStat1('getManagers', id)
 
