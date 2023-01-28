@@ -23,8 +23,7 @@
       "to":"",
       "href":"",
       "submenu" : [
-        {"name": "Возврат-Обмен", "to": "",  "href":"https://www.newfurnitura.ru/advs/vozvrat-obmen.html"},
-        {"name": "Спец.условия",  "to": "",  "ref":""}
+        {"name": "Возврат-Обмен", "to": "",  "href":"https://www.newfurnitura.ru/advs/vozvrat-obmen.html"}
       ],
       "css_class": "buttonMFGreyColor"
     },
