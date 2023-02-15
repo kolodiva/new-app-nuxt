@@ -28,7 +28,7 @@ export default async (req, res, next) => {
     res.status(result.status).end(result.msg);
   } else {
 
-    if (method === 'getcdata') {
+    if (method === 'getcdata' || method === 'getcdatamanagers') {
 
         const _data = JSON.stringify(result);
         res.setHeader('Content-Type', 'application/json', 'charset', 'utf-8');
