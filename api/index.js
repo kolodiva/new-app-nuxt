@@ -65,6 +65,43 @@ const callback = function(response) {
 await http.request(options, callback).end();
 
 }
+
+async function sendCreateLead(taskinfo) {
+
+//path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
+  const bitrixdata = taskinfo.BITRIXSHORTDATA;
+
+  const options = {
+  host: 'b24-sjyom9.bitrix24.ru',
+  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/crm.lead.add.json?fields[ORIGIN_ID]=${bitrixdata.ORDER_ID}&fields[TITLE]='Интернет-Заказ № ' + ${bitrixdata.ORDER_ID}&fields[NAME]='Покупатель'&fields[STATUS_ID]='NEW'&fields[OPENED]='Y'&fields[ASSIGNED_BY_ID]='1442'&fields[CREATED_BY_ID]='1'&fields[CURRENCY_ID]='RUB'&fields[OPPORTUNITY]=${bitrixdata.SUM_ORDER}&fields[SOURCE_DESCRIPTION]='Интернет-заказ'&fields[SOURCE_ID]='WEB'&fields[COMMENTS]=${taskinfo.DESCRIPTION}&fields[ADDRESS_CITY]=${bitrixdata.FILIAL}&fields[HAS_EMAIL]='Y'&fields[HAS_PHONE]='Y'&fields[PHONE][0][VALUE]=${bitrixdata.PHONE}&fields[EMAIL][0][VALUE]=${bitrixdata.EMAIL}`),
+};
+
+console.log(options.path);
+
+// BITRIXSHORTDATA: {ORDER_ID: orderid, EMAIL: email ? email : '***', PHONE: phone ? phone : '***', FILIAL: filial ? filial : '***', SUM_ORDER: 0},
+
+// console.log(options.host + options.path);
+//
+// return
+
+const callback = function(response) {
+  var str = '';
+
+  //another chunk of data has been received, so append it to `str`
+  response.on('data', function (chunk) {
+    str += chunk;
+  });
+
+  //the whole response has been received, so we just print it out here
+  response.on('end', function () {
+    return (str);
+  });
+}
+
+await http.request(options, callback).end();
+
+}
+
 async function sendEmail(message) {
 
   const {rows} = await db.queryAppSqlExec( "select content from settings where param=$1 and accessible=$2", ['email_order_response', true] );
@@ -612,6 +649,7 @@ const taskinfo = {
   TITLE: `Интернет заказ № ${orderid} на сумму ${rows[0].sum} руб. Отправлен в обработку в 1С. Ожидайте прихода.`,
   DESCRIPTION: `Детали Заказа:\n${dopinfo.replace('- /', (email ? email : '***' + ' /'))}`,
   DEADLINE: currentdate,
+  BITRIXSHORTDATA: {ORDER_ID: orderid, EMAIL: email ? email : '***', PHONE: phone ? phone : '***', FILIAL: filial ? filial : '***', SUM_ORDER: rows[0].sum },
 };
 
 if (/Санкт-Петербург/.test(filial)) {
@@ -648,7 +686,8 @@ if (/Краснодар/.test(filial)) {
 // 44 волков спб
 
 try {
-  const res = await sendCreateTask(taskinfo);
+  //const res = await sendCreateTask(taskinfo);
+  const res = await sendCreateLead(taskinfo);
   //console.log(res);
 } catch (e) {
   console.log(e);
