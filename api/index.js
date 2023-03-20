@@ -689,7 +689,9 @@ try {
   //const res = await sendCreateTask(taskinfo);
   const res = await sendCreateLead(taskinfo);
   //console.log(res);
+  console.log(taskinfo);
 } catch (e) {
+  console.log(taskinfo);
   console.log(e);
 }
 
