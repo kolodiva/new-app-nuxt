@@ -70,19 +70,21 @@ async function sendCreateLead(taskinfo) {
 
 //path: encodeURI(`/rest/94/41xv4ix4x1shvfom/task.item.add.json?TASKDATA[GROUP_ID]=${taskinfo.GROUP_ID}&TASKDATA[TITLE]=${taskinfo.TITLE}&TASKDATA[RESPONSIBLE_ID]=${taskinfo.RESPONSIBLE_ID}&TASKDATA[DESCRIPTION]=${taskinfo.DESCRIPTION}&TASKDATA[DEADLINE]=${taskinfo.DEADLINE}`),
   const bitrixdata = taskinfo.BITRIXSHORTDATA;
-
+//94 я 1 ?
   const options = {
   host: 'b24-sjyom9.bitrix24.ru',
-  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/crm.lead.add.json?fields[ORIGIN_ID]=${bitrixdata.ORDER_ID}&fields[TITLE]='Интернет-Заказ № ' + ${bitrixdata.ORDER_ID}&fields[NAME]='Покупатель'&fields[STATUS_ID]='NEW'&fields[OPENED]='Y'&fields[ASSIGNED_BY_ID]='1442'&fields[CREATED_BY_ID]='1'&fields[CURRENCY_ID]='RUB'&fields[OPPORTUNITY]=${bitrixdata.SUM_ORDER}&fields[SOURCE_DESCRIPTION]='Интернет-заказ'&fields[SOURCE_ID]='WEB'&fields[COMMENTS]=${taskinfo.DESCRIPTION}&fields[ADDRESS_CITY]=${bitrixdata.FILIAL}&fields[HAS_EMAIL]='Y'&fields[HAS_PHONE]='Y'&fields[PHONE][0][VALUE]=${bitrixdata.PHONE}&fields[EMAIL][0][VALUE]=${bitrixdata.EMAIL}`),
+  path: encodeURI(`/rest/94/41xv4ix4x1shvfom/crm.lead.add.json?fields[ORIGIN_ID]=${bitrixdata.ORDER_ID}&fields[TITLE]=Интернет-Заказ №${bitrixdata.ORDER_ID}&fields[NAME]=Покупатель&fields[STATUS_ID]=NEW&fields[OPENED]=Y&fields[ASSIGNED_BY_ID]=1442&fields[CREATED_BY_ID]=1&fields[CURRENCY_ID]=RUB&fields[OPPORTUNITY]=${bitrixdata.SUM_ORDER}&fields[SOURCE_DESCRIPTION]=Интернет-заказ&fields[SOURCE_ID]=WEB&fields[COMMENTS]=${taskinfo.DESCRIPTION}&fields[ADDRESS_CITY]=${bitrixdata.FILIAL}&fields[HAS_EMAIL]=Y&fields[HAS_PHONE]=Y&fields[PHONE][0][VALUE]=${bitrixdata.PHONE}&fields[EMAIL][0][VALUE]=${bitrixdata.EMAIL}`),
 };
 
-console.log(options.path);
+// console.log('https://' + options.host + `/rest/94/41xv4ix4x1shvfom/crm.lead.add.json?fields[ORIGIN_ID]=${bitrixdata.ORDER_ID}&fields[TITLE]=Интернет-Заказ №${bitrixdata.ORDER_ID}&fields[NAME]=Покупатель&fields[STATUS_ID]=NEW&fields[OPENED]=Y&fields[ASSIGNED_BY_ID]=1442&fields[CREATED_BY_ID]=1&fields[CURRENCY_ID]=RUB&fields[OPPORTUNITY]=${bitrixdata.SUM_ORDER}&fields[SOURCE_DESCRIPTION]=Интернет-заказ&fields[SOURCE_ID]=WEB&fields[COMMENTS]=${taskinfo.DESCRIPTION}&fields[ADDRESS_CITY]=${bitrixdata.FILIAL}&fields[HAS_EMAIL]=Y&fields[HAS_PHONE]=Y&fields[PHONE][0][VALUE]=${bitrixdata.PHONE}&fields[EMAIL][0][VALUE]=${bitrixdata.EMAIL}`);
+//
+// return
 
 // BITRIXSHORTDATA: {ORDER_ID: orderid, EMAIL: email ? email : '***', PHONE: phone ? phone : '***', FILIAL: filial ? filial : '***', SUM_ORDER: 0},
 
 // console.log(options.host + options.path);
 //
-// return
+
 
 const callback = function(response) {
   var str = '';
@@ -689,9 +691,9 @@ try {
   //const res = await sendCreateTask(taskinfo);
   const res = await sendCreateLead(taskinfo);
   //console.log(res);
-  console.log(taskinfo);
+  //console.log(taskinfo);
 } catch (e) {
-  console.log(taskinfo);
+  //console.log(taskinfo);
   console.log(e);
 }
 
