@@ -41,8 +41,8 @@
                       </thead>
                       <tbody>
                         <tr
-                          v-for="item2 in managers[i].descr[0].managers"
-                          :key="item2.tel_add"
+                          v-for="(item2, z) in managers[i].descr[0].managers"
+                          :key="z"
                         >
                           <td class="py-2">
                             <span
@@ -113,8 +113,8 @@
                       </thead>
                       <tbody>
                         <tr
-                          v-for="item2 in managers[0].descr[j].managers"
-                          :key="item2.tel_add"
+                          v-for="(item2, z) in managers[0].descr[j].managers"
+                          :key="z"
                         >
                           <td class="py-2">
                             <span
@@ -187,12 +187,15 @@ export default {
   async fetch() {
     const rows = await this.$api("getManagers");
 
-    // console.log(rows);
-
     this.managers = { ...rows };
   },
   data() {
-    return { panel: null, managers: [], showRegion: false, regionInfo: null };
+    return {
+      panel: null,
+      managers: [],
+      showRegion: false,
+      regionInfo: null,
+    };
   },
 
   computed: {
@@ -230,12 +233,12 @@ export default {
         idpaths = ["YMapsID_" + val[v]];
       }
 
-      if (v === 0) {
-        // fill map
-        let myMap = null;
+      let myMap = null;
 
-        let srcData = null;
+      let srcData = null;
 
+      // console.log(idpaths);
+      window.ymaps.ready(() => {
         idpaths.forEach((item, i) => {
           srcData =
             curFilial.departments.length === 0
@@ -279,7 +282,7 @@ export default {
           //
           myMap.geoObjects.add(myGeoObject);
         });
-      }
+      });
     },
   },
   mounted() {},

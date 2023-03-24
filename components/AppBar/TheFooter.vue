@@ -303,49 +303,50 @@ export default {
 
         let srcData = null;
         // debugger;
-
-        idpaths.forEach((item, i) => {
-          srcData =
-            this.filialsFilter[0].departments.length === 0
-              ? this.filialsFilter[0]
-              : this.filialsFilter[0].departments[i];
-          myMap = new window.ymaps.Map(
-            item,
-            {
-              center: [srcData.coordinates[0], srcData.coordinates[1]],
-              zoom: 10,
-            },
-
-            { searchControlProvider: "yandex#search" }
-          );
-
-          myMap.controls.remove("fullscreenControl");
-
-          const myGeoObject = new window.ymaps.GeoObject(
-            {
-              // Описание геометрии.
-              geometry: {
-                type: "Point",
-                coordinates: [srcData.coordinates[0], srcData.coordinates[1]],
+        window.ymaps.ready(() => {
+          idpaths.forEach((item, i) => {
+            srcData =
+              this.filialsFilter[0].departments.length === 0
+                ? this.filialsFilter[0]
+                : this.filialsFilter[0].departments[i];
+            myMap = new window.ymaps.Map(
+              item,
+              {
+                center: [srcData.coordinates[0], srcData.coordinates[1]],
+                zoom: 10,
               },
 
-              // Свойства.Контент метки.
-              properties: {
-                iconContent: srcData.coordinates[2],
+              { searchControlProvider: "yandex#search" }
+            );
+
+            myMap.controls.remove("fullscreenControl");
+
+            const myGeoObject = new window.ymaps.GeoObject(
+              {
+                // Описание геометрии.
+                geometry: {
+                  type: "Point",
+                  coordinates: [srcData.coordinates[0], srcData.coordinates[1]],
+                },
+
+                // Свойства.Контент метки.
+                properties: {
+                  iconContent: srcData.coordinates[2],
+                },
               },
-            },
 
-            {
-              // Опции. Иконка метки будет растягиваться под размер ее содержимого.
+              {
+                // Опции. Иконка метки будет растягиваться под размер ее содержимого.
 
-              preset: "islands#blackStretchyIcon",
-              // Метку можно перемещать.
-              draggable: false,
-            }
-          );
+                preset: "islands#blackStretchyIcon",
+                // Метку можно перемещать.
+                draggable: false,
+              }
+            );
 
-          //
-          myMap.geoObjects.add(myGeoObject);
+            //
+            myMap.geoObjects.add(myGeoObject);
+          });
         });
       });
     },

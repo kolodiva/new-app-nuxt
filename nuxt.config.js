@@ -52,7 +52,7 @@ module.exports = {
          {src: "/src/jquery.morecontent.min.js"},
          //{src: "/src/xlsx.mini.min.js"},
          {src: "https://widget.cdek.ru/widget/widjet.js", id: "ISDEKscript", charset: "utf-8"},
-         {src: "https://api-maps.yandex.ru/2.1/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU", type: "text/javascript"},
+         {src: "https://api-maps.yandex.ru/2.1.42/?apikey=a0730179-856a-47bc-bc4a-eab5cf8d185a&lang=ru_RU", type: "text/javascript"},
 
          //{src: "https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"},
          //{src: "https://3dsec.sberbank.ru/payment/docsite/assets/js/ipay.js"},
@@ -107,6 +107,8 @@ module.exports = {
     {src: '~/plugins/flipbook.js', mode: 'client' },
     {src: '~/plugins/virtualscroll.js', mode: 'client' },
     {src: '~/plugins/perfectscrollbar.js', mode: 'client' },
+    // {src: '~/plugins/ymapPlugin.js',  mode: 'client' },
+    //{src: '~/plugins/ymapPlugin.js' },
 
     // {src: '~/plugins/virtualscrolllist.js', mode: 'client' }
 
@@ -142,7 +144,7 @@ module.exports = {
            instagram: 'https://www.instagram.com/mf_komplekt_msk/'
          }
        }],
-     ['vue-yandex-maps/nuxt', {apiKey: "a0730179-856a-47bc-bc4a-eab5cf8d185a", lang: "ru_RU", version: "2.1"}],
+     // ['vue-yandex-maps/nuxt', {apiKey: "a0730179-856a-47bc-bc4a-eab5cf8d185a", lang: "ru_RU", version: "2.1"}],
     // ['@nuxtjs/yandex-metrika',
     //   {
     //     id: '51108848',
