@@ -115,6 +115,8 @@ export default {
         window.pageYOffset || document.documentElement.scrollTop;
       this.showSecondMenu = offsetTop > 100;
       this.showScrollTop = offsetTop > 250;
+
+      console.log(offsetTop);
     },
     async onResize() {
       if (
