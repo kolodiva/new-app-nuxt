@@ -5,7 +5,7 @@
     <!-- <client-only>
       <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
     </client-only> -->
-    <v-main v-scroll="onscroll" v-resize="onresize" style="position: relative">
+    <v-main>
       <TheAppBar
         :show-second-menu="showSecondMenu"
         :user-email="userEmail"
@@ -15,6 +15,9 @@
       <Nuxt />
       <TheFooter />
     </v-main>
+    <client-only>
+      <div id="scroll-target" v-scroll="onScroll" v-resize="onResize"></div>
+    </client-only>
     <client-only>
       <TheSnackbar :objects.sync="objects"></TheSnackbar>
     </client-only>
@@ -91,7 +94,7 @@ export default {
   beforeCreate() {},
   async mounted() {
     this.setCityName();
-    this.onresize();
+    this.onResize();
 
     const connectionid = this.$cookies.get("connectionid");
 
@@ -107,15 +110,13 @@ export default {
     closeShowMainDisclaimer() {
       this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);
     },
-    onscroll() {
+    onScroll() {
       const offsetTop =
         window.pageYOffset || document.documentElement.scrollTop;
       this.showSecondMenu = offsetTop > 100;
       this.showScrollTop = offsetTop > 250;
-
-      console.log(offsetTop);
     },
-    async onresize() {
+    async onResize() {
       if (
         this.windowSize.x !== window.innerWidth ||
         this.windowSize.y !== window.innerHeight
