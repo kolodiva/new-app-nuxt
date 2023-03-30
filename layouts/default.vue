@@ -16,7 +16,7 @@
       <TheFooter />
     </v-main>
     <client-only>
-      <div id="scroll-target" v-scroll="onScroll" v-resize="onResize"></div>
+      <!-- <div id="scroll-target" v-scroll="onScroll" v-resize="onResize"></div> -->
     </client-only>
     <client-only>
       <TheSnackbar :objects.sync="objects"></TheSnackbar>
@@ -105,6 +105,10 @@ export default {
     // setTimeout(() => {
     //   this.show = true;
     // }, 1000);
+    window.addEventListener("scroll", this.onScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.onScroll);
   },
   methods: {
     closeShowMainDisclaimer() {
