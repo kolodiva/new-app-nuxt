@@ -1,5 +1,5 @@
 <template>
-  <v-app v-scroll="onScroll" v-resize="onResize" style="position: relative">
+  <v-app>
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- <client-only>
@@ -11,8 +11,8 @@
         :user-email="userEmail"
         @logout="logout"
       />
-
-      <Nuxt />
+      <!-- <div v-scroll="onScroll" v-resize="onResize" style="position: relative"> -->
+      <Nuxt v-scroll="onScroll" v-resize="onResize" />
       <TheFooter />
     </v-main>
     <client-only>
@@ -112,6 +112,8 @@ export default {
         window.pageYOffset || document.documentElement.scrollTop;
       this.showSecondMenu = offsetTop > 100;
       this.showScrollTop = offsetTop > 250;
+
+      console.log(offsetTop);
     },
     async onResize() {
       if (
