@@ -159,7 +159,8 @@ export default {
           );
       });
     },
-    async logout() {
+    async logout()
+    
       const username = this.userEmail;
 
       this.$cookies.remove("connectionid");
