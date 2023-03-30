@@ -16,7 +16,6 @@
       <TheFooter />
     </v-main>
     <client-only>
-      <!-- <div id="scroll-target" v-scroll="onScroll" v-resize="onResize"></div> -->
     </client-only>
     <client-only>
       <TheSnackbar :objects.sync="objects"></TheSnackbar>
@@ -120,7 +119,7 @@ export default {
       this.showSecondMenu = offsetTop > 100;
       this.showScrollTop = offsetTop > 250;
 
-      console.log(offsetTop);
+      //console.log(offsetTop);
     },
     async onResize() {
       if (
