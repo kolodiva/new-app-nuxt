@@ -5,14 +5,14 @@
     <!-- <client-only>
       <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
     </client-only> -->
-    <v-main>
+    <v-main v-scroll="onscroll" v-resize="onresize" style="position: relative">
       <TheAppBar
         :show-second-menu="showSecondMenu"
         :user-email="userEmail"
         @logout="logout"
       />
-      <!-- <div v-scroll="onScroll" v-resize="onResize" style="position: relative"> -->
-      <Nuxt v-scroll="onScroll" v-resize="onResize" />
+
+      <Nuxt />
       <TheFooter />
     </v-main>
     <client-only>
@@ -91,7 +91,7 @@ export default {
   beforeCreate() {},
   async mounted() {
     this.setCityName();
-    this.onResize();
+    this.onresize();
 
     const connectionid = this.$cookies.get("connectionid");
 
@@ -107,7 +107,7 @@ export default {
     closeShowMainDisclaimer() {
       this.$store.commit("service/SET_SHOW_MAIN_DISCLAIMER", false);
     },
-    onScroll() {
+    onscroll() {
       const offsetTop =
         window.pageYOffset || document.documentElement.scrollTop;
       this.showSecondMenu = offsetTop > 100;
@@ -115,7 +115,7 @@ export default {
 
       console.log(offsetTop);
     },
-    async onResize() {
+    async onresize() {
       if (
         this.windowSize.x !== window.innerWidth ||
         this.windowSize.y !== window.innerHeight
