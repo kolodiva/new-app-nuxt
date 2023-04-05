@@ -48,8 +48,9 @@
             </div>
           </n-link>
           <div>
-            артикул: {{ pos.artikul }}, новый:
-            {{ pos.artikul_new }}
+            артикул:
+            <span style="color: blue; font-weight: bold">{{ pos.artikul }}</span
+            >,<br />новый артикул: {{ pos.artikul_new }}
 
             <v-card-text class="pb-0" v-html="pos.describe"> </v-card-text>
             <v-card-text class="pt-0"
