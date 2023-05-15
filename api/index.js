@@ -656,7 +656,7 @@ const taskinfo = {
 
 if (/Санкт-Петербург/.test(filial)) {
   taskinfo.RESPONSIBLE_ID = 44;
-  //taskinfo.AUDITORS = 60;
+  taskinfo.AUDITORS = 10726;
 }
 if (/Новосибирск/.test(filial)) {
   taskinfo.RESPONSIBLE_ID = 1486;
@@ -686,6 +686,7 @@ if (/Краснодар/.test(filial)) {
 // 38 клочков крд 36 бурса
 // 58 пахомов рнд 34 скляров
 // 44 волков спб
+// 10726 Ксения Лысенко СПб
 
 try {
   //const res = await sendCreateTask(taskinfo);
