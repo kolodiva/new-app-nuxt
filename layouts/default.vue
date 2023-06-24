@@ -6,6 +6,13 @@
       <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
     </client-only> -->
     <v-main>
+      <div class="pa-4 title text-center cyan lighten-5">
+        В связи с обращением губернатора Ростовской области Василия Голубева, в
+        Понедельник, 26.06.2023 отгрузка продукции из филиала в г.
+        Ростов-на-Дону осуществляться не будет. <br />Прием заказов,
+        консультирование по телефону, производятся в обычном режиме. О режиме
+        работы в последующие дни сообщим дополнительно.
+      </div>
       <TheAppBar
         :show-second-menu="showSecondMenu"
         :user-email="userEmail"
@@ -15,8 +22,7 @@
       <Nuxt />
       <TheFooter />
     </v-main>
-    <client-only>
-    </client-only>
+    <client-only> </client-only>
     <client-only>
       <TheSnackbar :objects.sync="objects"></TheSnackbar>
     </client-only>
@@ -119,7 +125,7 @@ export default {
       this.showSecondMenu = offsetTop > 100;
       this.showScrollTop = offsetTop > 250;
 
-      //console.log(offsetTop);
+      // console.log(offsetTop);
     },
     async onResize() {
       if (
