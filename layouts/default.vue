@@ -6,13 +6,7 @@
       <let-it-snow v-bind="snowConf" :show="show"></let-it-snow>
     </client-only> -->
     <v-main>
-      <div class="pa-4 title text-center cyan lighten-5">
-        В связи с обращением губернатора Ростовской области Василия Голубева, в
-        Понедельник, 26.06.2023 отгрузка продукции из филиала в г.
-        Ростов-на-Дону осуществляться не будет. <br />Прием заказов,
-        консультирование по телефону, производятся в обычном режиме. О режиме
-        работы в последующие дни сообщим дополнительно.
-      </div>
+      <!-- <div class="pa-4 title text-center cyan lighten-5">Здесь текст внезапного анонса сверху</div> -->
       <TheAppBar
         :show-second-menu="showSecondMenu"
         :user-email="userEmail"
