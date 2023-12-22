@@ -163,9 +163,9 @@ export async function getcdatamanagers( {id, id2} ) {
   if (id2 && id2 === process.env.PASS_1C) {
 
     if (id) {
-      result = await db.queryAppStatSqlExec( "select guid, short_name, name, last_name , second_name from managers_bitrix24 where guid=$1", [id] );
+      result = await db.queryAppStatSqlExec( "select filial, guid, short_name, name, last_name , second_name from managers_bitrix24 where guid=$1", [id] );
     } else {
-      result = await db.queryAppStatSqlExec( "select guid, short_name, name, last_name , second_name from managers_bitrix24" );
+      result = await db.queryAppStatSqlExec( "select filial, guid, short_name, name, last_name , second_name from managers_bitrix24" );
     }
 
   } else {
