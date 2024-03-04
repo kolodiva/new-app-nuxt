@@ -49,7 +49,7 @@
       "addressLocality" : "Россия, Московская область, город Химки",
       "streetAddress" : "микрорайон Подрезково, улица Центральная, дом 2/5",
       "yandexFrame" : "https://yandex.ru/sprav/widget/rating-badge/1142497523?type=rating",
-      "yandexStars" : "https://yandex.ru/maps/10758/himki/?ll=37.338412%2C55.943679&mode=poi&poi%5Bpoint%5D=37.336121%2C55.944273&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1142497523&tab=reviews&z=17.13"
+      "yandexStars" : "https://yandex.ru/maps/10758/himki/?ll=37.338412%2C55.943679&mode=poi&poi%5Bpoint%5D=37.336121%2C55.944273&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1142497523&tab=reviews&z=11"
   },
   {
     "id": 2,
@@ -83,7 +83,7 @@
     "addressLocality" : "Россия, г. Екатеринбург",
     "streetAddress" : "ул. Елизаветинское шоссе 28, оф. 101",
     "yandexFrame" : "https://yandex.ru/sprav/widget/rating-badge/131463813206?type=rating",
-    "yandexStars" : "https://yandex.ru/maps/54/yekaterinburg/?ll=60.628227%2C56.761608&mode=poi&poi%5Bpoint%5D=60.628474%2C56.761964&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D131463813206&tab=reviews&z=19.53"
+    "yandexStars" : "https://yandex.ru/maps/54/yekaterinburg/?ll=60.628227%2C56.761608&mode=poi&poi%5Bpoint%5D=60.628474%2C56.761964&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D131463813206&tab=reviews&z=11"
   },
   {
     "id": 4,
@@ -99,7 +99,7 @@
     "addressLocality" : "Россия, г. Казань",
     "streetAddress" : "ул. Гассара, д. 14",
     "yandexFrame" : "https://yandex.ru/sprav/widget/rating-badge/1232448221?type=rating",
-    "yandexStars" : "https://yandex.ru/maps/43/kazan/?indoorLevel=1&ll=49.122907%2C55.763944&mode=poi&poi%5Bpoint%5D=49.122316%2C55.763989&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1232448221&tab=reviews&z=17.13"
+    "yandexStars" : "https://yandex.ru/maps/43/kazan/?indoorLevel=1&ll=49.122907%2C55.763944&mode=poi&poi%5Bpoint%5D=49.122316%2C55.763989&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1232448221&tab=reviews&z=11"
   },
   {
     "id": 5,
@@ -115,7 +115,7 @@
     "addressLocality" : "Россия, г. Краснодар",
     "streetAddress" : "4-ый Тихорецкий проезд, д.5, офис 5",
     "yandexFrame" : "https://yandex.ru/sprav/widget/rating-badge/63081542051?type=rating",
-    "yandexStars" : "https://yandex.ru/maps/35/krasnodar/?ll=39.056229%2C45.047223&mode=poi&poi%5Bpoint%5D=39.056714%2C45.047172&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D63081542051&tab=reviews&z=19.53"
+    "yandexStars" : "https://yandex.ru/maps/35/krasnodar/?ll=39.056229%2C45.047223&mode=poi&poi%5Bpoint%5D=39.056714%2C45.047172&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D63081542051&tab=reviews&z=11"
   },
   {
     "id": 6,
@@ -131,7 +131,7 @@
     "addressLocality" : "Россия, г. Новосибирск",
     "streetAddress" : "ул. Мира, д. 54а, корп. 1",
     "yandexFrame" : "https://yandex.ru/sprav/widget/rating-badge/1016127565?type=rating",
-    "yandexStars" : "https://yandex.ru/maps/65/novosibirsk/?ll=82.923170%2C54.962146&mode=poi&poi%5Bpoint%5D=82.923136%2C54.962026&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1016127565&tab=reviews&utm_source=share&z=21"
+    "yandexStars" : "https://yandex.ru/maps/65/novosibirsk/?ll=82.923170%2C54.962146&mode=poi&poi%5Bpoint%5D=82.923136%2C54.962026&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1016127565&tab=reviews&utm_source=share&z=11"
   },
   {
     "id": 7,
@@ -147,7 +147,7 @@
     "addressLocality" : "Россия, г. Ростов-на-Дону",
     "streetAddress" : "ул. Орская, д. 31м",
     "yandexFrame" : "https://yandex.ru/sprav/widget/rating-badge/1061729338?type=rating",
-    "yandexStars" : "https://yandex.ru/maps/39/rostov-na-donu/?ll=39.776699%2C47.292151&mode=poi&poi%5Bpoint%5D=39.776490%2C47.292395&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1061729338&tab=reviews&z=20.33"
+    "yandexStars" : "https://yandex.ru/maps/39/rostov-na-donu/?ll=39.776699%2C47.292151&mode=poi&poi%5Bpoint%5D=39.776490%2C47.292395&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1061729338&tab=reviews&z=11"
   }
 ]
 }
