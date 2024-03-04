@@ -1,6 +1,6 @@
 <template>
   <v-footer padless class="blueMfBckg" dark>
-    <v-row class="" style="min-height: 250px">
+    <v-row class="" style="min-height: 250px; margin-bottom: 66px">
       <v-col class="pl-5">
         <v-row style="flex-direction: column; height: 75vh">
           <v-col>
@@ -44,10 +44,18 @@
                   v-html="link.email"
                 ></v-list-item-subtitle>
               </v-list-item-content>
-
-              <v-list-item-icon>
-                <v-img src="/shema_proezda.png" width="30" contain />
-              </v-list-item-icon>
+              <v-list-item-content>
+                <p class="text-right">
+                  <iframe
+                    :src="link.yandexFrame"
+                    width="150"
+                    height="50"
+                    frameborder="0"
+                  >
+                    <a :ref="link.yandexStars" />
+                  </iframe>
+                </p>
+              </v-list-item-content>
             </v-list-item>
 
             <v-divider :key="(id + 1) * 100"></v-divider>
