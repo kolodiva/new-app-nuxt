@@ -73,12 +73,12 @@
                                 target="_blank"
                                 title="Напишите нам в онлайн чат"
                               >
-                                <div class="socialIcon fab">
-                                  <v-icon light class="whatsapp"
-                                    >mdi-whatsapp</v-icon
-                                  >
-                                </div></a
-                              >
+                                <img
+                                  class="socialIcon fab"
+                                  src="/icons8-whatsapp-48.png"
+                                  style="width: 28px"
+                                />
+                              </a>
                             </div>
                           </td>
                           <td>

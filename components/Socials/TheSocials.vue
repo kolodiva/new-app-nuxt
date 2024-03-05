@@ -17,21 +17,16 @@
       target="_blank"
       title="Фильм, фильм, фильм..."
     >
-      <div class="socialIcon fab">
-        <v-icon light class="whatsapp">mdi-youtube</v-icon>
-      </div></a
-    >
+      <img class="socialIcon fab" src="/icons8-youtube-48.png" />
+    </a>
 
     <a
       href="https://wa.me/79169604255"
       target="_blank"
       title="Напишите нам в онлайн чат"
     >
-      <div class="socialIcon fab">
-        <v-icon light class="whatsapp">mdi-whatsapp</v-icon>
-      </div></a
-    >
-
+      <img class="socialIcon fab" src="/icons8-whatsapp-48.png" />
+    </a>
     <!-- <ShareNetwork
       network="Instagram"
       url=""
