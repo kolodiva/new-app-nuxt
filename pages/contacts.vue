@@ -76,7 +76,7 @@
                                 <img
                                   class="socialIcon fab"
                                   src="/icons8-whatsapp-48.png"
-                                  style="width: 28px"
+                                  style="width: 28px; height: 28px"
                                 />
                               </a>
                             </div>
@@ -152,7 +152,25 @@
                             ></span
                             ><br />
 
-                            <span class="" v-html="item2.tel_mob"></span>
+                            <div v-if="item2.tel_mob != ''">
+                              <span class="" v-html="item2.tel_mob"></span>
+
+                              <a
+                                v-if="item2.whatsapp"
+                                :href="
+                                  'https://wa.me/' +
+                                  item2.tel_mob.replace(/[^0-9||+]/g, '')
+                                "
+                                target="_blank"
+                                title="Напишите нам в онлайн чат"
+                              >
+                                <img
+                                  class="socialIcon fab"
+                                  src="/icons8-whatsapp-48.png"
+                                  style="width: 28px; height: 28px"
+                                />
+                              </a>
+                            </div>
                           </td>
                           <td>
                             <span class="" v-html="item2.email"></span><br />
@@ -328,25 +346,5 @@ export default {
   position: relative;
   display: inline-block;
   text-align: center;
-}
-
-.socialIcon .fab {
-  width: 100%;
-  height: 100%;
-  display: block;
-  background: linear-gradient(0deg, #fff, #ddd);
-  border-radius: 50%;
-  font-size: 15px;
-  color: #262626;
-  transition: 0.5s;
-}
-.socialIcon .facebook:hover {
-  color: blue;
-}
-.socialIcon .whatsapp:hover {
-  color: green;
-}
-.socialIcon .instagram:hover {
-  color: violet;
 }
 </style>
