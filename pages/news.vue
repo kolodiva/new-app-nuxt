@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 45px;">
+  <div style="margin-top: 45px">
     <TheVueSlickCarousel />
     <v-container class="my-5" style="max-width: 800px">
       <ThePageHeader descr="Архив Новостей" />
