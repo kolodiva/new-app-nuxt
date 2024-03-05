@@ -101,7 +101,7 @@ export function getManagers(id) {
 
     union all
 
-  	select 3, '1', 2, 'Власова<br/>Галина<br/>Рафиковна', '', '+7 (916) 408-70-38 (моб.)', 'vlasova@newfurnitura.ru', '', '', '<br/>Менеджер по<br/>снабжению', true
+  	select 3, '1', 2, 'Власова<br/>Галина<br/>Рафековна', '', '+7 (916) 408-70-38 (моб.)', 'vlasova@newfurnitura.ru', '', '', '<br/>Менеджер по<br/>снабжению', true
 
     order by filial, rozn, order_by, manager
   )
