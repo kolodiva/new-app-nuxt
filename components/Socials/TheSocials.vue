@@ -12,17 +12,15 @@
       <img class="socialIcon fab" src="/icons8-telegram-app-48.png"
     /></a>
 
-    <ShareNetwork
-      network="facebook"
-      :url="params.url"
-      :title="params.title"
-      :description="params.description"
-      style="text-decoration: none"
+    <a
+      href="https://www.youtube.com/channel/UCjrle_KgTRDeY7lpHqlvkXA"
+      target="_blank"
+      title="Фильм, фильм, фильм..."
     >
       <div class="socialIcon fab">
-        <v-icon light class="facebook">mdi-facebook</v-icon>
-      </div>
-    </ShareNetwork>
+        <v-icon light class="whatsapp">mdi-youtube</v-icon>
+      </div></a
+    >
 
     <a
       href="https://wa.me/79169604255"

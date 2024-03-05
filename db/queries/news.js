@@ -88,12 +88,12 @@ export function getManagers(id) {
   	when filials = '{ 0000001 }' then '5'
   	else '0' end filial,
   	case when lower(region) like '%розница%' then 0 else 1 end rozn,
-  	name manager, tel_add, tel_mob, email, skype, region, position
+  	name manager, tel_add, tel_mob, email, skype, region, position, marked
   	from managers_site
 
   	union all
 
-  	select 1, '1', 2, 'Хренов<br/>Дмитрий<br/>Игоревич', '177', '+7 (915) 480-07-33 (моб.)<br/>+7 (916) 149-57-60<br/>+7 (916) 149-57-61', 'hrenov@newfurnitura.ru', '', '', '<br/>менеджер отдела<br/>снабжения'
+  	select 1, '1', 2, 'Хренов<br/>Дмитрий<br/>Игоревич', '177', '+7 (915) 480-07-33 (моб.)<br/>+7 (916) 149-57-60<br/>+7 (916) 149-57-61', 'hrenov@newfurnitura.ru', '', '', '<br/>менеджер отдела<br/>снабжения', false
 
   	order by filial, rozn, order_by, manager
   )
@@ -106,7 +106,8 @@ export function getManagers(id) {
           	'tel_mob', tel_mob,
           	'email', email,
           	'skype', skype,
-          	'region', region
+          	'region', region,
+            'whatsapp', marked
        		)
   	) descr
 
