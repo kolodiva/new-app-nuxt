@@ -20,9 +20,15 @@ export default async (req, res, next) => {
 
   let api = require("../api/" + controller);
 
-  //console.log(req.params);
+  let result;
 
-  let result = await api[ method ](req.params, res);
+  if (method === "raifpaymentsinit") {
+    //console.log(req.body);
+    result = await api[ method ](req.body, res);
+  } else {
+      result = await api[ method ](req.params, res);
+  }
+
 
   //res.setHeader("Set-Cookie", "SameSite=None; Secure");
 

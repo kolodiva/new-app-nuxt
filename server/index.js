@@ -12,6 +12,8 @@ dotenv.config();
 
 app.use(cookieParser())
 
+app.use(express.json())
+
 var multer  = require('multer')
 // var upload = multer({ dest: './static/storefolder/news' })
 
@@ -29,7 +31,7 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // cb(null, '/home/ftp_user/www/news')
     cb(null, '/var/www/newfurnitura.ru/news')
-    
+
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
