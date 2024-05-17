@@ -179,7 +179,7 @@ export async function getcdatamanagers( {id, id2} ) {
 //statistica
 export async function raifpaymentsinit( {data} ) {
 
-  //console.log(data);
+  //console.log("select * from raifpayments( '" + JSON.stringify(data) + "')");
 
   //return { rows: [] };
 
@@ -188,7 +188,7 @@ export async function raifpaymentsinit( {data} ) {
   if (data.id2 && data.id2 === process.env.PASS_1C) {
 
     // result = await db.queryAppStatSqlExec( "select * from raifpayments()", [data] );
-    result = await db.queryStat( "select raifpayments()", [data] );
+    result = await db.queryStat( "select * from raifpayments('" + JSON.stringify(data) + "')", [] );
 
   } else {
     result = { rows: [] };

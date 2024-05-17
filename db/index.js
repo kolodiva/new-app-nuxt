@@ -22,7 +22,7 @@ const dbpgStat = new Pool({
 //getConnectionOrder: queries.getConnectionOrder,
 module.exports = {
   dbpgApp1,
-  queryStat: (name, params) => dbpgStat.query( text, params ),
+  queryStat: (name, params) => dbpgStat.query( {text: name, values: params} ),
   queryStat1: (name, params) => dbpgStat.query( queries[name](params) ),
   queryAppStatSqlExec: (txtQuery, params) => dbpgStat.query( {text: txtQuery, values: params} ),
   queryApp: (name, params) => dbpgApp1.query( queries[name](params) ),
