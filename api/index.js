@@ -176,6 +176,28 @@ export async function getcdatamanagers( {id, id2} ) {
   return result.rows;
 }
 
+//statistica
+export async function raifpaymentsinit( {data} ) {
+
+  //console.log(data);
+
+  //return { rows: [] };
+
+  let result = null;
+
+  if (data.id2 && data.id2 === process.env.PASS_1C) {
+
+    // result = await db.queryAppStatSqlExec( "select * from raifpayments()", [data] );
+    result = await db.queryStat( "select raifpayments()", [data] );
+
+  } else {
+    result = { rows: [] };
+  }
+
+
+  return result.rows;
+}
+
 //nomenklator
 export async function getSubNomenklator( params ) {
 

@@ -20,6 +20,8 @@ export default async (req, res, next) => {
 
   let api = require("../api/" + controller);
 
+  //console.log(req.params);
+
   let result = await api[ method ](req.params, res);
 
   //res.setHeader("Set-Cookie", "SameSite=None; Secure");
@@ -28,7 +30,7 @@ export default async (req, res, next) => {
     res.status(result.status).end(result.msg);
   } else {
 
-    if (method === 'getcdata' || method === 'getcdatamanagers') {
+    if (method === 'getcdata' || method === 'getcdatamanagers' || method === 'raifpaymentsinit') {
 
         const _data = JSON.stringify(result);
         res.setHeader('Content-Type', 'application/json', 'charset', 'utf-8');
