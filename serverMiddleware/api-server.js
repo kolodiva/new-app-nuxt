@@ -23,7 +23,7 @@ export default async (req, res, next) => {
   let result;
 
   if (method === "raifpaymentsinit") {
-    //console.log(req.body);
+    console.log(req.body);
     result = await api[ method ](req.body, res);
   } else {
       result = await api[ method ](req.params, res);
