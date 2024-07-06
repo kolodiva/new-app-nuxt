@@ -145,12 +145,21 @@ export default {
   methods: {
     getPathPdf(item) {
       // debugger;
-      const res =
-        item && item.path_pdf
-          ? (item.path_pdf.includes("advs")
-              ? "https://newfurnitura.ru/"
-              : "https://newfurnitura.ru/news/") + item.path_pdf
-          : "/";
+      let res = "/";
+
+      if (item && item.path_pdf) {
+        if (item.path_pdf.includes("http")) {
+          res = item.path_pdf;
+        } else if (
+          item.path_pdf.includes("catalog") ||
+          item.path_pdf.includes("advs")
+        ) {
+          res = "https://newfurnitura.ru/" + item.path_pdf;
+        } else {
+          res = "https://newfurnitura.ru/news/" + item.path_pdf;
+        }
+      }
+
       return res;
     },
     async infiniteHandlerAll($state) {
