@@ -61,7 +61,7 @@
 
         <v-col class="pa-3" style="min-width: 250px; max-width: 250px">
           <div class="d-flex">
-            <v-tooltip bottom>
+            <!-- <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <v-icon v-bind="attrs" style="transform: scale(-1, 1)" v-on="on"
                   >mdi-head-heart-outline
@@ -69,7 +69,7 @@
               </template>
               <div>Цена мелк.опт: {{ pos.price2 }} руб.</div>
               <div>Цена круп.опт: {{ pos.price3 }} руб.</div>
-            </v-tooltip>
+            </v-tooltip> -->
             &nbsp;
             <div>{{ pos.price1 }} руб./{{ pos.unit_name }}</div>
           </div>

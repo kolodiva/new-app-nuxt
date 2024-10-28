@@ -56,7 +56,7 @@
           >
         </v-card>
 
-        <v-card flat class="pa-3">
+        <!-- <v-card flat class="pa-3">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-img
@@ -81,7 +81,8 @@
               >Прайс-лист<br />МФ-Комплект<br />~ 1 MB</span
             ></v-card-subtitle
           >
-        </v-card>
+        </v-card> -->
+
         <v-card flat class="pa-3">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
