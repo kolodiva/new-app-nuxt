@@ -98,11 +98,11 @@ export default {
         },
         {
           name: "og:title",
-          content: `Лучшая цена 👍: ${this.getDescription.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`,
+          content: `${this.getDescription.intrnt_microdata.title}`,
         },
         {
           name: "og:description",
-          content: `Лучшая цена 👍: ${this.getDescription.intrnt_microdata.description} ⭐ ⭐ ⭐ ⭐ ⭐`,
+          content: `${this.getDescription.intrnt_microdata.description}`,
         },
         {
           name: "og:site_name",
