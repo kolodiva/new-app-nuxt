@@ -772,11 +772,11 @@ export default {
       meta: [
         {
           name: "og:title",
-          content: `Лучшая цена 👍: ${this.pos.intrnt_microdata.title} ⭐ ⭐ ⭐ ⭐ ⭐`,
+          content: `${this.pos.intrnt_microdata.title}`,
         },
         {
           name: "og:description",
-          content: `Лучшая цена 👍: ${this.pos.intrnt_microdata.description} ⭐ ⭐ ⭐ ⭐ ⭐`,
+          content: `${this.pos.intrnt_microdata.description}`,
         },
         {
           name: "og:site_name",
