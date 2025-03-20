@@ -16,12 +16,12 @@
                 v-on="on"
                 @click="
                   downloadResource(
-                    'https://www.newfurnitura.ru/news/Catalog_MF_2023.pdf'
+                    'https://www.newfurnitura.ru/news/Catalog_MF_2025.pdf'
                   )
                 "
               />
             </template>
-            <span>Загрузить каталог МФ-Комплект 2024 год (~ 100 MB)</span>
+            <span>Загрузить каталог МФ-Комплект (~ 100 MB)</span>
           </v-tooltip>
 
           <v-card-subtitle style="max-width: 135px"
@@ -43,16 +43,16 @@
                 v-on="on"
                 @click="
                   downloadResource(
-                    'https://www.newfurnitura.ru/news/Catalog_Ruchki_MF_2024.pdf'
+                    'https://www.newfurnitura.ru/news/Catalog_Ruchki_MF_2025.pdf'
                   )
                 "
               />
             </template>
-            <span>Загрузить каталог Ручек (~ 115 MB)</span>
+            <span>Загрузить каталог Лицевой фурнитуры (~ 115 MB)</span>
           </v-tooltip>
 
           <v-card-subtitle style="max-width: 135px"
-            ><span>Каталог<br />Ручек<br />~ 115 MB</span></v-card-subtitle
+            ><span>Каталог<br />Лицевой фурнитуры<br />~ 115 MB</span></v-card-subtitle
           >
         </v-card>
 
