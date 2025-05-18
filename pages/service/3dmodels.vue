@@ -24,8 +24,8 @@
             <span>Загрузить 3D модели</span>
           </v-tooltip>
 
-          <v-card-subtitle style="max-width: 135px"
-            ><span>MF Направляющие шариковые полного выдвижения H=35 мм BBS.35</span></v-card-subtitle
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Направляющие шариковые полного выдвижения H=35 мм BBS.35</span></v-card-subtitle
           >
         </v-card>
       </v-row>
