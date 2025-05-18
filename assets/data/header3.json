@@ -26,6 +26,14 @@
   },
   {
     "id": 4,
+    "name": "3D Модели",
+    "href":"",
+    "to":"/service/3dmodels",
+    "submenu" : "",
+    "css_class": "buttonMFGreyColor"
+  },
+  {
+    "id": 5,
     "name": "Контакты",
     "to":"/contacts",
     "href":"",

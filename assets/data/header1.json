@@ -26,6 +26,14 @@
   "|",
   {
     "id": 4,
+    "name": "3D модели",
+    "href":"",
+    "to":"/service/3dmodels",
+    "submenu" : ""
+  },
+  "|",
+  {
+    "id": 5,
     "name": "Контакты",
     "href":"",
     "to":"/contacts",
