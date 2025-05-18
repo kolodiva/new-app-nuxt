@@ -25,7 +25,7 @@
           </v-tooltip>
 
           <v-card-subtitle style="max-width: 135px"
-            ><span>3D Модели<br />МФ-Комплект</span></v-card-subtitle
+            ><span>MF Направляющие шариковые полного выдвижения H=35 мм BBS.35</span></v-card-subtitle
           >
         </v-card>
       </v-row>
