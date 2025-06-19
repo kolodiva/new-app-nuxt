@@ -139,6 +139,50 @@
 <script>
 // if (typeof require !== "undefined") XLSX = require("xlsx");
 export default {
+
+    head() {
+    return {
+      meta: [
+        {
+          property: "title",
+          content: "БАЗИС-Мебельщик, архивы продукции.",
+          hid: "title",
+        },
+        {
+          name: "description",
+          content:
+            "Архивы фурнитуры для использования в системе автоматического проектирования мебели БАЗИС-Мебельщик.",
+          hid: "description",
+        },
+        {
+          name: "keywords",
+          content:
+            "БАЗИС-Мебельщик, САПР, архивы, создание трехмерных моделей, конструирование мебельных изделий, формирование пользовательских классов фурнитуры, создание моделей крепежной и декоративной фурнитуры",
+          hid: "keywords",
+        },
+        {
+          property: "og:title",
+          content: "БАЗИС-Мебельщик, архивы продукции.",
+          hid: "og:title",
+        },
+        {
+          property: "og:description",
+          content:
+            "Архивы фурнитуры для использования в системе автоматического проектирования мебели БАЗИС-Мебельщик.",
+          hid: "og:description",
+        },
+      ],
+      link: [
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: "https://www.newfurnitura.ru",
+        },
+      ],
+    };
+  },
+
+
   data() {
     return {};
   },
