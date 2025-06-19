@@ -105,6 +105,32 @@
         </v-card>
 
 
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Fragmenty_petel_52_gramma_MF_201_45gr_90gr.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Фрагменты петель 52 грамма, MF-201, 45гр, 90гр</span></v-card-subtitle
+          >
+        </v-card>
+
+
       </v-row>
     </v-card>
   </v-container>
