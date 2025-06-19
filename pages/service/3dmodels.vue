@@ -167,7 +167,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: "https://www.newfurnitura.ru",
+          href: "https://www.newfurnitura.ru/service/3dmodels",
         },
       ],
     };
