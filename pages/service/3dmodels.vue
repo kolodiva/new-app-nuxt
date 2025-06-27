@@ -104,7 +104,6 @@
           >
         </v-card>
 
-
         <v-card flat class="pa-3">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
@@ -127,6 +126,56 @@
 
           <v-card-subtitle style="max-width: 140px"
             ><span>MF Фрагменты петель 52 грамма, MF-201, 45гр, 90гр</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Napravljajushhie_CS000POSCL2D_polnogo_vydv_otkryvanie_nazh_s_dovod_s_sinhr_2D.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Направляющие CS.000.PO.SCL.2D полного выдв. открывание наж. с довод. с синхр, 2D</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Napravljajushhie_BBS45_sharikovye_polnogo_vydvizhenija_H45mm.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Направляющие BBS.45 шариковые полного выдвижения H=45 мм</span></v-card-subtitle
           >
         </v-card>
 
