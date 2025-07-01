@@ -179,6 +179,56 @@
           >
         </v-card>
 
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Napravlyayushchie_CSS_000_H_nepolnogo_vydvizheniya_s_dovodchikom.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Направляющие CSS.000.H неполного выдвижения с доводчиком</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Napravlyayushchie_CSS_000_P_nepolnogo_vydvizheniya_s_dovodchikom.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Направляющие CSS.000.P неполного выдвижения с доводчиком</span></v-card-subtitle
+          >
+        </v-card>
+
 
       </v-row>
     </v-card>
