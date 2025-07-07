@@ -13,11 +13,11 @@
     /></a>
 
     <a
-      href="https://www.youtube.com/channel/UCjrle_KgTRDeY7lpHqlvkXA"
+      href="https://rutube.ru/channel/25244055"
       target="_blank"
       title="Фильм, фильм, фильм..."
     >
-      <img class="socialIcon fab" src="/icons8-youtube-48.png" />
+      <img class="socialIcon fab" src="/rutube_icon.png" />
     </a>
 
     <a
@@ -27,6 +27,23 @@
     >
       <img class="socialIcon fab" src="/icons8-whatsapp-48.png" />
     </a>
+    
+    <a
+      href="https://vk.com/mf_komplekt"
+      target="_blank"
+      title="Напишите нам в онлайн чат"
+    >
+      <img class="socialIcon fab" src="/vk_icon.png" />
+    </a>
+    
+    <a
+      href="https://dzen.ru/mff"
+      target="_blank"
+      title="Напишите нам в онлайн чат"
+    >
+      <img class="socialIcon fab" src="/dzen_icon.png" />
+    </a>
+    
     <!-- <ShareNetwork
       network="Instagram"
       url=""
