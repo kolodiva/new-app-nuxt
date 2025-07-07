@@ -39,7 +39,7 @@
     <a
       href="https://dzen.ru/mff"
       target="_blank"
-      title="Напишите нам в онлайн чат"
+      title="Посетите нашу страничку в Дзен"
     >
       <img class="socialIcon fab" src="/dzen_icon.png" />
     </a>
