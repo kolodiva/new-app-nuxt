@@ -204,6 +204,81 @@
           >
         </v-card>
 
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/Unihopper_Petli_Setton.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Петли Unihopper Setton</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/Unihopper_Napravlyayushchie_skrytye.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Направляющие Unihopper скрытые</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/Unihopper_YAshchiki_Magic_Box.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Ящики Unihopper Magic Box</span></v-card-subtitle
+          >
+        </v-card>
+
 
       </v-row>
     </v-card>
