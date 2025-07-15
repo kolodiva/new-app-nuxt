@@ -112,6 +112,7 @@ export default {
       if (item && item.path_pdf) {
         if (
           item.path_pdf.includes("advs/") ||
+          item.path_pdf.includes("service/") ||
           item.path_pdf.includes("catalog/")
         ) {
           res = "https://www.newfurnitura.ru/" + item.path_pdf;
