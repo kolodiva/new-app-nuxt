@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless class="blueMfBckg" dark>
+  <v-footer padless class="blueMfBckg mt-15" dark>
     <v-row class="" style="min-height: 250px; margin-bottom: 66px">
       <v-col class="pl-5">
         <v-row style="flex-direction: column; height: 75vh">
