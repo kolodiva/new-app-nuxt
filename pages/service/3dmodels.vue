@@ -280,6 +280,107 @@
         </v-card>
 
 
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/Sushki_MF.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Сушки MF</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Petli_Prima_Top_45mm_MF_Prima_Top_52mm.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Петли Prima Top 45 мм, MF Prima Top 52 мм</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/YAshchiki_MF_Tango_Box.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Ящики MF Tango Box</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/YAshchiki_MF_Tango_Slim.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Ящики MF Tango Slim</span></v-card-subtitle
+          >
+        </v-card>
+
+
       </v-row>
     </v-card>
   </v-container>
