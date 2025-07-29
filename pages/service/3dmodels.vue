@@ -380,6 +380,78 @@
           >
         </v-card>
 
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/Garderobnye_Sistemy_COKA.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Гардеробные системы COKA</span></v-card-subtitle
+          >
+        </v-card>
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/YAshchiki_Unihopper_Mental_Box.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Ящики Unihopper Mental Box</span></v-card-subtitle
+          >
+        </v-card>
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/Sushki_MF_1.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>Сушки MF-1</span></v-card-subtitle
+          >
+        </v-card>
 
       </v-row>
     </v-card>
