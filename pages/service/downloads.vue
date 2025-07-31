@@ -104,6 +104,30 @@
             ><span>Загрузить<br />из Excel<br />заказ</span></v-card-subtitle
           >
         </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <n-link to="/seminary">
+                <v-img
+                  class="mx-auto"
+                  max-width="72"
+                  src="/icon-seminar.png"
+                  style="cursor: pointer"
+                  v-bind="attrs"
+                  v-on="on"
+                />
+              </n-link>
+            </template>
+            <span>Информация о Семинарах</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 135px"
+            ><span>Информация<br />о<br />Семинарах</span></v-card-subtitle
+          >
+        </v-card>
+
+        
       </v-row>
     </v-card>
   </v-container>
