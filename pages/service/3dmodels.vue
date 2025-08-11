@@ -453,6 +453,57 @@
           >
         </v-card>
 
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Napravlyayushchie_BBS35_sharikovye_polnogo_vydvizheniya_H=35_mm.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Направляющие BBS.35 шариковые полного выдвижения H=35 мм</span></v-card-subtitle
+          >
+        </v-card>
+
+        <v-card flat class="pa-3">
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-img
+                class="mx-auto"
+                max-width="72"
+                src="/icon-zip.png"
+                style="cursor: pointer"
+                v-bind="attrs"
+                v-on="on"
+                @click="
+                  downloadResource(
+                    'https://www.newfurnitura.ru/news/MF_Napravlyayushchie_BBS45_sharikovye_polnogo_vydvizheniya_H=45_mm_1.zip'
+                  )
+                "
+              />
+            </template>
+            <span>Загрузить 3D модели</span>
+          </v-tooltip>
+
+          <v-card-subtitle style="max-width: 140px"
+            ><span>MF Направляющие BBS.45 шариковые полного выдвижения H=45 мм (1)</span></v-card-subtitle
+          >
+        </v-card>
+
+
       </v-row>
     </v-card>
   </v-container>
