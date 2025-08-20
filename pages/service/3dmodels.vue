@@ -25,7 +25,7 @@
 
       sort-by='name'
 
-      :items-per-page="20"
+      :items-per-page="10"
 
       item-key="filename"
 
