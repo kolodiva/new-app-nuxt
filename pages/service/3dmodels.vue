@@ -12,6 +12,8 @@
         label="Поиск"
         single-line
         hide-details
+        clear-icon="mdi-close"
+        clearable
       ></v-text-field>
     </v-card-title>
     
