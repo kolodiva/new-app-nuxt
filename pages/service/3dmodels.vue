@@ -8,7 +8,6 @@
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
-        append-icon="mdi-magnify"
         label="Поиск"
         single-line
         hide-details
