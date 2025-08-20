@@ -518,6 +518,8 @@ export default {
     const rows = await this.$api("getModels3D");
 
     this.models3d = { ...rows };
+
+    console.log(this.models3d);
   },
 
   data() {
