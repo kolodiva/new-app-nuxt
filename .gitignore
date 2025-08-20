@@ -91,3 +91,5 @@ sw.*
 
 /static/advs
 assets/data/addresses_old.json
+pages/service/old_3dmodels.vue
+pages/service/3dmodels — копия.vueZone.Identifier

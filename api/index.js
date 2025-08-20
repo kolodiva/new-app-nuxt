@@ -141,7 +141,7 @@ export async function getModels3D() {
   let result = null;
 
   try {
-    result = await db.queryAppStatSqlExec( "select id, name, value from models3d order by name" );
+    result = await db.queryAppStatSqlExec( "select id, name, value filename, true dwnld from models3d order by name" );
   } catch (e) {
     result = { rows: [] };
   }
