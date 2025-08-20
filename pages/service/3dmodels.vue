@@ -37,41 +37,32 @@
 
       {{item.dwnld ? '' : '' }}
 
-<v-tooltip top>
+    <v-tooltip top>
+      
       <template v-slot:activator="{ on, attrs }">
 
-      <v-icon
-        class="ml-3"
-        @click="downloadItem(item)"
-        v-bind="attrs"
+        <v-icon
+          class="ml-3"
+          @click="downloadItem(item)"
+          v-bind="attrs"
           v-on="on"
-      >
+        >
         mdi-download
-      </v-icon>
+        </v-icon>
 
       </template>
+
       <span>Загрузить Архив</span>
     </v-tooltip>
 
- </template>
+  </template>
 
-
-    
   </v-data-table>
   </v-card>
 </template>
 
 <script>
   export default {
-
-  async fetch() {
-    
-    const rows = await this.$api("getModels3D");
-
-    this.models3d = { ...rows };
-
-    console.log(this.models3d);
-  },
 
     data () {
       return {
@@ -90,6 +81,13 @@
         models3d: [],
       }
     },
+    async mounted() {
+      
+      if (this.models3d.length === 0) {
+        this.refreshModels3D();
+      }
+
+    },
     methods: {
       downloadItem (item) {
         //let editedIndex = this.models3d.indexOf(item)
@@ -103,6 +101,18 @@
         
         window.open(path);
       },
+      async refreshModels3D() {
+      
+        const rows = await this.$api("getModels3D");
+
+        this.models3d = [];
+
+        console.log(rows);
+
+        this.$nextTick(() => {
+          this.models3d.push(...rows);
+        });
+    },
     },
   }
 </script>
