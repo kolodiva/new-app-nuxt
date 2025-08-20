@@ -513,8 +513,17 @@
 // if (typeof require !== "undefined") XLSX = require("xlsx");
 export default {
 
+  async fetch() {
+    
+    const rows = await this.$api("getModels3D");
+
+    this.models3d = { ...rows };
+  },
+
   data() {
-    return {};
+    return {
+      models3d: [],
+    };
   },
   mounted() {
     // const workbook = window.XLSX.readFile("testExcel.xlsx");

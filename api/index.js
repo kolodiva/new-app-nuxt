@@ -136,6 +136,19 @@ async function sendEmail(message) {
 
 }
 
+export async function getModels3D() {
+
+  let result = null;
+
+  try {
+    result = await db.queryAppStatSqlExec( "select id, name, value from models3d" );
+  } catch (e) {
+    result = { rows: [] };
+  }
+    
+  return result.rows;
+}
+
 //api Bitrix24
 export async function getcdata( {id, id2} ) {
 
