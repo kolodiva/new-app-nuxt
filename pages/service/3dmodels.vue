@@ -25,8 +25,6 @@
 
       sort-by='name'
 
-      :items-per-page="10"
-
       item-key="filename"
 
       :single-select="singleSelect"
