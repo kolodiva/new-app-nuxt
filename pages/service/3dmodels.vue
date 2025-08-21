@@ -32,6 +32,8 @@
       :single-select="singleSelect"
       
       show-select
+
+      hide-default-footer
     >
       
   <template v-slot:[`item.dwnld`]="{ item }">
