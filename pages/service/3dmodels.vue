@@ -25,13 +25,15 @@
 
       sort-by='name'
 
-      :items-per-page="100"
+      :items-per-page="1000"
 
       item-key="filename"
 
       :single-select="singleSelect"
       
       show-select
+      
+      hide-default-footer
     >
       
   <template v-slot:[`item.dwnld`]="{ item }">
