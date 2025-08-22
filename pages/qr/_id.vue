@@ -94,13 +94,13 @@ export default {
       { field: "Наименование упак.", val: "packing_name" },
       { field: "Кол-во в упак.", val: "qty_pack" },
       { field: "Кол-во на палете.", val: "qty_palette" },
-      { field: "Вес (нетто).", val: "weight_netto_pack" },
-      { field: "Вес (брутто).", val: "weight_brutto_pack" },
+      { field: "Вес (нетто) кг.", val: "weight_netto_pack" },
+      { field: "Вес (брутто) кг.", val: "weight_brutto_pack" },
     ],
       characts1: [
-      { field: "Ширина упак.", val: "width_pack" },
-      { field: "Глубина упак.", val: "depth_pack" },
-      { field: "Высота упак.", val: "height_pack" },
+      { field: "Ширина упак.см" , val: "width_pack" },
+      { field: "Глубина упак.см", val: "depth_pack" },
+      { field: "Высота упак.см", val: "height_pack" },
     ],
     }
   },
