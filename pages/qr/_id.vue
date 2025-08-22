@@ -40,6 +40,10 @@
 
 export default {
   fetch({ app, params, query, store, router, redirect, error }) {
+
+    console.log(params);
+    console.log(query);
+
     if (params && params) {
        console.log(params);
       //const res = await store.dispatch("nomenklator/loadGoodCard", params);
