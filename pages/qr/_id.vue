@@ -44,7 +44,7 @@
       </v-tab-item>
     </v-tabs>
 
-                    <v-row v-if="posparams && posparams.length > 0" class="my-5 ml-5">
+                    <v-row v-if="posparams && posparams.length > 0" class="my-3 mx-3">
                       <v-col>
                       <v-simple-table dense class="">
                         <template v-slot:default>
