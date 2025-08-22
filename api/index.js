@@ -905,6 +905,6 @@ export async function getStockTakings( {pageSize, currentLength, curFilial} ) {
 }
 
 export async function getQRPrint({id, pack}) {
-    const {rows} = await db.queryAppSqlExec( "select * from qrprints where param=$1 and accessible=$2", [id, pack] );
+    const {rows} = await db.queryAppSqlExec( "select * from qrprints where guid=$1 and unit_type_id=$2", [id, pack] );
     return rows
 }
