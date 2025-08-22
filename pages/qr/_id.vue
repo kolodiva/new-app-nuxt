@@ -9,27 +9,27 @@
     </v-toolbar>
     <v-tabs vertical grow style="min-height: 400px;">
       <v-tab>
-        <img data-v-ca64cd7a="" src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250.jpg " alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
+        <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250.jpg " alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
       </v-tab>
       <v-tab>
-        <img data-v-ca64cd7a="" src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_1.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
+        <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_1.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
       </v-tab>
       <v-tab>
-        <img data-v-ca64cd7a="" src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_2.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
+        <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_2.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
       </v-tab>
 
       <v-tab-item>
         <v-card flat>
-            <img data-v-ca64cd7a="" src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7.jpg " alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">        </v-card>
+            <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7.jpg " alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">        </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
-          <img data-v-ca64cd7a="" src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_1.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">
+          <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_1.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">
         </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
-          <img data-v-ca64cd7a="" src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_2.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">
+          <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_2.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">
         </v-card>
       </v-tab-item>
     </v-tabs>
@@ -49,7 +49,5 @@ export default {
       }
     }
   },
-  data: () => ({
-  }),
 };
 </script>
