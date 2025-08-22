@@ -903,3 +903,8 @@ export async function getStockTakings( {pageSize, currentLength, curFilial} ) {
 
   return rows;
 }
+
+export async function getQRPrint({id, pack}) {
+    const {rows} = await db.queryAppSqlExec( "select * from qrprints where param=$1 and accessible=$2", [id, pack] );
+    return rows
+}

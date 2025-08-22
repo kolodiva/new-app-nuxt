@@ -40,11 +40,37 @@
 
 export default {
 
-   mounted() {
+    data () {
+      return {
+        posparams: [],
+      }
+    },
+  
+  async mounted() {
     //this.userId = this.$route.params.id;
     // For example, if the URL is /users/123, then this.userId will be '123'
     console.log('Route parameter ID:', this.$route);
-  }
+
+    if (this.posparams.length === 0) {
+      if (this.$route.params.id && this.$route.query.p) {
+        await this.refreshQRParams();  
+      }
+    }
+},
+
+      async refreshQRParams() {
+      
+        const rows = await this.$api("getQRPrint", {id: this.$route.params.id, pack: this.$route.query.p});
+
+        this.posparams = [];
+
+       console.log(rows);
+
+        this.$nextTick(() => {
+          this.posparams.push(...rows);
+        });
+    },
+
 
 };
 </script>
