@@ -44,7 +44,8 @@
       </v-tab-item>
     </v-tabs>
 
-                    <v-row v-if="posparams && posparams.length > 0" class="mt-5 ml-5">
+                    <v-row v-if="posparams && posparams.length > 0" class="my-5 ml-5">
+                      <v-col>
                       <v-simple-table dense class="">
                         <template v-slot:default>
                           <tbody>
@@ -59,6 +60,22 @@
                           </tbody>
                         </template>
                       </v-simple-table>
+                      </v-col>
+                      <v-simple-table dense class="">
+                        <template v-slot:default>
+                          <tbody>
+                            <tr v-for="item in characts1" :key="item.field">
+                              <td style="border-bottom: 1px dotted #cccccc">
+                                {{ item.field }}
+                              </td>
+                              <td style="border-bottom: 0px">
+                                {{ posparams[0][item.val] }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </template>
+                      </v-simple-table>
+                      </v-col>
                     </v-row>
 
 
@@ -79,6 +96,8 @@ export default {
       { field: "Количество на палете.", val: "qty_palette" },
       { field: "Вес (нетто).", val: "weight_netto_pack" },
       { field: "Вес (брутто).", val: "weight_brutto_pack" },
+    ],
+      characts1: [
       { field: "Ширина упак.", val: "width_pack" },
       { field: "Глубина упак.", val: "depth_pack" },
       { field: "Высота упак.", val: "height_pack" },
