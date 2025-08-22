@@ -100,7 +100,7 @@
 
         let path = 'https://www.newfurnitura.ru/news/' + item.filename;
         
-        console.log(path);
+        //console.log(path);
         
         window.open(path);
       },
@@ -110,7 +110,7 @@
 
         this.models3d = [];
 
-        console.log(rows);
+       // console.log(rows);
 
         this.$nextTick(() => {
           this.models3d.push(...rows);
