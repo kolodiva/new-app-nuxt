@@ -39,19 +39,12 @@
 <script>
 
 export default {
-  fetch({ app, params, query, store, router, redirect, error }) {
 
-    console.log(params);
-    console.log(query);
+   mounted() {
+    //this.userId = this.$route.params.id;
+    // For example, if the URL is /users/123, then this.userId will be '123'
+    console.log('Route parameter ID:', this.$route);
+  }
 
-    if (params && params) {
-       console.log(params);
-      //const res = await store.dispatch("nomenklator/loadGoodCard", params);
-
-      //if (!res) {
-//        error({ statusCode: 404, message: "Товарная позиция НЕ найдена" });
-  //    }
-    }
-  },
 };
 </script>
