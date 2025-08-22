@@ -51,10 +51,5 @@ export default {
   },
   data: () => ({
   }),
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.fromRoute = from;
-    });
-  },
 };
 </script>
