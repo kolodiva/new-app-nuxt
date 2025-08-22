@@ -87,7 +87,7 @@
     async mounted() {
       
       if (this.models3d.length === 0) {
-        this.refreshModels3D();
+        await this.refreshModels3D();
       }
 
     },

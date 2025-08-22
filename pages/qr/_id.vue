@@ -44,9 +44,9 @@ export default {
        console.log(params);
       //const res = await store.dispatch("nomenklator/loadGoodCard", params);
 
-      if (!res) {
-        error({ statusCode: 404, message: "Товарная позиция НЕ найдена" });
-      }
+      //if (!res) {
+//        error({ statusCode: 404, message: "Товарная позиция НЕ найдена" });
+  //    }
     }
   },
 };
