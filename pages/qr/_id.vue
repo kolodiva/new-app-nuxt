@@ -1,35 +1,44 @@
 <template>
-  <v-card class="mx-auto mt-12" max-width="600px" >
-    <v-toolbar
-      flat
-      color="primary"
-      dark
-    >
-      <v-toolbar-title style="font-size: 0.875rem; font-weight: 400; height: 55px; letter-spacing: 0.00714286em;">20200, HG1112.C0.B.45<br/>3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой</v-toolbar-title>
+  <v-card class="mx-auto mt-12" max-width="600px">
+    <v-toolbar flat color="primary" dark>
+      <v-toolbar-title style="font-size: 0.875rem; font-weight: 400; height: 55px; letter-spacing: 0.00714286em;">20200,
+        HG1112.C0.B.45<br />3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой</v-toolbar-title>
     </v-toolbar>
     <v-tabs vertical grow style="min-height: 400px;">
       <v-tab>
-        <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250.jpg " alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
+        <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250.jpg "
+          alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой "
+          style="max-width: 100px; object-fit: contain;">
       </v-tab>
       <v-tab>
-        <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_1.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
+        <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_1.jpg"
+          alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой "
+          style="max-width: 100px; object-fit: contain;">
       </v-tab>
       <v-tab>
-        <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_2.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " style="max-width: 100px; object-fit: contain;">
+        <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_2.jpg"
+          alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой "
+          style="max-width: 100px; object-fit: contain;">
       </v-tab>
 
       <v-tab-item>
         <v-card flat>
-            <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7.jpg " alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">        </v-card>
+          <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7.jpg "
+            alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto"
+            style="min-height: 400px; max-width: 400px; cursor: pointer;"> </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
-          <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_1.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">
+          <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_1.jpg"
+            alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto"
+            style="min-height: 400px; max-width: 400px; cursor: pointer;">
         </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
-          <img  src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_2.jpg" alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto" style="min-height: 400px; max-width: 400px; cursor: pointer;">
+          <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_2.jpg"
+            alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto"
+            style="min-height: 400px; max-width: 400px; cursor: pointer;">
         </v-card>
       </v-tab-item>
     </v-tabs>
@@ -40,12 +49,12 @@
 
 export default {
 
-    data () {
-      return {
-        posparams: [],
-      }
-    },
-  
+  data() {
+    return {
+      posparams: [],
+    }
+  },
+
   async mounted() {
     //this.userId = this.$route.params.id;
     // For example, if the URL is /users/123, then this.userId will be '123'
@@ -53,24 +62,26 @@ export default {
 
     if (this.posparams.length === 0) {
       if (this.$route.params.id && this.$route.query.p) {
-        await this.refreshQRParams();  
+        await this.refreshQRParams();
       }
     }
-},
+  },
 
-      async refreshQRParams() {
-      
-        const rows = await this.$api("getQRPrint", {id: this.$route.params.id, pack: this.$route.query.p});
+  methods: {
 
-        this.posparams = [];
+    async refreshQRParams() {
 
-       console.log(rows);
+      const rows = await this.$api("getQRPrint", { id: this.$route.params.id, pack: this.$route.query.p });
 
-        this.$nextTick(() => {
-          this.posparams.push(...rows);
-        });
+      this.posparams = [];
+
+      console.log(rows);
+
+      this.$nextTick(() => {
+        this.posparams.push(...rows);
+      });
     },
-
+  },
 
 };
 </script>
