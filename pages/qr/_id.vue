@@ -23,7 +23,7 @@
       </v-tab>
 
       <v-tab-item>
-        <v-card flat v-if="posparams[0] && posparams[0].length > 0">
+        <v-card flat v-if="posparams && posparams.length > 0">
           <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
             :alt="`${posparams[0].name}`"
             style="min-height: 400px; max-width: 400px; cursor: pointer;"> </v-card>
@@ -44,7 +44,7 @@
       </v-tab-item>
     </v-tabs>
 
-                    <v-row v-if="posparams && posparams.length > 0">
+                    <v-row v-if="posparams && posparams.length > 0" class="mt-5 ml-5">
                       <v-simple-table dense class="">
                         <template v-slot:default>
                           <tbody>
