@@ -1,47 +1,68 @@
 <template>
   <v-card class="mx-auto mt-12" max-width="600px">
     <v-toolbar flat color="primary" dark>
-      <v-toolbar-title style="font-size: 0.875rem; font-weight: 400; height: 55px; letter-spacing: 0.00714286em;">20200,
-        HG1112.C0.B.45<br />3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой</v-toolbar-title>
+      <v-toolbar-title style="font-size: 0.875rem; font-weight: 400; height: 55px; letter-spacing: 0.00714286em;">
+        {{ posparams.artikul }}, {{ posparams.artikul_new }} <br/> {{ posparams.name }}
+      </v-toolbar-title>
     </v-toolbar>
     <v-tabs vertical grow style="min-height: 400px;">
       <v-tab>
-        <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250.jpg "
-          alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой "
+        <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams.guid + '_250x250.jpg'}`"
+          :alt="`${posparams.name}`"
           style="max-width: 100px; object-fit: contain;">
       </v-tab>
       <v-tab>
-        <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_1.jpg"
-          alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой "
+        <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams.guid + '_250x250.jpg'}`"
+          :alt="`${posparams.name}`"
           style="max-width: 100px; object-fit: contain;">
       </v-tab>
       <v-tab>
-        <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_250x250_2.jpg"
-          alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой "
+        <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams.guid + '_250x250.jpg'}`"
+          :alt="`${posparams.name}`"
           style="max-width: 100px; object-fit: contain;">
       </v-tab>
 
       <v-tab-item>
-        <v-card flat>
-          <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7.jpg "
-            alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto"
+        <v-card flat v-if="posparams && posparams.length > 0">
+          <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams.guid + '.jpg'}`"
+            :alt="`${posparams.name}`"
             style="min-height: 400px; max-width: 400px; cursor: pointer;"> </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
-          <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_1.jpg"
-            alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto"
+          <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams.guid + '.jpg'}`"
+            :alt="`${posparams.name}`"
             style="min-height: 400px; max-width: 400px; cursor: pointer;">
         </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
-          <img src="https://www.newfurnitura.ru/upload/9968870c-64ab-4b95-8552-62cb7bc7_2.jpg"
-            alt="3D петля UNIHOPPER с доводчиком, накладная, 45мм, с декор. накладкой " class="d-block mx-auto"
+          <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams.guid + '.jpg'}`"
+            :alt="`${posparams.name}`"
             style="min-height: 400px; max-width: 400px; cursor: pointer;">
         </v-card>
       </v-tab-item>
     </v-tabs>
+
+                    <v-row v-if="posparams && posparams.length > 0">
+                      <v-simple-table dense class="">
+                        <template v-slot:default>
+                          <tbody>
+                            <tr v-for="item in characts" :key="item.field">
+                              <td style="border-bottom: 1px dotted #cccccc">
+                                {{ item.field }}
+                              </td>
+                              <td style="border-bottom: 0px">
+                                {{ pos[posparams.val] }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </template>
+                      </v-simple-table>
+                    </v-row>
+
+
+
   </v-card>
 </template>
 
@@ -52,6 +73,16 @@ export default {
   data() {
     return {
       posparams: [],
+      characts: [
+      { field: "Наименование упак.", val: "packing_name" },
+      { field: "Количество в упак.", val: "qty_pack" },
+      { field: "Количество на палете.", val: "qty_palette" },
+      { field: "Вес (нетто).", val: "weight_netto_pack" },
+      { field: "Вес (брутто).", val: "weight_brutto_pack" },
+      { field: "Ширина упак.", val: "width_pack" },
+      { field: "Глубина упак.", val: "depth_pack" },
+      { field: "Высота упак.", val: "height_pack" },
+    ],
     }
   },
 
