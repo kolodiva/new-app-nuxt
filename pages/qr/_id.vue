@@ -92,8 +92,8 @@ export default {
       posparams: [],
       characts: [
       { field: "Наименование упак.", val: "packing_name" },
-      { field: "Количество в упак.", val: "qty_pack" },
-      { field: "Количество на палете.", val: "qty_palette" },
+      { field: "Кол-во в упак.", val: "qty_pack" },
+      { field: "Кол-во на палете.", val: "qty_palette" },
       { field: "Вес (нетто).", val: "weight_netto_pack" },
       { field: "Вес (брутто).", val: "weight_brutto_pack" },
     ],
