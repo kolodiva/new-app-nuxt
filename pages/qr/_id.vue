@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-12" max-width="500px" v-if="posparams && posparams.length > 0">
+  <v-card class="mx-auto mt-6" max-width="500px" v-if="posparams && posparams.length > 0">
     <v-toolbar flat color="primary" dark>
       <v-toolbar-title style="font-size: 0.875rem; font-weight: 400; height: 55px; letter-spacing: 0.00714286em;">
         {{ posparams[0].artikul }}, {{ posparams[0].artikul_new }} <br/> {{ posparams[0].name }}
