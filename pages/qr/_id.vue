@@ -39,7 +39,7 @@
 <script>
 
 export default {
-  async fetch({ app, params, query, store, router, redirect, error }) {
+  fetch({ app, params, query, store, router, redirect, error }) {
     if (params && params) {
        console.log(params);
       //const res = await store.dispatch("nomenklator/loadGoodCard", params);
