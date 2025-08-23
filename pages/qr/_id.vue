@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-6" max-width="600px" v-if="posparams && posparams.length > 0">
+  <v-card class="mx-auto mt-6" max-width="800px" v-if="posparams && posparams.length > 0">
     <v-toolbar flat color="primary" dark>
       <v-toolbar-title style="font-size: 0.875rem; font-weight: 400; height: 55px; letter-spacing: 0.00714286em;">
         {{ posparams[0].artikul }}, {{ posparams[0].artikul_new }} <br /> {{ posparams[0].name }}
@@ -55,20 +55,6 @@
               </tbody>
             </template>
           </v-simple-table>
-          <v-simple-table dense class="">
-            <template v-slot:default>
-              <tbody>
-                <tr v-for="item in characts1" :key="item.field">
-                  <td style="border-bottom: 1px dotted #cccccc">
-                    {{ item.field }}
-                  </td>
-                  <td style="border-bottom: 0px">
-                    {{ posparams[0][item.val] }}
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
         </v-col>
       </v-row>
     </v-tabs>
@@ -95,6 +81,9 @@ export default {
         { field: "Кол-во на палете.", val: "qty_palette" },
         { field: "Вес (нетто) кг.", val: "weight_netto_pack" },
         { field: "Вес (брутто) кг.", val: "weight_brutto_pack" },
+        { field: "Ширина упак.см", val: "width_pack" },
+        { field: "Глубина упак.см", val: "depth_pack" },
+        { field: "Высота упак.см", val: "height_pack" },
       ],
       characts1: [
         { field: "Ширина упак.см", val: "width_pack" },
