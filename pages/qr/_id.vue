@@ -5,58 +5,61 @@
         {{ posparams[0].artikul }}, {{ posparams[0].artikul_new }} <br /> {{ posparams[0].name }}
       </v-toolbar-title>
     </v-toolbar>
-    <v-tabs vertical grow style="min-height: 250px;">
-      <v-tab>
-        <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
-          :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
-      </v-tab>
-      <v-tab>
-        <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
-          :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
-      </v-tab>
-      <v-tab>
-        <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
-          :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
-      </v-tab>
 
-      <v-row>
-        <v-col>
-          <v-tab-item>
-            <v-card flat v-if="posparams && posparams.length > 0" class="d-block mx-auto">
-              <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
-                :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;"> </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card flat>
-              <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
-                :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;">
-            </v-card>
-          </v-tab-item>
-          <v-tab-item>
-            <v-card flat>
-              <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
-                :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;">
-            </v-card>
-          </v-tab-item>
-        </v-col>
+    <v-row>
+      <v-col>
+        <v-tabs vertical grow style="min-height: 250px;">
+          <v-tab>
+            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
+              :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
+          </v-tab>
+          <v-tab>
+            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
+              :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
+          </v-tab>
+          <v-tab>
+            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
+              :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
+          </v-tab>
+      </v-col>
 
-        <v-col v-if="posparams && posparams.length > 0" class="ma-3">
-          <v-simple-table dense class="">
-            <template v-slot:default>
-              <tbody>
-                <tr v-for="item in characts" :key="item.field">
-                  <td style="border-bottom: 1px dotted #cccccc">
-                    {{ item.field }}
-                  </td>
-                  <td style="border-bottom: 0px">
-                    {{ posparams[0][item.val] }}
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-col>
-      </v-row>
+      <v-col>
+        <v-tab-item>
+          <v-card flat v-if="posparams && posparams.length > 0" class="">
+            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
+              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;"> </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
+              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;">
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
+              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;">
+          </v-card>
+        </v-tab-item>
+      </v-col>
+
+      <v-col v-if="posparams && posparams.length > 0" class="ma-3">
+        <v-simple-table dense class="">
+          <template v-slot:default>
+            <tbody>
+              <tr v-for="item in characts" :key="item.field">
+                <td style="border-bottom: 1px dotted #cccccc">
+                  {{ item.field }}
+                </td>
+                <td style="border-bottom: 0px">
+                  {{ posparams[0][item.val] }}
+                </td>
+              </tr>
+            </tbody>
+          </template>
+        </v-simple-table>
+      </v-col>
+    </v-row>
     </v-tabs>
 
     <v-row v-if="posparams && posparams.length > 0" class="my-3 mx-3">
