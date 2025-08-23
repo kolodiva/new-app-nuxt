@@ -22,20 +22,20 @@
               :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
           </v-tab>
         <v-tab-item>
-          <v-card flat v-if="posparams && posparams.length > 0" class="d-block mx-auto">
+          <v-card flat v-if="posparams && posparams.length > 0" >
             <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
-              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;"> </v-card>
+              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;" class="d-block mx-auto"> </v-card>
         </v-tab-item>
         <v-tab-item>
-          <v-card flat  class="d-block mx-auto">
+          <v-card flat>
             <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
-              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;">
+              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;"   class="d-block mx-auto">
           </v-card>
         </v-tab-item>
         <v-tab-item>
           <v-card flat  class="d-block mx-auto">
             <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
-              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;">
+              :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;"   class="d-block mx-auto">
           </v-card>
         </v-tab-item>
       </v-col>
