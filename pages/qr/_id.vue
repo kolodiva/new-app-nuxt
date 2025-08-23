@@ -14,7 +14,7 @@
               :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
           </v-tab>
           <v-tab>
-            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
+            <img src="\logo_big.png"
               :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
           </v-tab>
           <v-tab>
@@ -28,7 +28,7 @@
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
-            <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
+            <img src="\logo_big.png"
               :alt="`${posparams[0].name}`" style="min-height: 250px; max-width: 250px; cursor: pointer;"   class="d-block mx-auto">
           </v-card>
         </v-tab-item>
