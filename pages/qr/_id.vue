@@ -21,9 +21,6 @@
             <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '_250x250.jpg'}`"
               :alt="`${posparams[0].name}`" style="max-width: 60px; object-fit: contain;">
           </v-tab>
-      </v-col>
-
-      <v-col>
         <v-tab-item>
           <v-card flat v-if="posparams && posparams.length > 0" class="">
             <img :src="`${'https://www.newfurnitura.ru/upload/' + posparams[0].guid + '.jpg'}`"
