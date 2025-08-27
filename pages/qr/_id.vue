@@ -113,7 +113,7 @@ export default {
 
       this.posparams = [];
 
-      console.log(rows);
+      //console.log(rows);
 
       this.$nextTick(() => {
         this.posparams.push(...rows);
