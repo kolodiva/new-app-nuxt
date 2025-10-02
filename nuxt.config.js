@@ -41,6 +41,7 @@ module.exports = {
 
       { name: 'google-site-verification', content: 'zYHlJzz8ftSxJgxT5pc4Fnq7thpCwbmn3bzu4knEnb4' },
       { name: 'yandex-verification', content: '04304aa6cbb8684a' },
+      { name: 'zen-verification', content: 'UkKIP3AhTQkqa7ZWwtvEohBthqufSzNbo5KXcWI4pXJp6HcVYcqCN3iT468HPOqr' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
