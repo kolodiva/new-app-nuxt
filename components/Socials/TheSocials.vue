@@ -37,7 +37,7 @@
     </a>
     
     <a
-      href="https://dzen.ru/mff"
+      href="https://dzen.ru/newfurnitura"
       target="_blank"
       title="Посетите нашу страничку в Дзен"
     >
