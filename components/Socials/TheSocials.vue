@@ -1,16 +1,5 @@
 <template>
   <div class="mt-3">
-    <a href="https://t.me/mf_komplekt" target="_blank" title="Telegram Новости">
-      <img class="socialIcon fab" src="/icons8-telegram-app-48.png"
-    /></a>
-
-    <a
-      href="https://t.me/Mfkomplekt_bot"
-      target="_blank"
-      title="Telegram Вопрос"
-    >
-      <img class="socialIcon fab" src="/icons8-telegram-app-48.png"
-    /></a>
 
     <a
       href="https://rutube.ru/channel/25244055"
