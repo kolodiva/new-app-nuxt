@@ -82,7 +82,7 @@
 
                               <a
                                 v-if="item.name == 'МФ-КОМПЛЕКТ РОСТОВ-НА-ДОНУ'"
-                                :href='https://max.ru/?ysclid=mizo8w0gu842156465'
+                                :href="'https://max.ru/?ysclid=mizo8w0gu842156465'"
                                 target="_blank"
                                 title="Напишите нам в онлайн чат"
                               >
