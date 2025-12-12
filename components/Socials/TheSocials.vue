@@ -33,6 +33,19 @@
       <img class="socialIcon fab" src="/dzen_icon.png" />
       
     </a>
+
+                                  <a
+                                :href="'https://max.ru/id5047135115_biz'"
+                                target="_blank"
+                                title="Напишите нам в онлайн чат"
+                              >
+                                <img
+                                  class="socialIcon fab"
+                                  src="/icons8-max-48.jpg"
+                                  style="width: 28px; height: 28px"
+                                />
+                              </a>
+
     
     <!-- <ShareNetwork
       network="Instagram"
