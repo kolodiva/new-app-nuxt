@@ -84,7 +84,7 @@
                                 v-if="item2.whatsapp && item.name == 'МФ-КОМПЛЕКТ РОСТОВ-НА-ДОНУ'"
                                 :href="'https://max.ru/id5047135115_biz'"
                                 target="_blank"
-                                title="Напишите нам в онлайн чат"
+                                title="Напишите нам в онлайн чат Макс"
                               >
                                 <img
                                   class="socialIcon fab"
