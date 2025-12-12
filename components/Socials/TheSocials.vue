@@ -37,12 +37,11 @@
                                   <a
                                 :href="'https://max.ru/id5047135115_biz'"
                                 target="_blank"
-                                title="Напишите нам в онлайн чат"
+                                title="Напишите нам в онлайн чат Макс"
                               >
                                 <img
                                   class="socialIcon fab"
                                   src="/icons8-max-48.jpg"
-                                  style="width: 28px; height: 28px"
                                 />
                               </a>
 
