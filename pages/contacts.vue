@@ -82,7 +82,7 @@
 
                               <a
                                 v-if="item2.whatsapp"
-                                :href="'https://max.ru/id5047135115_biz'"
+                                :href="'https://max.ru/id5047135115_bot'"
                                 target="_blank"
                                 title="Напишите нам в онлайн чат Макс"
                               >
