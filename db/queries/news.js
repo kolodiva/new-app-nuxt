@@ -88,20 +88,20 @@ export function getManagers(id) {
   	when filials = '{ 0000001 }' then '5'
   	else '0' end filial,
   	case when lower(region) like '%розница%' then 0 else 1 end rozn,
-  	name manager, tel_add, tel_mob, email, skype, region, position, marked
+  	name manager, tel_add, tel_mob, email, skype, maximka, region, position, marked
   	from managers_site
 
   	union all
 
-  	select 1, '1', 2, 'Бурсов<br/>Владимир<br/>Сергеевич', '317', '+7 (915) 213-69-42 (моб.)', 'bursov@newfurnitura.ru', '', '', '<br/>Руководитель отдела<br/>закупок отечественных товаров', true
+  	select 1, '1', 2, 'Бурсов<br/>Владимир<br/>Сергеевич', '317', '+7 (915) 213-69-42 (моб.)', '', 'bursov@newfurnitura.ru', '', '', '<br/>Руководитель отдела<br/>закупок отечественных товаров', true
 
     union all
 
-  	select 2, '1', 2, 'Хренов<br/>Дмитрий<br/>Игоревич', '177', '+7 (915) 480-07-33 (моб.)', 'hrenov@newfurnitura.ru', '', '', '<br/>Менеджер по<br/>снабжению', true
+  	select 2, '1', 2, 'Хренов<br/>Дмитрий<br/>Игоревич', '177', '+7 (915) 480-07-33 (моб.)', '', 'hrenov@newfurnitura.ru', '', '', '<br/>Менеджер по<br/>снабжению', true
 
     union all
 
-  	select 3, '1', 2, 'Власова<br/>Галина<br/>Рафековна', '', '+7 (916) 408-70-38 (моб.)', 'vlasova@newfurnitura.ru', '', '', '<br/>Менеджер по<br/>снабжению', true
+  	select 3, '1', 2, 'Власова<br/>Галина<br/>Рафековна', '', '+7 (916) 408-70-38 (моб.)', '', 'vlasova@newfurnitura.ru', '', '', '<br/>Менеджер по<br/>снабжению', true
 
     order by filial, rozn, order_by, manager
   )
@@ -112,6 +112,7 @@ export function getManagers(id) {
   			'position', position,
           	'tel_add', tel_add,
           	'tel_mob', tel_mob,
+            'maximka', maximka,
           	'email', email,
           	'skype', skype,
           	'region', region,
