@@ -185,6 +185,20 @@
                                   style="width: 28px; height: 28px"
                                 />
                               </a>
+
+                              <a
+                                v-if="item2.maximka != ''"
+                                :href="item2.maximka"
+                                target="_blank"
+                                title="Напишите нам в онлайн чат Макс"
+                              >
+                                <img
+                                  class="socialIcon fab"
+                                  src="/icons8-max-48.jpg"
+                                  style="width: 28px; height: 28px"
+                                />
+                              </a>
+
                             </div>
                           </td>
                           <td>
